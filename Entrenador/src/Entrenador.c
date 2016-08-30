@@ -39,13 +39,14 @@ int main(){
 }
 
 void leerConfiguracion(){
-	FILE *f;
-	char c;
-	f=fopen("../../PokedexConfig/Entrenadores/Red/metadata","rt");
 
-	while((c=fgetc(f))!=EOF){
-		printf("%c",c);
+	int c;
+	FILE *file;
+	file = fopen("../../PokedexConfig/Entrenadores/Red/metadata", "r");
+	if (file){
+	    while ((c = getc(file)) != EOF)
+	        printf("%c",c);
+	    fclose(file);
 	}
-
-	fclose(f);
 }
+
