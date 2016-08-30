@@ -4,13 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/Entrenador.c 
+../src/Entrenador.c \
+../src/socketLib.c 
 
 OBJS += \
-./src/Entrenador.o 
+./src/Entrenador.o \
+./src/socketLib.o 
 
 C_DEPS += \
-./src/Entrenador.d 
+./src/Entrenador.d \
+./src/socketLib.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

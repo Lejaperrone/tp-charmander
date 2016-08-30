@@ -1,23 +1,23 @@
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <stdbool.h>
+#include "socketLib.h"
 
 #define PUERTO "6667"
-#define BACKLOG 10			// Define cuantas conexiones vamos a mantener pendientes al mismo tiempo
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
 int main(){
 
-	struct addrinfo hints;
-	struct addrinfo *serverInfo;
-
-	struct sockaddr_in addr;			// Esta estructura contendra los datos de la conexion del cliente. IP, puerto, etc.
+	struct sockaddr_in addr;
 	socklen_t addrlen = sizeof(addr);
+
+	int listenningSocket;
+	create_serverSocket(&listenningSocket, PUERTO);
 
 	//Atributos para select
 	fd_set master;		// conjunto maestro de descriptores de fichero
@@ -26,39 +26,14 @@ int main(){
 	int newfd;			// descriptor de socket de nueva conexión aceptada
 	int i;
 	int nbytes;
-
-	FD_ZERO(&master);	// borra los conjuntos maestro y temporal
-	FD_ZERO(&read_fds);
-
-	memset(&hints, 0, sizeof(hints));
-	hints.ai_family = AF_UNSPEC;
-	hints.ai_flags = AI_PASSIVE;
-	hints.ai_socktype = SOCK_STREAM;
-
-	getaddrinfo(NULL, PUERTO, &hints, &serverInfo);
-
-
-	int listenningSocket;
-	listenningSocket = socket(serverInfo->ai_family, serverInfo->ai_socktype, serverInfo->ai_protocol);
-
-	printf("Servidor esperando conexiones...\n");
-
-	bind(listenningSocket,serverInfo->ai_addr, serverInfo->ai_addrlen);
-	freeaddrinfo(serverInfo); // Ya no lo vamos a necesitar
-
-
-
-	listen(listenningSocket, BACKLOG);
-
-
-	// añadir listener al conjunto maestro
-	FD_SET(listenningSocket, &master);
-	// seguir la pista del descriptor de fichero mayor
-	fdmax = listenningSocket; // por ahora es éste
-
 	char package[PACKAGESIZE];
 
-//------------Comienzo del select------------
+	FD_ZERO(&master);					// borra los conjuntos maestro y temporal
+	FD_ZERO(&read_fds);
+	FD_SET(listenningSocket, &master);	// añadir listener al conjunto maestro
+	fdmax = listenningSocket; 			// seguir la pista del descriptor de fichero mayor, por ahora es este
+
+	//------------Comienzo del select------------
 	for(;;) {
 		read_fds = master; // cópialo
 		if (select(fdmax+1, &read_fds, NULL, NULL, NULL) == -1) {
