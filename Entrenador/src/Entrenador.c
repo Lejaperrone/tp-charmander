@@ -12,7 +12,11 @@
 #define PUERTO_MAPA "6667"
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
+void leerConfiguracion();
+
 int main(){
+
+	leerConfiguracion();
 
 	int serverMapa;
 
@@ -32,4 +36,16 @@ int main(){
 
 	close(serverMapa);
 	return 0;
+}
+
+void leerConfiguracion(){
+	FILE *f;
+	char c;
+	f=fopen("../../PokedexConfig/Entrenadores/Red/metadata","rt");
+
+	while((c=fgetc(f))!=EOF){
+		printf("%c",c);
+	}
+
+	fclose(f);
 }
