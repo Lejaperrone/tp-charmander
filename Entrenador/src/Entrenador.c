@@ -8,8 +8,8 @@
 #include <stdbool.h>
 #include "socketLib.h"
 
-#define IP_MAPA "127.0.0.1"
-#define PUERTO_MAPA "6667"
+#define IP_MAPA "127.0.0.1" //Define Ip
+#define PUERTO_MAPA "6667"  // Define numero Puerto
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
 void leerConfiguracion();
