@@ -14,6 +14,13 @@
 
 void leerConfiguracion();
 
+typedef struct{
+	char nombre[50];
+	char simbolo[1];
+	int vidas;
+	int reintentos;
+}entrenador;
+
 int main(){
 
 	leerConfiguracion();
@@ -38,14 +45,18 @@ int main(){
 	return 0;
 }
 
-void leerConfiguracion(){
 
+void leerConfiguracion(){
+//Tendria que leer y cargar el archivo metadata del Entrenador en la struct entrenador.
+//Recorrer todo el metadata y asignar entrenador.nombre y demas separando por el caracter =.
+
+	//entrenador entrenador;
 	int c;
 	FILE *file;
 	file = fopen("../../PokedexConfig/Entrenadores/Red/metadata", "r");
 	if (file){
 	    while ((c = getc(file)) != EOF)
-	        printf("%c",c);
+	    	printf("%c",c);
 	    fclose(file);
 	}
 }
