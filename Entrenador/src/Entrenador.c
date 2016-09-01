@@ -7,19 +7,21 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "socketLib.h"
+#include <commons/config.h>
 
-#define IP_MAPA "127.0.0.1" //Define Ip
-#define PUERTO_MAPA "6667"  // Define numero Puerto
+#define IP_MAPA "127.0.0.1" //Lo deberia buscar del metadata del primer mapa de su hoja de viaje
+#define PUERTO_MAPA "6667"  // En realidad lo deberia buscar del metadata del primer mapa de su hoja de viaje
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
 void leerConfiguracion();
 
 typedef struct{
-	char nombre[50];
-	char simbolo[1];
+	char* nombre;
+	char* simbolo;
 	int vidas;
 	int reintentos;
-}entrenador;
+	//Falta hoja de viaje y los objetivos
+}t_entrenador;
 
 int main(){
 
@@ -47,23 +49,23 @@ int main(){
 
 
 void leerConfiguracion(){
-//Tendria que leer y cargar el archivo metadata del Entrenador en la struct entrenador.
-//Recorrer todo el metadata y asignar entrenador.nombre y demas separando por el caracter =.
 
-	/*entrenador entrenador;
-	strcpy(entrenador.nombre, "Red");
-	strcpy(entrenador.simbolo, "@");
-	printf("Nombre: %s \n", entrenador.nombre);
-	printf("Simbolo: %s \n", entrenador.simbolo);*/
+//¿Como hacemos que cargue el metadata del entrenador que corresponde? Porque en este caso cargaria solo el de Red
+	t_config* config = config_create("../../PokedexConfig/Entrenadores/Red/metadata");
+	t_entrenador* entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
+	entrenador->nombre = config_get_string_value(config, "nombre");
+	entrenador->simbolo = config_get_string_value(config, "simbolo");
+	entrenador->vidas = config_get_int_value(config, "vidas");
+	entrenador->reintentos = config_get_int_value(config, "reintentos");
 
-	int c;
-	FILE *file;
-	file = fopen("../../PokedexConfig/Entrenadores/Red/metadata", "r");
-	if (file){
-	    while ((c = getc(file)) != EOF)
-	    	printf("%c",c);
-	    fclose(file);
-	}
+
+//Muestra de que se asignaron bien los datos del archivo metadata. (Para el checkpoint habria que borrar esto)
+	printf("---------------Mi configuracion---------------\n");
+	printf("Nombre: %s\n", entrenador->nombre);
+	printf("Simbolo: %s\n", entrenador->simbolo);
+	printf("Vidas: %d\n", entrenador->vidas);
+	printf("Reintentos: %d\n", entrenador->reintentos);
+	printf("----------------------------------------------\n");
 }
 
 
