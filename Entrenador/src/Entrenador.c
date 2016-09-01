@@ -50,7 +50,12 @@ void leerConfiguracion(){
 //Tendria que leer y cargar el archivo metadata del Entrenador en la struct entrenador.
 //Recorrer todo el metadata y asignar entrenador.nombre y demas separando por el caracter =.
 
-	//entrenador entrenador;
+	/*entrenador entrenador;
+	strcpy(entrenador.nombre, "Red");
+	strcpy(entrenador.simbolo, "@");
+	printf("Nombre: %s \n", entrenador.nombre);
+	printf("Simbolo: %s \n", entrenador.simbolo);*/
+
 	int c;
 	FILE *file;
 	file = fopen("../../PokedexConfig/Entrenadores/Red/metadata", "r");
@@ -60,4 +65,5 @@ void leerConfiguracion(){
 	    fclose(file);
 	}
 }
+
 
