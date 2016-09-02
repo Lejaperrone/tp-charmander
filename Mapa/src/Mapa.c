@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include "socketLib.h"
 
-#define PUERTO "6667"
+#define PUERTO "6667"		//Va a haber que leerlo del metadata del mapa
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
 int main(){
