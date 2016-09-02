@@ -7,17 +7,30 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "socketLib.h"
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
 
 #define PUERTO "6667"		//Va a haber que leerlo del metadata del mapa
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
+
+typedef struct{
+int tiempoChequeoDeadlock;
+int batalla;
+char* algoritmo;
+int quantum;
+int retardo;
+int puerto;
+//Falta ip, no se que tipo de dato seria
+}t_mapa;
 
 int main(){
 
 	struct sockaddr_in addr;
 	socklen_t addrlen = sizeof(addr);
 
-	int listenningSocket;
-	create_serverSocket(&listenningSocket, PUERTO);
+	int listeningSocket;
+	create_serverSocket(&listeningSocket, PUERTO);
 
 	//Atributos para select
 	fd_set master;		// conjunto maestro de descriptores de fichero
@@ -30,8 +43,8 @@ int main(){
 
 	FD_ZERO(&master);					// borra los conjuntos maestro y temporal
 	FD_ZERO(&read_fds);
-	FD_SET(listenningSocket, &master);	// añadir listener al conjunto maestro
-	fdmax = listenningSocket; 			// seguir la pista del descriptor de fichero mayor, por ahora es este
+	FD_SET(listeningSocket, &master);	// añadir listener al conjunto maestro
+	fdmax = listeningSocket; 			// seguir la pista del descriptor de fichero mayor, por ahora es este
 
 	//------------Comienzo del select------------
 	for(;;) {
@@ -43,10 +56,10 @@ int main(){
 		// explorar conexiones existentes en busca de datos que leer
 		for(i = 0; i <= fdmax; i++) {
 			if (FD_ISSET(i, &read_fds)) { // ¡¡tenemos datos!!
-				if (i == listenningSocket) {
+				if (i == listeningSocket) {
 					// gestionar nuevas conexiones
 					addrlen = sizeof(addr);
-					if ((newfd = accept(listenningSocket, (struct sockaddr*)&addr, &addrlen)) == -1){
+					if ((newfd = accept(listeningSocket, (struct sockaddr*)&addr, &addrlen)) == -1){
 						perror("accept");
 					} else {
 						FD_SET(newfd, &master); // añadir al conjunto maestro
@@ -79,7 +92,7 @@ int main(){
 		}
 	}
 
-	close(listenningSocket);
+	close(listeningSocket);
 
 	return 0;
 }
