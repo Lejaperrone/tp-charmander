@@ -20,8 +20,8 @@ int batalla;
 char* algoritmo;
 int quantum;
 int retardo;
-int puerto;
-//Falta ip, no se que tipo de dato seria
+char * puerto;
+char* ip;
 }t_mapa;
 
 int main(){
@@ -95,4 +95,31 @@ int main(){
 	close(listeningSocket);
 
 	return 0;
+}
+
+
+void leerConfiguracion(){
+
+//¿Como hacemos que cargue el metadata del mapa que corresponde? Porque en este caso cargaria solo el de Red
+	t_config* config = config_create("../../PokedexConfig/Mapas/Red/metadata"); //falta asociar el t_config con las commons//
+	t_mapa* mapa = (t_mapa*) malloc(sizeof(t_mapa));
+	mapa->tiempoChequeoDeadlock = config_get_int_value(config, "tiempoChequeoDeadlock");
+	mapa->batalla = config_get_int_value(config, "batalla");
+	mapa->algoritmo = config_get_string_value(config, "algoritmo");
+	mapa->quantum = config_get_int_value(config, "quantum");
+	mapa->retardo = config_get_int_value(config, "retardo");
+	mapa->puerto = config_get_string_value(config, "puerto");
+	mapa->ip = config_get_string_value(config, "ip");
+
+
+//Muestra de que se asignaron bien los datos del archivo metadata. (Para el checkpoint habria que borrar esto)
+	printf("---------------Mi configuracion---------------\n");
+	printf("TiempoChequeoDeadLock: %d\n", mapa->tiempoChequeoDeadlock);
+	printf("Batalla: %d\n", mapa->batalla);
+	printf("Algoritmo: %s\n", mapa->algoritmo);
+	printf("Quantum: %d\n", mapa->quantum);
+	printf("Retardo: %d\n", mapa->retardo);
+	printf("Puerto: %s\n", mapa->puerto);
+	printf("Ip: %s\n", mapa->ip);
+	printf("----------------------------------------------\n");
 }
