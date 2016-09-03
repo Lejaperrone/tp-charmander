@@ -9,10 +9,12 @@
 #include "socketLib.h"
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
+#include <commons/config.h>
 
 #define PUERTO "6667"		//Va a haber que leerlo del metadata del mapa
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
+
+void leerConfiguracion();
 
 typedef struct{
 int tiempoChequeoDeadlock;
@@ -20,11 +22,13 @@ int batalla;
 char* algoritmo;
 int quantum;
 int retardo;
-char * puerto;
+char* puerto;
 char* ip;
 }t_mapa;
 
 int main(){
+
+	leerConfiguracion();
 
 	struct sockaddr_in addr;
 	socklen_t addrlen = sizeof(addr);
@@ -101,15 +105,16 @@ int main(){
 void leerConfiguracion(){
 
 //¿Como hacemos que cargue el metadata del mapa que corresponde? Porque en este caso cargaria solo el de Red
-	t_config* config = config_create("../../PokedexConfig/Mapas/Red/metadata"); //falta asociar el t_config con las commons//
+	t_config* config = config_create("../../PokedexConfig/Mapas/Ciudad Paleta/metadata");
 	t_mapa* mapa = (t_mapa*) malloc(sizeof(t_mapa));
-	mapa->tiempoChequeoDeadlock = config_get_int_value(config, "tiempoChequeoDeadlock");
-	mapa->batalla = config_get_int_value(config, "batalla");
+	mapa->tiempoChequeoDeadlock = config_get_int_value(config, "TiempoChequeoDeadlock");
+	mapa->batalla = config_get_int_value(config, "Batalla");
 	mapa->algoritmo = config_get_string_value(config, "algoritmo");
 	mapa->quantum = config_get_int_value(config, "quantum");
 	mapa->retardo = config_get_int_value(config, "retardo");
-	mapa->puerto = config_get_string_value(config, "puerto");
-	mapa->ip = config_get_string_value(config, "ip");
+	mapa->ip = config_get_string_value(config, "IP");
+	mapa->puerto = config_get_string_value(config, "Puerto");
+
 
 
 //Muestra de que se asignaron bien los datos del archivo metadata. (Para el checkpoint habria que borrar esto)
