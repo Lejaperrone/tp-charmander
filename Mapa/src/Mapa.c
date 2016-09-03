@@ -10,12 +10,22 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <commons/config.h>
+#include <commons/log.h>
+#include <commons/collections/list.h>
+#include <tad_items.h>
+#include <curses.h>
+#include <nivel.h>
 
 #define PUERTO "6667"		//Va a haber que leerlo del metadata del mapa
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
-void leerConfiguracion();
 
+//Encabezados de funciones
+void leerConfiguracion();
+t_log* crearArchivoLog();
+void loguearConfiguracion();
+
+//Estructuras y variables globales
 typedef struct{
 int tiempoChequeoDeadlock;
 int batalla;
@@ -26,17 +36,26 @@ char* puerto;
 char* ip;
 }t_mapa;
 
+
+t_log* archivoLog;
+
 int main(){
 
-	leerConfiguracion();
+	t_mapa* mapa = (t_mapa*) malloc(sizeof(t_mapa));
+	leerConfiguracion(mapa);
 
+	archivoLog = crearArchivoLog();
+	log_info(archivoLog,"Servidor levantado.\n");
+	loguearConfiguracion(archivoLog, mapa);
+
+//Comienzo de sockets
 	struct sockaddr_in addr;
 	socklen_t addrlen = sizeof(addr);
 
 	int listeningSocket;
 	create_serverSocket(&listeningSocket, PUERTO);
 
-	//Atributos para select
+//Atributos para select
 	fd_set master;		// conjunto maestro de descriptores de fichero
 	fd_set read_fds;	// conjunto temporal de descriptores de fichero para select()
 	int fdmax;			// número máximo de descriptores de fichero
@@ -102,11 +121,10 @@ int main(){
 }
 
 
-void leerConfiguracion(){
+void leerConfiguracion(t_mapa* mapa){
 
 //¿Como hacemos que cargue el metadata del mapa que corresponde? Porque en este caso cargaria solo el de Red
 	t_config* config = config_create("../../PokedexConfig/Mapas/Ciudad Paleta/metadata");
-	t_mapa* mapa = (t_mapa*) malloc(sizeof(t_mapa));
 	mapa->tiempoChequeoDeadlock = config_get_int_value(config, "TiempoChequeoDeadlock");
 	mapa->batalla = config_get_int_value(config, "Batalla");
 	mapa->algoritmo = config_get_string_value(config, "algoritmo");
@@ -115,16 +133,33 @@ void leerConfiguracion(){
 	mapa->ip = config_get_string_value(config, "IP");
 	mapa->puerto = config_get_string_value(config, "Puerto");
 
+}
+
+t_log* crearArchivoLog() {
+
+	remove("logsMapa");
+
+	t_log* logs = log_create("logsMapa", "MapaLog", 0, LOG_LEVEL_TRACE);
+
+	if (logs == NULL) {
+		puts("No se pudo generar el archivo de logueo.\n");
+		return NULL;
+	}
 
 
-//Muestra de que se asignaron bien los datos del archivo metadata. (Para el checkpoint habria que borrar esto)
-	printf("---------------Mi configuracion---------------\n");
-	printf("TiempoChequeoDeadLock: %d\n", mapa->tiempoChequeoDeadlock);
-	printf("Batalla: %d\n", mapa->batalla);
-	printf("Algoritmo: %s\n", mapa->algoritmo);
-	printf("Quantum: %d\n", mapa->quantum);
-	printf("Retardo: %d\n", mapa->retardo);
-	printf("Puerto: %s\n", mapa->puerto);
-	printf("Ip: %s\n", mapa->ip);
-	printf("----------------------------------------------\n");
+	log_info(logs, "ARCHIVO DE LOGUEO INICIALIZADO");
+
+	return logs;
+}
+
+void loguearConfiguracion(t_log* archivoLogs, t_mapa* mapa){
+	log_info(archivoLogs, "CONFIGURACION DEL METADATA");
+	log_info(archivoLogs, "TiempoChequeoDeadLock: %d", mapa->tiempoChequeoDeadlock);
+	log_info(archivoLogs, "Batalla: %d", mapa->batalla);
+	log_info(archivoLogs, "Algoritmo: %s", mapa->algoritmo);
+	log_info(archivoLogs, "Quantum: %d", mapa->quantum);
+	log_info(archivoLogs, "Retardo: %d", mapa->retardo);
+	log_info(archivoLogs, "Puerto: %s", mapa->puerto);
+	log_info(archivoLogs, "IP: %s", mapa->ip);
+
 }
