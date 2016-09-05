@@ -1,8 +1,8 @@
-[INFO] 18:34:58:576 EntrenadorLog/(5429:5429): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 18:34:58:576 EntrenadorLog/(5429:5429): Cliente levantado.
+[INFO] 19:01:57:550 EntrenadorLog/(3409:3409): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 19:01:57:552 EntrenadorLog/(3409:3409): Cliente levantado.
 
-[INFO] 18:34:58:576 EntrenadorLog/(5429:5429): CONFIGURACION DEL METADATA
-[INFO] 18:34:58:576 EntrenadorLog/(5429:5429): Nombre: Red
-[INFO] 18:34:58:576 EntrenadorLog/(5429:5429): Simbolo: @
-[INFO] 18:34:58:576 EntrenadorLog/(5429:5429): Vidas: 5
-[INFO] 18:34:58:576 EntrenadorLog/(5429:5429): Reintentos 0
+[INFO] 19:01:57:553 EntrenadorLog/(3409:3409): CONFIGURACION DEL METADATA
+[INFO] 19:01:57:553 EntrenadorLog/(3409:3409): Nombre: Red
+[INFO] 19:01:57:553 EntrenadorLog/(3409:3409): Simbolo: @
+[INFO] 19:01:57:554 EntrenadorLog/(3409:3409): Vidas: 5
+[INFO] 19:01:57:554 EntrenadorLog/(3409:3409): Reintentos 0

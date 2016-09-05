@@ -9,6 +9,7 @@
 #include "socketLib.h"
 #include <commons/config.h>
 #include <commons/log.h>
+#include <tad_items.h>
 
 #define IP "127.0.0.1" //Lo deberia buscar del metadata del primer mapa de su hoja de viaje
 #define PUERTO "6667"  // En realidad lo deberia buscar del metadata del primer mapa de su hoja de viaje
@@ -17,6 +18,7 @@
 void leerConfiguracion();
 t_log* crearArchivoLog();
 void loguearConfiguracion();
+void enviarSimboloAlMapa();
 
 typedef struct{
 	char* nombre;
@@ -25,6 +27,8 @@ typedef struct{
 	int reintentos;
 	//Falta hoja de viaje y los objetivos
 }t_entrenador;
+
+
 
 t_log* archivoLog;
 
@@ -42,6 +46,15 @@ int main(){
 	printf("Conectandose al servidor...\n");
 	create_socketClient(&serverMapa, IP, PUERTO);
 	printf("Conectado al servidor. Ya puede enviar mensajes. Escriba 'exit' para salir\n");
+	int dibujarSimbolo=1;
+	char simbolo[1];
+	while(dibujarSimbolo){
+			strcpy(entrenador->simbolo,simbolo);
+			if (dibujarSimbolo) send(serverMapa, simbolo, strlen(simbolo) + 1, 0);
+			printf("lo que mande fue: %s\n",entrenador->simbolo);
+		}
+
+
 
 //------------Envio de mensajes al servidor------------
 	int enviar = 1;
@@ -87,12 +100,17 @@ t_log* crearArchivoLog() {
 }
 
 void loguearConfiguracion(t_log* archivoLogs, t_entrenador* entrenador){
-	log_info(archivoLogs, "CONFIGURACION DEL METADATA");
+	log_info(archivoLogs, "CONFIGUtrenadores,&RACION DEL METADATA");
 	log_info(archivoLogs, "Nombre: %s", entrenador->nombre);
 	log_info(archivoLogs, "Simbolo: %s", entrenador->simbolo);
 	log_info(archivoLogs, "Vidas: %d", entrenador->vidas);
 	log_info(archivoLogs, "Reintentos %d", entrenador->reintentos);
 	//Faltan los que son de array
+}
+
+void enviarSimboloAlMapa(t_entrenador* entrenador, int* serverMapa){
+	send(*serverMapa,&entrenador->simbolo,strlen(entrenador->simbolo)+1,0);
+	printf("lo que mande fue: %s\n",&entrenador->simbolo);
 }
 
 
