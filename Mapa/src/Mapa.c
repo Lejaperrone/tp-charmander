@@ -134,6 +134,8 @@ int main(){
 		}
 	}
 
+	free(archivoLog);
+	free(mapa);
 	close(listeningSocket);
 
 	return 0;
@@ -152,6 +154,7 @@ void leerConfiguracion(t_mapa* mapa){
 	mapa->ip = config_get_string_value(config, "IP");
 	mapa->puerto = config_get_string_value(config, "Puerto");
 
+	free(config);
 }
 
 t_log* crearArchivoLog() {

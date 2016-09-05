@@ -1,3 +1,4 @@
+
 [INFO] 19:01:25:892 MapaLog/(3372:3372): ARCHIVO DE LOGUEO INICIALIZADO
 [INFO] 19:01:25:894 MapaLog/(3372:3372): Servidor levantado.
 
@@ -9,3 +10,4 @@
 [INFO] 19:01:25:910 MapaLog/(3372:3372): Retardo: 500
 [INFO] 19:01:25:910 MapaLog/(3372:3372): Puerto: 5001
 [INFO] 19:01:25:911 MapaLog/(3372:3372): IP: 127.0.0.1
+

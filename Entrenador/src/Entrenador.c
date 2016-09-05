@@ -66,6 +66,8 @@ int main(){
 		if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
 	}
 
+	free(archivoLog);
+	free(entrenador);
 	close(serverMapa);
 	return 0;
 }
@@ -80,6 +82,7 @@ void leerConfiguracion(t_entrenador* entrenador){
 	entrenador->vidas = config_get_int_value(config, "vidas");
 	entrenador->reintentos = config_get_int_value(config, "reintentos");
 
+	free(config);
 }
 
 t_log* crearArchivoLog() {
