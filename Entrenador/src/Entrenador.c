@@ -18,7 +18,6 @@
 void leerConfiguracion();
 t_log* crearArchivoLog();
 void loguearConfiguracion();
-void enviarSimboloAlMapa();
 
 typedef struct{
 	char* nombre;
@@ -46,13 +45,6 @@ int main(){
 	printf("Conectandose al servidor...\n");
 	create_socketClient(&serverMapa, IP, PUERTO);
 	printf("Conectado al servidor. Ya puede enviar mensajes. Escriba 'exit' para salir\n");
-	int dibujarSimbolo=1;
-	char simbolo[1];
-	while(dibujarSimbolo){
-			strcpy(entrenador->simbolo,simbolo);
-			if (dibujarSimbolo) send(serverMapa, simbolo, strlen(simbolo) + 1, 0);
-			printf("lo que mande fue: %s\n",entrenador->simbolo);
-		}
 
 
 
@@ -110,10 +102,3 @@ void loguearConfiguracion(t_log* archivoLogs, t_entrenador* entrenador){
 	log_info(archivoLogs, "Reintentos %d", entrenador->reintentos);
 	//Faltan los que son de array
 }
-
-void enviarSimboloAlMapa(t_entrenador* entrenador, int* serverMapa){
-	send(*serverMapa,&entrenador->simbolo,strlen(entrenador->simbolo)+1,0);
-	printf("lo que mande fue: %s\n",&entrenador->simbolo);
-}
-
-

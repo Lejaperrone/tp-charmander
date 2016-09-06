@@ -17,8 +17,6 @@
 #include <nivel.h>
 
 
-
-
 #define PUERTO "6667"		//Va a haber que leerlo del metadata del mapa
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
@@ -27,7 +25,6 @@
 void leerConfiguracion();
 t_log* crearArchivoLog();
 void loguearConfiguracion();
-void mostrarEntrenadorEnElMapa();
 
 //Estructuras y variables globales
 typedef struct{
@@ -39,6 +36,7 @@ int retardo;
 char* puerto;
 char* ip;
 }t_mapa;
+
 typedef struct{
 	char* nombre;
 	char* simbolo;
@@ -59,6 +57,7 @@ int main(){
 	archivoLog = crearArchivoLog();
 	log_info(archivoLog,"Servidor levantado.\n");
 	loguearConfiguracion(archivoLog, mapa);
+
 	t_entrenadores=list_create();
 
 //Comienzo de sockets
@@ -103,12 +102,11 @@ int main(){
 							// actualizar el máximo
 							fdmax = newfd;
 						}
-						printf("selectserver: new connection from %s on ""socket %d\n", inet_ntoa(addr.sin_addr),newfd);
-						recv(newfd, (void*)package, PACKAGESIZE, 0);
-						printf("lo que recibi es: %s\n",package);
+//						printf("selectserver: new connection from %s on ""socket %d\n", inet_ntoa(addr.sin_addr),newfd);
+						CrearPersonaje(t_entrenadores,'@',1,1);
 						list_add(t_entrenadores,package);
 						nivel_gui_dibujar(t_entrenadores, "mapa1");
-						CrearPersonaje(t_entrenadores,'@',0,0);
+
 
 					}
 				} else {
@@ -117,7 +115,7 @@ int main(){
 						// error o conexión cerrada por el cliente
 						if (nbytes == 0) {
 							// conexión cerrada
-							printf("selectserver: socket %d hung up\n", i);
+				//			printf("selectserver: socket %d hung up\n", i);
 						} else {
 							perror("recv");
 						}
@@ -126,7 +124,7 @@ int main(){
 					} else {
 						// tenemos datos de algún cliente
 						if (nbytes != 0){
-							printf("%s", package);
+			//				printf("%s", package);
 						}
 					}
 				}
@@ -135,6 +133,7 @@ int main(){
 	}
 
 	free(archivoLog);
+	nivel_gui_terminar();
 	free(mapa);
 	close(listeningSocket);
 
@@ -166,7 +165,7 @@ t_log* crearArchivoLog() {
 	if (logs == NULL) {
 		puts("No se pudo generar el archivo de logueo.\n");
 		return NULL;
-	}char* nombre_nivel;
+	};
 
 
 	log_info(logs, "ARCHIVO DE LOGUEO INICIALIZADO");
