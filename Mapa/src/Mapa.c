@@ -42,7 +42,7 @@ typedef struct{
 	char* simbolo;
 	int vidas;
 	int reintentos;
-	//Falta hoja de viaje y los objetivos
+	//Falta hoja de viaje y los objetivos!
 }t_entrenador;
 
 t_log* archivoLog;
@@ -54,9 +54,10 @@ int main(){
 	t_mapa* mapa = (t_mapa*) malloc(sizeof(t_mapa));
 	leerConfiguracion(mapa);
 
-	archivoLog = crearArchivoLog();
-	log_info(archivoLog,"Servidor levantado.\n");
-	loguearConfiguracion(archivoLog, mapa);
+//Comento lo de los logs para que no joda el git con los archivos (descomentenlo en el checkpoint para mostrar que funciona)
+//	archivoLog = crearArchivoLog();
+//	log_info(archivoLog,"Servidor levantado.\n");
+//	loguearConfiguracion(archivoLog, mapa);
 
 	t_entrenadores=list_create();
 
@@ -121,6 +122,8 @@ int main(){
 						}
 						close(i);
 						FD_CLR(i, &master); // eliminar del conjunto maestro
+						BorrarItem(t_entrenadores, '@');
+						nivel_gui_dibujar(t_entrenadores, "mapa1");
 					} else {
 						// tenemos datos de algún cliente
 						if (nbytes != 0){

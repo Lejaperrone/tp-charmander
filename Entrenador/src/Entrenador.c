@@ -24,7 +24,7 @@ typedef struct{
 	char* simbolo;
 	int vidas;
 	int reintentos;
-	//Falta hoja de viaje y los objetivos
+	//Falta hoja de viaje y los objetivos!
 }t_entrenador;
 
 
@@ -36,9 +36,10 @@ int main(){
 	t_entrenador* entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
 	leerConfiguracion(entrenador);
 
-	archivoLog = crearArchivoLog();
-	log_info(archivoLog,"Cliente levantado.\n");
-	loguearConfiguracion(archivoLog, entrenador);
+//Comento lo de los logs para que no joda el git con los archivos (descomentenlo en el checkpoint para mostrar que funciona)
+//	archivoLog = crearArchivoLog();
+//	log_info(archivoLog,"Cliente levantado.\n");
+//	loguearConfiguracion(archivoLog, entrenador);
 
 	int serverMapa;
 
