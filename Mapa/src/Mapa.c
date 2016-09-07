@@ -54,10 +54,10 @@ int main(){
 	t_mapa* mapa = (t_mapa*) malloc(sizeof(t_mapa));
 	leerConfiguracion(mapa);
 
-//Comento lo de los logs para que no joda el git con los archivos (descomentenlo en el checkpoint para mostrar que funciona)
-//	archivoLog = crearArchivoLog();
-//	log_info(archivoLog,"Servidor levantado.\n");
-//	loguearConfiguracion(archivoLog, mapa);
+
+	archivoLog = crearArchivoLog();
+	log_info(archivoLog,"Servidor levantado.\n");
+	loguearConfiguracion(archivoLog, mapa);
 
 	t_entrenadores=list_create();
 
@@ -103,7 +103,7 @@ int main(){
 							// actualizar el máximo
 							fdmax = newfd;
 						}
-//						printf("selectserver: new connection from %s on ""socket %d\n", inet_ntoa(addr.sin_addr),newfd);
+						log_trace(archivoLog, "selectserver: new connection from %s on ""socket %d", inet_ntoa(addr.sin_addr),newfd);
 						CrearPersonaje(t_entrenadores,'@',1,1);
 						list_add(t_entrenadores,package);
 						nivel_gui_dibujar(t_entrenadores, "mapa1");
@@ -116,7 +116,7 @@ int main(){
 						// error o conexión cerrada por el cliente
 						if (nbytes == 0) {
 							// conexión cerrada
-				//			printf("selectserver: socket %d hung up\n", i);
+							log_trace(archivoLog, "selectserver: socket %d hung up", i);
 						} else {
 							perror("recv");
 						}
@@ -127,7 +127,7 @@ int main(){
 					} else {
 						// tenemos datos de algún cliente
 						if (nbytes != 0){
-			//				printf("%s", package);
+							log_trace(archivoLog, "%s", package);
 						}
 					}
 				}
