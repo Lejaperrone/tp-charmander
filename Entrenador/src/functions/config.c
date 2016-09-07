@@ -17,7 +17,7 @@ void leerConfiguracion(t_entrenador* entrenador) {
 	entrenador->reintentos = config_get_int_value(config, "reintentos");
 
 	char**p = config_get_array_value(config, "hojaDeViaje");
-	t_ruta_mapa ** hojaDeRuta =malloc(0);
+	t_ruta_mapa ** hojaDeViaje =malloc(0);
 	int cant = 0;
 
 	while(*p!=NULL){
@@ -25,13 +25,13 @@ void leerConfiguracion(t_entrenador* entrenador) {
 		t_ruta_mapa* ruta = malloc(sizeof(t_ruta_mapa));
 		ruta->nombre = *p;
 
-		realloc(hojaDeRuta, cant*sizeof(t_ruta_mapa));
-		hojaDeRuta[cant-1] = ruta;
+		realloc(hojaDeViaje, cant*sizeof(t_ruta_mapa));
+		hojaDeViaje[cant-1] = ruta;
 		//TODO una vez que leemos el nombre del mapa deberiamos cargar los objetivos
 		p++;
 	}
 
-	entrenador->hojaDeRuta = hojaDeRuta;
+	entrenador->hojaDeViaje = hojaDeViaje;
 	entrenador->cantMapas = cant;
 
 

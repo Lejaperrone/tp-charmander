@@ -17,9 +17,8 @@ typedef struct t_entrenador_structs{
 	char* simbolo;
 	int vidas;
 	int reintentos;
-	t_ruta_mapa** hojaDeRuta;
+	t_ruta_mapa** hojaDeViaje;
 	int cantMapas;
-	//Falta hoja de viaje y los objetivos
 }t_entrenador;
 
 
