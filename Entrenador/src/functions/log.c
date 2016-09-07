@@ -28,6 +28,15 @@ void loguearConfiguracion(t_log* archivoLogs, t_entrenador* entrenador){
 	log_info(archivoLogs, "Simbolo: %s", entrenador->simbolo);
 	log_info(archivoLogs, "Vidas: %d", entrenador->vidas);
 	log_info(archivoLogs, "Reintentos %d", entrenador->reintentos);
+
+
+	t_ruta_mapa ** hojaDeRuta =entrenador->hojaDeRuta;
+	log_info(archivoLogs, "Mapa %s", hojaDeRuta[0]->nombre);
+
+	//int i;
+	//for(i=0; i<entrenador->cantMapas; i++){
+	////	log_info(archivoLogs, "Mapa %s", entrenador->hojaDeRuta[i]->nombre);
+	//}
 	//Faltan los que son de array
 }
 
