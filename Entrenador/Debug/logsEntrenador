@@ -1,9 +1,9 @@
-[INFO] 23:36:28:60 EntrenadorLog/(8327:8327): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 23:36:28:60 EntrenadorLog/(8327:8327): Cliente levantado.
+[INFO] 08:56:20:888 EntrenadorLog/(2719:2719): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 08:56:20:888 EntrenadorLog/(2719:2719): Cliente levantado.
 
-[INFO] 23:36:28:60 EntrenadorLog/(8327:8327): CONFIGUtrenadores,&RACION DEL METADATA
-[INFO] 23:36:28:60 EntrenadorLog/(8327:8327): Nombre: Red
-[INFO] 23:36:28:60 EntrenadorLog/(8327:8327): Simbolo: @
-[INFO] 23:36:28:60 EntrenadorLog/(8327:8327): Vidas: 5
-[INFO] 23:36:28:60 EntrenadorLog/(8327:8327): Reintentos 0
-[INFO] 23:36:28:60 EntrenadorLog/(8327:8327): Mapa (null)
+[INFO] 08:56:20:888 EntrenadorLog/(2719:2719): CONFIGUtrenadores,&RACION DEL METADATA
+[INFO] 08:56:20:888 EntrenadorLog/(2719:2719): Nombre: Red
+[INFO] 08:56:20:888 EntrenadorLog/(2719:2719): Simbolo: @
+[INFO] 08:56:20:888 EntrenadorLog/(2719:2719): Vidas: 5
+[INFO] 08:56:20:888 EntrenadorLog/(2719:2719): Reintentos 0
+[INFO] 08:56:20:888 EntrenadorLog/(2719:2719): Mapa (null)

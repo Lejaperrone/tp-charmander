@@ -1,11 +1,19 @@
-[INFO] 22:38:45:4 MapaLog/(5743:5743): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 22:38:45:4 MapaLog/(5743:5743): Servidor levantado.
+[INFO] 08:56:06:15 MapaLog/(2672:2672): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 08:56:06:15 MapaLog/(2672:2672): Servidor levantado.
 
-[INFO] 22:38:45:4 MapaLog/(5743:5743): CONFIGURACION DEL METADATA
-[INFO] 22:38:45:4 MapaLog/(5743:5743): TiempoChequeoDeadLock: 10000
-[INFO] 22:38:45:4 MapaLog/(5743:5743): Batalla: 1
-[INFO] 22:38:45:4 MapaLog/(5743:5743): Algoritmo: RR
-[INFO] 22:38:45:4 MapaLog/(5743:5743): Quantum: 3
-[INFO] 22:38:45:4 MapaLog/(5743:5743): Retardo: 500
-[INFO] 22:38:45:4 MapaLog/(5743:5743): Puerto: 5001
-[INFO] 22:38:45:4 MapaLog/(5743:5743): IP: 127.0.0.1
+[INFO] 08:56:06:15 MapaLog/(2672:2672): CONFIGURACION DEL METADATA
+[INFO] 08:56:06:15 MapaLog/(2672:2672): TiempoChequeoDeadLock: 10000
+[INFO] 08:56:06:15 MapaLog/(2672:2672): Batalla: 1
+[INFO] 08:56:06:15 MapaLog/(2672:2672): Algoritmo: RR
+[INFO] 08:56:06:15 MapaLog/(2672:2672): Quantum: 3
+[INFO] 08:56:06:15 MapaLog/(2672:2672): Retardo: 500
+[INFO] 08:56:06:15 MapaLog/(2672:2672): Puerto: 5001
+[INFO] 08:56:06:15 MapaLog/(2672:2672): IP: 127.0.0.1
+[TRACE] 08:56:13:751 MapaLog/(2672:2672): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 08:56:14:955 MapaLog/(2672:2672): selectserver: socket 5 hung up
+[TRACE] 08:56:16:596 MapaLog/(2672:2672): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 08:56:17:704 MapaLog/(2672:2672): selectserver: socket 5 hung up
+[TRACE] 08:56:18:818 MapaLog/(2672:2672): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 08:56:19:742 MapaLog/(2672:2672): selectserver: socket 5 hung up
+[TRACE] 08:56:20:888 MapaLog/(2672:2672): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 08:56:24:828 MapaLog/(2672:2672): selectserver: socket 5 hung up
