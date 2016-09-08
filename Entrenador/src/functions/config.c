@@ -19,13 +19,24 @@ void leerConfiguracion(t_entrenador* entrenador) {
 	entrenador->hojaDeViaje = list_create();
 
 	while(*p!=NULL){
-		t_ruta_mapa* ruta = malloc(sizeof(t_ruta_mapa));
-		ruta->nombre = *p;
+		//Reservo espacio para el mapa con sus objetivos
+			t_mapa* mapa = malloc(sizeof(t_mapa));
+		//Copio el nombre del mapa
+			mapa->nombre = *p;
+		//Obtengo los objetivos del mapa
+			char * key = string_new();
+			string_append(&key, "obj[");
+			string_append(&key, mapa->nombre);
+			string_append(&key, "]");
 
+			char**o = config_get_array_value(config, key);
+			mapa->objetivos = list_create();
+			while(*o!=NULL){
+				list_add(mapa->objetivos,*o);
+				o++;
+			}
 
-
-
-		list_add(entrenador->hojaDeViaje,ruta);
+		list_add(entrenador->hojaDeViaje,mapa);
 		p++;
 	}
 

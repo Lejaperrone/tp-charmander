@@ -20,3 +20,14 @@
 [TRACE] 23:22:59:318 MapaLog/(2318:2318): selectserver: new connection from 127.0.0.1 on socket 5
 [TRACE] 23:26:31:522 MapaLog/(2318:2318): selectserver: socket 5 hung up
 [TRACE] 23:26:32:700 MapaLog/(2318:2318): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 23:35:50:644 MapaLog/(2318:2318): selectserver: socket 5 hung up
+[TRACE] 23:36:12:346 MapaLog/(2318:2318): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 23:37:12:152 MapaLog/(2318:2318): selectserver: socket 5 hung up
+[TRACE] 23:37:33:627 MapaLog/(2318:2318): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 23:38:32:885 MapaLog/(2318:2318): selectserver: socket 5 hung up
+[TRACE] 23:38:33:776 MapaLog/(2318:2318): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 23:42:09:301 MapaLog/(2318:2318): selectserver: socket 5 hung up
+[TRACE] 23:42:18:467 MapaLog/(2318:2318): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 23:42:35:650 MapaLog/(2318:2318): selectserver: socket 5 hung up
+[TRACE] 23:42:39:429 MapaLog/(2318:2318): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 23:42:40:466 MapaLog/(2318:2318): selectserver: socket 5 hung up

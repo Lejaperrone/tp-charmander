@@ -6,11 +6,11 @@
 #ifndef COMMONS_STRUCTURES_C
 #define COMMONS_STRUCTURES_C
 
-typedef struct t_ruta_mapa_structs{
+typedef struct t_mapa_structs{
 	char* nombre;
 	t_list* objetivos;
 	//Falta hoja de viaje y los objetivos
-}t_ruta_mapa;
+}t_mapa;
 
 typedef struct t_entrenador_structs{
 	char* nombre;

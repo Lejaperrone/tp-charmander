@@ -28,12 +28,19 @@ void loguearConfiguracion(t_log* archivoLogs, t_entrenador* entrenador){
 	log_info(archivoLogs, "Nombre: %s", entrenador->nombre);
 	log_info(archivoLogs, "Simbolo: %s", entrenador->simbolo);
 	log_info(archivoLogs, "Vidas: %d", entrenador->vidas);
-	log_info(archivoLogs, "Reintentos %d", entrenador->reintentos);
+	log_info(archivoLogs, "Reintentos: %d", entrenador->reintentos);
 
-	int i;
-	for(i=0; i<list_size(entrenador->hojaDeViaje); i++){
-		log_info(archivoLogs, "Mapa %s", ((t_ruta_mapa*)list_get(entrenador->hojaDeViaje, i))->nombre);
+	//Recorro los mapas
+		int i;
+		for(i=0; i<list_size(entrenador->hojaDeViaje); i++){
+			t_mapa* mapa = (t_mapa*)list_get(entrenador->hojaDeViaje, i);
+			log_info(archivoLogs, "Mapa: %s", mapa->nombre);
+			//Recorro los objetivos
+				int j;
+				for(j=0; j<list_size(mapa->objetivos); j++){
+					log_info(archivoLogs, "Objetivo: %s", list_get(mapa->objetivos, j));
+				}
 
-	}
+		}
 }
 
