@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <commons/log.h>
+#include <commons/collections/list.h>
 #include "../commons/structures.c"
 
 
@@ -29,10 +30,10 @@ void loguearConfiguracion(t_log* archivoLogs, t_entrenador* entrenador){
 	log_info(archivoLogs, "Vidas: %d", entrenador->vidas);
 	log_info(archivoLogs, "Reintentos %d", entrenador->reintentos);
 
-	//t_ruta_mapa ** hojaDeViaje = entrenador->hojaDeViaje;
-	//while(*hojaDeViaje!=NULL){
-	//	puts((*hojaDeViaje).nombre);
-	//	hojaDeViaje++;
-	//}
+	int i;
+	for(i=0; i<list_size(entrenador->hojaDeViaje); i++){
+		log_info(archivoLogs, "Mapa %s", ((t_ruta_mapa*)list_get(entrenador->hojaDeViaje, i))->nombre);
+
+	}
 }
 

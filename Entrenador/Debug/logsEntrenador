@@ -1,8 +1,11 @@
-[INFO] 18:04:17:756 EntrenadorLog/(4595:4595): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 18:04:17:756 EntrenadorLog/(4595:4595): Cliente levantado.
+[INFO] 23:26:32:700 EntrenadorLog/(3720:3720): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 23:26:32:700 EntrenadorLog/(3720:3720): Cliente levantado.
 
-[INFO] 18:04:17:756 EntrenadorLog/(4595:4595): CONFIGUtrenadores,&RACION DEL METADATA
-[INFO] 18:04:17:756 EntrenadorLog/(4595:4595): Nombre: Red
-[INFO] 18:04:17:756 EntrenadorLog/(4595:4595): Simbolo: @
-[INFO] 18:04:17:756 EntrenadorLog/(4595:4595): Vidas: 5
-[INFO] 18:04:17:756 EntrenadorLog/(4595:4595): Reintentos 0
+[INFO] 23:26:32:700 EntrenadorLog/(3720:3720): CONFIGUtrenadores,&RACION DEL METADATA
+[INFO] 23:26:32:700 EntrenadorLog/(3720:3720): Nombre: Red
+[INFO] 23:26:32:700 EntrenadorLog/(3720:3720): Simbolo: @
+[INFO] 23:26:32:700 EntrenadorLog/(3720:3720): Vidas: 5
+[INFO] 23:26:32:700 EntrenadorLog/(3720:3720): Reintentos 0
+[INFO] 23:26:32:700 EntrenadorLog/(3720:3720): MApa PuebloPaleta
+[INFO] 23:26:32:700 EntrenadorLog/(3720:3720): MApa CiudadVerde
+[INFO] 23:26:32:700 EntrenadorLog/(3720:3720): MApa CiudadPlateada
