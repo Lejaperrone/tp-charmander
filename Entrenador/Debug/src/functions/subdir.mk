@@ -5,15 +5,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/functions/config.c \
-../src/functions/log.c 
+../src/functions/log.c \
+../src/functions/positions.c 
 
 OBJS += \
 ./src/functions/config.o \
-./src/functions/log.o 
+./src/functions/log.o \
+./src/functions/positions.o 
 
 C_DEPS += \
 ./src/functions/config.d \
-./src/functions/log.d 
+./src/functions/log.d \
+./src/functions/positions.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

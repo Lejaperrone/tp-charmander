@@ -11,10 +11,12 @@
 
 #include "socketLib.h"
 #include "commons/structures.c"
+#include "commons/constants.h"
 #include "functions/log.h"
 #include "functions/config.h"
+#include "functions/positions.h"
 
-#define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
+
 
 t_log* archivoLog;
 
