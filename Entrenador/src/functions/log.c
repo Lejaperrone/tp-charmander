@@ -6,11 +6,15 @@
 #include "../commons/structures.c"
 
 
-t_log* crearArchivoLog() {
+t_log* crearArchivoLog(char* nombre) {
+	char* path = string_new();
+	string_append(&path, "logsEntrenador");
+	string_append(&path, nombre);
 
-	remove("logsEntrenador");
 
-	t_log* logs = log_create("logsEntrenador", "EntrenadorLog", 0, LOG_LEVEL_TRACE);
+	remove(path);
+
+	t_log* logs = log_create(path, "EntrenadorLog", 0, LOG_LEVEL_TRACE);
 
 	if (logs == NULL) {
 		puts("No se pudo generar el archivo de logueo.\n");
@@ -26,7 +30,7 @@ t_log* crearArchivoLog() {
 void loguearConfiguracion(t_log* archivoLogs, t_entrenador* entrenador){
 	log_info(archivoLogs, "CONFIGUtrenadores,&RACION DEL METADATA");
 	log_info(archivoLogs, "Nombre: %s", entrenador->nombre);
-	log_info(archivoLogs, "Simbolo: %c", entrenador->simbolo);
+	log_info(archivoLogs, "Simbolo: %s", entrenador->simbolo);
 	log_info(archivoLogs, "Vidas: %d", entrenador->vidas);
 	log_info(archivoLogs, "Reintentos: %d", entrenador->reintentos);
 
@@ -38,7 +42,7 @@ void loguearConfiguracion(t_log* archivoLogs, t_entrenador* entrenador){
 			//Recorro los objetivos
 				int j;
 				for(j=0; j<list_size(mapa->objetivos); j++){
-					log_info(archivoLogs, "Objetivo: %s", list_get(mapa->objetivos, j));
+					log_info(archivoLogs, "Objetivo: %s", ((t_objetivo *)list_get(mapa->objetivos, j))->nombre);
 				}
 
 		}

@@ -6,7 +6,7 @@
 #include "../commons/structures.c"
 
 
-void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath, char* ptr) {
+void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) {
 	char* path = string_new();
 	string_append(&path, pokedexPath);
 	string_append(&path, "/Entrenadores/");
@@ -16,9 +16,7 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath, 
 	//Leo configuracion del entrenador
 		t_config* config = config_create(path);
 		entrenador->nombre = config_get_string_value(config, "nombre");
-
-		ptr= config_get_string_value(config,"simbolo");
-		entrenador->simbolo=ptr[0];
+		entrenador->simbolo = config_get_string_value(config, "simbolo");
 		entrenador->vidas = config_get_int_value(config, "vidas");
 		entrenador->reintentos = config_get_int_value(config, "reintentos");
 
@@ -39,7 +37,13 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath, 
 			char**o = config_get_array_value(config, key);
 			mapa->objetivos = list_create();
 			while(*o!=NULL){
-				list_add(mapa->objetivos,*o);
+				t_objetivo* objetivo = malloc(sizeof(t_objetivo));
+				objetivo->nombre = *o;
+				objetivo->ubicacion.x = -1;
+				objetivo->ubicacion.y = -1;
+				objetivo->logrado = 0;
+
+				list_add(mapa->objetivos, objetivo);
 				o++;
 			}
 

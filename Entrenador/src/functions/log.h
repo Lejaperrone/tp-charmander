@@ -9,7 +9,7 @@
 #ifndef FUNCTIONS_LOG_H_
 #define FUNCTIONS_LOG_H_
 
-t_log* crearArchivoLog();
+t_log* crearArchivoLog(char* nombre);
 void loguearConfiguracion(t_log* archivoLogs, t_entrenador* entrenador);
 
 #endif /* FUNCTIONS_LOG_H_ */

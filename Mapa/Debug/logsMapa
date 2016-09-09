@@ -1,3 +1,4 @@
+
 [INFO] 18:12:04:845 MapaLog/(9545:9545): ARCHIVO DE LOGUEO INICIALIZADO
 [INFO] 18:12:04:845 MapaLog/(9545:9545): Servidor levantado.
 
@@ -10,11 +11,11 @@
 [INFO] 18:12:04:846 MapaLog/(9545:9545): Puerto: 6667
 [INFO] 18:12:04:846 MapaLog/(9545:9545): IP: 127.0.0.1
 [TRACE] 18:12:10:610 MapaLog/(9545:9545): selectserver: new connection from 127.0.0.1 on socket 5
-[TRACE] 18:12:10:616 MapaLog/(9545:9545): @“¿
+[TRACE] 18:12:10:616 MapaLog/(9545:9545): @ï¿½ï¿½
 [TRACE] 18:12:10:617 MapaLog/(9545:9545): selectserver: socket 5 hung up
 [TRACE] 18:12:10:620 MapaLog/(9545:9545): selectserver: new connection from 127.0.0.1 on socket 5
-[TRACE] 18:12:10:624 MapaLog/(9545:9545): @“¿
+[TRACE] 18:12:10:624 MapaLog/(9545:9545): @ï¿½ï¿½
 [TRACE] 18:12:10:625 MapaLog/(9545:9545): selectserver: socket 5 hung up
 [TRACE] 18:12:10:626 MapaLog/(9545:9545): selectserver: new connection from 127.0.0.1 on socket 5
-[TRACE] 18:12:10:634 MapaLog/(9545:9545): @“¿
+[TRACE] 18:12:10:634 MapaLog/(9545:9545): @ï¿½ï¿½
 [TRACE] 18:12:10:634 MapaLog/(9545:9545): selectserver: socket 5 hung up
