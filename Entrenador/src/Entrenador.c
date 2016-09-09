@@ -33,7 +33,7 @@ int main(int argc, char *argv[]){
 		leerConfiguracion(entrenador, name, pokedexPath);
 
 	//Creo el archivo de log
-		archivoLog = crearArchivoLog();
+		archivoLog = crearArchivoLog(entrenador->nombre);
 
 	//Logueo que arranco bien y laconfiguracion del entrenador
 		log_info(archivoLog,"Cliente levantado.\n");

@@ -37,7 +37,13 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 			char**o = config_get_array_value(config, key);
 			mapa->objetivos = list_create();
 			while(*o!=NULL){
-				list_add(mapa->objetivos,*o);
+				t_objetivo* objetivo = malloc(sizeof(t_objetivo));
+				objetivo->nombre = *o;
+				objetivo->ubicacion.x = -1;
+				objetivo->ubicacion.y = -1;
+				objetivo->logrado = 0;
+
+				list_add(mapa->objetivos, objetivo);
 				o++;
 			}
 
