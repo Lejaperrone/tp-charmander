@@ -12,3 +12,4 @@
 [TRACE] 18:11:42:930 MapaLog/(3250:3250): selectserver: new connection from 127.0.0.1 on socket 5
 [TRACE] 18:12:21:487 MapaLog/(3250:3250): selectserver: socket 5 hung up
 [TRACE] 18:12:22:856 MapaLog/(3250:3250): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 18:17:21:392 MapaLog/(3250:3250): selectserver: socket 5 hung up
