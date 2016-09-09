@@ -14,6 +14,6 @@
 #define FUNCTIONS_POSITIONS_H_
 
 	int coordenadasCoinciden(t_coordenadas coordenadas, t_coordenadas coordenadas2);
-	int siguienteMovimiento(t_coordenadas coordenadas, t_objetivo objetivo, int ultimoMovimiento);
+	int siguienteMovimiento(t_coordenadas coordenadas, t_objetivo* objetivo, int ultimoMovimiento);
 
 #endif /* FUNCTIONS_POSITIONS_H_ */

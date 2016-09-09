@@ -22,6 +22,7 @@ typedef struct t_mapa_structs{
 	t_list* objetivos;
 	char* puerto;
 	char* ip;
+	t_coordenadas miPosicion;
 }t_mapa;
 
 typedef struct t_entrenador_structs{

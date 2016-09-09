@@ -1,22 +1,22 @@
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Cliente levantado.
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Cliente levantado.
 
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): CONFIGUtrenadores,&RACION DEL METADATA
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Nombre: Red
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Simbolo: @
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Vidas: 5
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Reintentos: 0
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Mapa: PuebloPaleta
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: P
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: B
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: G
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Mapa: CiudadVerde
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: C
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: Z
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: C
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Mapa: CiudadPlateada
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: P
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: M
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: P
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: M
-[INFO] 18:12:22:856 EntrenadorLog/(3326:3326): Objetivo: S
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): CONFIGUtrenadores,&RACION DEL METADATA
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Nombre: Red
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Simbolo: @
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Vidas: 5
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Reintentos: 0
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Mapa: PuebloPaleta
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Objetivo: P
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Objetivo: B
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Objetivo: G
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Mapa: CiudadVerde
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Objetivo: C
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Objetivo: Z
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Objetivo: C
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Mapa: CiudadPlateada
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Objetivo: P
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Objetivo: M
+[INFO] 19:44:50:629 EntrenadorLog/(5026:5026): Objetivo: P
+[INFO] 19:44:50:630 EntrenadorLog/(5026:5026): Objetivo: M
+[INFO] 19:44:50:630 EntrenadorLog/(5026:5026): Objetivo: S

@@ -11,13 +11,13 @@ int coordenadasCoinciden(t_coordenadas coordenadas, t_coordenadas coordenadas2){
 	return 0;
 }
 
-int siguienteMovimiento(t_coordenadas coordenadas, t_objetivo objetivo, int ultimoMovimiento){
-	if(!coordenadasCoinciden(coordenadas, objetivo.ubicacion)){
+int siguienteMovimiento(t_coordenadas coordenadas, t_objetivo* objetivo, int ultimoMovimiento){
+	if(!coordenadasCoinciden(coordenadas, objetivo->ubicacion)){
 		return 0;
 	}
 
-	int distX = objetivo.ubicacion.x - coordenadas.x;
-	int distY = objetivo.ubicacion.y - coordenadas.y;
+	int distX = objetivo->ubicacion.x - coordenadas.x;
+	int distY = objetivo->ubicacion.y - coordenadas.y;
 
 	if(distX == 0){
 		if(distY>0){
