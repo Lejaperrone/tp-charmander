@@ -55,23 +55,16 @@ int main(int argc, char *argv[]){
 
 				int modoTestCheckpoint1 = 1;
 				if(modoTestCheckpoint1){
-					int j;
-					int movimiento;
-					for(j=0; j<list_size(mapa->objetivos); j++){
-						t_objetivo* objetivo = (t_objetivo *)list_get(mapa->objetivos, j);
-						movimiento = 0;
-
-						//Obtengo ubicacion de pokenest
-							if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){
-								//Aca necesito pedirle al servidor la ubicacion de la pokenest: objetivo->nombre
-							}
-
-						while((movimiento = siguienteMovimiento(mapa->miPosicion, objetivo, movimiento))){
-							//Aca tengo que transmitir el movimiento que quiero realizar: arriba(1), derecha(2), abajo(3) o izquierda(4)
+					//Espero que quiera desconectarse para pasar al siguiente mapa
+						printf("Deberiamos empezar a procesar los objetivos pero no llegamos a eso aun. Ingresa 'exit' para conectarte al proximo mapa\n"); //Borrar cuando los procesemos
+						int enviar = 1;
+						char message[PACKAGESIZE];
+						while(enviar){
+							fgets(message, PACKAGESIZE, stdin);
+							if (!strcmp(message,"exit\n")) enviar = 0;
+							if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
 						}
-
-
-					}
+						close(serverMapa);
 				}else{
 					int j;
 					int movimiento;
@@ -117,19 +110,6 @@ int main(int argc, char *argv[]){
 
 					close(serverMapa);
 				}
-
-			//Espero que quiera desconectarse para pasar al siguiente mapa
-				printf("Deberiamos empezar a procesar los objetivos pero no llegamos a eso aun. Ingresa 'exit' para conectarte al proximo mapa\n"); //Borrar cuando los procesemos
-				int enviar = 1;
-				char message[PACKAGESIZE];
-
-				while(enviar){
-					fgets(message, PACKAGESIZE, stdin);
-					if (!strcmp(message,"exit\n")) enviar = 0;
-					if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
-				}
-
-				close(serverMapa);
 		}
 
 
