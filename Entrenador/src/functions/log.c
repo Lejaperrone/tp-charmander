@@ -26,7 +26,7 @@ t_log* crearArchivoLog() {
 void loguearConfiguracion(t_log* archivoLogs, t_entrenador* entrenador){
 	log_info(archivoLogs, "CONFIGUtrenadores,&RACION DEL METADATA");
 	log_info(archivoLogs, "Nombre: %s", entrenador->nombre);
-	log_info(archivoLogs, "Simbolo: %s", entrenador->simbolo);
+	log_info(archivoLogs, "Simbolo: %c", entrenador->simbolo);
 	log_info(archivoLogs, "Vidas: %d", entrenador->vidas);
 	log_info(archivoLogs, "Reintentos: %d", entrenador->reintentos);
 

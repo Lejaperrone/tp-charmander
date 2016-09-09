@@ -15,7 +15,7 @@ typedef struct t_mapa_structs{
 
 typedef struct t_entrenador_structs{
 	char* nombre;
-	char* simbolo;
+	char simbolo;
 	int vidas;
 	int reintentos;
 	t_list* hojaDeViaje;

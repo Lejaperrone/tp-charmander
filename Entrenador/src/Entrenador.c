@@ -24,13 +24,13 @@ int main(int argc, char *argv[]){
 		printf("El entrenador no tiene los parametros correctamente seteados.\n");
 		return 1;
 	}
-
+	char* ptrSimbol=malloc(sizeof(char*));
 	char* name = argv[1]; //Red
 	char* pokedexPath = argv[2]; //../../PokedexConfig
 
 	//Pido memoria para guardar el entrenador y leo la configuracion
 		t_entrenador* entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
-		leerConfiguracion(entrenador, name, pokedexPath);
+		leerConfiguracion(entrenador, name, pokedexPath, ptrSimbol);
 
 	//Creo el archivo de log
 		archivoLog = crearArchivoLog();
@@ -38,6 +38,9 @@ int main(int argc, char *argv[]){
 	//Logueo que arranco bien y laconfiguracion del entrenador
 		log_info(archivoLog,"Cliente levantado.\n");
 		loguearConfiguracion(archivoLog, entrenador);
+		char simbolo;
+		simbolo=entrenador->simbolo;
+		printf("El simbolo de %s es %c\n",entrenador->nombre, simbolo);
 
 	//Arranco a recorrer los mapas
 		int serverMapa;
@@ -50,17 +53,16 @@ int main(int argc, char *argv[]){
 				printf("Conectandose al mapa %s...\n", mapa->nombre);
 				create_socketClient(&serverMapa, mapa->ip, mapa->puerto);
 				printf("Conectado al mapa %s.\n", mapa->nombre);
-
 			//Espero que quiera desconectarse para pasar al siguiente mapa
 				printf("Deberiamos empezar a procesar los objetivos pero no llegamos a eso aun. Ingresa 'exit' para conectarte al proximo mapa\n"); //Borrar cuando los procesemos
 				int enviar = 1;
 				char message[PACKAGESIZE];
-
-				while(enviar){
-					fgets(message, PACKAGESIZE, stdin);
-					if (!strcmp(message,"exit\n")) enviar = 0;
-					if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
-				}
+				send(serverMapa,&simbolo, 2, 0);
+				//while(enviar){
+					//fgets(message, PACKAGESIZE, stdin);
+					//if (!strcmp(message,"exit\n")) enviar = 0;
+					//if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
+				//}
 
 				close(serverMapa);
 		}
