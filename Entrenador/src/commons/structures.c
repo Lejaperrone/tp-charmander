@@ -9,7 +9,8 @@
 typedef struct t_mapa_structs{
 	char* nombre;
 	t_list* objetivos;
-	//Falta hoja de viaje y los objetivos
+	char* puerto;
+	char* ip;
 }t_mapa;
 
 typedef struct t_entrenador_structs{

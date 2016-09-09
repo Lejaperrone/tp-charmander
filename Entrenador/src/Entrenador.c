@@ -14,17 +14,23 @@
 #include "functions/log.h"
 #include "functions/config.h"
 
-#define IP "127.0.0.1" //Lo deberia buscar del metadata del primer mapa de su hoja de viaje
-#define PUERTO "6667"  // En realidad lo deberia buscar del metadata del primer mapa de su hoja de viaje
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
 t_log* archivoLog;
 
-int main(){
+int main(int argc, char *argv[]){
 
-	//pido memoria para guardar el entrenador y leo la configuracion
+	if(argc != 3){
+		printf("El entrenador no tiene los parametros correctamente seteados.\n");
+		return 1;
+	}
+
+	char* name = argv[1]; //Red
+	char* pokedexPath = argv[2]; //../../PokedexConfig
+
+	//Pido memoria para guardar el entrenador y leo la configuracion
 		t_entrenador* entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
-		leerConfiguracion(entrenador);
+		leerConfiguracion(entrenador, name, pokedexPath);
 
 	//Creo el archivo de log
 		archivoLog = crearArchivoLog();
@@ -33,26 +39,34 @@ int main(){
 		log_info(archivoLog,"Cliente levantado.\n");
 		loguearConfiguracion(archivoLog, entrenador);
 
-	int serverMapa;
+	//Arranco a recorrer los mapas
+		int serverMapa;
+		int i;
+		for(i=0; i<list_size(entrenador->hojaDeViaje); i++){
+			//Recupero el mapa al que conectarme
+				t_mapa* mapa = (t_mapa*)list_get(entrenador->hojaDeViaje, i);
 
-	printf("Conectandose al servidor...\n");
-	create_socketClient(&serverMapa, IP, PUERTO);
-	printf("Conectado al servidor. Ya puede enviar mensajes. Escriba 'exit' para salir\n");
+			//Me conecto al mapa
+				printf("Conectandose al mapa %s...\n", mapa->nombre);
+				create_socketClient(&serverMapa, mapa->ip, mapa->puerto);
+				printf("Conectado al mapa %s.\n", mapa->nombre);
+
+			//Espero que quiera desconectarse para pasar al siguiente mapa
+				printf("Deberiamos empezar a procesar los objetivos pero no llegamos a eso aun. Ingresa 'exit' para conectarte al proximo mapa\n"); //Borrar cuando los procesemos
+				int enviar = 1;
+				char message[PACKAGESIZE];
+
+				while(enviar){
+					fgets(message, PACKAGESIZE, stdin);
+					if (!strcmp(message,"exit\n")) enviar = 0;
+					if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
+				}
+
+				close(serverMapa);
+		}
 
 
-
-//------------Envio de mensajes al servidor------------
-	int enviar = 1;
-	char message[PACKAGESIZE];
-
-	while(enviar){
-		fgets(message, PACKAGESIZE, stdin);
-		if (!strcmp(message,"exit\n")) enviar = 0;
-		if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
-	}
-
-	free(archivoLog);
 	free(entrenador);
-	close(serverMapa);
+	free(archivoLog);
 	return 0;
 }

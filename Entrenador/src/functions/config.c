@@ -6,14 +6,19 @@
 #include "../commons/structures.c"
 
 
-void leerConfiguracion(t_entrenador* entrenador) {
+void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) {
+	char* path = string_new();
+	string_append(&path, pokedexPath);
+	string_append(&path, "/Entrenadores/");
+	string_append(&path, name);
+	string_append(&path, "/metadata");
 
-//¿Como hacemos que cargue el metadata del entrenador que corresponde? Porque en este caso cargaria solo el de Red
-	t_config* config = config_create("../../PokedexConfig/Entrenadores/Red/metadata");
-	entrenador->nombre = config_get_string_value(config, "nombre");
-	entrenador->simbolo = config_get_string_value(config, "simbolo");
-	entrenador->vidas = config_get_int_value(config, "vidas");
-	entrenador->reintentos = config_get_int_value(config, "reintentos");
+	//Leo configuracion del entrenador
+		t_config* config = config_create(path);
+		entrenador->nombre = config_get_string_value(config, "nombre");
+		entrenador->simbolo = config_get_string_value(config, "simbolo");
+		entrenador->vidas = config_get_int_value(config, "vidas");
+		entrenador->reintentos = config_get_int_value(config, "reintentos");
 
 	char**p = config_get_array_value(config, "hojaDeViaje");
 	entrenador->hojaDeViaje = list_create();
@@ -36,7 +41,22 @@ void leerConfiguracion(t_entrenador* entrenador) {
 				o++;
 			}
 
-		list_add(entrenador->hojaDeViaje,mapa);
+		//Obtengo la configuracion del mapa
+			char* pathMapa = string_new();
+			string_append(&pathMapa, pokedexPath);
+			string_append(&pathMapa, "/Mapas/");
+			string_append(&pathMapa, mapa->nombre);
+			string_append(&pathMapa, "/metadata");
+
+			t_config* configMapa = config_create(pathMapa);
+			mapa->ip = config_get_string_value(configMapa, "IP");
+			mapa->puerto = config_get_string_value(configMapa, "Puerto");
+
+			free(configMapa);
+
+		//Agrego el mapa a mi hoja de Viaje
+			list_add(entrenador->hojaDeViaje,mapa);
+
 		p++;
 	}
 
