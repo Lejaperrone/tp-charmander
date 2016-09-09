@@ -121,8 +121,12 @@ int main(){
 						}
 						close(i);
 						FD_CLR(i, &master); // eliminar del conjunto maestro
+
+						BorrarItem(t_entrenadores, *package);
+
 						BorrarItem(t_entrenadores, '@');
 						nivel_gui_dibujar(t_entrenadores, "mapa1");
+
 					} else {
 						// tenemos datos de algún cliente
 						if (nbytes != 0){
