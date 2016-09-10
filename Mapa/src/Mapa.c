@@ -104,8 +104,8 @@ int main(){
 						}
 						log_trace(archivoLog, "selectserver: new connection from %s on ""socket %d", inet_ntoa(addr.sin_addr),newfd);
 						CrearPersonaje(t_entrenadores,package[0],1,1);
-						 list_add(t_entrenadores,&package);
-						 nivel_gui_dibujar(t_entrenadores,"mapa1");
+						list_add(t_entrenadores,&package[0]);
+						nivel_gui_dibujar(t_entrenadores,"mapa1");
 
 					}
 				} else {

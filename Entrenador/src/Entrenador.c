@@ -60,10 +60,11 @@ int main(int argc, char *argv[]){
 				int enviar = 1;
 				char message[PACKAGESIZE];
 				send(serverMapa,&simbolo, 2, 0);
+				printf("lo que envie es: %c\n",simbolo);
 				while(enviar){
-					fgets(message, PACKAGESIZE, stdin);
-					if (!strcmp(message,"exit\n")) enviar = 0;
-					if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
+					//fgets(message, PACKAGESIZE, stdin);
+					//if (!strcmp(message,"exit\n")) enviar = 0;
+					//if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
 
 				int modoTestCheckpoint1 = 1;
 				if(modoTestCheckpoint1){
@@ -124,9 +125,8 @@ int main(int argc, char *argv[]){
 
 				}
 		}
-		}
+		free(entrenador);
+			free(archivoLog);
+			return 0;
+		}}
 
-	free(entrenador);
-	free(archivoLog);
-	return 0;
-}
