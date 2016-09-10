@@ -11,10 +11,12 @@
 
 #include "socketLib.h"
 #include "commons/structures.c"
+#include "commons/constants.h"
 #include "functions/log.h"
 #include "functions/config.h"
+#include "functions/positions.h"
 
-#define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
+
 
 t_log* archivoLog;
 
@@ -52,6 +54,7 @@ int main(int argc, char *argv[]){
 				create_socketClient(&serverMapa, mapa->ip, mapa->puerto);
 				printf("Conectado al mapa %s.\n", mapa->nombre);
 
+
 			//Espero que quiera desconectarse para pasar al siguiente mapa
 				printf("Deberiamos empezar a procesar los objetivos pero no llegamos a eso aun. Ingresa 'exit' para conectarte al proximo mapa\n"); //Borrar cuando los procesemos
 				int enviar = 1;
@@ -61,11 +64,67 @@ int main(int argc, char *argv[]){
 					fgets(message, PACKAGESIZE, stdin);
 					if (!strcmp(message,"exit\n")) enviar = 0;
 					if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
+
+				int modoTestCheckpoint1 = 1;
+				if(modoTestCheckpoint1){
+					//Espero que quiera desconectarse para pasar al siguiente mapa
+						printf("Deberiamos empezar a procesar los objetivos pero no llegamos a eso aun. Ingresa 'exit' para conectarte al proximo mapa\n"); //Borrar cuando los procesemos
+						int enviar = 1;
+						char message[PACKAGESIZE];
+						while(enviar){
+							fgets(message, PACKAGESIZE, stdin);
+							if (!strcmp(message,"exit\n")) enviar = 0;
+							if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
+						}
+						close(serverMapa);
+				}else{
+					int j;
+					int movimiento;
+					for(j=0; j<list_size(mapa->objetivos); j++){
+						t_objetivo* objetivo = (t_objetivo *)list_get(mapa->objetivos, j);
+						printf("Inicio objetivo %s.\n", objetivo->nombre);
+						movimiento = 0;
+
+						while(objetivo->logrado==0 && 1){ //aca deberia esperar al siguiente quantum.
+							if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){ //Obtengo ubicacion de pokenest
+								//Aca necesito pedirle al servidor la ubicacion de la pokenest: objetivo->nombre
+
+								printf("Obtuve posicion x:%d, y: %d.\n", objetivo->ubicacion.x, objetivo->ubicacion.y);
+							}else if((movimiento = siguienteMovimiento(mapa->miPosicion, objetivo, movimiento))){ //Me muevo
+								//Aca tengo que transmitir el movimiento que quiero realizar: arriba(1), derecha(2), abajo(3) o izquierda(4)
+
+
+								switch(movimiento){
+								case 1:
+									printf("Me muevo hacia arriba");
+									break;
+								case 2:
+									printf("Me muevo hacia la derecha");
+									break;
+								case 3:
+									printf("Me muevo hacia abajo");
+									break;
+								case 4:
+									printf("Me muevo hacia la izquierda");
+									break;
+								}
+
+							}else{ //Tengo que solicitar el pokemon
+								//Envio la peticion para capturar el pokemon
+
+								printf("Obtuve el pokemon de la pokenest. //El mapa me mato por pedir un pokemon no disponible :'(");
+								objetivo->logrado = 1;
+							}
+
+						}
+
+					}
+
+					close(serverMapa);
+
 				}
-
-				close(serverMapa);
 		}
-
+		}
 
 	free(entrenador);
 	free(archivoLog);
