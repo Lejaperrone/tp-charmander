@@ -103,10 +103,9 @@ int main(){
 							fdmax = newfd;
 						}
 						log_trace(archivoLog, "selectserver: new connection from %s on ""socket %d", inet_ntoa(addr.sin_addr),newfd);
-						CrearPersonaje(t_entrenadores,'@',1,1);
-						list_add(t_entrenadores,package);
-						nivel_gui_dibujar(t_entrenadores, "mapa1");
-
+						CrearPersonaje(t_entrenadores,package[0],1,1);
+						 list_add(t_entrenadores,&package);
+						 nivel_gui_dibujar(t_entrenadores,"mapa1");
 
 					}
 				} else {
@@ -121,10 +120,7 @@ int main(){
 						}
 						close(i);
 						FD_CLR(i, &master); // eliminar del conjunto maestro
-
 						BorrarItem(t_entrenadores, *package);
-
-						BorrarItem(t_entrenadores, '@');
 						nivel_gui_dibujar(t_entrenadores, "mapa1");
 
 					} else {
