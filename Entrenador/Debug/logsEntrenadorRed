@@ -1,22 +1,22 @@
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Cliente levantado.
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Cliente levantado.
 
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): CONFIGUtrenadores,&RACION DEL METADATA
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Nombre: Red
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Simbolo: @
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Vidas: 5
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Reintentos: 0
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Mapa: PuebloPaleta
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: P
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: B
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: G
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Mapa: CiudadVerde
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: C
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: Z
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: C
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Mapa: CiudadPlateada
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: P
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: M
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: P
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: M
-[INFO] 16:18:53:395 EntrenadorLog/(5972:5972): Objetivo: S
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): CONFIGUtrenadores,&RACION DEL METADATA
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Nombre: Red
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Simbolo: @
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Vidas: 5
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Reintentos: 0
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Mapa: PuebloPaleta
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: P
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: B
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: G
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Mapa: CiudadVerde
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: C
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: Z
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: C
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Mapa: CiudadPlateada
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: P
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: M
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: P
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: M
+[INFO] 16:41:58:470 EntrenadorLog/(6478:6478): Objetivo: S

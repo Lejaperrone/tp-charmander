@@ -8,14 +8,21 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <commons/string.h>
 #include <commons/config.h>
 
 #include "../commons/structures.h"
 
-void leerConfiguracion(t_mapa* mapa){
+void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){
+	char* path = string_new();
+	string_append(&path, pokedexPath);
+	string_append(&path, "/Mapas/");
+	string_append(&path, name);
+	string_append(&path, "/metadata");
 
 //¿Como hacemos que cargue el metadata del mapa que corresponde? Porque en este caso cargaria solo el de Red
-	t_config* config = config_create("../../PokedexConfig/Mapas/PuebloPaleta/metadata");
+	t_config* config = config_create(path);
+	mapa->nombre = name;
 	mapa->tiempoChequeoDeadlock = config_get_int_value(config, "TiempoChequeoDeadlock");
 	mapa->batalla = config_get_int_value(config, "Batalla");
 	mapa->algoritmo = config_get_string_value(config, "algoritmo");

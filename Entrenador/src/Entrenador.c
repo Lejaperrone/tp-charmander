@@ -26,13 +26,12 @@ int main(int argc, char *argv[]){
 		printf("El entrenador no tiene los parametros correctamente seteados.\n");
 		return 1;
 	}
-	char* ptrSimbol=malloc(sizeof(char*));
 	char* name = argv[1]; //Red
 	char* pokedexPath = argv[2]; //../../PokedexConfig
 
 	//Pido memoria para guardar el entrenador y leo la configuracion
 		t_entrenador* entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
-		leerConfiguracion(entrenador, name, pokedexPath, ptrSimbol);
+		leerConfiguracion(entrenador, name, pokedexPath);
 
 	//Creo el archivo de log
 		archivoLog = crearArchivoLog(entrenador->nombre);

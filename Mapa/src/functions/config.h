@@ -14,6 +14,6 @@
 #ifndef FUNCTIONS_CONFIG_H_
 #define FUNCTIONS_CONFIG_H_
 
-	void leerConfiguracion(t_mapa* mapa);
+	void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath);
 
 #endif /* FUNCTIONS_CONFIG_H_ */

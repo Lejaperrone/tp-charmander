@@ -9,13 +9,14 @@
 #define COMMONS_STRUCTURES_H_
 
 	typedef struct{
+		char* nombre;
 		int tiempoChequeoDeadlock;
 		int batalla;
 		char* algoritmo;
 		int quantum;
 		int retardo;
-		char* puerto;
 		char* ip;
+		char* puerto;
 	}t_mapa;
 
 	typedef struct{

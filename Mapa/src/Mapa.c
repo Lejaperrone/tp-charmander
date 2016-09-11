@@ -29,13 +29,21 @@
 t_log* archivoLog;
 t_list* t_entrenadores;
 
-int main(){
+int main(int argc, char *argv[]){
+	//Recivo parametros por linea de comandos
+		if(argc != 3){
+			printf("El mapa no tiene los parametros correctamente seteados.\n");
+			return 1;
+		}
+		char* name = argv[1]; //PuebloPaleta
+		char* pokedexPath = argv[2]; //../../PokedexConfig
+
 	//Inicializo UI
 		nivel_gui_inicializar();
 
 	//Alloco memoria de  mapa e inicializo su informacion
 		t_mapa* mapa = (t_mapa*) malloc(sizeof(t_mapa));
-		leerConfiguracion(mapa);
+		leerConfiguracion(mapa, name, pokedexPath);
 
 	//Creo archivo de log y logueo informacion del mapa
 		archivoLog = crearArchivoLog();
@@ -106,14 +114,14 @@ int main(){
 
 								//list_remove_custom(t_entrenadores, *package);
 								BorrarItem(t_entrenadores, *package);
-								nivel_gui_dibujar(t_entrenadores, "mapa1");
+								nivel_gui_dibujar(t_entrenadores, mapa->nombre);
 
 							} else {
 								// tenemos datos de algún cliente
 								if (nbytes != 0){
 									CrearPersonaje(t_entrenadores,package[0],1,1);
 									//list_add(t_entrenadores,&(package[0]));
-									nivel_gui_dibujar(t_entrenadores,"mapa1");
+									nivel_gui_dibujar(t_entrenadores,mapa->nombre);
 								}
 							}
 						}
