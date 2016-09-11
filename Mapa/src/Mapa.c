@@ -128,7 +128,7 @@ int main(){
 						if (nbytes != 0){
 							log_trace(archivoLog, "%s", package);
 						}
-					}
+						}
 				}
 			}
 		}
