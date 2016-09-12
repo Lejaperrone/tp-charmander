@@ -1,17 +1,11 @@
-[INFO] 17:52:10:661 MapaLog/(11765:11765): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 17:52:10:663 MapaLog/(11765:11765): Servidor levantado.
+[INFO] 18:46:56:818 MapaLog/(3113:3113): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 18:46:56:818 MapaLog/(3113:3113): Servidor levantado.
 
-[INFO] 17:52:10:667 MapaLog/(11765:11765): CONFIGURACION DEL METADATA
-[INFO] 17:52:10:672 MapaLog/(11765:11765): TiempoChequeoDeadLock: 10000
-[INFO] 17:52:10:672 MapaLog/(11765:11765): Batalla: 1
-[INFO] 17:52:10:672 MapaLog/(11765:11765): Algoritmo: RR
-[INFO] 17:52:10:673 MapaLog/(11765:11765): Quantum: 3
-[INFO] 17:52:10:673 MapaLog/(11765:11765): Retardo: 500
-[INFO] 17:52:10:673 MapaLog/(11765:11765): Puerto: 6667
-[INFO] 17:52:10:673 MapaLog/(11765:11765): IP: 127.0.0.1
-[TRACE] 17:52:38:409 MapaLog/(11765:11765): selectserver: new connection from 127.0.0.1 on socket 5
-[TRACE] 17:52:38:437 MapaLog/(11765:11765): @п
-[TRACE] 17:52:41:274 MapaLog/(11765:11765): selectserver: socket 5 hung up
-[TRACE] 17:52:42:378 MapaLog/(11765:11765): selectserver: new connection from 127.0.0.1 on socket 5
-[TRACE] 17:52:42:384 MapaLog/(11765:11765): @п
-[TRACE] 17:52:46:61 MapaLog/(11765:11765): selectserver: socket 5 hung up
+[INFO] 18:46:56:818 MapaLog/(3113:3113): CONFIGURACION DEL METADATA
+[INFO] 18:46:56:818 MapaLog/(3113:3113): TiempoChequeoDeadLock: 10000
+[INFO] 18:46:56:818 MapaLog/(3113:3113): Batalla: 1
+[INFO] 18:46:56:818 MapaLog/(3113:3113): Algoritmo: RR
+[INFO] 18:46:56:818 MapaLog/(3113:3113): Quantum: 3
+[INFO] 18:46:56:818 MapaLog/(3113:3113): Retardo: 500
+[INFO] 18:46:56:818 MapaLog/(3113:3113): Puerto: 6669
+[INFO] 18:46:56:818 MapaLog/(3113:3113): IP: 127.0.0.1

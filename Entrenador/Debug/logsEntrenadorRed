@@ -1,22 +1,22 @@
-[INFO] 08:48:23:689 EntrenadorLog/(2613:2613): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Cliente levantado.
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Cliente levantado.
 
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): CONFIGUtrenadores,&RACION DEL METADATA
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Nombre: Red
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Simbolo: @
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Vidas: 5
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Reintentos: 0
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Mapa: PuebloPaleta
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: P
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: B
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: G
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Mapa: CiudadVerde
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: C
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: Z
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: C
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Mapa: CiudadPlateada
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: P
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: M
-[INFO] 08:48:23:696 EntrenadorLog/(2613:2613): Objetivo: P
-[INFO] 08:48:23:696 EntrenadorLog/(2613:2613): Objetivo: M
-[INFO] 08:48:23:696 EntrenadorLog/(2613:2613): Objetivo: S
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): CONFIGUtrenadores,&RACION DEL METADATA
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Nombre: Red
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Simbolo: @
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Vidas: 5
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Reintentos: 0
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Mapa: PuebloPaleta
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: P
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: B
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: G
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Mapa: CiudadVerde
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: C
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: Z
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: C
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Mapa: CiudadPlateada
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: P
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: M
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: P
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: M
+[INFO] 18:47:16:150 EntrenadorLog/(3145:3145): Objetivo: S
