@@ -1,0 +1,7 @@
+nombre=Brook
+simbolo=$
+hojaDeViaje=[CiudadPlateada,PuebloPaleta]
+obj[PuebloPaleta]=[B,P]
+obj[CiudadPlateada]=[P,M]
+vidas=3
+reintentos=0
