@@ -30,6 +30,10 @@ t_log* archivoLog;
 t_list* t_entrenadores;
 t_list* t_entrenadoresBloqueados;
 t_list* t_entrenadoresListos;
+void inicializarListasDeEntrenadoresParaPlanificar(){
+	list_create(&t_entrenadoresBloqueados);
+	list_create(&t_entrenadoresListos);
+}
 
 int main(int argc, char *argv[]){
 	//Recivo parametros por linea de comandos
@@ -42,7 +46,7 @@ int main(int argc, char *argv[]){
 
 	//Inicializo UI
 		nivel_gui_inicializar();
-
+		inicializarListasDeEntrenadoresParaPlanificar();
 	//Alloco memoria de  mapa e inicializo su informacion
 		t_mapa* mapa = (t_mapa*) malloc(sizeof(t_mapa));
 		leerConfiguracion(mapa, name, pokedexPath);
