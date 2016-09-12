@@ -28,6 +28,8 @@
 
 t_log* archivoLog;
 t_list* t_entrenadores;
+t_list* t_entrenadoresBloqueados;
+t_list* t_entrenadoresListos;
 
 int main(int argc, char *argv[]){
 	//Recivo parametros por linea de comandos
