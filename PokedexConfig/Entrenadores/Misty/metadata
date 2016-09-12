@@ -1,0 +1,7 @@
+nombre=Misty
+simbolo=€
+hojaDeViaje=[CiudadPlateada,CiudadVerde]
+obj[PuebloPaleta]=[P,B]
+obj[CiudadPlateada]=[B,P]
+vidas=1
+reintentos=0
