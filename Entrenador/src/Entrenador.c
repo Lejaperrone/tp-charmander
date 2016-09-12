@@ -26,13 +26,12 @@ int main(int argc, char *argv[]){
 		printf("El entrenador no tiene los parametros correctamente seteados.\n");
 		return 1;
 	}
-	char* ptrSimbol=malloc(sizeof(char*));
 	char* name = argv[1]; //Red
 	char* pokedexPath = argv[2]; //../../PokedexConfig
 
 	//Pido memoria para guardar el entrenador y leo la configuracion
 		t_entrenador* entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
-		leerConfiguracion(entrenador, name, pokedexPath, ptrSimbol);
+		leerConfiguracion(entrenador, name, pokedexPath);
 
 	//Creo el archivo de log
 		archivoLog = crearArchivoLog(entrenador->nombre);
@@ -40,8 +39,6 @@ int main(int argc, char *argv[]){
 	//Logueo que arranco bien y laconfiguracion del entrenador
 		log_info(archivoLog,"Cliente levantado.\n");
 		loguearConfiguracion(archivoLog, entrenador);
-		char simbolo;
-		simbolo=entrenador->simbolo;
 	//Arranco a recorrer los mapas
 		int serverMapa;
 		int i;
@@ -56,29 +53,12 @@ int main(int argc, char *argv[]){
 
 
 			//Espero que quiera desconectarse para pasar al siguiente mapa
-				printf("Deberiamos empezar a procesar los objetivos pero no llegamos a eso aun. Ingresa 'exit' para conectarte al proximo mapa\n"); //Borrar cuando los procesemos
-				int enviar = 1;
-				char message[PACKAGESIZE];
-				send(serverMapa,&simbolo, 2, 0);
-				printf("lo que envie es: %c\n",simbolo);
-				while(enviar){
-					//fgets(message, PACKAGESIZE, stdin);
-					//if (!strcmp(message,"exit\n")) enviar = 0;
-					//if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
+				printf("Me identifico con el  mapa\n");
+				send(serverMapa, &(entrenador->simbolo), 2, 0);
+				printf("Le digo  que soy: %c\n", entrenador->simbolo);
 
-				int modoTestCheckpoint1 = 1;
-				if(modoTestCheckpoint1){
-					//Espero que quiera desconectarse para pasar al siguiente mapa
-						printf("Deberiamos empezar a procesar los objetivos pero no llegamos a eso aun. Ingresa 'exit' para conectarte al proximo mapa\n"); //Borrar cuando los procesemos
-						int enviar = 1;
-						char message[PACKAGESIZE];
-						while(enviar){
-							fgets(message, PACKAGESIZE, stdin);
-							if (!strcmp(message,"exit\n")) enviar = 0;
-							if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
-						}
-						close(serverMapa);
-				}else{
+				int modoFinal = 0;
+				if(modoFinal){
 					int j;
 					int movimiento;
 					for(j=0; j<list_size(mapa->objetivos); j++){
@@ -121,12 +101,23 @@ int main(int argc, char *argv[]){
 
 					}
 
-					close(serverMapa);
+					//close(serverMapa);
 
 				}
+
+				printf("Deberiamos empezar a procesar los objetivos pero no llegamos a eso aun. Ingresa 'exit' para conectarte al proximo mapa\n"); //Borrar cuando los procesemos
+				int enviar = 1;
+				char message[PACKAGESIZE];
+				while(enviar){
+					fgets(message, PACKAGESIZE, stdin);
+					if (!strcmp(message,"exit\n")) enviar = 0;
+					if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
+				}
+				close(serverMapa);
 		}
+
 		free(entrenador);
-			free(archivoLog);
-			return 0;
-		}}
+		free(archivoLog);
+		return 0;
+}
 

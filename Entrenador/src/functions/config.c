@@ -2,11 +2,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include <commons/config.h>
+#include <commons/string.h>
 #include <commons/collections/list.h>
 #include "../commons/structures.c"
 
 
-void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath,char* ptr) {
+void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) {
 	char* path = string_new();
 	string_append(&path, pokedexPath);
 	string_append(&path, "/Entrenadores/");
@@ -16,9 +17,7 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath,c
 	//Leo configuracion del entrenador
 		t_config* config = config_create(path);
 		entrenador->nombre = config_get_string_value(config, "nombre");
-		entrenador->simbolo = config_get_string_value(config, "simbolo");
-		ptr= config_get_string_value(config,"simbolo");
-		entrenador->simbolo=ptr[0];
+		entrenador->simbolo = *config_get_string_value(config, "simbolo");
 		entrenador->vidas = config_get_int_value(config, "vidas");
 		entrenador->reintentos = config_get_int_value(config, "reintentos");
 
