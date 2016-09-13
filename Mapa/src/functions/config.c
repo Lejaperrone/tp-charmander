@@ -17,6 +17,70 @@
 
 #include "../commons/structures.h"
 
+t_pokemon* createPokemon(char* pathPokemons, char* name){
+
+	//Genero path del pokemon
+		char* pathPokemon = string_new();
+		string_append(&pathPokemon, pathPokemons);
+		string_append(&pathPokemon, "/");
+		string_append(&pathPokemon, name);
+
+	//Alloco el pokemon
+		t_pokemon* pokemon = malloc(sizeof(t_pokemon));
+
+	//Levanto la configuracion del pokemon
+		t_config* configPokemon = config_create(pathPokemon);
+		pokemon->nivel =config_get_int_value(configPokemon, "Nivel");
+		pokemon->path = pathPokemon;
+		pokemon->disponible =1;
+		pokemon->duenio=' ';
+		free(configPokemon);
+
+	//Return
+		return pokemon;
+}
+
+t_pokenest* createPokeNest(char* pathPokenest, char* name){
+	//Creo el path del metadata
+		char* pathPokenestMeta = string_new();
+		string_append(&pathPokenestMeta, pathPokenest);
+		string_append(&pathPokenestMeta, "/metadata");
+
+	//Alloco la pokenest
+		t_pokenest* pokenest = malloc(sizeof(t_pokenest));
+
+	//Levanto la configuracion de la pokenest
+		t_config* configPokeNest = config_create(pathPokenestMeta);
+		pokenest->tipo = config_get_string_value(configPokeNest, "Tipo");
+		pokenest->identificador = (config_get_string_value(configPokeNest, "Identificador"))[0];
+
+		char* pos = config_get_string_value(configPokeNest, "Posicion");
+		char** ub = string_split(pos, ";");
+		pokenest->ubicacion.x = atoi(ub[0]);
+		pokenest->ubicacion.x = atoi(ub[1]);
+		pokenest->pokemons = list_create();
+
+		free(configPokeNest);
+
+	//Recorro los pokemons
+		DIR * pokemons;
+		struct dirent *ep2;
+		pokemons = opendir (pathPokenest);
+
+		if (pokemons != NULL){
+			while ((ep2 = readdir (pokemons))){
+				if(string_ends_with(ep2->d_name, "dat")){
+					t_pokemon* pokemon = createPokemon(pathPokenest, ep2->d_name); //Creo el  pokemon
+					list_add(pokenest->pokemons,pokemon); //Agrego a la lista de pokemons de la pokenest
+				}
+			}
+		}
+		(void) closedir (pokemons);
+
+	//Return
+		return pokenest;
+}
+
 void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){
 	char* path = string_new();
 	string_append(&path, pokedexPath);
@@ -37,7 +101,8 @@ void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){
 	mapa->pokeNests = list_create();
 
 	free(config);
-/*
+
+
 	//Creo el path de los pokenest
 	char* pathPokenests = string_new();
 	string_append(&pathPokenests, pokedexPath);
@@ -46,62 +111,26 @@ void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){
 	string_append(&pathPokenests, "/PokeNests");
 
 	DIR * directory;
-	DIR * pokemons;
+
 	struct dirent *ep;
-	struct dirent *ep2;
 	directory = opendir (pathPokenests);
 
 	if (directory != NULL){
-		while ((ep = readdir (directory))){
-			//Genero path del metadata de la pokenest
-				char* pathPokenest = string_new();
-				string_append(&pathPokenest, pathPokenests);
-				string_append(&pathPokenest, "/");
-				string_append(&pathPokenest, ep->d_name);
-				string_append(&pathPokenest, "/metadata");
+		while ((ep = readdir (directory))!=NULL){
+			if(strcmp(ep->d_name, ".") && strcmp(ep->d_name, "..")){
+				//Creo el directorio del Pokenest
+					char* pathPokeNest = string_new();
+					string_append(&pathPokeNest, pathPokenests);
+					string_append(&pathPokeNest, "/");
+					string_append(&pathPokeNest, ep->d_name);
 
-			//Obtengo los pokemos del pokenest
-				char* pathPokemons = string_new();
-				string_append(&pathPokemons, pathPokenests);
-				string_append(&pathPokemons, "/");
-				string_append(&pathPokemons, ep->d_name);
-
-				puts(pathPokemons);
-			//Verifico si el path es un directorio
-				int esDir = 0;
-				struct stat s;
-				if( stat(pathPokemons,&s) == 0 ){
-				    if( s.st_mode & S_IFDIR ){
-				    	esDir = 1;
-				    }
-				}
-
-			//Verifico si efectivamente es una pokenest
-				pokemons = opendir (pathPokemons);
-				if (pokemons != NULL && esDir){
-					//Alloco la pokenest
-						t_pokenest* pokenest = malloc(sizeof(t_pokenest));
-
-					//Levanto la configuracion de la pokenest
-						t_config* configPokeNest = config_create(pathPokenest);
-						pokenest->tipo = config_get_string_value(configPokeNest, "Tipo");
-						pokenest->identificador = (config_get_string_value(configPokeNest, "Identificador"))[0];
-						pokenest->pokemons = list_create();
-
-						char* pos = config_get_string_value(configPokeNest, "Posicion");
-						char** ub = string_split(pos, ";");
-						pokenest->ubicacion.x = atoi(ub[0]);
-						pokenest->ubicacion.x = atoi(ub[1]);
-
-						free(configPokeNest);
-
-
-				}
-				(void) closedir (pokemons);
-
-
+				//Agrego el pokenest
+					t_pokenest* pokenest = createPokeNest(pathPokeNest, ep->d_name);
+					if(pokenest!=NULL){
+						list_add(mapa->pokeNests,pokenest);
+					}
+			}
 		}
-		(void) closedir (directory);
-	}*/
+	}
+	(void) closedir (directory);
 }
-

@@ -1,12 +1,22 @@
-[INFO] 19:15:11:910 MapaLog/(4016:4016): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 19:15:11:910 MapaLog/(4016:4016): Servidor levantado.
+[INFO] 22:07:30:957 MapaLog/(9062:9062): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Servidor levantado.
 
-[INFO] 19:15:11:910 MapaLog/(4016:4016): CONFIGURACION DEL METADATA
-[INFO] 19:15:11:910 MapaLog/(4016:4016): TiempoChequeoDeadLock: 10000
-[INFO] 19:15:11:910 MapaLog/(4016:4016): Batalla: 1
-[INFO] 19:15:11:910 MapaLog/(4016:4016): Algoritmo: RR
-[INFO] 19:15:11:910 MapaLog/(4016:4016): Quantum: 3
-[INFO] 19:15:11:910 MapaLog/(4016:4016): Retardo: 500
-[INFO] 19:15:11:910 MapaLog/(4016:4016): Puerto: 6669
-[INFO] 19:15:11:910 MapaLog/(4016:4016): IP: 127.0.0.1
-[TRACE] 19:15:15:78 MapaLog/(4016:4016): selectserver: new connection from 127.0.0.1 on socket 5
+[INFO] 22:07:30:957 MapaLog/(9062:9062): CONFIGURACION DEL METADATA
+[INFO] 22:07:30:957 MapaLog/(9062:9062): TiempoChequeoDeadLock: 10000
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Batalla: 1
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Algoritmo: RR
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Quantum: 3
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Retardo: 500
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Puerto: 6669
+[INFO] 22:07:30:957 MapaLog/(9062:9062): IP: 127.0.0.1
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokenest: G
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Gastly/Gastly001.dat
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokemon nivel: 2
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokenest: B
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Bulbasaur/Bulbasaur001.dat
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokemon nivel: 5
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokenest: P
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Pikachu/Pikachu002.dat
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokemon nivel: 18
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Pikachu/Pikachu001.dat
+[INFO] 22:07:30:957 MapaLog/(9062:9062): Pokemon nivel: 33
