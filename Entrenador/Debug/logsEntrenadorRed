@@ -1,22 +1,22 @@
-[INFO] 08:48:23:689 EntrenadorLog/(2613:2613): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Cliente levantado.
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Cliente levantado.
 
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): CONFIGUtrenadores,&RACION DEL METADATA
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Nombre: Red
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Simbolo: @
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Vidas: 5
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Reintentos: 0
-[INFO] 08:48:23:694 EntrenadorLog/(2613:2613): Mapa: PuebloPaleta
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: P
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: B
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: G
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Mapa: CiudadVerde
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: C
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: Z
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: C
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Mapa: CiudadPlateada
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: P
-[INFO] 08:48:23:695 EntrenadorLog/(2613:2613): Objetivo: M
-[INFO] 08:48:23:696 EntrenadorLog/(2613:2613): Objetivo: P
-[INFO] 08:48:23:696 EntrenadorLog/(2613:2613): Objetivo: M
-[INFO] 08:48:23:696 EntrenadorLog/(2613:2613): Objetivo: S
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): CONFIGUtrenadores,&RACION DEL METADATA
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Nombre: Red
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Simbolo: @
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Vidas: 5
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Reintentos: 0
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Mapa: PuebloPaleta
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: P
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: B
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: G
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Mapa: CiudadVerde
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: C
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: Z
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: C
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Mapa: CiudadPlateada
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: P
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: M
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: P
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: M
+[INFO] 22:46:40:258 EntrenadorLog/(10228:10228): Objetivo: S

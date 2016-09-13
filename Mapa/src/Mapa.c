@@ -19,8 +19,6 @@
 #include "functions/log.h"
 #include "functions/collections_list_extension.h"
 
-
-#define PUERTO "6667"		//Va a haber que leerlo del metadata del mapa
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
 
@@ -64,7 +62,16 @@ int main(int argc, char *argv[]){
 		socklen_t addrlen = sizeof(addr);
 
 		int listeningSocket;
-		create_serverSocket(&listeningSocket, PUERTO);
+		create_serverSocket(&listeningSocket, mapa->puerto);
+
+	//Muestro recursos en el mapa
+		int j;
+		for(j=0; j<list_size(mapa->pokeNests); j++){
+			t_pokenest* pokenest = (t_pokenest*)list_get(mapa->pokeNests, j);
+			CrearCaja(t_entrenadores, pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.x, list_size(pokenest->pokemons));
+		}
+
+		nivel_gui_dibujar(t_entrenadores, mapa->nombre);
 
 	//Inicializo el select
 		fd_set master;		// conjunto maestro de descriptores de fichero

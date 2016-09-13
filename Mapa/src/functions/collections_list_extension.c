@@ -9,11 +9,12 @@
 #include <stdlib.h>
 #include <commons/collections/list.h>
 #include <tad_items.h>
+#include "../commons/structures.h"
 
-void list_remove_custom(t_list* items, char id) {
-    bool _search_by_id(char* item) {
-        return *item == id;
+void list_remove_custom(t_list* items, int i) {
+    bool _search_by_socket(t_entrenador* item) {
+        return item->socket == i;
     }
 
-    list_remove_by_condition(items, (void*) _search_by_id);
+    list_remove_by_condition(items, (void*) _search_by_socket);
 }

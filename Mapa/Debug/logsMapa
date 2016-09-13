@@ -1,17 +1,24 @@
-[INFO] 17:52:10:661 MapaLog/(11765:11765): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 17:52:10:663 MapaLog/(11765:11765): Servidor levantado.
+[INFO] 22:46:36:823 MapaLog/(10227:10227): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Servidor levantado.
 
-[INFO] 17:52:10:667 MapaLog/(11765:11765): CONFIGURACION DEL METADATA
-[INFO] 17:52:10:672 MapaLog/(11765:11765): TiempoChequeoDeadLock: 10000
-[INFO] 17:52:10:672 MapaLog/(11765:11765): Batalla: 1
-[INFO] 17:52:10:672 MapaLog/(11765:11765): Algoritmo: RR
-[INFO] 17:52:10:673 MapaLog/(11765:11765): Quantum: 3
-[INFO] 17:52:10:673 MapaLog/(11765:11765): Retardo: 500
-[INFO] 17:52:10:673 MapaLog/(11765:11765): Puerto: 6667
-[INFO] 17:52:10:673 MapaLog/(11765:11765): IP: 127.0.0.1
-[TRACE] 17:52:38:409 MapaLog/(11765:11765): selectserver: new connection from 127.0.0.1 on socket 5
-[TRACE] 17:52:38:437 MapaLog/(11765:11765): @п
-[TRACE] 17:52:41:274 MapaLog/(11765:11765): selectserver: socket 5 hung up
-[TRACE] 17:52:42:378 MapaLog/(11765:11765): selectserver: new connection from 127.0.0.1 on socket 5
-[TRACE] 17:52:42:384 MapaLog/(11765:11765): @п
-[TRACE] 17:52:46:61 MapaLog/(11765:11765): selectserver: socket 5 hung up
+[INFO] 22:46:36:823 MapaLog/(10227:10227): CONFIGURACION DEL METADATA
+[INFO] 22:46:36:823 MapaLog/(10227:10227): TiempoChequeoDeadLock: 10000
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Batalla: 1
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Algoritmo: RR
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Quantum: 3
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Retardo: 500
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Puerto: 6669
+[INFO] 22:46:36:823 MapaLog/(10227:10227): IP: 127.0.0.1
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokenest: G
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Gastly/Gastly001.dat
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokemon nivel: 2
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokenest: B
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Bulbasaur/Bulbasaur001.dat
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokemon nivel: 5
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokenest: P
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Pikachu/Pikachu002.dat
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokemon nivel: 18
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Pikachu/Pikachu001.dat
+[INFO] 22:46:36:823 MapaLog/(10227:10227): Pokemon nivel: 33
+[TRACE] 22:46:40:259 MapaLog/(10227:10227): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 22:46:45:862 MapaLog/(10227:10227): selectserver: socket 5 hung up
