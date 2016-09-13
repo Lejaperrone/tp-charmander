@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../osada.c 
+../OSADA.c 
 
 OBJS += \
-./osada.o 
+./OSADA.o 
 
 C_DEPS += \
-./osada.d 
+./OSADA.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
