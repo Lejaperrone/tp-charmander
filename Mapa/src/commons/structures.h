@@ -43,10 +43,11 @@
 
 	typedef struct{
 		char* nombre;
-		char* simbolo;
+		char simbolo;
 		int vidas;
 		int reintentos;
-		//Falta hoja de viaje y los objetivos
+		int socket;
+		t_coordenadas ubicacion;
 	}t_entrenador;
 
 #endif /* COMMONS_STRUCTURES_H_ */

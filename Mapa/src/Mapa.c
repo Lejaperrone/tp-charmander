@@ -64,6 +64,15 @@ int main(int argc, char *argv[]){
 		int listeningSocket;
 		create_serverSocket(&listeningSocket, mapa->puerto);
 
+	//Muestro recursos en el mapa
+		int j;
+		for(j=0; j<list_size(mapa->pokeNests); j++){
+			t_pokenest* pokenest = (t_pokenest*)list_get(mapa->pokeNests, j);
+			CrearCaja(t_entrenadores, pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.x, list_size(pokenest->pokemons));
+		}
+
+		nivel_gui_dibujar(t_entrenadores, mapa->nombre);
+
 	//Inicializo el select
 		fd_set master;		// conjunto maestro de descriptores de fichero
 		fd_set read_fds;	// conjunto temporal de descriptores de fichero para select()
