@@ -54,21 +54,21 @@ int main (){
 	char* datos=malloc(sizeof(char*));
 	fread(datos,OSADA_BLOCK_SIZE,1,arch);
 	int i;
-	for (i=0;i<7;i++){
+	for (i=0;i<OSADA_BLOCK_SIZE;i++){
 		header.magic_number[i]=datos[i];
-	}
+
 	printf("Lo que lei es: %s\n",header.magic_number);
-	//---------------------------------------------
-	for (i=7;i<8;i++){
-		header.version=datos[i];
-	}
+		int j;
+		for(j=0;j<1;j++){
+			header.version[j]=datos[i];
+		}
 	printf("la version es: %d\n",header.version);
-	for (i=0;i<4;i++){
+		for (j=0;j<4;j++){
 		char* bqFS=malloc(sizeof(char*));
-		bqFS[i]=datos[i+8];
+		bqFS[j]=datos[i];
 		int bloquesFS;
 		bloquesFS=atoi(bqFS);
-
+		}
 	}
 	printf("tiene %d bloques el FS\n",header.fs_blocks);
 	return 1;
