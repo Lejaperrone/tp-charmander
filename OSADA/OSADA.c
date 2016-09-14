@@ -4,6 +4,8 @@
 #include<stdint.h>
 #include<stdlib.h>
 #include<sys/mman.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 typedef unsigned char osada_block[OSADA_BLOCK_SIZE];
 typedef uint32_t osada_block_pointer;
 
@@ -49,12 +51,20 @@ int main (){
 	int i;
 	FILE* arch;
 	arch=fopen("miArchivo.bin","r");
-	fseek(arch, 0L, SEEK_SET);
+	//fseek(arch, 0L, SEEK_SET);
 	long tamArch;
 	tamArch=ftell(arch);
-	printf("miArchivo.bin ocupa %li bytes\n", tamArch);
+
+	struct stat sbuf;
+	if (stat("miArchivo.bin", &sbuf) == -1) {
+		perror("stat");
+		exit(1);
+	}
+
+
+	printf("miArchivo.bin ocupa %li bytes\n", sbuf.st_size-1);
 	char* datos=malloc(sizeof(char*));
-	fread(datos, OSADA_BLOCK_SIZE, 1, arch);
+	fread(datos, OSADA_BLOCK_SIZE*8, 1, arch);
 	//agregar por si falla el abrir archivo
 	int j=0;
 	for (i=0;i<7;i++){
