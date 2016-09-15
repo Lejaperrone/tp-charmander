@@ -63,7 +63,7 @@ int main (){
 
 	printf("miArchivo.bin ocupa %li bytes\n", sbuf.st_size-1);
 	osada_header* header;
-	header = (osada_header*)mmap((caddr_t)0, int2size_t(sizeof(osada_header)), PROT_READ, MAP_SHARED, arch, 0);
+	header = (osada_header*)mmap((caddr_t)0, int2size_t(sizeof(osada_header)), PROT_WRITE, MAP_SHARED, arch, 0);
 
 	if (header == MAP_FAILED) {
 		close(arch);
