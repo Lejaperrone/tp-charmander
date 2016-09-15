@@ -12,7 +12,7 @@
 #include <commons/collections/list.h>
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
-#define PUERTO 7666
+#define PUERTO "7666"
 
 int main(){
 
