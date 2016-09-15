@@ -6,6 +6,7 @@
 #include<sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <fcntl.h>
 typedef unsigned char osada_block[OSADA_BLOCK_SIZE];
 typedef uint32_t osada_block_pointer;
 
@@ -22,7 +23,6 @@ typedef struct {
 	uint32_t data_blocks; // amount of data blocks
 	unsigned char padding[40]; // useless bytes just to complete the block size
 } osada_header;
-osada_header header;
 
 _Static_assert( sizeof(osada_header) == sizeof(osada_block), "osada_header size does not match osada_block size");
 
@@ -47,9 +47,13 @@ _Static_assert( sizeof(osada_file) == (sizeof(osada_block) / 2.0), "osada_file s
 
 #pragma pack(pop)
 
+size_t int2size_t(int val) {
+    return (val < 0) ? __SIZE_MAX__ : (size_t)((unsigned)val);
+}
+
 int main (){
-	FILE* arch;
-	arch=fopen("miArchivo.bin","r");
+	int arch;
+	arch=open("miArchivo.bin", O_RDWR, (mode_t)0600);
 
 	struct stat sbuf;
 	if (stat("miArchivo.bin", &sbuf) == -1) {
@@ -58,12 +62,20 @@ int main (){
 	}
 
 	printf("miArchivo.bin ocupa %li bytes\n", sbuf.st_size-1);
+	osada_header* header;
+	header = (osada_header*)mmap((caddr_t)0, int2size_t(sizeof(osada_header)), PROT_READ, MAP_SHARED, arch, 0);
 
-	fread(&header,sizeof(osada_header),1,arch);
+	if (header == MAP_FAILED) {
+		close(arch);
+	    perror("Error mmapping the file");
+	    exit(EXIT_FAILURE);
+	}
 
-	printf("Identificador: %s\n",header.magic_number);
-	printf("Version: %d\n",header.version);
-	printf("FS tiene %d bloques\n",header.fs_blocks);
+	printf("Identificador: %s\n",header->magic_number);
+	printf("Version: %d\n",header->version);
+	printf("FS tiene %d bloques\n",header->fs_blocks);
+
+	close(arch);
 
 	return 1;
 }
