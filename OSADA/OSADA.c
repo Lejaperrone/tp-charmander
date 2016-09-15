@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include <commons/bitarray.h>
 typedef unsigned char osada_block[OSADA_BLOCK_SIZE];
 typedef uint32_t osada_block_pointer;
 
@@ -51,6 +52,10 @@ size_t int2size_t(int val) {
     return (val < 0) ? __SIZE_MAX__ : (size_t)((unsigned)val);
 }
 
+int size_t2int(size_t val) {
+    return (val <= INT_MAX) ? (int)((ssize_t)val) : -1;
+}
+
 int main (){
 	int arch;
 	arch=open("miArchivo.bin", O_RDWR, (mode_t)0600);
@@ -62,18 +67,44 @@ int main (){
 	}
 
 	printf("miArchivo.bin ocupa %li bytes\n", sbuf.st_size-1);
-	osada_header* header;
-	header = (osada_header*)mmap((caddr_t)0, int2size_t(sizeof(osada_header)), PROT_WRITE, MAP_SHARED, arch, 0);
 
-	if (header == MAP_FAILED) {
-		close(arch);
-	    perror("Error mmapping the file");
-	    exit(EXIT_FAILURE);
-	}
+	//Mapeo el header
+		osada_header* header;
+		if(arch >= 0){
+			header = (osada_header*)mmap((caddr_t)0, int2size_t(sizeof(osada_header)), PROT_WRITE, MAP_SHARED, arch, 0);
 
-	printf("Identificador: %s\n",header->magic_number);
-	printf("Version: %d\n",header->version);
-	printf("FS tiene %d bloques\n",header->fs_blocks);
+			if (header == MAP_FAILED) {
+				close(arch);
+				perror("Error mmapping the header");
+				exit(EXIT_FAILURE);
+			}
+			printf("Identificador: %s\n",header->magic_number);
+			printf("Version: %d\n",header->version);
+			printf("FS tiene %d bloques\n",header->fs_blocks);
+			printf("Bitmap tiene %d bloques\n",header->bitmap_blocks);
+		}
+
+	//Mapeo el bitmap
+		if(arch >= 0 && header!=NULL){
+			int tamanioBitmap = header->bitmap_blocks*sizeof(osada_block) + sizeof(osada_header);
+			printf("Bitmap tendra %d bytes\n", tamanioBitmap);
+
+			char * datosBitmap = (char*)mmap((caddr_t)0, int2size_t(tamanioBitmap), PROT_WRITE, MAP_SHARED, arch, 0);
+			if (datosBitmap == MAP_FAILED) {
+				close(arch);
+				perror("Error mmapping the bitmap");
+				exit(EXIT_FAILURE);
+			}
+
+
+			t_bitarray * bitmap = bitarray_create(datosBitmap+sizeof(osada_header), int2size_t(tamanioBitmap- sizeof(osada_header)));
+			int i;
+			printf("bitmap:\n");
+			for(i=0; i<size_t2int(bitarray_get_max_bit(bitmap)); i++){
+				printf("%d", bitarray_test_bit(bitmap, i));
+			}
+		}
+
 
 	close(arch);
 
