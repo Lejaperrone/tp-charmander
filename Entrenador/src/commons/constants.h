@@ -5,6 +5,8 @@
  *      Author: utnso
  */
 
+#include <commons/log.h>
+
 #ifndef COMMONS_CONSTANTS_H_
 #define COMMONS_CONSTANTS_H_
 
@@ -15,5 +17,7 @@
 #define MOVERSE_ABAJO 3 //Define el movimiento hacia abajo a la hora de ir a buscar la pokenest
 #define MOVERSE_IZQUIERDA 4 //Define el movimiento hacia la izquierda a la hora de ir a buscar la pokenest
 
+t_log* archivoLog;
+t_entrenador* entrenador;
 
 #endif /* COMMONS_CONSTANTS_H_ */
