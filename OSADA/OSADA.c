@@ -118,6 +118,7 @@ int main (){
 			printf("Tabla de archivos tendra %d bytes\n", 1024*sizeof(osada_block));
 
 			osada_file * tablaArchivos = (char*)mmap((caddr_t)0, int2size_t(tamanioArchivos), PROT_WRITE, MAP_SHARED, arch, 0);
+			tablaArchivos = tablaArchivos+header->bitmap_blocks*sizeof(osada_block) + sizeof(osada_header);
 			if (tablaArchivos == MAP_FAILED) {
 				close(arch);
 				perror("Error mmapping the bitmap");
