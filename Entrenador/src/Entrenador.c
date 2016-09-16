@@ -8,6 +8,7 @@
 #include <stdbool.h>
 #include <tad_items.h>
 #include <commons/log.h>
+#include <signal.h>
 
 #include "socketLib.h"
 #include "commons/structures.c"
@@ -19,6 +20,19 @@
 
 
 t_log* archivoLog;
+t_entrenador* entrenador;
+
+void sigusr1_handler(int signum){
+	log_info(archivoLog,"Recibo senial SIGUSR1, agrego una vida.");
+	entrenador->vidas++;
+	log_info(archivoLog,"Tengo %d vidas.", entrenador->vidas);
+}
+
+void sigterm_handler(int signum){
+	log_info(archivoLog,"Recibo senial SIGTERM, pierdo una vida.");
+	entrenador->vidas--;
+	log_info(archivoLog,"Tengo %d vidas.", entrenador->vidas);
+}
 
 int main(int argc, char *argv[]){
 
@@ -30,7 +44,7 @@ int main(int argc, char *argv[]){
 	char* pokedexPath = argv[2]; //../../PokedexConfig
 
 	//Pido memoria para guardar el entrenador y leo la configuracion
-		t_entrenador* entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
+		entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
 		leerConfiguracion(entrenador, name, pokedexPath);
 
 	//Creo el archivo de log
@@ -39,6 +53,12 @@ int main(int argc, char *argv[]){
 	//Logueo que arranco bien y laconfiguracion del entrenador
 		log_info(archivoLog,"Cliente levantado.\n");
 		loguearConfiguracion(archivoLog, entrenador);
+	//Informo mi PID
+		printf("PID: %d\n", getpid());
+	//Registro signal handler
+		signal(SIGUSR1, sigusr1_handler);
+		signal(SIGTERM, sigterm_handler);
+
 	//Arranco a recorrer los mapas
 		int serverMapa;
 		int i;

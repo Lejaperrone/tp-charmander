@@ -1,22 +1,28 @@
-[INFO] 16:49:33:938 EntrenadorLog/(4043:4043): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 16:49:33:939 EntrenadorLog/(4043:4043): Cliente levantado.
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Cliente levantado.
 
-[INFO] 16:49:33:939 EntrenadorLog/(4043:4043): CONFIGUtrenadores,&RACION DEL METADATA
-[INFO] 16:49:33:939 EntrenadorLog/(4043:4043): Nombre: Red
-[INFO] 16:49:33:939 EntrenadorLog/(4043:4043): Simbolo: @
-[INFO] 16:49:33:939 EntrenadorLog/(4043:4043): Vidas: 5
-[INFO] 16:49:33:939 EntrenadorLog/(4043:4043): Reintentos: 0
-[INFO] 16:49:33:939 EntrenadorLog/(4043:4043): Mapa: PuebloPaleta
-[INFO] 16:49:33:940 EntrenadorLog/(4043:4043): Objetivo: P
-[INFO] 16:49:33:940 EntrenadorLog/(4043:4043): Objetivo: B
-[INFO] 16:49:33:940 EntrenadorLog/(4043:4043): Objetivo: G
-[INFO] 16:49:33:940 EntrenadorLog/(4043:4043): Mapa: CiudadVerde
-[INFO] 16:49:33:940 EntrenadorLog/(4043:4043): Objetivo: C
-[INFO] 16:49:33:940 EntrenadorLog/(4043:4043): Objetivo: Z
-[INFO] 16:49:33:941 EntrenadorLog/(4043:4043): Objetivo: C
-[INFO] 16:49:33:941 EntrenadorLog/(4043:4043): Mapa: CiudadPlateada
-[INFO] 16:49:33:941 EntrenadorLog/(4043:4043): Objetivo: P
-[INFO] 16:49:33:941 EntrenadorLog/(4043:4043): Objetivo: M
-[INFO] 16:49:33:941 EntrenadorLog/(4043:4043): Objetivo: P
-[INFO] 16:49:33:941 EntrenadorLog/(4043:4043): Objetivo: M
-[INFO] 16:49:33:941 EntrenadorLog/(4043:4043): Objetivo: S
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): CONFIGUtrenadores,&RACION DEL METADATA
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Nombre: Red
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Simbolo: @
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Vidas: 5
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Reintentos: 0
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Mapa: PuebloPaleta
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: P
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: B
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: G
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Mapa: CiudadVerde
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: C
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: Z
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: C
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Mapa: CiudadPlateada
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: P
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: M
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: P
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: M
+[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: S
+[INFO] 22:59:38:892 EntrenadorLog/(3139:3139): Recibo senial SIGUSR1, agrego una vida.
+[INFO] 22:59:38:892 EntrenadorLog/(3139:3139): Tengo 6 vidas.
+
+[INFO] 22:59:49:237 EntrenadorLog/(3139:3139): Recibo senial SIGUSR1, agrego una vida.
+[INFO] 22:59:49:237 EntrenadorLog/(3139:3139): Tengo 7 vidas.
+

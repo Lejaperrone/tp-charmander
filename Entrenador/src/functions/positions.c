@@ -44,4 +44,6 @@ int siguienteMovimiento(t_coordenadas coordenadas, t_objetivo* objetivo, int ult
 	}else if(distY<0 && ultimoMovimiento!=MOVERSE_ARRIBA){
 		return MOVERSE_ARRIBA;
 	}
+
+	return 0;
 }
