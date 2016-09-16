@@ -127,14 +127,12 @@ int main (){
 
 			int i;
 			for(i=0; i<2048; i++){
-				printf("Estado: %s\n",stringFromOsadaFileState(tablaArchivos->state));
-				printf("Nombre de archivo: %s\n",tablaArchivos->fname);
-				printf("Bloque padre: %d\n",tablaArchivos->parent_directory);
-				printf("Tamanio del archivo: %d\n",tablaArchivos->file_size);
-				printf("Fecha ultima modificacion: %d\n",tablaArchivos->lastmod);
-				printf("Bloque inicial: %d\n",tablaArchivos->first_block);
-
-				tablaArchivos++;
+				printf("Estado: %s\n",stringFromOsadaFileState(tablaArchivos[i].state));
+				printf("Nombre de archivo: %s\n",tablaArchivos[i].fname);
+				printf("Bloque padre: %d\n",tablaArchivos[i].parent_directory);
+				printf("Tamanio del archivo: %d\n",tablaArchivos[i].file_size);
+				printf("Fecha ultima modificacion: %d\n",tablaArchivos[i].lastmod);
+				printf("Bloque inicial: %d\n",tablaArchivos[i].first_block);
 			}
 		}
 
