@@ -13,6 +13,7 @@
 #include <tad_items.h>
 #include <curses.h>
 #include <nivel.h>
+#include <signal.h>
 
 #include "commons/structures.h"
 #include "functions/config.h"
@@ -23,6 +24,9 @@
 
 
 //Estructuras y variables globales
+t_mapa* mapa;
+char* name;
+char* pokedexPath;
 
 t_log* archivoLog;
 t_list* t_entrenadores;
@@ -33,20 +37,25 @@ void inicializarListasDeEntrenadoresParaPlanificar(){
 	list_create(&t_entrenadoresListos);
 }
 
+void sigusr2_handler(int signum){
+	log_info(archivoLog,"Recibo senial SIGUSR2, releo metadata.");
+	leerConfiguracionMetadataMapa(mapa, name, pokedexPath);
+}
+
 int main(int argc, char *argv[]){
 	//Recivo parametros por linea de comandos
 		if(argc != 3){
 			printf("El mapa no tiene los parametros correctamente seteados.\n");
 			return 1;
 		}
-		char* name = argv[1]; //PuebloPaleta
-		char* pokedexPath = argv[2]; //../../PokedexConfig
+		name = argv[1]; //PuebloPaleta
+		pokedexPath = argv[2]; //../../PokedexConfig
 
 	//Inicializo UI
 		nivel_gui_inicializar();
 		inicializarListasDeEntrenadoresParaPlanificar();
 	//Alloco memoria de  mapa e inicializo su informacion
-		t_mapa* mapa = (t_mapa*) malloc(sizeof(t_mapa));
+		mapa = (t_mapa*) malloc(sizeof(t_mapa));
 		leerConfiguracion(mapa, name, pokedexPath);
 
 	//Creo archivo de log y logueo informacion del mapa
@@ -63,6 +72,11 @@ int main(int argc, char *argv[]){
 
 		int listeningSocket;
 		create_serverSocket(&listeningSocket, mapa->puerto);
+	//Informo mi PID
+		log_info(archivoLog,"PID: %d", getpid());
+
+	//Registro signal handler
+		signal(SIGUSR2, sigusr2_handler); //signal-number 12
 
 	//Muestro recursos en el mapa
 		int j;

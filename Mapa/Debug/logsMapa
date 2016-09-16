@@ -1,24 +1,25 @@
-[INFO] 16:48:52:256 MapaLog/(3975:3975): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 16:48:52:263 MapaLog/(3975:3975): Servidor levantado.
+[INFO] 23:08:57:488 MapaLog/(3514:3514): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Servidor levantado.
 
-[INFO] 16:48:52:271 MapaLog/(3975:3975): CONFIGURACION DEL METADATA
-[INFO] 16:48:52:272 MapaLog/(3975:3975): TiempoChequeoDeadLock: 10000
-[INFO] 16:48:52:272 MapaLog/(3975:3975): Batalla: 1
-[INFO] 16:48:52:272 MapaLog/(3975:3975): Algoritmo: RR
-[INFO] 16:48:52:273 MapaLog/(3975:3975): Quantum: 3
-[INFO] 16:48:52:273 MapaLog/(3975:3975): Retardo: 500
-[INFO] 16:48:52:273 MapaLog/(3975:3975): Puerto: 6669
-[INFO] 16:48:52:274 MapaLog/(3975:3975): IP: 127.0.0.1
-[INFO] 16:48:52:274 MapaLog/(3975:3975): Pokenest: G
-[INFO] 16:48:52:274 MapaLog/(3975:3975): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Gastly/Gastly001.dat
-[INFO] 16:48:52:275 MapaLog/(3975:3975): Pokemon nivel: 2
-[INFO] 16:48:52:275 MapaLog/(3975:3975): Pokenest: B
-[INFO] 16:48:52:275 MapaLog/(3975:3975): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Bulbasaur/Bulbasaur001.dat
-[INFO] 16:48:52:296 MapaLog/(3975:3975): Pokemon nivel: 5
-[INFO] 16:48:52:296 MapaLog/(3975:3975): Pokenest: P
-[INFO] 16:48:52:297 MapaLog/(3975:3975): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Pikachu/Pikachu002.dat
-[INFO] 16:48:52:297 MapaLog/(3975:3975): Pokemon nivel: 18
-[INFO] 16:48:52:298 MapaLog/(3975:3975): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Pikachu/Pikachu001.dat
-[INFO] 16:48:52:298 MapaLog/(3975:3975): Pokemon nivel: 33
-[TRACE] 16:49:33:948 MapaLog/(3975:3975): selectserver: new connection from 127.0.0.1 on socket 5
-[TRACE] 16:49:41:636 MapaLog/(3975:3975): selectserver: socket 5 hung up
+[INFO] 23:08:57:488 MapaLog/(3514:3514): CONFIGURACION DEL METADATA
+[INFO] 23:08:57:488 MapaLog/(3514:3514): TiempoChequeoDeadLock: 10000
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Batalla: 1
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Algoritmo: RR
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Quantum: 3
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Retardo: 500
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Puerto: 6669
+[INFO] 23:08:57:488 MapaLog/(3514:3514): IP: 127.0.0.1
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokenest: G
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Gastly/Gastly001.dat
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokemon nivel: 2
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokenest: B
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Bulbasaur/Bulbasaur001.dat
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokemon nivel: 5
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokenest: P
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Pikachu/Pikachu002.dat
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokemon nivel: 18
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokemon path: ../../PokedexConfig/Mapas/PuebloPaleta/PokeNests/Pikachu/Pikachu001.dat
+[INFO] 23:08:57:488 MapaLog/(3514:3514): Pokemon nivel: 33
+[INFO] 23:08:57:488 MapaLog/(3514:3514): PID: 3514
+[TRACE] 23:09:00:53 MapaLog/(3514:3514): selectserver: new connection from 127.0.0.1 on socket 5
+[TRACE] 23:09:01:18 MapaLog/(3514:3514): selectserver: socket 5 hung up

@@ -1,28 +1,22 @@
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Cliente levantado.
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Cliente levantado.
 
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): CONFIGUtrenadores,&RACION DEL METADATA
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Nombre: Red
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Simbolo: @
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Vidas: 5
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Reintentos: 0
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Mapa: PuebloPaleta
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: P
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: B
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: G
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Mapa: CiudadVerde
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: C
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: Z
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: C
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Mapa: CiudadPlateada
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: P
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: M
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: P
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: M
-[INFO] 22:59:30:376 EntrenadorLog/(3139:3139): Objetivo: S
-[INFO] 22:59:38:892 EntrenadorLog/(3139:3139): Recibo senial SIGUSR1, agrego una vida.
-[INFO] 22:59:38:892 EntrenadorLog/(3139:3139): Tengo 6 vidas.
-
-[INFO] 22:59:49:237 EntrenadorLog/(3139:3139): Recibo senial SIGUSR1, agrego una vida.
-[INFO] 22:59:49:237 EntrenadorLog/(3139:3139): Tengo 7 vidas.
-
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): CONFIGUtrenadores,&RACION DEL METADATA
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Nombre: Red
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Simbolo: @
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Vidas: 5
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Reintentos: 0
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Mapa: PuebloPaleta
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: P
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: B
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: G
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Mapa: CiudadVerde
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: C
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: Z
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: C
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Mapa: CiudadPlateada
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: P
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: M
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: P
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: M
+[INFO] 23:09:00:53 EntrenadorLog/(3515:3515): Objetivo: S

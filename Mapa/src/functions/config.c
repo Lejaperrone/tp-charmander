@@ -81,14 +81,13 @@ t_pokenest* createPokeNest(char* pathPokenest, char* name){
 		return pokenest;
 }
 
-void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){
+void leerConfiguracionMetadataMapa(t_mapa* mapa, char* name, char* pokedexPath){
 	char* path = string_new();
 	string_append(&path, pokedexPath);
 	string_append(&path, "/Mapas/");
 	string_append(&path, name);
 	string_append(&path, "/metadata");
 
-//¿Como hacemos que cargue el metadata del mapa que corresponde? Porque en este caso cargaria solo el de Red
 	t_config* config = config_create(path);
 	mapa->nombre = name;
 	mapa->tiempoChequeoDeadlock = config_get_int_value(config, "TiempoChequeoDeadlock");
@@ -101,6 +100,10 @@ void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){
 	mapa->pokeNests = list_create();
 
 	free(config);
+}
+
+void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){
+	leerConfiguracionMetadataMapa(mapa, name, pokedexPath);
 
 
 	//Creo el path de los pokenest

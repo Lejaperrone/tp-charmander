@@ -53,8 +53,10 @@ int main(int argc, char *argv[]){
 	//Logueo que arranco bien y laconfiguracion del entrenador
 		log_info(archivoLog,"Cliente levantado.\n");
 		loguearConfiguracion(archivoLog, entrenador);
+
 	//Informo mi PID
 		printf("PID: %d\n", getpid());
+
 	//Registro signal handler
 		signal(SIGUSR1, sigusr1_handler); //signal-number 10
 		signal(SIGTERM, sigterm_handler); //signal-number 15
