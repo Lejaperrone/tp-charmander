@@ -10,11 +10,13 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <commons/collections/list.h>
+#include "osada/mapp.h"
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 #define PUERTO "7666"
 
 int main(){
+	//mappFileStructures();
 
 	//Inicializo socket para escuchar
 		struct sockaddr_in addr;

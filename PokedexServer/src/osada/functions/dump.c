@@ -4,7 +4,7 @@
  *  Created on: 16/9/2016
  *      Author: utnso
  */
-#include "osada.h"
+#include "../commons/osada.h"
 #include <commons/bitarray.h>
 
 char* stringFromOsadaFileState(osada_file_state f){

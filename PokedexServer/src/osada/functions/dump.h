@@ -6,6 +6,7 @@
  */
 
 #include <commons/bitarray.h>
+#include "../commons/osada.h"
 
 #ifndef DUMP_H_
 #define DUMP_H_

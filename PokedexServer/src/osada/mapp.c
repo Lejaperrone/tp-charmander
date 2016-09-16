@@ -6,15 +6,15 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <commons/bitarray.h>
-#include "osada.h"
-#include "dump.h"
+#include "commons/osada.h"
+#include "functions/dump.h"
 
-int main (){
+void mappFileStructures (){
 	int arch;
-	arch=open("miArchivo.bin", O_RDWR, (mode_t)0600);
+	arch=open("../../miArchivo.bin", O_RDWR, (mode_t)0600);
 
 	struct stat sbuf;
-	if (stat("miArchivo.bin", &sbuf) == -1) {
+	if (stat("../../miArchivo.bin", &sbuf) == -1) {
 		perror("stat");
 		exit(1);
 	}
@@ -93,6 +93,4 @@ int main (){
 
 	//munmap????
 	close(arch);
-
-	return 1;
 }
