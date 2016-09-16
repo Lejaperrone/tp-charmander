@@ -73,7 +73,25 @@ int main (){
 			//dump
 				//dumpFileTable(tablaArchivos);
 		}
+	//Mapeo la tabla de asignaciones
+		if(arch >= 0 && header!=NULL){
+			currentOffset = currentOffset + 1024 * OSADA_BLOCK_SIZE;
+			int length = (header->fs_blocks -header->allocations_table_offset) * OSADA_BLOCK_SIZE;
 
+			osada_block_pointer* tablaAsignaciones = mmap(0, length + currentOffset, PROT_WRITE, MAP_SHARED, arch, 0);
+			if (tablaAsignaciones == MAP_FAILED) {
+				close(arch);
+				perror("Error mmapping the allocations table");
+				exit(EXIT_FAILURE);
+			}
+			tablaAsignaciones = tablaAsignaciones + currentOffset;
+
+			//dump
+				//dumpAllocationsTable(tablaAsignaciones);
+		}
+
+
+	//munmap????
 	close(arch);
 
 	return 1;

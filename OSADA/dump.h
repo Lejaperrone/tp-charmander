@@ -14,5 +14,6 @@
 	void dumpHeader(osada_header* header);
 	void dumpBitmap(t_bitarray * bitmap);
 	void dumpFileTable(osada_file * tablaArchivos);
+	void dumpAllocationsTable(osada_block_pointer* tablaAsignaciones);
 
 #endif /* DUMP_H_ */

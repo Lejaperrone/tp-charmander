@@ -68,3 +68,7 @@ void dumpFileTable(osada_file * tablaArchivos){
 		}
 	}
 }
+
+void dumpAllocationsTable(osada_block_pointer* tablaAsignaciones){
+
+}
