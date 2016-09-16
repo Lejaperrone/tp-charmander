@@ -33,6 +33,13 @@ typedef enum __attribute__((packed)) {
     DIRECTORY = '\2',
 } osada_file_state;
 
+static inline char *stringFromOsadaFileState(osada_file_state f)
+{
+    static const char *strings[] = { "DELETED", "REGULAR", "DIRECTORY", /* continue for rest of values */ };
+
+    return strings[f];
+}
+
 _Static_assert( sizeof(osada_file_state) == 1, "osada_file_state is not a char type");
 
 typedef struct {
@@ -87,7 +94,7 @@ int main (){
 	//Mapeo el bitmap
 		if(arch >= 0 && header!=NULL){
 			int tamanioBitmap = header->bitmap_blocks*sizeof(osada_block) + sizeof(osada_header);
-			printf("Bitmap tendra %d bytes\n", tamanioBitmap);
+			printf("Bitmap tendra %d bytes\n", header->bitmap_blocks*sizeof(osada_block));
 
 			char * datosBitmap = (char*)mmap((caddr_t)0, int2size_t(tamanioBitmap), PROT_WRITE, MAP_SHARED, arch, 0);
 			if (datosBitmap == MAP_FAILED) {
@@ -105,6 +112,30 @@ int main (){
 			}
 		}
 
+	//Mapeo  de tabla de archivos
+		if(arch >= 0 && header!=NULL){
+			int tamanioArchivos = header->bitmap_blocks*sizeof(osada_block) + sizeof(osada_header) + 1024*sizeof(osada_block) ;
+			printf("Tabla de archivos tendra %d bytes\n", 1024*sizeof(osada_block));
+
+			osada_file * tablaArchivos = (char*)mmap((caddr_t)0, int2size_t(tamanioArchivos), PROT_WRITE, MAP_SHARED, arch, 0);
+			if (tablaArchivos == MAP_FAILED) {
+				close(arch);
+				perror("Error mmapping the bitmap");
+				exit(EXIT_FAILURE);
+			}
+
+			int i;
+			for(i=0; i<2048; i++){
+				printf("Estado: %s\n",stringFromOsadaFileState(tablaArchivos->state));
+				printf("Nombre de archivo: %s\n",tablaArchivos->fname);
+				printf("Bloque padre: %d\n",tablaArchivos->parent_directory);
+				printf("Tamanio del archivo: %d\n",tablaArchivos->file_size);
+				printf("Fecha ultima modificacion: %d\n",tablaArchivos->lastmod);
+				printf("Bloque inicial: %d\n",tablaArchivos->first_block);
+
+				tablaArchivos++;
+			}
+		}
 
 	close(arch);
 
