@@ -25,7 +25,7 @@ void dumpBitmap(t_bitarray * bitmap){
 	j=-1;
 	k=-1;
 	m=-1;
-	printf("bitmap:\n");
+	printf("Bitmap:\n");
 	for(i=0; i<bitarray_get_max_bit(bitmap); i++){
 		j++;
 		if(j==7){
@@ -58,6 +58,7 @@ void dumpFileTable(osada_file * tablaArchivos){
 	int i;
 	for(i=0; i<2048; i++){
 		if(tablaArchivos[i].state != 0){
+			printf("indice: %d\n", i);
 			printf("Estado: %s\n",stringFromOsadaFileState(tablaArchivos[i].state));
 			printf("Nombre de archivo: %s\n",tablaArchivos[i].fname);
 			printf("Bloque padre: %d\n",tablaArchivos[i].parent_directory);

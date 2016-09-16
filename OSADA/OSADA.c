@@ -60,9 +60,9 @@ int main (){
 		if(arch >= 0 && header!=NULL){
 			currentOffset = currentOffset + header->bitmap_blocks * OSADA_BLOCK_SIZE;
 			int length = 1024 * OSADA_BLOCK_SIZE;
-			printf("Tabla de archivos tendra %d bytes\n", 1024*sizeof(osada_block));
+			printf("Tabla de archivos tendra %d bytes\n", length);
 
-			osada_file * tablaArchivos = (char*)mmap(0, length + currentOffset, PROT_WRITE, MAP_SHARED, arch, 0);
+			osada_file * tablaArchivos = mmap(0, length + currentOffset, PROT_WRITE, MAP_SHARED, arch, 0);
 			if (tablaArchivos == MAP_FAILED) {
 				close(arch);
 				perror("Error mmapping the file table");
@@ -71,7 +71,7 @@ int main (){
 			tablaArchivos = tablaArchivos + currentOffset;
 
 			//dump
-				dumpFileTable(tablaArchivos);
+				//dumpFileTable(tablaArchivos);
 		}
 
 	close(arch);
