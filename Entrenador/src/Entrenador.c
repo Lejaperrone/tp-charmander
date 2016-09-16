@@ -56,8 +56,8 @@ int main(int argc, char *argv[]){
 	//Informo mi PID
 		printf("PID: %d\n", getpid());
 	//Registro signal handler
-		signal(SIGUSR1, sigusr1_handler);
-		signal(SIGTERM, sigterm_handler);
+		signal(SIGUSR1, sigusr1_handler); //signal-number 10
+		signal(SIGTERM, sigterm_handler); //signal-number 15
 
 	//Arranco a recorrer los mapas
 		int serverMapa;
