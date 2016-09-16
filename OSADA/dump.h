@@ -1,0 +1,18 @@
+/*
+ * dump.h
+ *
+ *  Created on: 16/9/2016
+ *      Author: utnso
+ */
+
+#include <commons/bitarray.h>
+
+#ifndef DUMP_H_
+#define DUMP_H_
+
+	char* stringFromOsadaFileState(osada_file_state f);
+	void dumpHeader(osada_header* header);
+	void dumpBitmap(t_bitarray * bitmap);
+	void dumpFileTable(osada_file * tablaArchivos);
+
+#endif /* DUMP_H_ */
