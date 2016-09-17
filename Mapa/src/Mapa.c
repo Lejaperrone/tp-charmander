@@ -14,7 +14,7 @@
 #include <curses.h>
 #include <nivel.h>
 #include <signal.h>
-
+#include <pthread.h>
 #include "commons/structures.h"
 #include "functions/config.h"
 #include "functions/log.h"
@@ -33,8 +33,9 @@ t_list* t_entrenadores;
 t_list* t_entrenadoresBloqueados;
 t_list* t_entrenadoresListos;
 void inicializarListasDeEntrenadoresParaPlanificar(){
-	list_create(&t_entrenadoresBloqueados);
-	list_create(&t_entrenadoresListos);
+	t_entrenadoresBloqueados=list_create();
+	t_entrenadoresListos=list_create();
+	log_info(archivoLog,"Se crearon las listas de entrenadores listos y bloqueados\n");
 }
 
 void sigusr2_handler(int signum){
@@ -52,6 +53,7 @@ int main(int argc, char *argv[]){
 		pokedexPath = argv[2]; //../../PokedexConfig
 
 	//Inicializo UI
+		archivoLog = crearArchivoLog();
 		nivel_gui_inicializar();
 		inicializarListasDeEntrenadoresParaPlanificar();
 	//Alloco memoria de  mapa e inicializo su informacion
@@ -59,7 +61,7 @@ int main(int argc, char *argv[]){
 		leerConfiguracion(mapa, name, pokedexPath);
 
 	//Creo archivo de log y logueo informacion del mapa
-		archivoLog = crearArchivoLog();
+
 		log_info(archivoLog,"Servidor levantado.\n");
 		loguearConfiguracion(archivoLog, mapa);
 
