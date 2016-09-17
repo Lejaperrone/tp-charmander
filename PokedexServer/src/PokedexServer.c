@@ -17,6 +17,7 @@
 
 int main(){
 	//mappFileStructures();
+	//return 1;
 
 	//Inicializo socket para escuchar
 		struct sockaddr_in addr;

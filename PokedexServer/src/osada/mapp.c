@@ -10,86 +10,45 @@
 #include "functions/dump.h"
 
 void mappFileStructures (){
-	int arch;
-	arch=open("../../miArchivo.bin", O_RDWR, (mode_t)0600);
-
-	struct stat sbuf;
-	if (stat("../../miArchivo.bin", &sbuf) == -1) {
-		perror("stat");
-		exit(1);
-	}
-
-	printf("miArchivo.bin ocupa %li bytes\n", sbuf.st_size-1);
-
-	int currentOffset = 0;
-
-	//Mapeo el header
-		osada_header* header;
-		if(arch >= 0){
-			header = mmap(0, OSADA_BLOCK_SIZE, PROT_WRITE, MAP_SHARED, arch, 0);
-			if (header == MAP_FAILED) {
-				close(arch);
-				perror("Error mmapping the header");
-				exit(EXIT_FAILURE);
-			}
-			//dump
-				dumpHeader(header);
+	//Abro el archivo
+		int arch;
+		arch=open("/home/utnso/projects/tp-2016-2c-Chamba/osada.bin", O_RDWR, (mode_t)0600);
+		if(arch==-1){
+			perror("Cant find the file");
+			exit(EXIT_FAILURE);
 		}
 
-	//Mapeo el bitmap
-		if(arch >= 0 && header!=NULL){
-			currentOffset = currentOffset + OSADA_BLOCK_SIZE;
-			int length = header->fs_blocks/8;
-			printf("Bitmap tendra %d bytes\n", length);
-
-			char * datosBitmap = mmap(0, length+currentOffset, PROT_WRITE, MAP_SHARED, arch, 0);
-			if (datosBitmap == MAP_FAILED) {
-				close(arch);
-				perror("Error mmapping the bitmap");
-				exit(EXIT_FAILURE);
-			}
-
-			datosBitmap = datosBitmap+currentOffset;
-			t_bitarray * bitmap = bitarray_create(datosBitmap, length);
-
-			//dump
-				dumpBitmap(bitmap);
+	//Obtengo el  tamanio  del archivo
+		struct stat sbuf;
+		if (stat("/home/utnso/projects/tp-2016-2c-Chamba/osada.bin", &sbuf) == -1) {
+			perror("stat");
+			exit(EXIT_FAILURE);
 		}
 
-	//Mapeo  de tabla de archivos
-		if(arch >= 0 && header!=NULL){
-			currentOffset = currentOffset + header->bitmap_blocks * OSADA_BLOCK_SIZE;
-			int length = 1024 * OSADA_BLOCK_SIZE;
-			printf("Tabla de archivos tendra %d bytes\n", length);
-
-			osada_file * tablaArchivos = mmap(0, length + currentOffset, PROT_WRITE, MAP_SHARED, arch, 0);
-			if (tablaArchivos == MAP_FAILED) {
-				close(arch);
-				perror("Error mmapping the file table");
-				exit(EXIT_FAILURE);
-			}
-			tablaArchivos = tablaArchivos + currentOffset;
-
-			//dump
-				//dumpFileTable(tablaArchivos);
-		}
-	//Mapeo la tabla de asignaciones
-		if(arch >= 0 && header!=NULL){
-			currentOffset = currentOffset + 1024 * OSADA_BLOCK_SIZE;
-			int length = (header->fs_blocks -header->allocations_table_offset) * OSADA_BLOCK_SIZE;
-
-			osada_block_pointer* tablaAsignaciones = mmap(0, length + currentOffset, PROT_WRITE, MAP_SHARED, arch, 0);
-			if (tablaAsignaciones == MAP_FAILED) {
-				close(arch);
-				perror("Error mmapping the allocations table");
-				exit(EXIT_FAILURE);
-			}
-			tablaAsignaciones = tablaAsignaciones + currentOffset;
-
-			//dump
-				//dumpAllocationsTable(tablaAsignaciones);
+	//Mappeo el archivo
+		char* fileMapped = mmap(0, sbuf.st_size-1, PROT_WRITE, MAP_SHARED, arch, 0);
+		if (fileMapped == MAP_FAILED) {
+			close(arch);
+			perror("Error mmapping the file");
+			exit(EXIT_FAILURE);
 		}
 
+	//Header
+		osada_header* header = (osada_header*)fileMapped;
+		dumpHeader(header);
+		fileMapped = fileMapped  + OSADA_BLOCK_SIZE; //Muevo el offset
+	//Bitmap
+		t_bitarray * bitmap = bitarray_create(fileMapped, header->fs_blocks/8);
+		dumpBitmap(bitmap);
+		fileMapped = fileMapped  + header->bitmap_blocks * OSADA_BLOCK_SIZE; //Muevo el offset
+	//Tabla de archivos
+		osada_file * directorio = (osada_file *)fileMapped;
+		dumpFileTable(directorio);
+		fileMapped = fileMapped  + 1024 * OSADA_BLOCK_SIZE; //Muevo el offset
+	//Tabla de asignaciones
+		osada_block_pointer* asignaciones = (osada_block_pointer*)fileMapped;
+		dumpAllocationsTable(asignaciones);
+		fileMapped = fileMapped + (header->fs_blocks -header->allocations_table_offset) * OSADA_BLOCK_SIZE;
 
 	//munmap????
 	close(arch);
