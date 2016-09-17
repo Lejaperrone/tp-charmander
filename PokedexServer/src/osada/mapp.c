@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <commons/bitarray.h>
 #include "commons/osada.h"
+#include "commons/declarations.h"
 #include "functions/dump.h"
 
 void mappFileStructures (){
@@ -34,19 +35,19 @@ void mappFileStructures (){
 		}
 
 	//Header
-		osada_header* header = (osada_header*)fileMapped;
+		header = (osada_header*)fileMapped;
 		dumpHeader(header);
 		fileMapped = fileMapped  + OSADA_BLOCK_SIZE; //Muevo el offset
 	//Bitmap
-		t_bitarray * bitmap = bitarray_create(fileMapped, header->fs_blocks/8);
+		bitmap = bitarray_create(fileMapped, header->fs_blocks/8);
 		dumpBitmap(bitmap);
 		fileMapped = fileMapped  + header->bitmap_blocks * OSADA_BLOCK_SIZE; //Muevo el offset
 	//Tabla de archivos
-		osada_file * directorio = (osada_file *)fileMapped;
+		directorio = (osada_file *)fileMapped;
 		dumpFileTable(directorio);
 		fileMapped = fileMapped  + 1024 * OSADA_BLOCK_SIZE; //Muevo el offset
 	//Tabla de asignaciones
-		osada_block_pointer* asignaciones = (osada_block_pointer*)fileMapped;
+		asignaciones = (osada_block_pointer*)fileMapped;
 		dumpAllocationsTable(asignaciones);
 		fileMapped = fileMapped + (header->fs_blocks -header->allocations_table_offset) * OSADA_BLOCK_SIZE;
 
