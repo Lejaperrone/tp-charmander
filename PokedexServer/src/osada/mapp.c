@@ -7,21 +7,23 @@
 #include <fcntl.h>
 #include <commons/bitarray.h>
 #include "commons/osada.h"
+#include "commons/declarations.h"
 #include "functions/dump.h"
 
-void mappFileStructures (){
+void initOsada (char* pathOsadaDrive){
 	//Abro el archivo
 		int arch;
-		arch=open("/home/utnso/projects/tp-2016-2c-Chamba/osada.bin", O_RDWR, (mode_t)0600);
+		arch=open(pathOsadaDrive, O_RDWR, (mode_t)0600);
 		if(arch==-1){
-			perror("Cant find the file");
+			perror("No se pudo abrir el drive Osada");
 			exit(EXIT_FAILURE);
 		}
 
 	//Obtengo el  tamanio  del archivo
 		struct stat sbuf;
-		if (stat("/home/utnso/projects/tp-2016-2c-Chamba/osada.bin", &sbuf) == -1) {
-			perror("stat");
+		if (stat(pathOsadaDrive, &sbuf) == -1) {
+			close(arch);
+			perror("No se pudo obtener los atributos del drive Osada");
 			exit(EXIT_FAILURE);
 		}
 
@@ -29,27 +31,27 @@ void mappFileStructures (){
 		char* fileMapped = mmap(0, sbuf.st_size-1, PROT_WRITE, MAP_SHARED, arch, 0);
 		if (fileMapped == MAP_FAILED) {
 			close(arch);
-			perror("Error mmapping the file");
+			perror("No se pudo mappear el drive Osada");
 			exit(EXIT_FAILURE);
 		}
 
 	//Header
-		osada_header* header = (osada_header*)fileMapped;
+		header = (osada_header*)fileMapped;
 		dumpHeader(header);
 		fileMapped = fileMapped  + OSADA_BLOCK_SIZE; //Muevo el offset
 	//Bitmap
-		t_bitarray * bitmap = bitarray_create(fileMapped, header->fs_blocks/8);
+		bitmap = bitarray_create(fileMapped, header->fs_blocks/8);
 		dumpBitmap(bitmap);
 		fileMapped = fileMapped  + header->bitmap_blocks * OSADA_BLOCK_SIZE; //Muevo el offset
 	//Tabla de archivos
-		osada_file * directorio = (osada_file *)fileMapped;
+		directorio = (osada_file *)fileMapped;
 		dumpFileTable(directorio);
 		fileMapped = fileMapped  + 1024 * OSADA_BLOCK_SIZE; //Muevo el offset
 	//Tabla de asignaciones
-		osada_block_pointer* asignaciones = (osada_block_pointer*)fileMapped;
+		asignaciones = (osada_block_pointer*)fileMapped;
 		dumpAllocationsTable(asignaciones);
 		fileMapped = fileMapped + (header->fs_blocks -header->allocations_table_offset) * OSADA_BLOCK_SIZE;
 
 	//munmap????
-	close(arch);
+		close(arch);
 }

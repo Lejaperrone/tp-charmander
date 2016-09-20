@@ -9,7 +9,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "../commons/osada.h"
-#include "../bitarray.h"
+#include <commons/bitarray.h>
 
 char* stringFromOsadaFileState(osada_file_state f){
     char *strings[] = { "DELETED", "REGULAR", "DIRECTORY", /* continue for rest of values */ };

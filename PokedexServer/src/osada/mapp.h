@@ -8,6 +8,6 @@
 #ifndef OSADA_MAPP_H_
 #define OSADA_MAPP_H_
 
-void mappFileStructures ();
+void  initOsada (char* pathOsadaDrive);
 
 #endif /* OSADA_MAPP_H_ */

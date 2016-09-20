@@ -11,13 +11,13 @@
 #include <arpa/inet.h>
 #include <commons/collections/list.h>
 #include "osada/mapp.h"
+#include "osada/commons/declarations.h"
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 #define PUERTO "7666"
 
 int main(){
-	//mappFileStructures();
-	//return 1;
+	initOsada("/home/utnso/projects/tp-2016-2c-Chamba/osada.bin");
 
 	//Inicializo socket para escuchar
 		struct sockaddr_in addr;
