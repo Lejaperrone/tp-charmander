@@ -15,5 +15,6 @@
 	t_bitarray * bitmap;
 	osada_file * directorio;
 	osada_block_pointer* asignaciones;
+	osada_block * data;
 
 #endif /* OSADA_COMMONS_DECLARATIONS_C_ */
