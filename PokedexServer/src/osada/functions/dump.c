@@ -36,9 +36,6 @@ void dumpBitmap(t_bitarray * bitmap){
 	cantOcupados = 0;
 
 	for(i=0; i<bitarray_get_max_bit(bitmap); i++){
-		if(i==1064){
-			int a=1;
-		}
 		value = bitarray_test_bit_inverse_char(bitmap, i);
 		if(value){
 			cantOcupados++;
