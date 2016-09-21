@@ -28,24 +28,82 @@ t_mapa* mapa;
 char* name;
 char* pokedexPath;
 
+
+typedef struct{
+	char simbolo;
+	int posx;
+	int posy;
+	char poke;
+}posicionEntrenadorEnMapa;
+
+typedef struct proxObjetivo{
+	char simbolo;
+	char idPokemon;
+	struct proxObjetivo* sig;
+}t_proxObjetivo;
+
 t_log* archivoLog;
 t_list* t_elementosEnMapa;
 t_list* t_entrenadoresBloqueados;
 t_list* t_entrenadoresListos;
+posicionEntrenadorEnMapa* posEntrenador;
+
 void inicializarListasDeEntrenadoresParaPlanificar(){
 	t_entrenadoresBloqueados=list_create();
 	t_entrenadoresListos=list_create();
 	log_info(archivoLog,"Se crearon las listas de entrenadores listos y bloqueados\n");
 }
+void encolarEntrenadorAlIniciar(int* i,char* package, int posx, int posy){
+	posEntrenador=malloc(sizeof(posicionEntrenadorEnMapa));
+	posEntrenador->simbolo=package[0];
+	posEntrenador->posx=posx;
+	posEntrenador->posy=posy;
+	posEntrenador->poke='\0';
+	list_add(t_entrenadoresListos,posEntrenador);
+	free(posEntrenador);
+}
+
+bool filtrarPokenest(t_pokenest pokenest, char id){
+	return pokenest.identificador==id;
+}
+
+//esto se transformara en un hilo
 void hiloPlanificador(int* i, char* paquete){
-	while(strcmp(paquete,"FINOB")!=0){
-		send(*i, "QUANTUM", 7, 0);
-		int nbytes;
-		nbytes = recv(*i, (void*)paquete, 7, 0);
-		if (nbytes!=0){
-		list_add(t_elementosEnMapa,paquete);
-		nivel_gui_dibujar(t_elementosEnMapa,mapa->nombre);
+	int caracter;
+	char mensaje[8];
+	t_pokenest pokenestObjetivo;
+	char * posicion = (char *) malloc(1 + strlen((char*)pokenestObjetivo.ubicacion.x)+ strlen((char*)pokenestObjetivo.ubicacion.y) );
+	for (caracter=0;caracter<strlen(paquete);caracter++){
+		mensaje[caracter]=paquete[caracter];
 	}
+	while(strcmp(paquete,"FINOB")!=0){
+		t_entrenador entrenadorEjecutando;
+		t_coordenadas coordenadasDelTurno;
+
+		switch(mensaje[0]){
+			case 'C':
+				//obtengo la pokenest a la que quiere llegar el entrenador
+				//pokenestObjetivo=list_find(mapa->pokeNests, filtrarPokenest);
+				//Envio al entrenador la coordenada de la pokenest
+			strcpy(posicion, (char*)pokenestObjetivo.ubicacion.x);
+			strcat(posicion, (char*)pokenestObjetivo.ubicacion.y);
+			send(mensaje[7],posicion, 4,0);
+
+				break;
+
+			//case 'M':
+
+				//entrenadorEjecutando=encontrarEntrenador(&mensaje[0]);
+
+		//send(*i, "QUANTUM", 7, 0);
+		}
+		/*int nbytes;
+		nbytes = recv(*i, (void*)paquete, 7, 0);
+			if (nbytes!=0){
+						list_add(t_elementosEnMapa,paquete);
+						nivel_gui_dibujar(t_elementosEnMapa,mapa->nombre);
+						}*/
+
 	}
 }
 void sigusr2_handler(int signum){
@@ -69,6 +127,8 @@ int main(int argc, char *argv[]){
 	//Alloco memoria de  mapa e inicializo su informacion
 		mapa = (t_mapa*) malloc(sizeof(t_mapa));
 		leerConfiguracion(mapa, name, pokedexPath);
+	//Creo el hilo planificador
+
 
 	//Creo archivo de log y logueo informacion del mapa
 
@@ -138,6 +198,7 @@ int main(int argc, char *argv[]){
 									fdmax = newfd;
 								}
 								log_trace(archivoLog, "selectserver: new connection from %s on ""socket %d", inet_ntoa(addr.sin_addr),newfd);
+
 							}
 						} else {
 							//Si es un socket existente
@@ -159,9 +220,10 @@ int main(int argc, char *argv[]){
 								// tenemos datos de algún cliente
 								if (nbytes != 0){
 									CrearPersonaje(t_elementosEnMapa,package[0],1,1);
+									encolarEntrenadorAlIniciar(&i,package,1,1);
 									//list_add(t_entrenadores,&(package[0]));
 									nivel_gui_dibujar(t_elementosEnMapa,mapa->nombre);
-									hiloPlanificador(&i,package);
+
 								}
 							}
 						}
@@ -178,5 +240,7 @@ int main(int argc, char *argv[]){
 	//Termino el mapa
 	return 0;
 }
+
+
 
 
