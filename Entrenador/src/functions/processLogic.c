@@ -17,20 +17,25 @@
 #include "../socketLib.h"
 #include "positions.h"
 
+
+
 void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa){
 	printf("Inicio objetivo %s.\n", objetivo->nombre);
 
 	char quantum[7];
 
-	while(objetivo->logrado==0 && recv(serverMapa, (void*)quantum, 7, 0) == 7 && strcmp(quantum, "QUANTUM")){ //aca deberia esperar al siguiente quantum.
+	while(objetivo->logrado==0 && recv(serverMapa, (void*)quantum, 8, 0) <= 8 /*&& strcmp(quantum, "QUANTUM")*/){ //aca deberia esperar al siguiente quantum.
 		if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){ //Obtengo ubicacion de pokenest
 			//Creo el mensaje
 				char* mensaje = string_new();
+				string_append(&mensaje,&(entrenador->simbolo));
 				string_append(&mensaje, "CAPTU");
 				string_append(&mensaje, objetivo->nombre);
+				//string_append(&mensaje,(char)*socketEntrenador);
+
 
 			//Envio el mensaje
-				int resp = send(serverMapa, &mensaje, 6, 0);
+				int resp = send(serverMapa, &mensaje, 8, 0);
 				if(resp == -1){
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
@@ -38,7 +43,13 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 			//Espero la respuesta
 				char x[2], y[2];
-				if (recv(serverMapa, (void*)x, 2, 0) == 2 && recv(serverMapa, (void*)y, 2, 0) == 2) {
+				//if (recv(serverMapa, (void*)x, 2, 0) == 2 && recv(serverMapa, (void*)y, 2, 0) == 2)
+				if (recv(serverMapa,(void*)mensaje,4,0)<=4)
+				{
+					x[0]=mensaje[0];
+					x[1]=mensaje[1];
+					y[0]=mensaje[2];
+					y[1]=mensaje[3];
 					objetivo->ubicacion.x = atoi(x);
 					objetivo->ubicacion.y = atoi(y);
 				}
@@ -75,7 +86,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			}
 
 			//Envio el mensaje
-				int resp = send(serverMapa, &mensaje, 6, 0);
+				int resp = send(serverMapa, &mensaje, 8, 0);
 				if(resp == -1){
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
@@ -83,7 +94,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 		}else{ //Tengo que solicitar el pokemon
 			char* mensaje ="FINOB";
-			int resp = send(serverMapa, &mensaje, 5, 0);
+			int resp = send(serverMapa, &mensaje, 8, 0);
 			if(resp == -1){
 				printf("No pude enviar el mensaje: %s\n", mensaje);
 				exit(EXIT_FAILURE);
@@ -97,6 +108,8 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 void procesarMapa(t_mapa* mapa){
 	int serverMapa;
+	//Defino el socket con el que se va a manejar el entrenador durante todo el transcurso del mapa
+
 	//Me conecto al mapa
 		printf("Conectandose al mapa %s...\n", mapa->nombre);
 		create_socketClient(&serverMapa, mapa->ip, mapa->puerto);
@@ -109,6 +122,7 @@ void procesarMapa(t_mapa* mapa){
 			printf("No me pude identificar con el mapa");
 			exit(EXIT_FAILURE);
 		}
+
 
 	//Recorro los objetivos  y los proceso
 		int j;

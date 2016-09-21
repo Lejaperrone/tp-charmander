@@ -38,7 +38,7 @@ void accept_connection(int listenningSocket, int* clientSocket){
 	*clientSocket = accept(listenningSocket, (struct sockaddr *) &addr, &addrlen);
 }
 
-void create_socketClient(int* serverSocket, char* ip, char* port){
+int* create_socketClient(int* serverSocket, char* ip, char* port){
 
 	struct addrinfo hints;
 	struct addrinfo *serverInfo;
@@ -49,9 +49,10 @@ void create_socketClient(int* serverSocket, char* ip, char* port){
 
 	getaddrinfo(ip, port, &hints, &serverInfo);
 
-	*serverSocket = socket(serverInfo->ai_family, serverInfo->ai_socktype, serverInfo->ai_protocol);
+	*serverSocket=socket(serverInfo->ai_family, serverInfo->ai_socktype, serverInfo->ai_protocol);
 
 	connect(*serverSocket, serverInfo->ai_addr, serverInfo->ai_addrlen);
 
 	freeaddrinfo(serverInfo);
+	return serverSocket;
 }
