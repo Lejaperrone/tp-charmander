@@ -36,23 +36,23 @@ void initOsada (char* pathOsadaDrive){
 		}
 
 	//Header
-		header = (osada_header*)fileMapped;
-		dumpHeader(header);
+		osada_drive.header = (osada_header*)fileMapped;
+		//dumpHeader(header);
 		fileMapped = fileMapped  + OSADA_BLOCK_SIZE; //Muevo el offset
 	//Bitmap
-		bitmap = bitarray_create(fileMapped, header->fs_blocks/8);
-		dumpBitmap(bitmap);
-		fileMapped = fileMapped  + header->bitmap_blocks * OSADA_BLOCK_SIZE; //Muevo el offset
+		osada_drive.bitmap = bitarray_create(fileMapped, osada_drive.header->fs_blocks/8);
+		//dumpBitmap(bitmap);
+		fileMapped = fileMapped  + osada_drive.header->bitmap_blocks * OSADA_BLOCK_SIZE; //Muevo el offset
 	//Tabla de archivos
-		directorio = (osada_file *)fileMapped;
-		dumpFileTable(directorio);
+		osada_drive.directorio = (osada_file *)fileMapped;
+		//dumpFileTable(directorio);
 		fileMapped = fileMapped  + 1024 * OSADA_BLOCK_SIZE; //Muevo el offset
 	//Tabla de asignaciones
-		asignaciones = (osada_block_pointer*)fileMapped;
-		dumpAllocationsTable(asignaciones);
-		fileMapped = fileMapped + (header->fs_blocks -header->allocations_table_offset - header->data_blocks) * OSADA_BLOCK_SIZE;
+		osada_drive.asignaciones = (osada_block_pointer*)fileMapped;
+		//dumpAllocationsTable(asignaciones);
+		fileMapped = fileMapped + (osada_drive.header->fs_blocks - osada_drive.header->allocations_table_offset - osada_drive.header->data_blocks) * OSADA_BLOCK_SIZE;
 	//Data
-		data = (osada_block*)fileMapped;
+		osada_drive.data = (osada_block*)fileMapped;
 	//munmap????
 		close(arch);
 }

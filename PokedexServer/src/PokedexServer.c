@@ -10,14 +10,14 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <commons/collections/list.h>
-#include "osada/mapp.h"
-#include "osada/commons/declarations.h"
+#include "osada/osada.h"
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 #define PUERTO "7666"
 
 int main(){
-	initOsada("/home/utnso/projects/tp-2016-2c-Chamba/osada.bin");
+	//Osada
+		osada_init("../../osada.bin");
 
 	//Inicializo socket para escuchar
 		struct sockaddr_in addr;
@@ -94,6 +94,7 @@ int main(){
 
 	//Termino el mapa
 	return 0;
+
 }
 
 
