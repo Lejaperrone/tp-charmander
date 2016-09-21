@@ -16,6 +16,9 @@
 #define PUERTO "7666"
 
 int main(){
+	//Osada
+		osada_init("../../osada.bin");
+
 	//Inicializo socket para escuchar
 		struct sockaddr_in addr;
 		socklen_t addrlen = sizeof(addr);
@@ -91,8 +94,6 @@ int main(){
 
 	//Termino el mapa
 	return 0;
-
-	initOsada("../../osada.bin");
 
 }
 
