@@ -5,15 +5,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/Mapa.c \
-../src/socketLib.c 
+../src/socketLib.c \
+../src/test.c 
 
 OBJS += \
 ./src/Mapa.o \
-./src/socketLib.o 
+./src/socketLib.o \
+./src/test.o 
 
 C_DEPS += \
 ./src/Mapa.d \
-./src/socketLib.d 
+./src/socketLib.d \
+./src/test.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

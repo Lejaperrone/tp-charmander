@@ -50,8 +50,9 @@ void initOsada (char* pathOsadaDrive){
 	//Tabla de asignaciones
 		asignaciones = (osada_block_pointer*)fileMapped;
 		dumpAllocationsTable(asignaciones);
-		fileMapped = fileMapped + (header->fs_blocks -header->allocations_table_offset) * OSADA_BLOCK_SIZE;
-
+		fileMapped = fileMapped + (header->fs_blocks -header->allocations_table_offset - header->data_blocks) * OSADA_BLOCK_SIZE;
+	//Data
+		data = (osada_block*)fileMapped;
 	//munmap????
 		close(arch);
 }
