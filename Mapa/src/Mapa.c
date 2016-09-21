@@ -29,6 +29,7 @@ char* name;
 char* pokedexPath;
 
 
+
 typedef struct{
 	char simbolo;
 	int posx;
@@ -53,6 +54,7 @@ void inicializarListasDeEntrenadoresParaPlanificar(){
 	t_entrenadoresListos=list_create();
 	log_info(archivoLog,"Se crearon las listas de entrenadores listos y bloqueados\n");
 }
+
 void encolarEntrenadorAlIniciar(int* i,char* package, int posx, int posy){
 	posEntrenador=malloc(sizeof(posicionEntrenadorEnMapa));
 	posEntrenador->simbolo=package[0];
@@ -63,12 +65,25 @@ void encolarEntrenadorAlIniciar(int* i,char* package, int posx, int posy){
 	free(posEntrenador);
 }
 
+void posicionarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, int* posicionInicial){
+	CrearPersonaje(t_elementosEnMapa,package[0],1,1);
+	encolarEntrenadorAlIniciar(&socket,package,1,1);
+	//list_add(t_entrenadores,&(package[0]));
+	nivel_gui_dibujar(t_elementosEnMapa,mapa->nombre);
+	*posicionInicial=1;
+}
+
+
+
 bool filtrarPokenest(t_pokenest pokenest, char id){
 	return pokenest.identificador==id;
 }
 
 //esto se transformara en un hilo
 void hiloPlanificador(int* i, char* paquete){
+	while(1){
+
+
 	int caracter;
 	char mensaje[8];
 	t_pokenest pokenestObjetivo;
@@ -104,6 +119,7 @@ void hiloPlanificador(int* i, char* paquete){
 						nivel_gui_dibujar(t_elementosEnMapa,mapa->nombre);
 						}*/
 
+	}
 	}
 }
 void sigusr2_handler(int signum){
@@ -219,10 +235,9 @@ int main(int argc, char *argv[]){
 							} else {
 								// tenemos datos de algún cliente
 								if (nbytes != 0){
-									CrearPersonaje(t_elementosEnMapa,package[0],1,1);
-									encolarEntrenadorAlIniciar(&i,package,1,1);
-									//list_add(t_entrenadores,&(package[0]));
-									nivel_gui_dibujar(t_elementosEnMapa,mapa->nombre);
+									int posicionInicial=0;
+									posicionarEntrenadorEnElOrigen(&i,&package,1,1,&posicionInicial);
+
 
 								}
 							}
