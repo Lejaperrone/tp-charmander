@@ -28,18 +28,15 @@ t_mapa* mapa;
 char* name;
 char* pokedexPath;
 
-
-
 typedef struct{
 	char simbolo;
 	int posx;
 	int posy;
-	char poke;
 }posicionEntrenadorEnMapa;
 
 typedef struct proxObjetivo{
 	char simbolo;
-	char idPokemon;
+	char pokenest;
 	struct proxObjetivo* sig;
 }t_proxObjetivo;
 
@@ -48,6 +45,8 @@ t_list* t_elementosEnMapa;
 t_list* t_entrenadoresBloqueados;
 t_list* t_entrenadoresListos;
 posicionEntrenadorEnMapa* posEntrenador;
+t_proxObjetivo* objetivo;
+t_list* objetivos;
 
 void inicializarListasDeEntrenadoresParaPlanificar(){
 	t_entrenadoresBloqueados=list_create();
@@ -60,14 +59,17 @@ void encolarEntrenadorAlIniciar(int* i,char* package, int posx, int posy){
 	posEntrenador->simbolo=package[0];
 	posEntrenador->posx=posx;
 	posEntrenador->posy=posy;
-	posEntrenador->poke='\0';
+	objetivo=malloc(sizeof(t_proxObjetivo));
+	objetivo->simbolo=package[0];
+	objetivo->pokenest='\0';
+	objetivo->sig=NULL;
 	list_add(t_entrenadoresListos,posEntrenador);
 	free(posEntrenador);
 }
 
 void posicionarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, int* posicionInicial){
 	CrearPersonaje(t_elementosEnMapa,package[0],1,1);
-	encolarEntrenadorAlIniciar(&socket,package,1,1);
+	encolarEntrenadorAlIniciar(socket,package,1,1);
 	//list_add(t_entrenadores,&(package[0]));
 	nivel_gui_dibujar(t_elementosEnMapa,mapa->nombre);
 	*posicionInicial=1;
@@ -92,8 +94,8 @@ void hiloPlanificador(int* i, char* paquete){
 		mensaje[caracter]=paquete[caracter];
 	}
 	while(strcmp(paquete,"FINOB")!=0){
-		t_entrenador entrenadorEjecutando;
-		t_coordenadas coordenadasDelTurno;
+		//t_entrenador entrenadorEjecutando;
+		//t_coordenadas coordenadasDelTurno;
 
 		switch(mensaje[0]){
 			case 'C':
@@ -236,7 +238,7 @@ int main(int argc, char *argv[]){
 								// tenemos datos de algún cliente
 								if (nbytes != 0){
 									int posicionInicial=0;
-									posicionarEntrenadorEnElOrigen(&i,&package,1,1,&posicionInicial);
+									posicionarEntrenadorEnElOrigen(&i,package,1,1,&posicionInicial);
 
 
 								}
