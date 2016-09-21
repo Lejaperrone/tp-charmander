@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #include <commons/collections/list.h>
 #include "commons/declarations.h"
@@ -44,20 +45,40 @@ int osada_init(char* path){
 
 
 	t_list * l = list_create();
-	osada_readdir("/test1", l);
-
-	int j;
-	for(j=0; j<list_size(l); j++){
-			char* pokenest = (char*)list_get(l, j);
-			printf("%s\n",pokenest);
+	if(osada_readdir("/test1", l) == 0){
+		int j;
+		for(j=0; j<list_size(l); j++){
+				char* pokenest = (char*)list_get(l, j);
+				printf("%s\n",pokenest);
+		}
 	}
+
+
 }
 
 int osada_readdir(char* path, t_list* directorios){
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
 		u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path);
-	//Obtengo los directorios
-		osada_TA_obtenerDirectorios(parent, directorios);
-	//Return
-		return 0;
+		if(parent>=0){
+			//Obtengo los directorios
+				osada_TA_obtenerDirectorios(parent, directorios);
+			//Return
+				return 0;
+		}else{
+			//Return
+				return parent;
+		}
+
+}
+
+int osada_getattr(char* path, t_list* attrs){
+	return -ENOENT;
+}
+
+int osada_read(char *path, char *buf, size_t size, off_t offset){
+	return -ENOENT;
+}
+
+int osada_open(char* path){
+	return -ENOENT;
 }

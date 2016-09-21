@@ -9,11 +9,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <commons/collections/list.h>
+#include <signal.h>
 
 #ifndef OSADA_OSADA_H_
 #define OSADA_OSADA_H_
 
-int osada_readdir(char* path, t_list* directorios);
 int osada_init(char* path);
+int osada_readdir(char* path, t_list* directorios);
+int osada_getattr(char* path, t_list* attrs);
+int osada_read(char *path, char *buf, size_t size, off_t offset);
+int osada_open(char* path);
 
 #endif /* OSADA_OSADA_H_ */
