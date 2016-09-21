@@ -14,5 +14,6 @@
 #define OSADA_OSADA_H_
 
 int osada_readdir(char* path, t_list* directorios);
+int osada_init(char* path);
 
 #endif /* OSADA_OSADA_H_ */
