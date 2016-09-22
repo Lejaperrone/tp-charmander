@@ -28,25 +28,20 @@ t_mapa* mapa;
 char* name;
 char* pokedexPath;
 
-typedef struct{
+typedef struct entrenadorEnMapa{
 	char simbolo;
 	int posx;
 	int posy;
-}posicionEntrenadorEnMapa;
-
-typedef struct proxObjetivo{
-	char simbolo;
-	char pokenest;
-	struct proxObjetivo* sig;
-}t_proxObjetivo;
+	char* pokemonesCapturados;
+	int mapaFinalizado;
+	struct entrenadorEnMapa* sig;
+}t_entrenadorEnMapa;
 
 t_log* archivoLog;
 t_list* t_elementosEnMapa;
 t_list* t_entrenadoresBloqueados;
 t_list* t_entrenadoresListos;
-posicionEntrenadorEnMapa* posEntrenador;
-t_proxObjetivo* objetivo;
-t_list* objetivos;
+t_list* entrenadoresEnMapa;
 
 void inicializarListasDeEntrenadoresParaPlanificar(){
 	t_entrenadoresBloqueados=list_create();
@@ -54,22 +49,21 @@ void inicializarListasDeEntrenadoresParaPlanificar(){
 	log_info(archivoLog,"Se crearon las listas de entrenadores listos y bloqueados\n");
 }
 
-void encolarEntrenadorAlIniciar(int* i,char* package, int posx, int posy){
-	posEntrenador=malloc(sizeof(posicionEntrenadorEnMapa));
-	posEntrenador->simbolo=package[0];
-	posEntrenador->posx=posx;
-	posEntrenador->posy=posy;
-	objetivo=malloc(sizeof(t_proxObjetivo));
-	objetivo->simbolo=package[0];
-	objetivo->pokenest='\0';
-	objetivo->sig=NULL;
-	list_add(t_entrenadoresListos,posEntrenador);
-	free(posEntrenador);
+void encolarEntrenadorAlIniciar(int* i,char* package){
+	t_entrenadorEnMapa nuevoEntrenador;
+	entrenadoresEnMapa=malloc(sizeof(t_entrenadorEnMapa));
+	nuevoEntrenador.posx=0;
+	nuevoEntrenador.posy=0;
+	nuevoEntrenador.pokemonesCapturados=NULL;
+	nuevoEntrenador.mapaFinalizado=0;
+	nuevoEntrenador.simbolo=package[0];
+	nuevoEntrenador.sig=NULL;
+	list_add(entrenadoresEnMapa,&nuevoEntrenador);
+	free(entrenadoresEnMapa);
 }
 
-void posicionarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, int* posicionInicial){
+void dibujarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, int* posicionInicial){
 	CrearPersonaje(t_elementosEnMapa,package[0],1,1);
-	encolarEntrenadorAlIniciar(socket,package,1,1);
 	//list_add(t_entrenadores,&(package[0]));
 	nivel_gui_dibujar(t_elementosEnMapa,mapa->nombre);
 	*posicionInicial=1;
@@ -82,45 +76,45 @@ bool filtrarPokenest(t_pokenest pokenest, char id){
 }
 
 //esto se transformara en un hilo
-void hiloPlanificador(int* i, char* paquete){
+void enviarAlPlanificador(int* i, char* paquete){
 	while(1){
-
-
-	int caracter;
+	log_info(archivoLog,"entra al planificador: %c\n",paquete[0]);
+	//Intento recibir un mensaje del entrenador
+	int peticion=recv(*i,paquete,7,0);
 	char mensaje[8];
 	t_pokenest pokenestObjetivo;
 	char * posicion = (char *) malloc(1 + strlen((char*)pokenestObjetivo.ubicacion.x)+ strlen((char*)pokenestObjetivo.ubicacion.y) );
-	for (caracter=0;caracter<strlen(paquete);caracter++){
-		mensaje[caracter]=paquete[caracter];
+	if (peticion<=7){
+			int caracter;
+			for (caracter=0;caracter<strlen(paquete);caracter++){
+				mensaje[caracter]=paquete[caracter];
+			}
+			log_info(archivoLog,"%c quiere %c a %c\n",mensaje[0],mensaje[1],mensaje[6]);
 	}
-	while(strcmp(paquete,"FINOB")!=0){
+		log_info(archivoLog,"%s\n",mensaje);
+
+	while(mensaje[1]!='F'){
 		//t_entrenador entrenadorEjecutando;
 		//t_coordenadas coordenadasDelTurno;
-
-		switch(mensaje[0]){
+		log_info(archivoLog,"%c no finalizo su objetivo\n",mensaje[0]);
+		switch(mensaje[1]){
 			case 'C':
 				//obtengo la pokenest a la que quiere llegar el entrenador
 				//pokenestObjetivo=list_find(mapa->pokeNests, filtrarPokenest);
 				//Envio al entrenador la coordenada de la pokenest
+
 			strcpy(posicion, (char*)pokenestObjetivo.ubicacion.x);
 			strcat(posicion, (char*)pokenestObjetivo.ubicacion.y);
-			send(mensaje[7],posicion, 4,0);
+				log_info(archivoLog,"la posicion x de la pokenest es %d\n",pokenestObjetivo.ubicacion.x);
+			send(*i,posicion, 4,0);
 
 				break;
 
-			//case 'M':
-
-				//entrenadorEjecutando=encontrarEntrenador(&mensaje[0]);
-
-		//send(*i, "QUANTUM", 7, 0);
+			case 'M':
+				//entrenadorEjecutando=list_get(t_entrenadoresListos,0);
+			send(*i, "QUANTUM", 7, 0);
+			break;
 		}
-		/*int nbytes;
-		nbytes = recv(*i, (void*)paquete, 7, 0);
-			if (nbytes!=0){
-						list_add(t_elementosEnMapa,paquete);
-						nivel_gui_dibujar(t_elementosEnMapa,mapa->nombre);
-						}*/
-
 	}
 	}
 }
@@ -238,8 +232,10 @@ int main(int argc, char *argv[]){
 								// tenemos datos de algún cliente
 								if (nbytes != 0){
 									int posicionInicial=0;
-									posicionarEntrenadorEnElOrigen(&i,package,1,1,&posicionInicial);
-
+									encolarEntrenadorAlIniciar(&i,package);
+									dibujarEntrenadorEnElOrigen(&i,package,1,1,&posicionInicial);
+									send(i,"QUANTUM",7,0);
+									enviarAlPlanificador(&i,package);
 
 								}
 							}

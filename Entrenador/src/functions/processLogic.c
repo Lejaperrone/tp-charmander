@@ -31,15 +31,17 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 				string_append(&mensaje,&(entrenador->simbolo));
 				string_append(&mensaje, "CAPTU");
 				string_append(&mensaje, objetivo->nombre);
+				printf("el mensaje que voy a enviar es: %s\n",mensaje);
 				//string_append(&mensaje,(char)*socketEntrenador);
 
 
 			//Envio el mensaje
-				int resp = send(serverMapa, &mensaje, 8, 0);
+				int resp = send(serverMapa, mensaje, 8, 0);
 				if(resp == -1){
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
 				}
+				printf("envie el mensaje %s\n",mensaje);
 
 			//Espero la respuesta
 				char x[2], y[2];
