@@ -53,7 +53,7 @@ void osada_TA_obtenerDirectorios(u_int16_t parent, t_list* directorio){
 	return;
 }
 
-u_int16_t osada_TA_obtenerUltimoHijoFromPath(char* path){
+int osada_TA_obtenerUltimoHijoFromPath(char* path){
 	char ** dirc = string_split(path, "/");
 	u_int16_t child = 0xFFFF;
 	int i=0;
