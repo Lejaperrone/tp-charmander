@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "socketLib.h"
+#include "string.h"
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <commons/collections/list.h>
@@ -61,6 +62,13 @@ void encolarEntrenadorAlIniciar(int* i,char* package){
 	list_add(entrenadoresEnMapa,&nuevoEntrenador);
 	free(entrenadoresEnMapa);
 }
+t_pokenest *find_pokenest_by_id(char id) {
+            		int _is_the_one(t_pokenest *p) {
+            			return (p->identificador==id);
+
+            	}
+            		return list_find(mapa->pokeNests, (void*) _is_the_one);
+}
 
 void dibujarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, int* posicionInicial){
 	CrearPersonaje(t_elementosEnMapa,package[0],1,1);
@@ -69,11 +77,6 @@ void dibujarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, i
 	*posicionInicial=1;
 }
 
-
-
-bool filtrarPokenest(t_pokenest pokenest, char id){
-	return pokenest.identificador==id;
-}
 
 //esto se transformara en un hilo
 void enviarAlPlanificador(int* i, char* paquete){
@@ -103,8 +106,9 @@ void enviarAlPlanificador(int* i, char* paquete){
 				//pokenestObjetivo=list_find(mapa->pokeNests, filtrarPokenest);
 				//Envio al entrenador la coordenada de la pokenest
 
-			strcpy(posicion, (char*)pokenestObjetivo.ubicacion.x);
-			strcat(posicion, (char*)pokenestObjetivo.ubicacion.y);
+
+			strcpy(posicion, (char*)find_pokenest_by_id(mensaje[6])->ubicacion.x);
+			strcat(posicion, (char*)find_pokenest_by_id(mensaje[6])->ubicacion.y);
 				log_info(archivoLog,"la posicion x de la pokenest es %d\n",pokenestObjetivo.ubicacion.x);
 			send(*i,posicion, 4,0);
 
