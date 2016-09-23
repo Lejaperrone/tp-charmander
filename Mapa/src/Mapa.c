@@ -31,6 +31,7 @@ char* pokedexPath;
 
 typedef struct entrenadorEnMapa{
 	char simbolo;
+	int socket;
 	int posx;
 	int posy;
 	char* pokemonesCapturados;
@@ -53,6 +54,7 @@ void inicializarListasDeEntrenadoresParaPlanificar(){
 void encolarEntrenadorAlIniciar(int* i,char* package){
 	t_entrenadorEnMapa nuevoEntrenador;
 	entrenadoresEnMapa=malloc(sizeof(t_entrenadorEnMapa));
+	nuevoEntrenador.socket=*i;
 	nuevoEntrenador.posx=0;
 	nuevoEntrenador.posy=0;
 	nuevoEntrenador.pokemonesCapturados=NULL;
