@@ -57,7 +57,7 @@ t_pokenest* createPokeNest(char* pathPokenest, char* name){
 		char* pos = config_get_string_value(configPokeNest, "Posicion");
 		char** ub = string_split(pos, ";");
 		pokenest->ubicacion.x = atoi(ub[0]);
-		pokenest->ubicacion.x = atoi(ub[1]);
+		pokenest->ubicacion.y = atoi(ub[1]);
 		pokenest->pokemons = list_create();
 
 		free(configPokeNest);

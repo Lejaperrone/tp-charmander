@@ -123,8 +123,8 @@ void enviarAlPlanificador(int* i, char* paquete){
 				log_info(archivoLog,"Posicion en y %s\n",posy);
 				string_append(&posicion,posx);
 				string_append(&posicion,posy);
-				log_info(archivoLog,"La posicion que voy a mandar es: %s\n",posicion);
-				send(*i,posicion, 4,0);
+				send(*i,posx, 2,0);
+				send(*i, posy,2,0);
 				break;
 			case 'M':
 				//entrenadorEjecutando=list_get(t_entrenadoresListos,0);

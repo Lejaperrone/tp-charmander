@@ -48,21 +48,25 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			//Espero la respuesta
 				char x[2], y[2];
 				//if (recv(serverMapa, (void*)x, 2, 0) == 2 && recv(serverMapa, (void*)y, 2, 0) == 2)
-				int recibirPokenest(int serverMapa, char* mensaje, int size, int s){
-					return recv(serverMapa,(void*)mensaje,4,0);
+				int recibirPosicionX(int serverMapa, char* mensaje, int size, int s){
+					return recv(serverMapa,(void*)mensaje,2,0);
+				}
+				int recibirPosicionY(int serverMapa, char* mensaje, int size, int s){
+									return recv(serverMapa,(void*)mensaje,2,0);
 				}
 
-				if (recibirPokenest(serverMapa, (void*)mensaje,4, 0)<=4)
+				if (recibirPosicionX(serverMapa, (void*)mensaje,2, 0)<=2)
 				{
 					x[0]=mensaje[0];
 					x[1]=mensaje[1];
-					y[0]=mensaje[2];
-					y[1]=mensaje[3];
 					objetivo->ubicacion.x = atoi(x);
-					objetivo->ubicacion.y = atoi(y);
 				}
-
-			printf("Obtuve posicion x:%d, y: %d.\n", objetivo->ubicacion.x, objetivo->ubicacion.y);
+				if (recibirPosicionY(serverMapa, (void*)mensaje,2, 0)<=2){
+					y[0]=mensaje[0];
+					y[1]=mensaje[1];
+					objetivo->ubicacion.y=atoi(y);
+				}
+				printf("Obtuve posicion x:%d, y: %d.\n", objetivo->ubicacion.x, objetivo->ubicacion.y);
 		}else if((*movimiento = siguienteMovimiento(mapa->miPosicion, objetivo, *movimiento))){ //Me muevo
 
 			//Creo el mensaje
