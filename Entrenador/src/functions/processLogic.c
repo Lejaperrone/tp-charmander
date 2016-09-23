@@ -35,7 +35,10 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 
 			//Envio el mensaje
-				int resp = send(serverMapa, mensaje, 6, 0);
+				int pedirPokenest(int serverMapa, char* mensaje, int size, int s){
+					return send(serverMapa, mensaje, 6, 0);
+				}
+				int resp = pedirPokenest(serverMapa, mensaje, 6, 0);
 				if(resp == -1){
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
@@ -45,7 +48,11 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			//Espero la respuesta
 				char x[2], y[2];
 				//if (recv(serverMapa, (void*)x, 2, 0) == 2 && recv(serverMapa, (void*)y, 2, 0) == 2)
-				if (recv(serverMapa,(void*)mensaje,4,0)<=4)
+				int recibirPokenest(int serverMapa, char* mensaje, int size, int s){
+					return recv(serverMapa,(void*)mensaje,4,0);
+				}
+
+				if (recibirPokenest(serverMapa, (void*)mensaje,4, 0)<=4)
 				{
 					x[0]=mensaje[0];
 					x[1]=mensaje[1];
@@ -87,7 +94,10 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			}
 
 			//Envio el mensaje
-				int resp = send(serverMapa, &mensaje, 6, 0);
+			int moverse(int serverMapa,char** mensaje, int size, int s){
+				return send(serverMapa, &mensaje, 6, 0);
+			}
+			int resp = moverse(serverMapa, &mensaje, 6, 0);
 				if(resp == -1){
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
