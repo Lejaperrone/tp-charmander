@@ -82,9 +82,7 @@ void dibujarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, i
 
 //esto se transformara en un hilo
 void enviarAlPlanificador(int* i, char* paquete){
-	char* posicion=malloc(sizeof(char));
-	char* posy=malloc(sizeof(char));
-	char* posx=malloc(sizeof(char));
+
 	while(1){
 	log_info(archivoLog,"entra al planificador: %c\n",paquete[0]);
 	//Intento recibir un mensaje del entrenador
@@ -115,17 +113,19 @@ void enviarAlPlanificador(int* i, char* paquete){
 				//pokenestObjetivo=list_find(mapa->pokeNests, filtrarPokenest);
 				//Envio al entrenador la coordenada de la pokenest
 				;
-
+				char* posicion=malloc(sizeof(char));
+					char* posy=malloc(sizeof(char));
+					char* posx=malloc(sizeof(char));
 				log_info(archivoLog,"Quiere capturar un pokemon\n");
 				sprintf(posx,"%i",pokenestObjetivo.ubicacion.x);
-				log_info(archivoLog,"Posicion en x\n",posx);
+				log_info(archivoLog,"Posicion en x %s\n",posx);
 				sprintf(posy,"%i",pokenestObjetivo.ubicacion.y);
-				log_info(archivoLog,"Posicion en y\n",posy);
-				//string_append_with_format(&posicion,posx,posy);
-		//	send(*i,posicion, 4,0);
-
+				log_info(archivoLog,"Posicion en y %s\n",posy);
+				string_append(&posicion,posx);
+				string_append(&posicion,posy);
+				log_info(archivoLog,"La posicion que voy a mandar es: %s\n",posicion);
+				send(*i,posicion, 4,0);
 				break;
-
 			case 'M':
 				//entrenadorEjecutando=list_get(t_entrenadoresListos,0);
 			send(*i, "QUANTUM", 7, 0);
