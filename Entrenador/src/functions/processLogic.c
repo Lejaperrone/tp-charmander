@@ -24,11 +24,10 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 	char quantum[7];
 
-	while(objetivo->logrado==0 && recv(serverMapa, (void*)quantum, 8, 0) <= 8 /*&& strcmp(quantum, "QUANTUM")*/){ //aca deberia esperar al siguiente quantum.
+	while(objetivo->logrado==0 && recv(serverMapa, (void*)quantum, 6, 0) <= 6 /*&& strcmp(quantum, "QUANTUM")*/){ //aca deberia esperar al siguiente quantum.
 		if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){ //Obtengo ubicacion de pokenest
 			//Creo el mensaje
 				char* mensaje = string_new();
-				string_append(&mensaje,&(entrenador->simbolo));
 				string_append(&mensaje, "CAPTU");
 				string_append(&mensaje, objetivo->nombre);
 				printf("el mensaje que voy a enviar es: %s\n",mensaje);
@@ -36,7 +35,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 
 			//Envio el mensaje
-				int resp = send(serverMapa, mensaje, 8, 0);
+				int resp = send(serverMapa, mensaje, 6, 0);
 				if(resp == -1){
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
@@ -88,7 +87,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			}
 
 			//Envio el mensaje
-				int resp = send(serverMapa, &mensaje, 8, 0);
+				int resp = send(serverMapa, &mensaje, 6, 0);
 				if(resp == -1){
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
@@ -96,7 +95,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 		}else{ //Tengo que solicitar el pokemon
 			char* mensaje ="FINOB";
-			int resp = send(serverMapa, &mensaje, 8, 0);
+			int resp = send(serverMapa, &mensaje, 6, 0);
 			if(resp == -1){
 				printf("No pude enviar el mensaje: %s\n", mensaje);
 				exit(EXIT_FAILURE);

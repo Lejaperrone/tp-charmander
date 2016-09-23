@@ -82,42 +82,47 @@ void dibujarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, i
 
 //esto se transformara en un hilo
 void enviarAlPlanificador(int* i, char* paquete){
+	char* posicion=malloc(sizeof(char));
+	char* posy=malloc(sizeof(char));
+	char* posx=malloc(sizeof(char));
 	while(1){
 	log_info(archivoLog,"entra al planificador: %c\n",paquete[0]);
 	//Intento recibir un mensaje del entrenador
-	int peticion=recv(*i,paquete,7,0);
-	char mensaje[8];
+	int peticion=recv(*i,paquete,6,0);
 	t_pokenest pokenestObjetivo;
 
-	if(paquete[1]== 'C' && paquete[2]== 'A' && paquete[3]== 'P' && paquete[4]== 'T' && paquete[5]== 'U'){
-		pokenestObjetivo = find_pokenest_by_id(paquete[6])[0];
+	if(paquete[0]== 'C' && paquete[1]== 'A' && paquete[2]== 'P' && paquete[3]== 'T' && paquete[4]== 'U'){
+		pokenestObjetivo = find_pokenest_by_id(paquete[5])[0];
 		log_info(archivoLog,"encontre pokenest %d, %d\n",pokenestObjetivo.ubicacion.x, pokenestObjetivo.ubicacion.y);
 	}
-	char * posicion = (char *) malloc(1 + strlen((char*)pokenestObjetivo.ubicacion.x)+ strlen((char*)pokenestObjetivo.ubicacion.y) );
-	if (peticion<=7){
+
+	/*if (peticion<=6){
 			int caracter;
 			for (caracter=0;caracter<strlen(paquete);caracter++){
 				mensaje[caracter]=paquete[caracter];
 			}
 			log_info(archivoLog,"%c quiere %c a %c\n",mensaje[0],mensaje[1],mensaje[6]);
-	}
-		log_info(archivoLog,"%s\n",mensaje);
+	}*/
+		//log_info(archivoLog,"%s\n",mensaje);
 
-	while(mensaje[1]!='F'){
+	while(paquete[0]!='F'){
 		//t_entrenador entrenadorEjecutando;
 		//t_coordenadas coordenadasDelTurno;
-		log_info(archivoLog,"%c no finalizo su objetivo\n",mensaje[0]);
-		switch(mensaje[1]){
+		log_info(archivoLog,"%c no finalizo su objetivo\n",paquete[0]);
+		switch(paquete[0]){
 			case 'C':
 				//obtengo la pokenest a la que quiere llegar el entrenador
 				//pokenestObjetivo=list_find(mapa->pokeNests, filtrarPokenest);
 				//Envio al entrenador la coordenada de la pokenest
+				;
 
-
-			strcpy(posicion, (char*)pokenestObjetivo.ubicacion.x);
-			strcat(posicion, (char*)pokenestObjetivo.ubicacion.y);
-				log_info(archivoLog,"la posicion x de la pokenest es %d\n",pokenestObjetivo.ubicacion.x);
-			send(*i,posicion, 4,0);
+				log_info(archivoLog,"Quiere capturar un pokemon\n");
+				sprintf(posx,"%i",pokenestObjetivo.ubicacion.x);
+				log_info(archivoLog,"Posicion en x\n",posx);
+				sprintf(posy,"%i",pokenestObjetivo.ubicacion.y);
+				log_info(archivoLog,"Posicion en y\n",posy);
+				//string_append_with_format(&posicion,posx,posy);
+		//	send(*i,posicion, 4,0);
 
 				break;
 
