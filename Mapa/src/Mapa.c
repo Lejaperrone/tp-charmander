@@ -86,6 +86,11 @@ void enviarAlPlanificador(int* i, char* paquete){
 	int peticion=recv(*i,paquete,7,0);
 	char mensaje[8];
 	t_pokenest pokenestObjetivo;
+
+	if(paquete[1]== 'C' && paquete[2]== 'A' && paquete[3]== 'P' && paquete[4]== 'T' && paquete[5]== 'U'){
+		pokenestObjetivo = find_pokenest_by_id(paquete[6])[0];
+		log_info(archivoLog,"encontre pokenest %d, %d\n",pokenestObjetivo.ubicacion.x, pokenestObjetivo.ubicacion.y);
+	}
 	char * posicion = (char *) malloc(1 + strlen((char*)pokenestObjetivo.ubicacion.x)+ strlen((char*)pokenestObjetivo.ubicacion.y) );
 	if (peticion<=7){
 			int caracter;
@@ -107,8 +112,8 @@ void enviarAlPlanificador(int* i, char* paquete){
 				//Envio al entrenador la coordenada de la pokenest
 
 
-			strcpy(posicion, (char*)find_pokenest_by_id(mensaje[6])->ubicacion.x);
-			strcat(posicion, (char*)find_pokenest_by_id(mensaje[6])->ubicacion.y);
+			strcpy(posicion, (char*)pokenestObjetivo.ubicacion.x);
+			strcat(posicion, (char*)pokenestObjetivo.ubicacion.y);
 				log_info(archivoLog,"la posicion x de la pokenest es %d\n",pokenestObjetivo.ubicacion.x);
 			send(*i,posicion, 4,0);
 
