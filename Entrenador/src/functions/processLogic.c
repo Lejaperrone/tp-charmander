@@ -16,6 +16,7 @@
 #include <commons/string.h>
 #include "../socketLib.h"
 #include "positions.h"
+#include "processLogic.h"
 
 
 
@@ -77,23 +78,23 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			case 1:
 				string_append(&mensaje, "1");
 				mapa->miPosicion.x--;
-				printf("Me muevo hacia arriba");
+				printf("Me muevo hacia arriba\n");
 				break;
 			case 2:
 				string_append(&mensaje, "2");
 				mapa->miPosicion.y++;
-				printf("Me muevo hacia la derecha");
+				printf("Me muevo hacia la derecha\n");
 				break;
 			case 3:
 				string_append(&mensaje, "3");
 				mapa->miPosicion.x++;
-				printf("Me muevo hacia abajo");
+				printf("Me muevo hacia abajo\n");
 
 				break;
 			case 4:
 				string_append(&mensaje, "4");
 				mapa->miPosicion.y--;
-				printf("Me muevo hacia la izquierda");
+				printf("Me muevo hacia la izquierda\n");
 				break;
 			}
 
@@ -108,12 +109,12 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 				}
 
 		}else{ //Tengo que solicitar el pokemon
-			char* mensaje ="FINOB";
+			/*char* mensaje ="FINOB";
 			int resp = send(serverMapa, &mensaje, 6, 0);
 			if(resp == -1){
 				printf("No pude enviar el mensaje: %s\n", mensaje);
 				exit(EXIT_FAILURE);
-			}
+			}*/
 
 			objetivo->logrado = 1;
 		}

@@ -12,5 +12,6 @@
 
 	void procesarMapa(t_mapa* mapa);
 	void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa);
+	t_log* archivoLog;
 
 #endif /* FUNCTIONS_PROCESSLOGIC_H_ */
