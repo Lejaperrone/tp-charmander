@@ -20,6 +20,7 @@
 		int disponible;
 		char duenio;
 		int nivel;
+		char identificador;
 	}t_pokemon;
 
 	typedef struct{
