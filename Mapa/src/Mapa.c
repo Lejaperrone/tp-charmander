@@ -184,17 +184,12 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 }
 
 }
-int entrenadorQuiereMoverse(char* paquete){
-return (paquete[0]=='M'&&paquete[1]=='O'&&paquete[2]=='V'&&paquete[3]=='E'&&paquete[4]=='R');
-}
-int entrenadorQuiereAtraparUnPokemon (char* paquete){
-	return (paquete[0]=='F'&&paquete[1]=='I'&&paquete[2]=='N'&&paquete[3]=='O'&&paquete[4]=='B');
-}
+
 void bloquearEntrenador(t_entrenadorConectado* entrenadorAbloquear){
 	list_add(t_entrenadoresBloqueados,entrenadorAbloquear);
 	list_remove(t_entrenadoresListos,0);
 }
-
+/*
 void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* duracion, char** paquete){
 	int i;
 	*duracion=0;
@@ -245,7 +240,7 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 	}
 
 }bloquearEntrenador(entrenador);
-}
+}*/
 
 void actualizarTiempo(int* t, int* duracionTurno){
 	*t=*t+*duracionTurno+mapa->retardo;
