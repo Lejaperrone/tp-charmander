@@ -320,7 +320,7 @@ bool primeraPasada=true;
 void planificar(t_entrenadorConectado* entrenador){
 
 	while(1){
-	log_info(archivoLog,"entra al planificador: %c\n",entrenador->paquete[0]);
+	log_info(archivoLog,"entra al planificador: %s\n",entrenador->paquete);
 
 	//Intento recibir un mensaje del entrenador
 	recv(*entrenador->sock,entrenador->paquete,8,0);
@@ -486,7 +486,12 @@ int main(int argc, char *argv[]){
 							entrenador->sock=&i;
 							encolarEntrenadorAlIniciar(entrenador);
 							dibujarEntrenadorEnElOrigen(&i,package,1,1,&posicionInicial);
+
+							send(i,"QUANTUM",7,0);
+
+
 							planificar(entrenador);
+
 							/*if (inicioPlanificador==1){
 								inicioPlanificador=0;
 								h1=pthread_create(&hiloPlanificador,NULL,(void*)planificar,(void*)entrenador );
