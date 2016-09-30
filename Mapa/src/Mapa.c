@@ -64,6 +64,7 @@ t_pokenest *find_pokenest_by_id(char id) {
 
 void dibujarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, int* posicionInicial){
 	CrearPersonaje(t_elementosEnMapa,package[0],1,1);
+	log_info(archivoLog,package);
 	//list_add(t_entrenadores,&(package[0]));
 	nivel_gui_dibujar(t_elementosEnMapa,mapa->nombre);
 	*posicionInicial=1;
@@ -74,9 +75,16 @@ void dibujarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, i
 void enviarAlPlanificador(t_entrenadorConectado* entrenador){
 
 	while(1){
-	log_info(archivoLog,"entra al planificador: %c\n",entrenador->paquete[6]);
+char* simbolo=malloc(sizeof(char));
+bool primeraPasada=true;
+		if(primeraPasada){
+	log_info(archivoLog,"entra al planificador: %s\n",entrenador->paquete);
+		primeraPasada=false;}else{
+			log_info(archivoLog,"entra al planificador: %s\n",simbolo);
+		}
 	//Intento recibir un mensaje del entrenador
 	recv(*entrenador->sock,entrenador->paquete,8,0);
+	strcpy(simbolo,&entrenador->paquete[6]);
 	log_info(archivoLog,"recibo: %s\n",entrenador->paquete);
 	t_pokenest pokenestObjetivo;
 
@@ -90,7 +98,6 @@ void enviarAlPlanificador(t_entrenadorConectado* entrenador){
 				//pokenestObjetivo=list_find(mapa->pokeNests, filtrarPokenest);
 				//Envio al entrenador la coordenada de la pokenest
 				;
-				char* posicion=malloc(sizeof(char));
 					char* posy=malloc(sizeof(char));
 					char* posx=malloc(sizeof(char));
 				log_info(archivoLog,"Quiere capturar un pokemon\n");
@@ -98,8 +105,6 @@ void enviarAlPlanificador(t_entrenadorConectado* entrenador){
 				log_info(archivoLog,"Posicion en x %s\n",posx);
 				sprintf(posy,"%i",pokenestObjetivo.ubicacion.y);
 				log_info(archivoLog,"Posicion en y %s\n",posy);
-				string_append(&posicion,posx);
-				string_append(&posicion,posy);
 				send(*entrenador->sock,posx, 2,0);
 				send(*entrenador->sock, posy,2,0);
 	}

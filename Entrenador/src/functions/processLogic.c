@@ -116,8 +116,8 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 				printf("Envio posicion x %s\n",posx);
 				send(serverMapa,posx, 2,0);
 				char* posy=malloc(sizeof(char));
-								sprintf(posy,"%i",mapa->miPosicion.y);
-								printf("Envio posicion x %s\n",posy);
+				sprintf(posy,"%i",mapa->miPosicion.y);
+				printf("Envio posicion y %s\n",posy);
 				send(serverMapa,posy,2,0);
 		}else{ //Tengo que solicitar el pokemon
 			/*char* mensaje ="FINOB";
