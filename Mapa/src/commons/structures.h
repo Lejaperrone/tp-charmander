@@ -20,6 +20,7 @@
 		int disponible;
 		char duenio;
 		int nivel;
+		char id;
 		char identificador;
 	}t_pokemon;
 
