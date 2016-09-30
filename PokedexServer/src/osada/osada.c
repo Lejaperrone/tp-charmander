@@ -55,7 +55,7 @@ int osada_init(char* path){
 		}
 	}*/
 
-
+	return 1;
 }
 
 int osada_readdir(char* path, t_list* directorios){
