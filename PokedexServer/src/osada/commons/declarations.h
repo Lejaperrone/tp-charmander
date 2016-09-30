@@ -11,6 +11,11 @@
 #ifndef OSADA_COMMONS_DECLARATIONS_C_
 #define OSADA_COMMONS_DECLARATIONS_C_
 
+	typedef struct {
+		int state;
+		uint32_t file_size;
+	} file_attr;
+
 	typedef struct{
 		osada_header* header;
 		t_bitarray * bitmap;

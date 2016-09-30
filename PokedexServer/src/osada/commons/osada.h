@@ -46,4 +46,4 @@ _Static_assert( sizeof(osada_file) == (sizeof(osada_block) / 2.0), "osada_file s
 
 #pragma pack(pop)
 
-#endif __OSADA_H__
+#endif

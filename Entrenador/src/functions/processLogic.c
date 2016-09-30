@@ -25,7 +25,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 	char quantum[7];
 
-	while(objetivo->logrado==0 && recv(serverMapa, (void*)quantum, 6, 0) <= 6 /*&& strcmp(quantum, "QUANTUM")*/){ //aca deberia esperar al siguiente quantum.
+	while(objetivo->logrado==0 && recv(serverMapa, (void*)quantum, 7, 0) <= 7  && strcmp(quantum, "QUANTUM")){ //aca deberia esperar al siguiente quantum.
 		if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){ //Obtengo ubicacion de pokenest
 			//Creo el mensaje
 				char* mensaje = string_new();
@@ -33,41 +33,30 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 				string_append(&mensaje, objetivo->nombre);
 				string_append(&mensaje, &entrenador->simbolo);
 				printf("el mensaje que voy a enviar es: %s\n",mensaje);
-				//string_append(&mensaje,(char)*socketEntrenador);
-
 
 			//Envio el mensaje
+
 				int pedirPokenest(int serverMapa, char* mensaje, int size, int s){
 					return send(serverMapa, mensaje, 7, 0);
 				}
 				int resp = pedirPokenest(serverMapa, mensaje, 7, 0);
 				if(resp == -1){
+
+				int resp = send(serverMapa, mensaje, 6, 0);
+				if(resp == -1 || resp != sizeof(mensaje)){
+
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
 				}
-				printf("envie el mensaje %s\n",mensaje);
+				printf("Envie el mensaje %s\n",mensaje);
 
 			//Espero la respuesta
 				char x[2], y[2];
-				//if (recv(serverMapa, (void*)x, 2, 0) == 2 && recv(serverMapa, (void*)y, 2, 0) == 2)
-				int recibirPosicionX(int serverMapa, char* mensaje, int size, int s){
-					return recv(serverMapa,(void*)mensaje,2,0);
-				}
-				int recibirPosicionY(int serverMapa, char* mensaje, int size, int s){
-									return recv(serverMapa,(void*)mensaje,2,0);
-				}
-
-				if (recibirPosicionX(serverMapa, (void*)mensaje,2, 0)<=2)
-				{
-					x[0]=mensaje[0];
-					x[1]=mensaje[1];
+				if (recv(serverMapa, (void*)x, 2, 0) == 2 && recv(serverMapa, (void*)y, 2, 0) == 2){
 					objetivo->ubicacion.x = atoi(x);
-				}
-				if (recibirPosicionY(serverMapa, (void*)mensaje,2, 0)<=2){
-					y[0]=mensaje[0];
-					y[1]=mensaje[1];
 					objetivo->ubicacion.y=atoi(y);
 				}
+
 				printf("Obtuve posicion x:%d, y: %d.\n", objetivo->ubicacion.x, objetivo->ubicacion.y);
 		}else if((*movimiento = siguienteMovimiento(mapa->miPosicion, objetivo, *movimiento))){ //Me muevo
 
@@ -102,6 +91,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			printf("Envio el mensaje: %s\n",mensaje);
 
 			//Envio el mensaje
+
 			int moverse(int serverMapa,char** mensaje, int size, int s){
 				return send(serverMapa, *mensaje, 8, 0);
 			}
@@ -128,9 +118,11 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			}*/
 
 			objetivo->logrado = 1;
+			printf("Fin del objetivo\n");
 		}
 
 	}
+}
 }
 
 void procesarMapa(t_mapa* mapa){
