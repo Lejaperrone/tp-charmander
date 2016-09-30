@@ -11,6 +11,7 @@
 #include <commons/collections/list.h>
 #include <commons/string.h>
 #include "../commons/declarations.h"
+#include "../commons/osada.h"
 #include <errno.h>
 
 int compare(int indice, char* test2){
@@ -68,4 +69,9 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 	}
 
 	return child;
+}
+
+void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
+	attr->file_size = osada_drive.directorio[indice].file_size;
+	attr->state = osada_drive.directorio[indice].state;
 }

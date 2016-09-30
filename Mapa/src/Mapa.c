@@ -37,9 +37,14 @@ char* arg3="hiloDeteccionDeadlock";
 int h1;
 int h2;
 int h3;
+<<<<<<< HEAD
 int inicioPlanificador=1;
 
 /*typedef struct entrenadorEnMapa{
+=======
+
+typedef struct entrenadorEnMapa{
+>>>>>>> 7dcb2bc2356bd502abdd638c5ff1aedbeb0c106c
 	char simbolo;
 	int sock;
 	int posx;
@@ -47,6 +52,7 @@ int inicioPlanificador=1;
 	t_list* pokemonesCapturados;
 	int mapaFinalizado;
 	char pokenestActual;
+<<<<<<< HEAD
 }t_entrenadorConectado;*/
 typedef struct entrenadorConectado{
 	int* sock;
@@ -55,6 +61,10 @@ typedef struct entrenadorConectado{
 
 t_entrenadorConectado* datos;
 
+=======
+	struct entrenadorEnMapa* sig;
+}t_entrenadorEnMapa;
+>>>>>>> 7dcb2bc2356bd502abdd638c5ff1aedbeb0c106c
 
 t_log* archivoLog;
 t_entrenadorConectado entrenador;
@@ -81,7 +91,11 @@ t_pokenest *find_pokenest_by_id(char id) {
 }
 t_pokemon* find_pokemon_by_id(t_list* pokemons, t_pokenest pokenest) {
             		int _is_the_one(t_pokemon *poke) {
+<<<<<<< HEAD
             			return (pokenest.identificador==poke->id);
+=======
+            			return (pokenest.identificador==poke->identificador);
+>>>>>>> 7dcb2bc2356bd502abdd638c5ff1aedbeb0c106c
 
             	}
             		 t_pokemon* pokemonCapturado=malloc(sizeof(t_pokemon));
@@ -110,6 +124,7 @@ int noHayEntrenadoresListosNiBloqueados (){
 }
 int entrenadorQuiereConocerUbicacionDePokenest(char* paquete){
 return (paquete[0]== 'C' && paquete[1]== 'A' && paquete[2]== 'P' && paquete[3]== 'T' && paquete[4]== 'U');
+<<<<<<< HEAD
 
 }
 int entrenadorQuiereMoverse(char* paquete){
@@ -185,11 +200,93 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 }waitEntrenador(entrenador);
 }
 
+}
+int entrenadorQuiereMoverse(char* paquete){
+return (paquete[0]=='M'&&paquete[1]=='O'&&paquete[2]=='V'&&paquete[3]=='E'&&paquete[4]=='R');
+}
+int entrenadorQuiereAtraparUnPokemon (char* paquete){
+	return (paquete[0]=='F'&&paquete[1]=='I'&&paquete[2]=='N'&&paquete[3]=='O'&&paquete[4]=='B');
+}
+void bloquearEntrenador(t_entrenadorEnMapa* entrenadorAbloquear){
+	list_add(t_entrenadoresBloqueados,entrenadorAbloquear);
+	list_remove(t_entrenadoresListos,0);
+}
+
+void otorgarQuantum(t_entrenadorEnMapa* entrenador, int Q, int* t, int* duracion, char** paquete){
+	int i;
+	*duracion=0;
+	for (i=0;i<=Q;i++){
+		send(entrenador->socket,"QUANTUM",7,0);
+		recv(entrenador->socket,*paquete,6,0);
+		if (entrenadorQuiereConocerUbicacionDePokenest(*paquete)){
+			t_pokenest pokenestObjetivo;
+			pokenestObjetivo =find_pokenest_by_id(*paquete[5])[0];
+			entrenador->pokenestActual=pokenestObjetivo.identificador;
+			char* posy=malloc(sizeof(char));
+			char* posx=malloc(sizeof(char));
+			sprintf(posx,"%i",pokenestObjetivo.ubicacion.x);
+			log_info(archivoLog,"Posicion en x %s\n",posx);
+			sprintf(posy,"%i",pokenestObjetivo.ubicacion.y);
+			log_info(archivoLog,"Posicion en y %s\n",posy);
+			send(entrenador->socket,posx, 2,0);
+			send(entrenador->socket, posy,2,0);
+			free(posy);
+			free(posx);
+			log_info(archivoLog,"encontre pokenest %d, %d\n",pokenestObjetivo.ubicacion.x, pokenestObjetivo.ubicacion.y);
+		}else{
+			if (entrenadorQuiereMoverse(*paquete)){
+				send(entrenador->socket, "QUANTUM", 7, 0);
+				char* mensaje=malloc(sizeof(char));
+				recv(entrenador->socket,mensaje,6,0);
+				//dibujar que se mueva
+				free(mensaje);
+			}else{
+				if (entrenadorQuiereAtraparUnPokemon(*paquete)){
+					t_pokenest pokenestObjetivo;
+					pokenestObjetivo = find_pokenest_by_id(entrenador->pokenestActual)[0];
+					//ACA VA UN MUTEX
+					t_pokemon* pokeActual=malloc(sizeof(t_pokemon));
+					pokeActual=find_pokemon_by_id(pokenestObjetivo.pokemons,pokenestObjetivo);
+					list_add(entrenador->pokemonesCapturados,pokeActual);
+					list_remove_by_condition(pokenestObjetivo.pokemons, (void*)pudoSerCapturado);
+					bloquearEntrenador(entrenador);
+					free(pokeActual);
+					exit(1);
+					//ACA HAY QUE BORRAR EL POKEMON DE LA POKENEST
+				}else{
+					//INFORMA AL ENTRENADOR LA RUTA DE LA MEDALLA
+				}
+			}
+		*duracion=*duracion+1;
+		if(*paquete[0]=='F'&&*paquete[1]=='I'&&*paquete[2]=='N'&&*paquete[3]=='O'&&*paquete[4]=='B'){
+			*t=*t+*duracion;
+		}
+	}
+
+}bloquearEntrenador(entrenador);
+}
+
 void actualizarTiempo(int* t, int* duracionTurno){
 	*t=*t+*duracionTurno+mapa->retardo;
 }
 
 //esto se transformara en un hilo
+/*
+typedef struct datosPlanificar{
+	int* socket;
+	char* paquete;
+}t_datosPlanificador;
+
+t_datosPlanificador* datos;
+*/
+
+void* enviarAlPlanificador(t_datosPlanificador* datos){
+	int Q;
+	Q=mapa->quantum;
+	int t=0;
+	int duracionRealTurno;
+	t_entrenadorEnMapa* entrenadorActual=malloc(sizeof(t_entrenadorEnMapa));
+
 
 void* planificar(t_entrenadorConectado* datos){
 	int Q;
@@ -199,6 +296,7 @@ void* planificar(t_entrenadorConectado* datos){
 	t_entrenadorConectado* entrenadorActual=malloc(sizeof(t_entrenadorConectado));
 	log_info(archivoLog,"comienza el planificador\n");
 	while(1){
+
 		log_info(archivoLog,"chequeo que no haya entrenadores listos ni bloqueados\n");
 		if (noHayEntrenadoresListosNiBloqueados()){
 			//Inicio el planificador
@@ -212,6 +310,13 @@ void* planificar(t_entrenadorConectado* datos){
 			log_info(archivoLog,"elijo al primer entrenador a procesar\n");
 			otorgarQuantum(entrenadorActual,Q,&t,&duracionRealTurno,&datos->paquete);
 			log_info(archivoLog,"El quantum de %c duro %d\n",datos->paquete[0], duracionRealTurno);
+
+		if (noHayEntrenadoresListosNiBloqueados()){
+			//Inicio el planificador
+			list_add_all(t_entrenadoresListos,entrenadoresEnMapa);
+			entrenadorActual=(t_entrenadorEnMapa*)list_get(t_entrenadoresListos,0);
+			otorgarQuantum(entrenadorActual,Q,&t,&duracionRealTurno,&datos->paquete);
+
 			free(entrenadorActual);
 			actualizarTiempo(&t,&duracionRealTurno);//t=t+duracionRealTurno
 		}else{
@@ -221,7 +326,11 @@ void* planificar(t_entrenadorConectado* datos){
 				entrenadorActual=list_get(t_entrenadoresListos,0);
 				otorgarQuantum(entrenadorActual,Q,&t,&duracionRealTurno, &datos->paquete);
 				free(entrenadorActual);
+
 				waitEntrenador(entrenadorActual);
+
+				bloquearEntrenador(entrenadorActual);
+
 				actualizarTiempo(&t,&duracionRealTurno);
 				sleep(mapa->retardo);
 			}
@@ -305,6 +414,7 @@ int main(int argc, char *argv[]){
 		leerConfiguracion(mapa, name, pokedexPath);
 	//Creo el hilo planificador
 		log_info(archivoLog,"apunto de crear el hilo\n");
+
 		datos=malloc(sizeof(t_entrenadorConectado));
 		/*datos->paquete="Comienzo Hilo Planificador";
 		datos->sock=0;*/
@@ -413,6 +523,7 @@ int main(int argc, char *argv[]){
 									encolarEntrenadorAlIniciar(&datos);
 									dibujarEntrenadorEnElOrigen(&i,package,1,1,&posicionInicial);
 
+
 									if (inicioPlanificador==1){
 										inicioPlanificador=0;
 										h1=pthread_create(&hiloPlanificador,NULL,(void*)planificar,(void*)datos );
@@ -423,6 +534,14 @@ int main(int argc, char *argv[]){
 									}
 
 
+
+
+									send(i,"QUANTUM",7,0);
+									datos=malloc(sizeof(t_datosPlanificador));
+									datos->paquete=package;
+									datos->socket=&i;
+									enviarAlPlanificador(datos);
+									h1=pthread_create(&hiloPlanificador,NULL,(void*)enviarAlPlanificador, (void*)datos );
 
 
 

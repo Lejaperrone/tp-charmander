@@ -13,12 +13,14 @@
 #include <commons/collections/list.h>
 #include "commons/declarations.h"
 #include "functions/tabla_archivos.h"
+#include "commons/osada.h"
+#include "osada.h"
 #include "mapp.h"
 
 int osada_init(char* path){
 	initOsada (path);
 
-	osada_drive.directorio[0].fname[0] = 't';
+	/*osada_drive.directorio[0].fname[0] = 't';
 	osada_drive.directorio[0].fname[1] = 'e';
 	osada_drive.directorio[0].fname[2] = 's';
 	osada_drive.directorio[0].fname[3] = 't';
@@ -51,7 +53,7 @@ int osada_init(char* path){
 				char* pokenest = (char*)list_get(l, j);
 				printf("%s\n",pokenest);
 		}
-	}
+	}*/
 
 
 }
@@ -71,8 +73,15 @@ int osada_readdir(char* path, t_list* directorios){
 
 }
 
-int osada_getattr(char* path, t_list* attrs){
-	return -ENOENT;
+int osada_getattr(char* path, file_attr* attrs){
+	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
+
+		if(strcmp(path, "/") != 0){
+			osada_TA_obtenerAttr(indice, attrs);
+			return 1;
+		}else{
+			return -ENOENT;
+		}
 }
 
 int osada_read(char *path, char *buf, size_t size, off_t offset){

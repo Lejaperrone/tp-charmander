@@ -25,7 +25,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 	char quantum[7];
 
-	while(objetivo->logrado==0 && recv(serverMapa, (void*)quantum, 6, 0) <= 6 /*&& strcmp(quantum, "QUANTUM")*/){ //aca deberia esperar al siguiente quantum.
+	while(objetivo->logrado==0 && recv(serverMapa, (void*)quantum, 7, 0) <= 7  &&strcmp(quantum, "QUANTUM")){ //aca deberia esperar al siguiente quantum.
 		if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){ //Obtengo ubicacion de pokenest
 			//Creo el mensaje
 				char* mensaje = string_new();

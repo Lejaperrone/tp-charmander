@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
 		return 1;
 	}
 	char* name = argv[1]; //Red
-	char* pokedexPath = argv[2]; //../../PokedexConfig*/
+	char* pokedexPath = argv[2]; //../../PokedexConfig
 
 	/*char* name = "Red";
 	char* pokedexPath = "/home/utnso/projects/tp-2016-2c-Chamba/PokedexConfig";*/
