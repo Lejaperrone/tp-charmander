@@ -498,16 +498,17 @@ int main(int argc, char *argv[]){
 							}*/
 						}
 
+					}
 				}
 			}
 		}
-}
+	}
 	//Libero memoria y termino ui
 		free(archivoLog);
 		nivel_gui_terminar();
 		free(mapa);
 		close(listeningSocket);
-	}
+
 		//Termino el mapa
 		return 0;
 

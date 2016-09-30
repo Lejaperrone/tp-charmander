@@ -49,12 +49,12 @@ int osada_getattr(char* path, file_attr* attrs){
 }
 
 int osada_read(char *path, char *buf, size_t size, off_t offset){
-	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
+	/*u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
 	if(strcmp(path, "/") != 0){
 		return 1;
 	}else{
 		return -ENOENT;
-	}
+	}*/
 }
 
 int osada_open(char* path){
