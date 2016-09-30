@@ -6,6 +6,7 @@
  */
 
 #include <commons/collections/list.h>
+#include <commons/log.h>
 
 #ifndef COMMONS_STRUCTURES_H_
 #define COMMONS_STRUCTURES_H_
@@ -51,5 +52,10 @@
 		int socket;
 		t_coordenadas ubicacion;
 	}t_entrenador;
+
+	t_mapa* mapa;
+	char* name;
+	char* pokedexPath;
+	t_log* archivoLog;
 
 #endif /* COMMONS_STRUCTURES_H_ */

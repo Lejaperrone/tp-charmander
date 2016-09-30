@@ -20,14 +20,7 @@
 #include "functions/config.h"
 #include "functions/log.h"
 #include "functions/collections_list_extension.h"
-
-#define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
-
-
-//Estructuras y variables globales
-t_mapa* mapa;
-char* name;
-char* pokedexPath;
+#include "functions/signals.h"
 
 pthread_t hiloPlanificador;
 pthread_t hiloListener;
@@ -45,12 +38,14 @@ typedef struct entrenadorConectado{
 	int* sock;
 	char* paquete;
 }t_entrenadorConectado;
-t_log* archivoLog;
+
 t_entrenadorConectado* entrenador;
 t_list* t_elementosEnMapa;
 t_list* t_entrenadoresBloqueados;
 t_list* t_entrenadoresListos;
 //t_list* entrenadoresEnMapa;
+
+#define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
 void inicializarListasDeEntrenadoresParaPlanificar(){
 	t_entrenadoresBloqueados=list_create();
@@ -355,10 +350,6 @@ void planificar(t_entrenadorConectado* entrenador){
 		}
 	}
 	}
-void sigusr2_handler(int signum){
-	log_info(archivoLog,"Recibo senial SIGUSR2, releo metadata.");
-	leerConfiguracionMetadataMapa(mapa, name, pokedexPath);
-}
 
 int main(int argc, char *argv[]){
 	//Recivo parametros por linea de comandos
