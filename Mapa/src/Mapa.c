@@ -105,9 +105,15 @@ void enviarAlPlanificador(t_entrenadorConectado* entrenador){
 	}
 	if	(entrenador->paquete[0]=='M'){
 				//entrenadorEjecutando=list_get(t_entrenadoresListos,0);
+				recv(*entrenador->sock,entrenador->paquete,2,0);
+				int posxInt=atoi(entrenador->paquete);
+				log_info(archivoLog,"Recibo posicion x %d\n",posxInt);
+				recv(*entrenador->sock,entrenador->paquete,2,0);
+				int posyInt=atoi(entrenador->paquete);
+				log_info(archivoLog,"Recibo posicion y %d\n",posyInt);
+				//log_info(archivoLog,"Lo que recibi es: %s",entrenador->paquete);
+				MoverPersonaje(t_elementosEnMapa,entrenador->paquete[6],posxInt,posyInt);
 
-				log_info(archivoLog,"Lo que recibi es: %s",entrenador->paquete);
-				//MoverPersonaje(t_elementosEnMapa,entrenador->paquete[6],)
 			send(*entrenador->sock, "QUANTUM", 7, 0);
 			break;
 		}
