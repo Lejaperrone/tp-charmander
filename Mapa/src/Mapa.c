@@ -37,14 +37,14 @@ char* arg3="hiloDeteccionDeadlock";
 int h1;
 int h2;
 int h3;
-<<<<<<< HEAD
+
 int inicioPlanificador=1;
 
 /*typedef struct entrenadorEnMapa{
-=======
+
 
 typedef struct entrenadorEnMapa{
->>>>>>> 7dcb2bc2356bd502abdd638c5ff1aedbeb0c106c
+
 	char simbolo;
 	int sock;
 	int posx;
@@ -52,7 +52,7 @@ typedef struct entrenadorEnMapa{
 	t_list* pokemonesCapturados;
 	int mapaFinalizado;
 	char pokenestActual;
-<<<<<<< HEAD
+
 }t_entrenadorConectado;*/
 typedef struct entrenadorConectado{
 	int* sock;
@@ -61,10 +61,6 @@ typedef struct entrenadorConectado{
 
 t_entrenadorConectado* datos;
 
-=======
-	struct entrenadorEnMapa* sig;
-}t_entrenadorEnMapa;
->>>>>>> 7dcb2bc2356bd502abdd638c5ff1aedbeb0c106c
 
 t_log* archivoLog;
 t_entrenadorConectado entrenador;
@@ -91,11 +87,11 @@ t_pokenest *find_pokenest_by_id(char id) {
 }
 t_pokemon* find_pokemon_by_id(t_list* pokemons, t_pokenest pokenest) {
             		int _is_the_one(t_pokemon *poke) {
-<<<<<<< HEAD
+
             			return (pokenest.identificador==poke->id);
-=======
+
             			return (pokenest.identificador==poke->identificador);
->>>>>>> 7dcb2bc2356bd502abdd638c5ff1aedbeb0c106c
+
 
             	}
             		 t_pokemon* pokemonCapturado=malloc(sizeof(t_pokemon));
@@ -124,7 +120,7 @@ int noHayEntrenadoresListosNiBloqueados (){
 }
 int entrenadorQuiereConocerUbicacionDePokenest(char* paquete){
 return (paquete[0]== 'C' && paquete[1]== 'A' && paquete[2]== 'P' && paquete[3]== 'T' && paquete[4]== 'U');
-<<<<<<< HEAD
+
 
 }
 int entrenadorQuiereMoverse(char* paquete){
@@ -155,7 +151,6 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 		if (entrenadorQuiereConocerUbicacionDePokenest(*paquete)){
 			t_pokenest pokenestObjetivo;
 			pokenestObjetivo =find_pokenest_by_id(*paquete[5])[0];
-			entrenador->pokenestActual=pokenestObjetivo.identificador;
 			char* posy=malloc(sizeof(char));
 			char* posx=malloc(sizeof(char));
 			sprintf(posx,"%i",pokenestObjetivo.ubicacion.x);
@@ -177,7 +172,7 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 			}else{
 				if (entrenadorQuiereAtraparUnPokemon(*paquete)){
 					t_pokenest pokenestObjetivo;
-					pokenestObjetivo = find_pokenest_by_id(entrenador->pokenestActual)[0];
+					pokenestObjetivo = find_pokenest_by_id(*paquete[6])[0];
 					//ACA VA UN MUTEX
 					t_pokemon* pokeActual=malloc(sizeof(t_pokemon));
 					pokeActual=find_pokemon_by_id(pokenestObjetivo.pokemons,pokenestObjetivo);
