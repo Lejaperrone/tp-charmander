@@ -31,15 +31,16 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 				char* mensaje = string_new();
 				string_append(&mensaje, "CAPTU");
 				string_append(&mensaje, objetivo->nombre);
+				string_append(&mensaje, &entrenador->simbolo);
 				printf("el mensaje que voy a enviar es: %s\n",mensaje);
 				//string_append(&mensaje,(char)*socketEntrenador);
 
 
 			//Envio el mensaje
 				int pedirPokenest(int serverMapa, char* mensaje, int size, int s){
-					return send(serverMapa, mensaje, 6, 0);
+					return send(serverMapa, mensaje, 7, 0);
 				}
-				int resp = pedirPokenest(serverMapa, mensaje, 6, 0);
+				int resp = pedirPokenest(serverMapa, mensaje, 7, 0);
 				if(resp == -1){
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
@@ -78,31 +79,33 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			case 1:
 				string_append(&mensaje, "1");
 				mapa->miPosicion.x--;
-				printf("Me muevo hacia arriba\n");
+				printf("Me muevo hacia %d %d\n",mapa->miPosicion.x, mapa->miPosicion.y);
 				break;
 			case 2:
 				string_append(&mensaje, "2");
 				mapa->miPosicion.y++;
-				printf("Me muevo hacia la derecha\n");
+				printf("Me muevo hacia %d %d\n",mapa->miPosicion.x, mapa->miPosicion.y);
 				break;
 			case 3:
 				string_append(&mensaje, "3");
 				mapa->miPosicion.x++;
-				printf("Me muevo hacia abajo\n");
+				printf("Me muevo hacia %d %d\n",mapa->miPosicion.x, mapa->miPosicion.y);
 
 				break;
 			case 4:
 				string_append(&mensaje, "4");
 				mapa->miPosicion.y--;
-				printf("Me muevo hacia la izquierda\n");
+				printf("Me muevo hacia %d %d\n",mapa->miPosicion.x, mapa->miPosicion.y);
 				break;
 			}
+			string_append(&mensaje,&entrenador->simbolo);
+			printf("Envio el mensaje: %s\n",mensaje);
 
 			//Envio el mensaje
 			int moverse(int serverMapa,char** mensaje, int size, int s){
-				return send(serverMapa, &mensaje, 6, 0);
+				return send(serverMapa, *mensaje, 8, 0);
 			}
-			int resp = moverse(serverMapa, &mensaje, 6, 0);
+			int resp = moverse(serverMapa, &mensaje, 8, 0);
 				if(resp == -1){
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);

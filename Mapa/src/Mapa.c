@@ -74,32 +74,18 @@ void dibujarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, i
 void enviarAlPlanificador(t_entrenadorConectado* entrenador){
 
 	while(1){
-	log_info(archivoLog,"entra al planificador: %c\n",entrenador->paquete[0]);
+	log_info(archivoLog,"entra al planificador: %c\n",entrenador->paquete[6]);
 	//Intento recibir un mensaje del entrenador
-	int peticion=recv(*entrenador->sock,entrenador->paquete,6,0);
+	recv(*entrenador->sock,entrenador->paquete,8,0);
+	log_info(archivoLog,"recibo: %s\n",entrenador->paquete);
 	t_pokenest pokenestObjetivo;
 
-	if(entrenador->paquete[0]== 'C' && entrenador->paquete[1]== 'A' && entrenador->paquete[2]== 'P'
-			&& entrenador->paquete[3]== 'T' && entrenador->paquete[4]== 'U'){
+//Busco pokenest
+	if(entrenador->paquete[0]== 'C'){
 		pokenestObjetivo = find_pokenest_by_id(entrenador->paquete[5])[0];
 		log_info(archivoLog,"encontre pokenest %d, %d\n",pokenestObjetivo.ubicacion.x, pokenestObjetivo.ubicacion.y);
-	}
-
-	/*if (peticion<=6){
-			int caracter;
-			for (caracter=0;caracter<strlen(paquete);caracter++){
-				mensaje[caracter]=paquete[caracter];
-			}
-			log_info(archivoLog,"%c quiere %c a %c\n",mensaje[0],mensaje[1],mensaje[6]);
-	}*/
-		//log_info(archivoLog,"%s\n",mensaje);
-
-	while(entrenador->paquete[0]!='F'){
-		//t_entrenador entrenadorEjecutando;
-		//t_coordenadas coordenadasDelTurno;
 		log_info(archivoLog,"%c no finalizo su objetivo\n",entrenador->paquete[0]);
-		switch(entrenador->paquete[0]){
-			case 'C':
+
 				//obtengo la pokenest a la que quiere llegar el entrenador
 				//pokenestObjetivo=list_find(mapa->pokeNests, filtrarPokenest);
 				//Envio al entrenador la coordenada de la pokenest
@@ -116,15 +102,19 @@ void enviarAlPlanificador(t_entrenadorConectado* entrenador){
 				string_append(&posicion,posy);
 				send(*entrenador->sock,posx, 2,0);
 				send(*entrenador->sock, posy,2,0);
-				break;
-			case 'M':
+	}
+	if	(entrenador->paquete[0]=='M'){
 				//entrenadorEjecutando=list_get(t_entrenadoresListos,0);
+
+				log_info(archivoLog,"Lo que recibi es: %s",entrenador->paquete);
+				//MoverPersonaje(t_elementosEnMapa,entrenador->paquete[6],)
 			send(*entrenador->sock, "QUANTUM", 7, 0);
 			break;
 		}
 	}
 	}
-}
+
+
 void sigusr2_handler(int signum){
 	log_info(archivoLog,"Recibo senial SIGUSR2, releo metadata.");
 	leerConfiguracionMetadataMapa(mapa, name, pokedexPath);
@@ -264,6 +254,7 @@ int main(int argc, char *argv[]){
 	//Termino el mapa
 	return 0;
 }
+
 
 
 
