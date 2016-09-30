@@ -28,16 +28,12 @@
 t_mapa* mapa;
 char* name;
 char* pokedexPath;
+typedef struct datosPlanificar{
+	int* sock;
+	char* paquete;
+}t_entrenadorConectado;
 
-typedef struct entrenadorEnMapa{
-	char simbolo;
-	int socket;
-	int posx;
-	int posy;
-	char* pokemonesCapturados;
-	int mapaFinalizado;
-	struct entrenadorEnMapa* sig;
-}t_entrenadorEnMapa;
+t_entrenadorConectado* entrenadorConectado;
 
 t_log* archivoLog;
 t_list* t_elementosEnMapa;
@@ -52,17 +48,11 @@ void inicializarListasDeEntrenadoresParaPlanificar(){
 }
 
 void encolarEntrenadorAlIniciar(int* i,char* package){
-	t_entrenadorEnMapa nuevoEntrenador;
-	entrenadoresEnMapa=malloc(sizeof(t_entrenadorEnMapa));
-	nuevoEntrenador.socket=*i;
-	nuevoEntrenador.posx=0;
-	nuevoEntrenador.posy=0;
-	nuevoEntrenador.pokemonesCapturados=NULL;
-	nuevoEntrenador.mapaFinalizado=0;
-	nuevoEntrenador.simbolo=package[0];
-	nuevoEntrenador.sig=NULL;
-	list_add(entrenadoresEnMapa,&nuevoEntrenador);
-	free(entrenadoresEnMapa);
+	t_entrenadorConectado* nuevoEntrenador;
+	//nuevoEntrenador=malloc(sizeof(t_entrenadorConectado));
+	/*nuevoEntrenador->paquete=package;
+	nuevoEntrenador->sock=i;*/
+	list_add(t_entrenadoresListos,&nuevoEntrenador);
 }
 t_pokenest *find_pokenest_by_id(char id) {
             		int _is_the_one(t_pokenest *p) {
@@ -81,16 +71,17 @@ void dibujarEntrenadorEnElOrigen(int* socket, char* package,int posx,int posy, i
 
 
 //esto se transformara en un hilo
-void enviarAlPlanificador(int* i, char* paquete){
+void enviarAlPlanificador(t_entrenadorConectado* entrenador){
 
 	while(1){
-	log_info(archivoLog,"entra al planificador: %c\n",paquete[0]);
+	log_info(archivoLog,"entra al planificador: %c\n",entrenador->paquete[0]);
 	//Intento recibir un mensaje del entrenador
-	int peticion=recv(*i,paquete,6,0);
+	int peticion=recv(*entrenador->sock,entrenador->paquete,6,0);
 	t_pokenest pokenestObjetivo;
 
-	if(paquete[0]== 'C' && paquete[1]== 'A' && paquete[2]== 'P' && paquete[3]== 'T' && paquete[4]== 'U'){
-		pokenestObjetivo = find_pokenest_by_id(paquete[5])[0];
+	if(entrenador->paquete[0]== 'C' && entrenador->paquete[1]== 'A' && entrenador->paquete[2]== 'P'
+			&& entrenador->paquete[3]== 'T' && entrenador->paquete[4]== 'U'){
+		pokenestObjetivo = find_pokenest_by_id(entrenador->paquete[5])[0];
 		log_info(archivoLog,"encontre pokenest %d, %d\n",pokenestObjetivo.ubicacion.x, pokenestObjetivo.ubicacion.y);
 	}
 
@@ -103,11 +94,11 @@ void enviarAlPlanificador(int* i, char* paquete){
 	}*/
 		//log_info(archivoLog,"%s\n",mensaje);
 
-	while(paquete[0]!='F'){
+	while(entrenador->paquete[0]!='F'){
 		//t_entrenador entrenadorEjecutando;
 		//t_coordenadas coordenadasDelTurno;
-		log_info(archivoLog,"%c no finalizo su objetivo\n",paquete[0]);
-		switch(paquete[0]){
+		log_info(archivoLog,"%c no finalizo su objetivo\n",entrenador->paquete[0]);
+		switch(entrenador->paquete[0]){
 			case 'C':
 				//obtengo la pokenest a la que quiere llegar el entrenador
 				//pokenestObjetivo=list_find(mapa->pokeNests, filtrarPokenest);
@@ -123,12 +114,12 @@ void enviarAlPlanificador(int* i, char* paquete){
 				log_info(archivoLog,"Posicion en y %s\n",posy);
 				string_append(&posicion,posx);
 				string_append(&posicion,posy);
-				send(*i,posx, 2,0);
-				send(*i, posy,2,0);
+				send(*entrenador->sock,posx, 2,0);
+				send(*entrenador->sock, posy,2,0);
 				break;
 			case 'M':
 				//entrenadorEjecutando=list_get(t_entrenadoresListos,0);
-			send(*i, "QUANTUM", 7, 0);
+			send(*entrenador->sock, "QUANTUM", 7, 0);
 			break;
 		}
 	}
@@ -251,7 +242,11 @@ int main(int argc, char *argv[]){
 									encolarEntrenadorAlIniciar(&i,package);
 									dibujarEntrenadorEnElOrigen(&i,package,1,1,&posicionInicial);
 									send(i,"QUANTUM",7,0);
-									enviarAlPlanificador(&i,package);
+									t_entrenadorConectado* nuevoEntrenador;
+									nuevoEntrenador=malloc(sizeof(t_entrenadorConectado));
+										nuevoEntrenador->paquete=package;
+										nuevoEntrenador->sock=&i;
+									enviarAlPlanificador(nuevoEntrenador);
 
 								}
 							}
