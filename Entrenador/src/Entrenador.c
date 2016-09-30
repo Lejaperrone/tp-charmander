@@ -31,15 +31,15 @@ void sigterm_handler(int signum){
 
 int main(int argc, char *argv[]){
 
-	/*if(argc != 3){
+	if(argc != 3){
 		printf("El entrenador no tiene los parametros correctamente seteados.\n");
 		return 1;
 	}
 	char* name = argv[1]; //Red
 	char* pokedexPath = argv[2]; //../../PokedexConfig*/
 
-	char* name = "Red";
-	char* pokedexPath = "/home/utnso/projects/tp-2016-2c-Chamba/PokedexConfig";
+	/*char* name = "Red";
+	char* pokedexPath = "/home/utnso/projects/tp-2016-2c-Chamba/PokedexConfig";*/
 
 	//Pido memoria para guardar el entrenador y leo la configuracion
 		entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
