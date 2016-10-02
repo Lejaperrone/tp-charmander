@@ -232,9 +232,6 @@ int main(int argc, char *argv[]){
 			if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
 		}
 
-		close(serverMapa);
-		return 0;
-
 		struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
 
 			// Limpio la estructura que va a contener los parametros
@@ -258,5 +255,9 @@ int main(int argc, char *argv[]){
 			// de realizar el montaje, comuniscarse con el kernel, delegar todo
 			// en varios threads
 			return fuse_main(args.argc, args.argv, &hello_oper, NULL);
+
+
+			close(serverMapa);
+			return 0;
 }
 

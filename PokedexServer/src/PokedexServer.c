@@ -81,7 +81,7 @@ int main(){
 							} else {
 								// tenemos datos de algún cliente
 								if (nbytes != 0){
-									printf("%s\n",package);
+									printf("%s",package);
 								}
 							}
 						}
