@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include "../commons/osada.h"
 #include <commons/bitarray.h>
-#include "bitarray_extension.h"
 
 char* stringFromOsadaFileState(osada_file_state f){
     char *strings[] = { "DELETED", "REGULAR", "DIRECTORY", /* continue for rest of values */ };
@@ -36,7 +35,7 @@ void dumpBitmap(t_bitarray * bitmap){
 	cantOcupados = 0;
 
 	for(i=0; i<bitarray_get_max_bit(bitmap); i++){
-		value = bitarray_test_bit_inverse_char(bitmap, i);
+		value = bitarray_test_bit(bitmap, i);
 		if(value){
 			cantOcupados++;
 		}

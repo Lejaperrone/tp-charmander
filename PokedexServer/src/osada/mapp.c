@@ -40,7 +40,7 @@ void initOsada (char* pathOsadaDrive){
 		//dumpHeader(header);
 		fileMapped = fileMapped  + OSADA_BLOCK_SIZE; //Muevo el offset
 	//Bitmap
-		osada_drive.bitmap = bitarray_create(fileMapped, osada_drive.header->fs_blocks/8);
+		osada_drive.bitmap = bitarray_create_with_mode(fileMapped, osada_drive.header->fs_blocks/8, MSB_FIRST);
 		//dumpBitmap(bitmap);
 		fileMapped = fileMapped  + osada_drive.header->bitmap_blocks * OSADA_BLOCK_SIZE; //Muevo el offset
 	//Tabla de archivos
