@@ -28,7 +28,6 @@ t_log* crearArchivoLog() {
 }
 
 void loguearConfiguracion(t_log* archivoLogs, t_mapa* mapa){
-	log_info(archivoLogs, "CONFIGURACION DEL METADATA");
 	log_info(archivoLogs, "TiempoChequeoDeadLock: %d", mapa->tiempoChequeoDeadlock);
 	log_info(archivoLogs, "Batalla: %d", mapa->batalla);
 	log_info(archivoLogs, "Algoritmo: %s", mapa->algoritmo);

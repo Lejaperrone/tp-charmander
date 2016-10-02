@@ -45,17 +45,23 @@
 		}t_mapa;
 
 	typedef struct{
-		char* nombre;
 		char simbolo;
-		int vidas;
-		int reintentos;
-		int socket;
+		int* socket;
 		t_coordenadas ubicacion;
+		t_list* pokemons;
 	}t_entrenador;
 
 	t_mapa* mapa;
 	char* name;
 	char* pokedexPath;
 	t_log* archivoLog;
+
+	pthread_t hiloPlanificador;
+	pthread_t hiloDeadlock;
+
+	t_list* entrenadoresPreparados;
+	t_list* entrenadoresListos;
+	t_list* entrenadoresBloqueados;
+	t_list* elementosUI;
 
 #endif /* COMMONS_STRUCTURES_H_ */

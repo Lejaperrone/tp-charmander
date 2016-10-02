@@ -21,10 +21,10 @@
 #include "functions/log.h"
 #include "functions/collections_list_extension.h"
 #include "functions/signals.h"
+#include "threads/planificador.h"
+#include "threads/deadlock.h"
 
-pthread_t hiloPlanificador;
 pthread_t hiloListener;
-pthread_t hiloDeteccionDeadlock;
 char* arg1="hiloPlanificador";
 char* arg2="hiloListener";
 char* arg3="hiloDeteccionDeadlock";
@@ -352,155 +352,153 @@ void planificar(t_entrenadorConectado* entrenador){
 	}
 
 int main(int argc, char *argv[]){
+	//Creo archivo de log
+		archivoLog = crearArchivoLog();
+
+	//Informo mi PID
+		log_info(archivoLog,"PID: %d", getpid());
+
 	//Recivo parametros por linea de comandos
-	if(argc != 3){
-		printf("El mapa no tiene los parametros correctamente seteados.\n");
-		return 1;
-	}
-	name = argv[1]; //PuebloPaleta
-	pokedexPath = argv[2]; //../../PokedexConfig
+		if(argc != 3){
+			log_info(archivoLog,"El mapa no tiene los parametros correctamente seteados.");
+			return 1;
+		}
+		name = argv[1]; //PuebloPaleta
+		pokedexPath = argv[2]; //../../PokedexConfig
+		log_info(archivoLog,"Name: %s", name);
+		log_info(archivoLog,"PokedexPath: %s", pokedexPath);
+
+
+	//Inicializo listas para el manejo de entrenadores y dibujo del mapa
+		log_info(archivoLog,"Inicializo listas");
+		entrenadoresPreparados = list_create();
+		entrenadoresListos = list_create();
+		entrenadoresBloqueados = list_create();
+		elementosUI = list_create();
 
 	//Inicializo UI
-	archivoLog = crearArchivoLog();
-	nivel_gui_inicializar();
-	inicializarListasDeEntrenadoresParaPlanificar();
+		log_info(archivoLog,"Inicializo UI");
+		nivel_gui_inicializar();
+
 	//Alloco memoria de  mapa e inicializo su informacion
-	mapa = (t_mapa*) malloc(sizeof(t_mapa));
-	leerConfiguracion(mapa, name, pokedexPath);
+		log_info(archivoLog,"Inicializo mapa y leo su configuracion");
+		mapa = (t_mapa*) malloc(sizeof(t_mapa));
+		leerConfiguracion(mapa, name, pokedexPath);
+
+	//Logueo informacion del mapa
+		log_info(archivoLog,"Logueo configuracion");
+		loguearConfiguracion(archivoLog, mapa);
+
 	//Creo el hilo planificador
-	log_info(archivoLog,"apunto de crear el hilo\n");
-	log_info(archivoLog,"ya cree el hilo\n");
-	//Creo el hilo listener
-	//h2=pthread_create(&hiloListener,NULL,escucharConexiones, (void*)arg1 ); //la funcion escucharConexiones seria el select
-	//Creo el hilo de deteccion de deadlock
-	//h3=pthread_create(&hiloDeteccionDeadlock,NULL,detectarDeadlock, (void*)arg1 );//la funcion detectarDeadlock no existe aun
+		log_info(archivoLog,"Inicializo los hilos de planificaciony deadlock");
+		pthread_create(&hiloPlanificador,NULL,planificador, NULL);
+		pthread_create(&hiloDeadlock,NULL,deadlock, NULL );
 
-	//Creo archivo de log y logueo informacion del mapa
 
-	log_info(archivoLog,"Servidor levantado.\n");
-	loguearConfiguracion(archivoLog, mapa);
-
-	//Creo lista de elementos para dibujar en el map
-	t_elementosEnMapa=list_create();
-	log_info(archivoLog,"lista de elementos creada\n");
 
 	//Inicializo socket para escuchar
-	struct sockaddr_in addr;
-	socklen_t addrlen = sizeof(addr);
-	int listeningSocket;
-	create_serverSocket(&listeningSocket, mapa->puerto);
-
-	log_info(archivoLog,"socket de escucha ok\n");
-	//Informo mi PID
-	log_info(archivoLog,"PID: %d", getpid());
+		log_info(archivoLog,"Inicializo el socket de escucha");
+		struct sockaddr_in addr;
+		socklen_t addrlen = sizeof(addr);
+		int listeningSocket;
+		create_serverSocket(&listeningSocket, mapa->puerto);
 
 	//Registro signal handler
-	signal(SIGUSR2, sigusr2_handler); //signal-number 12
+		log_info(archivoLog,"Registro handler de seniales");
+		signal(SIGUSR2, sigusr2_handler); //signal-number 12
 
 	//Muestro recursos en el mapa
-	int j;
-	for(j=0; j<list_size(mapa->pokeNests); j++){
-		t_pokenest* pokenest = (t_pokenest*)list_get(mapa->pokeNests, j);
-		CrearCaja(t_elementosEnMapa, pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.x, list_size(pokenest->pokemons));
-	}
-
-	nivel_gui_dibujar(t_elementosEnMapa, mapa->nombre);
-
-	//Inicializo el select
-	fd_set master;		// conjunto maestro de descriptores de fichero
-	fd_set read_fds;	// conjunto temporal de descriptores de fichero para select()
-	int fdmax;			// número máximo de descriptores de fichero
-	int newfd;			// descriptor de socket de nueva conexión aceptada
-	int i;
-	int nbytes;
-	char package[PACKAGESIZE];
-
-	FD_ZERO(&master);					// borra los conjuntos maestro y temporal
-	FD_ZERO(&read_fds);
-	FD_SET(listeningSocket, &master);	// añadir listener al conjunto maestro
-	fdmax = listeningSocket; 			// seguir la pista del descriptor de fichero mayor, por ahora es este
-
-	//Me mantengo en el bucle para asi poder procesar cambios en los sockets
-	while(1) {
-		//Copio los sockets y me fijo si alguno tiene cambios, si no hay itinero de vuelta
-		read_fds = master; // cópialo
-		if (select(fdmax+1, &read_fds, NULL, NULL, NULL) == -1) {
-			perror("select");
-			exit(1);
+		log_info(archivoLog,"Cargo elementos a la UI");
+		int j;
+		for(j=0; j<list_size(mapa->pokeNests); j++){
+			t_pokenest* pokenest = (t_pokenest*)list_get(mapa->pokeNests, j);
+			CrearCaja(elementosUI, pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.x, list_size(pokenest->pokemons));
 		}
 
-		//Recorro los sockets con cambios
-		for(i = 0; i <= fdmax; i++) {
-			//Detecto si hay datos en un socket especifico
-			if (FD_ISSET(i, &read_fds)) {
-				//Si es el socket de escucha proceso el nuevo socket
-				if (i == listeningSocket) {
-					addrlen = sizeof(addr);
-					if ((newfd = accept(listeningSocket, (struct sockaddr*)&addr, &addrlen)) == -1){
-						perror("accept");
-					} else {
-						FD_SET(newfd, &master); // Añado el nuevo socket al  select
-						//Actualizo la cantidad
-						if (newfd > fdmax) {
-							fdmax = newfd;
-						}
-						log_trace(archivoLog, "selectserver: new connection from %s on ""socket %d", inet_ntoa(addr.sin_addr),newfd);
+		nivel_gui_dibujar(elementosUI, mapa->nombre);
 
-					}
-				} else {
-					//Si es un socket existente
-					if ((nbytes = recv(i, (void*)package, PACKAGESIZE, 0)) <= 0) {
-						//Si la conexion se cerro
-						if (nbytes == 0) {
-							log_trace(archivoLog, "selectserver: socket %d hung up", i);
+	//Inicializo el select
+		log_info(archivoLog,"Inicializo el SELECT");
+		fd_set master;		// conjunto maestro de descriptores de fichero
+		fd_set read_fds;	// conjunto temporal de descriptores de fichero para select()
+		int fdmax;			// número máximo de descriptores de fichero
+		int newfd;			// descriptor de socket de nueva conexión aceptada
+		int i;
+		int nbytes;
+		char package[2];
+
+		FD_ZERO(&master);					// borra los conjuntos maestro y temporal
+		FD_ZERO(&read_fds);
+		FD_SET(listeningSocket, &master);	// añadir listener al conjunto maestro
+		fdmax = listeningSocket; 			// seguir la pista del descriptor de fichero mayor, por ahora es este
+
+		//Me mantengo en el bucle para asi poder procesar cambios en los sockets
+		while(1) {
+			//Copio los sockets y me fijo si alguno tiene cambios, si no hay itinero de vuelta
+			read_fds = master; // cópialo
+			if (select(fdmax+1, &read_fds, NULL, NULL, NULL) == -1) {
+				perror("select");
+				exit(1);
+			}
+
+			//Recorro los sockets con cambios
+			for(i = 0; i <= fdmax; i++) {
+				//Detecto si hay datos en un socket especifico
+				if (FD_ISSET(i, &read_fds)) {
+					//Si es el socket de escucha proceso el nuevo socket
+					if (i == listeningSocket) {
+						addrlen = sizeof(addr);
+						if ((newfd = accept(listeningSocket, (struct sockaddr*)&addr, &addrlen)) == -1){
+							log_info(archivoLog,"Ocurrio error al aceptar una conexion");
 						} else {
-							perror("recv");
+							FD_SET(newfd, &master); // Añado el nuevo socket al  select
+							//Actualizo la cantidad
+							if (newfd > fdmax) {
+								fdmax = newfd;
+							}
+
+							log_trace(archivoLog, "Nueva conexion de %s en  el socket %d", inet_ntoa(addr.sin_addr),newfd);
+
 						}
-						close(i);
-						FD_CLR(i, &master); // eliminar del conjunto maestro
-
-						//list_remove_customntren(t_entrenadores, *package);
-						BorrarItem(t_elementosEnMapa, *package);
-						nivel_gui_dibujar(t_elementosEnMapa, mapa->nombre);
-
 					} else {
-						// tenemos datos de algún cliente
-						if (nbytes != 0){
-							int posicionInicial=0;
-							entrenador=malloc(sizeof(t_entrenadorConectado));
-							entrenador->paquete=package;
-							entrenador->sock=&i;
-							encolarEntrenadorAlIniciar(entrenador);
-							dibujarEntrenadorEnElOrigen(&i,package,1,1,&posicionInicial);
+						//Si es un socket existente
+						if ((nbytes = recv(i, (void*)package, 2, 0)) <= 0) {
+							//Si la conexion se cerro
+							if (nbytes == 0) {
+								log_trace(archivoLog, "El socket %d se desconecto", i);
+							} else {
+								log_trace(archivoLog, "Error al recibir informacion del socket");
+							}
+							close(i);
+							FD_CLR(i, &master); // eliminar del conjunto maestro
+						} else {
+							// tenemos datos de algún cliente
+							if (nbytes != 0){
+								log_trace(archivoLog, "Ingresa nuevo entrenador a la lista de entrenadores preparados");
+								t_entrenador* entrenador = malloc(sizeof(t_entrenador));
+								entrenador->simbolo = package[0];
+								entrenador->socket = &i;
+								entrenador->pokemons = list_create();
+								entrenador->ubicacion.x = 0;
+								entrenador->ubicacion.y = 0;
 
-							send(i,"QUANTUM",7,0);
+								list_add(entrenadoresPreparados, entrenador);
 
+								FD_CLR(i, &master);// eliminar del conjunto maestro
+							}
 
-							planificar(entrenador);
-
-							/*if (inicioPlanificador==1){
-								inicioPlanificador=0;
-								h1=pthread_create(&hiloPlanificador,NULL,(void*)planificar,(void*)entrenador );
-								log_info(archivoLog,"Se inicia el planificador\n");
-								log_info(archivoLog,"el hilo trabaja con %s y %d\n",entrenador->paquete,*entrenador->sock);
-							}else{
-								send(i,"QUANTUM",7,0);
-								planificar(entrenador);
-							}*/
 						}
-
 					}
 				}
 			}
 		}
-	}
 	//Libero memoria y termino ui
 		free(archivoLog);
 		nivel_gui_terminar();
 		free(mapa);
 		close(listeningSocket);
 
-		//Termino el mapa
+	//Termino el mapa
 		return 0;
 
 }
