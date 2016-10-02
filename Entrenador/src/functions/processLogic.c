@@ -29,22 +29,13 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 		if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){ //Obtengo ubicacion de pokenest
 			//Creo el mensaje
 				char* mensaje = string_new();
-				string_append(&mensaje, "CAPTU");
+				string_append(&mensaje, "U");
 				string_append(&mensaje, objetivo->nombre);
-				string_append(&mensaje, &entrenador->simbolo);
 				printf("el mensaje que voy a enviar es: %s\n",mensaje);
 
 			//Envio el mensaje
-
-				int pedirPokenest(int serverMapa, char* mensaje, int size, int s){
-					return send(serverMapa, mensaje, 7, 0);
-				}
-				int resp = pedirPokenest(serverMapa, mensaje, 7, 0);
-				if(resp == -1){
-
-				int resp = send(serverMapa, mensaje, 6, 0);
+				int resp = send(serverMapa, mensaje, 2, 0);
 				if(resp == -1 || resp != sizeof(mensaje)){
-
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
 				}
@@ -62,7 +53,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 			//Creo el mensaje
 				char* mensaje = string_new();
-				string_append(&mensaje, "MOVER");
+				string_append(&mensaje, "M");
 
 			switch(*movimiento){
 			case 1:
@@ -91,24 +82,12 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			printf("Envio el mensaje: %s\n",mensaje);
 
 			//Envio el mensaje
-
-			int moverse(int serverMapa,char** mensaje, int size, int s){
-				return send(serverMapa, *mensaje, 8, 0);
-			}
-			int resp = moverse(serverMapa, &mensaje, 8, 0);
+			int resp = send(serverMapa, &mensaje, 2, 0);
 				if(resp == -1){
 					printf("No pude enviar el mensaje: %s\n", mensaje);
 					exit(EXIT_FAILURE);
 				}
-				//Envio la posicion al mapa
-				char* posx=malloc(sizeof(char));
-				sprintf(posx,"%i",mapa->miPosicion.x);
-				printf("Envio posicion x %s\n",posx);
-				send(serverMapa,posx, 2,0);
-				char* posy=malloc(sizeof(char));
-				sprintf(posy,"%i",mapa->miPosicion.y);
-				printf("Envio posicion y %s\n",posy);
-				send(serverMapa,posy,2,0);
+
 		}else{ //Tengo que solicitar el pokemon
 			/*char* mensaje ="FINOB";
 			int resp = send(serverMapa, &mensaje, 6, 0);
@@ -122,7 +101,6 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 		}
 
 	}
-}
 }
 
 void procesarMapa(t_mapa* mapa){

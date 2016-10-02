@@ -47,24 +47,10 @@ t_list* t_entrenadoresListos;
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
-void inicializarListasDeEntrenadoresParaPlanificar(){
-	t_entrenadoresBloqueados=list_create();
-	t_entrenadoresListos=list_create();
-	log_info(archivoLog,"Se crearon las listas de entrenadores listos y bloqueados\n");
-}
-
-
 void encolarEntrenadorAlIniciar(t_entrenadorConectado* entrenador){
 	list_add(t_entrenadoresListos,entrenador);
 }
 
-t_pokenest *find_pokenest_by_id(char id) {
-	int _is_the_one(t_pokenest *p) {
-            			return (p->identificador==id);
-
-            	}
-            		return list_find(mapa->pokeNests, (void*) _is_the_one);
-}
 t_pokemon* find_pokemon_by_id(t_list* pokemons, t_pokenest pokenest) {
             		int _is_the_one(t_pokemon *poke) {
 
@@ -307,49 +293,6 @@ bool primeraPasada=true;
 		}
 	}
 }*/
-void planificar(t_entrenadorConectado* entrenador){
-
-	while(1){
-	log_info(archivoLog,"entra al planificador: %s\n",entrenador->paquete);
-
-	//Intento recibir un mensaje del entrenador
-	recv(*entrenador->sock,entrenador->paquete,8,0);
-	//strcpy(simbolo,&entrenador->paquete[6]);
-	log_info(archivoLog,"recibo: %s\n",entrenador->paquete);
-	t_pokenest pokenestObjetivo;
-
-//Busco pokenest
-	if(entrenador->paquete[0]== 'C'){
-		pokenestObjetivo = find_pokenest_by_id(entrenador->paquete[5])[0];
-		log_info(archivoLog,"encontre pokenest %d, %d\n",pokenestObjetivo.ubicacion.x, pokenestObjetivo.ubicacion.y);
-		log_info(archivoLog,"%c no finalizo su objetivo\n",entrenador->paquete[0]);
-				t_pokenest pokenestObjetivo;
-					char* posy=malloc(sizeof(char));
-					char* posx=malloc(sizeof(char));
-				log_info(archivoLog,"Quiere capturar un pokemon\n");
-				sprintf(posx,"%i",pokenestObjetivo.ubicacion.x);
-				log_info(archivoLog,"Posicion en x %s\n",posx);
-				sprintf(posy,"%i",pokenestObjetivo.ubicacion.y);
-				log_info(archivoLog,"Posicion en y %s\n",posy);
-				send(*entrenador->sock,posx, 2,0);
-				send(*entrenador->sock, posy,2,0);
-	}
-	if	(entrenador->paquete[0]=='M'){
-
-				recv(*entrenador->sock,entrenador->paquete,2,0);
-				int posxInt=atoi(entrenador->paquete);
-				log_info(archivoLog,"Recibo posicion x %d\n",posxInt);
-				recv(*entrenador->sock,entrenador->paquete,2,0);
-				int posyInt=atoi(entrenador->paquete);
-				log_info(archivoLog,"Recibo posicion y %d\n",posyInt);
-				//log_info(archivoLog,"Lo que recibi es: %s",entrenador->paquete);
-				MoverPersonaje(t_elementosEnMapa,entrenador->paquete[6],posxInt,posyInt);
-
-			send(*entrenador->sock, "QUANTUM", 7, 0);
-			break;
-		}
-	}
-	}
 
 int main(int argc, char *argv[]){
 	//Creo archivo de log
@@ -383,7 +326,9 @@ int main(int argc, char *argv[]){
 	//Alloco memoria de  mapa e inicializo su informacion
 		log_info(archivoLog,"Inicializo mapa y leo su configuracion");
 		mapa = (t_mapa*) malloc(sizeof(t_mapa));
+		log_info(archivoLog,"Inicializo mapa y leo su configuracion");
 		leerConfiguracion(mapa, name, pokedexPath);
+		log_info(archivoLog,"Inicializo mapa y leo su configuracion");
 
 	//Logueo informacion del mapa
 		log_info(archivoLog,"Logueo configuracion");

@@ -9,4 +9,5 @@
 
 void* deadlock(void* arg){
 	log_trace(archivoLog, "Deadldock - Arranca");
+	return arg;
 }

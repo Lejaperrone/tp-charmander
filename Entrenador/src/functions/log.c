@@ -4,6 +4,7 @@
 #include <commons/log.h>
 #include <commons/collections/list.h>
 #include "../commons/structures.c"
+#include <commons/string.h>
 
 
 t_log* crearArchivoLog(char* nombre) {
