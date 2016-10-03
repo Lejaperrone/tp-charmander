@@ -23,7 +23,7 @@
 void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa){
 	char quantum;
 
-	while(objetivo->logrado==0){ //aca deberia esperar al siguiente quantum.
+	while(objetivo->logrado==0 && recv(serverMapa, &quantum, 1, 0) && quantum=='Q'){ //aca deberia esperar al siguiente quantum.
 		log_info(archivoLog, "Obtuve un turno");
 		if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){ //Obtengo ubicacion de pokenest
 			//Creo el mensaje

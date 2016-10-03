@@ -40,10 +40,10 @@ void atenderEntrenador(t_entrenador* entrenador){
 	int nbytes;
 	char paquete[1];
 	log_trace(archivoLog, "Planificador - Inicio atencion de %c", entrenador->simbolo);
-	if((nbytes = recv(*entrenador->socket, &paquete, 1,0)) ==1){
+	if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
 		switch(paquete[0]){
 			case 'U':
-				if((nbytes = recv(*entrenador->socket, &paquete, 1,0)) ==1){
+				if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
 					log_trace(archivoLog, "Planificador - Entrenador: %s solicito U con %c", entrenador->simbolo, paquete);
 					t_pokenest* pokenestObjetivo = find_pokenest_by_id(paquete[0]);
 					char* ubic = string_new();
@@ -62,13 +62,13 @@ void atenderEntrenador(t_entrenador* entrenador){
 					}
 					string_append(&ubic,posy);
 
-					send(*entrenador->socket, &ubic,4,0);
+					send(entrenador->socket, &ubic,4,0);
 				}else{
 					//Se desconecta debido a procesamiento indebido de mensaje
 				}
 				break;
 			case 'M':
-				if((nbytes = recv(*entrenador->socket, &paquete, 1,0)) ==1){
+				if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
 					log_trace(archivoLog, "Planificador - Entrenador: %s solicito M con %c", entrenador->simbolo, paquete);
 					int despl = atoi(paquete);
 					switch(despl){
@@ -115,6 +115,9 @@ void* planificador(void* arg){
 		for(i=0; i<list_size(entrenadoresListos); i++){
 			t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresListos, i);
 			log_trace(archivoLog, "Planificador - Envio turno a %c", entrenador->simbolo);
+			char Q = 'Q';
+			int nbytes = send(entrenador->socket, &Q, 1, 0);
+			log_trace(archivoLog, "Enviado : %d", nbytes);
 			atenderEntrenador(entrenador);
 		}
 

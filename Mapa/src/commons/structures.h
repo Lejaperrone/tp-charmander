@@ -46,7 +46,7 @@
 
 	typedef struct{
 		char simbolo;
-		int* socket;
+		int socket;
 		t_coordenadas ubicacion;
 		t_list* pokemons;
 	}t_entrenador;
