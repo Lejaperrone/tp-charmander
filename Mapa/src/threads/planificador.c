@@ -15,6 +15,7 @@
 #include <tad_items.h>
 #include <curses.h>
 #include <nivel.h>
+#include <unistd.h>
 
 t_pokenest *find_pokenest_by_id(char id) {
 	int _is_the_one(t_pokenest *p) {
@@ -25,8 +26,10 @@ t_pokenest *find_pokenest_by_id(char id) {
 
 void procesarEntrenadoresPreparados(){
 	int i;
+	log_trace(archivoLog, "Planificador - Hay %d entrenador/es preparado/s", list_size(entrenadoresPreparados));
 	for(i=0; i<list_size(entrenadoresPreparados); i++){
 		t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresPreparados, i);
+		log_trace(archivoLog, "Planificador - Agrego entrenador a listos: %c", entrenador->simbolo);
 		list_add(entrenadoresListos, entrenador);
 		CrearPersonaje(elementosUI,entrenador->simbolo,entrenador->ubicacion.x,entrenador->ubicacion.y);
 	}
@@ -36,10 +39,12 @@ void procesarEntrenadoresPreparados(){
 void atenderEntrenador(t_entrenador* entrenador){
 	int nbytes;
 	char paquete[1];
+	log_trace(archivoLog, "Planificador - Inicio atencion de %c", entrenador->simbolo);
 	if((nbytes = recv(*entrenador->socket, &paquete, 1,0)) ==1){
 		switch(paquete[0]){
 			case 'U':
 				if((nbytes = recv(*entrenador->socket, &paquete, 1,0)) ==1){
+					log_trace(archivoLog, "Planificador - Entrenador: %s solicito U con %c", entrenador->simbolo, paquete);
 					t_pokenest* pokenestObjetivo = find_pokenest_by_id(paquete[0]);
 					char* ubic = string_new();
 
@@ -64,6 +69,7 @@ void atenderEntrenador(t_entrenador* entrenador){
 				break;
 			case 'M':
 				if((nbytes = recv(*entrenador->socket, &paquete, 1,0)) ==1){
+					log_trace(archivoLog, "Planificador - Entrenador: %s solicito M con %c", entrenador->simbolo, paquete);
 					int despl = atoi(paquete);
 					switch(despl){
 						case 1:
@@ -86,27 +92,37 @@ void atenderEntrenador(t_entrenador* entrenador){
 				}
 				break;
 			case 'F':
+				log_trace(archivoLog, "Planificador - Entrenador: %c solicito F", entrenador->simbolo);
+				break;
+			default:
+				log_trace(archivoLog, "Planificador - Entrenador: %c solicito desconocida: %s", entrenador->simbolo, paquete);
 				break;
 		}
 	}
+	sleep(mapa->retardo/1000);
 }
 
 
 
 void* planificador(void* arg){
 	log_trace(archivoLog, "Planificador - Arranca");
-
+	int count = 0;
 	while(1){
 		procesarEntrenadoresPreparados();
 
 		int i;
+		log_info(archivoLog,"Planiaficador - %d entrenadores listos", list_size(entrenadoresListos));
 		for(i=0; i<list_size(entrenadoresListos); i++){
 			t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresListos, i);
-			send(*entrenador->socket,"QUANTUM",7,0);
+			log_trace(archivoLog, "Planificador - Envio turno a %c", entrenador->simbolo);
 			atenderEntrenador(entrenador);
 		}
 
-		sleep(mapa->retardo);
+		sleep(5);
+		count++;
+		if(count==100){
+			return arg;
+		}
 	}
 }
 

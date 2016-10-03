@@ -430,6 +430,8 @@ int main(int argc, char *argv[]){
 								list_add(entrenadoresPreparados, entrenador);
 
 								FD_CLR(i, &master);// eliminar del conjunto maestro
+
+								log_trace(archivoLog, "Agrego entrenador a preparados: %c", entrenador->simbolo);
 							}
 
 						}
