@@ -22,6 +22,7 @@
 
 void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa){
 	char quantum;
+	log_info(archivoLog, "Arranco objetivo %s en mapa %s con mov %d", objetivo->nombre, mapa->nombre, *movimiento);
 
 	while(objetivo->logrado==0 && recv(serverMapa, &quantum, 1, 0) && quantum=='Q'){ //aca deberia esperar al siguiente quantum.
 		log_info(archivoLog, "Obtuve un turno");
@@ -92,7 +93,8 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 				printf("No pude enviar el mensaje: %s\n", mensaje);
 				exit(EXIT_FAILURE);
 			}*/
-
+			char mensaje='F';
+			send(serverMapa, &mensaje, 1, 0);
 			objetivo->logrado = 1;
 			log_info(archivoLog,"Fin del objetivo");
 		}

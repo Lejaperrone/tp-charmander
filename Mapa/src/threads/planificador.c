@@ -97,6 +97,7 @@ void atenderEntrenador(t_entrenador* entrenador){
 				break;
 			case 'F':
 				log_trace(archivoLog, "Planificador - Solicitud F");
+				list_add(entrenadoresListos, entrenador);
 				break;
 			default:
 				log_trace(archivoLog, "Planificador - Solicitud desconocida: %c", paquete);
