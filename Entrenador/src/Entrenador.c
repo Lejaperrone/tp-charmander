@@ -69,6 +69,7 @@ int main(int argc, char *argv[]){
 		for(i=0; i<list_size(entrenador->hojaDeViaje); i++){
 			//Recupero el mapa al que conectarme
 				t_mapa* mapa = (t_mapa*)list_get(entrenador->hojaDeViaje, i);
+				log_info(archivoLog,"Proceso mapa %s", mapa->nombre);
 				procesarMapa(mapa);
 
 		}

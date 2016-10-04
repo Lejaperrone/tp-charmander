@@ -360,7 +360,7 @@ int main(int argc, char *argv[]){
 		int newfd;			// descriptor de socket de nueva conexión aceptada
 		int i;
 		int nbytes;
-		char package[2];
+		char package;
 
 		FD_ZERO(&master);					// borra los conjuntos maestro y temporal
 		FD_ZERO(&read_fds);
@@ -397,7 +397,7 @@ int main(int argc, char *argv[]){
 						}
 					} else {
 						//Si es un socket existente
-						if ((nbytes = recv(i, (void*)package, 2, 0)) <= 0) {
+						if ((nbytes = recv(i, &package, 1, 0)) <= 0) {
 							//Si la conexion se cerro
 							if (nbytes == 0) {
 								log_trace(archivoLog, "El socket %d se desconecto", i);
@@ -411,8 +411,8 @@ int main(int argc, char *argv[]){
 							if (nbytes != 0){
 								log_trace(archivoLog, "Ingresa nuevo entrenador a la lista de entrenadores preparados");
 								t_entrenador* entrenador = malloc(sizeof(t_entrenador));
-								entrenador->simbolo = package[0];
-								entrenador->socket = &i;
+								entrenador->simbolo = package;
+								entrenador->socket = i;
 								entrenador->pokemons = list_create();
 								entrenador->ubicacion.x = 0;
 								entrenador->ubicacion.y = 0;
@@ -423,6 +423,8 @@ int main(int argc, char *argv[]){
 								log_info(archivoLog,"Ubicacion en X: %d ",entrenador->ubicacion.x);
 								log_info(archivoLog,"Ubicacion en Y: %d ",entrenador->ubicacion.y);
 								FD_CLR(i, &master);// eliminar del conjunto maestro
+
+								log_trace(archivoLog, "Agrego entrenador a preparados: %c", entrenador->simbolo);
 							}
 
 						}
