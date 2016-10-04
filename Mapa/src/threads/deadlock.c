@@ -21,13 +21,12 @@ bool estaDisponible (t_pokemon_custom* unPoke){
 
 bool noHayPokemonsDisponiblesPara(t_entrenador* unE){
 	t_pokemon_custom* unPoke=malloc(sizeof(t_pokemon_custom));
-	unPoke=unE->ultimoPokeSolicitado;
-	int sizePokenests=list_size(mapa->pokeNests);
-	int i;
 	t_list* pokemonsDisponibles=malloc(sizeof(t_list));
-	for(i=0;i<sizePokenests;i++){
+	unPoke=unE->ultimoPokeSolicitado;
+	int numPokenest;
+	for(numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
 	t_pokenest* unaPokenest=malloc(sizeof(t_pokenest));
-			 unaPokenest=list_get(mapa->pokeNests,i);
+			 unaPokenest=list_get(mapa->pokeNests,numPokenest);
 			 pokemonsDisponibles=list_filter(unaPokenest->pokemons,(void*)estaDisponible (unPoke));
 			 free(unaPokenest);
 	}
