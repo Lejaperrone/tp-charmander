@@ -12,12 +12,20 @@
 #include <fuse.h>
 #include <errno.h>
 #include <fcntl.h>
+#include "functions/log.h"
 
 #include "socketLib.h"
 
-#define IP "127.0.0.1" //Lo deberia buscar del metadata del primer mapa de su hoja de viaje
-#define PUERTO "7666"  // En realidad lo deberia buscar del metadata del primer mapa de su hoja de viaje
+#define IP "127.0.0.1" //Deberia estar por variable de entorno
+#define PUERTO "7666" //Deberia estar por variable de entorno
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
+
+t_log* logPokeCliente;
+
+// Variables de entorno
+	//char *PUERTO;
+	//char *IP;
+
 
 /*
  * Esta es una estructura auxiliar utilizada para almacenar parametros
@@ -50,12 +58,12 @@ static struct fuse_operations bb_oper = {
 };
 
 
+
 /** keys for FUSE_OPT_ options */
 enum {
 	KEY_VERSION,
 	KEY_HELP,
 };
-
 
 /*
  * Esta estructura es utilizada para decirle a la biblioteca de FUSE que
@@ -73,8 +81,10 @@ static struct fuse_opt fuse_options[] = {
 		FUSE_OPT_END,
 };
 
-
 int main(int argc, char *argv[]){
+
+	//IP = getenv("POKEIP");
+	//PUERTO = getenv("POKEPORT");
 
 	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
 
@@ -90,9 +100,9 @@ int main(int argc, char *argv[]){
 
 	int pokedexCliente;
 
-		printf("Conectandose al servidor...\n");
 		create_socketClient(&pokedexCliente, IP, PUERTO);
 		printf("Conectado al servidor\n");
+		log_info(logPokeCliente, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
 
 		//Funcion que se encarga de montar y delegar todo al Kernel
 		fuse_main(args.argc, args.argv, &bb_oper, NULL);
