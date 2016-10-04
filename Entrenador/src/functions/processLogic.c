@@ -113,7 +113,7 @@ void procesarMapa(t_mapa* mapa){
 
 	//Le paso mi simbolo al  mapa
 		log_info(archivoLog,"Me identifico con el mapa como: %c", entrenador->simbolo);
-		int resp = send(serverMapa, &(entrenador->simbolo), 2, 0);
+		int resp = send(serverMapa, &(entrenador->simbolo), 1, 0);
 		if(resp == -1){
 			log_info(archivoLog,"No me pude identificar con el mapa");
 			exit(EXIT_FAILURE);

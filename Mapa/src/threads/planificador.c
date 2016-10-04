@@ -38,14 +38,14 @@ void procesarEntrenadoresPreparados(){
 
 void atenderEntrenador(t_entrenador* entrenador){
 	int nbytes;
-	char paquete[1];
+	char paquete;
 	log_trace(archivoLog, "Planificador - Inicio atencion de %c", entrenador->simbolo);
 	if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
-		switch(paquete[0]){
+		switch(paquete){
 			case 'U':
 				if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
-					log_trace(archivoLog, "Planificador - Entrenador: %s solicito U con %c", entrenador->simbolo, paquete);
-					t_pokenest* pokenestObjetivo = find_pokenest_by_id(paquete[0]);
+					log_trace(archivoLog, "Planificador - Entrenador: %c solicito U con %c", entrenador->simbolo, paquete);
+					t_pokenest* pokenestObjetivo = find_pokenest_by_id(paquete);
 					char* ubic = string_new();
 
 					char* posx=malloc(sizeof(char));
@@ -69,7 +69,7 @@ void atenderEntrenador(t_entrenador* entrenador){
 				break;
 			case 'M':
 				if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
-					log_trace(archivoLog, "Planificador - Entrenador: %s solicito M con %c", entrenador->simbolo, paquete);
+					log_trace(archivoLog, "Planificador - Entrenador: %c solicito M con %c", entrenador->simbolo, paquete);
 					int despl = atoi(paquete);
 					switch(despl){
 						case 1:
