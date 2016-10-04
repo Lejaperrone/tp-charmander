@@ -41,8 +41,8 @@ t_list* t_entrenadoresListos;
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
-t_pokemonMapa* find_pokemon_by_id(t_list* pokemons, t_pokenest pokenest) {
-            		int _is_the_one(t_pokemonMapa *poke) {
+t_pokemon_custom* find_pokemon_by_id(t_list* pokemons, t_pokenest pokenest) {
+            		int _is_the_one(t_pokemon_custom *poke) {
 
             			return (pokenest.identificador==poke->id);
 
@@ -50,16 +50,16 @@ t_pokemonMapa* find_pokemon_by_id(t_list* pokemons, t_pokenest pokenest) {
 
 
             	}
-            		 t_pokemonMapa* pokemonCapturado=malloc(sizeof(t_pokemonMapa));
+            		t_pokemon_custom* pokemonCapturado=malloc(sizeof(t_pokemon_custom));
             		 pokemonCapturado = list_find(mapa->pokeNests, (void*) _is_the_one);
             		pokemonCapturado->disponible=0;
             		return list_find(mapa->pokeNests, (void*) _is_the_one);
 }
 
-int estaEnLaPokenest(t_pokemonMapa* pokemon){
+int estaEnLaPokenest(t_pokemon_custom* pokemon){
 	return pokemon->disponible==0;
 }
-bool pudoSerCapturado(t_pokemonMapa pokemon, t_pokenest* pokenest){
+bool pudoSerCapturado(t_pokemon_custom pokemon, t_pokenest* pokenest){
 	return list_is_empty(list_filter(pokenest->pokemons,(void*)estaEnLaPokenest));
 }
 
@@ -134,7 +134,7 @@ void otorgarQuantum(t_entrenador* entrenador, int Q, int* t, int* duracion, char
 					t_pokenest pokenestObjetivo;
 					pokenestObjetivo = find_pokenest_by_id(*paquete[6])[0];
 					//ACA VA UN MUTEX
-					t_pokemonMapa* pokeActual=malloc(sizeof(t_pokemonMapa));
+					t_pokemon_custom* pokeActual=malloc(sizeof(t_pokemon_custom));
 					pokeActual=find_pokemon_by_id(pokenestObjetivo.pokemons,pokenestObjetivo);
 					list_remove_by_condition(pokenestObjetivo.pokemons, (void*)pudoSerCapturado);
 					waitEntrenador(entrenador);
@@ -418,10 +418,6 @@ int main(int argc, char *argv[]){
 								entrenador->ubicacion.y = 0;
 								list_add(entrenadoresPreparados, entrenador);
 
-								log_info(archivoLog,"Ingreso: ");
-								log_info(archivoLog,"Simbolo: %c ",entrenador->simbolo);
-								log_info(archivoLog,"Ubicacion en X: %d ",entrenador->ubicacion.x);
-								log_info(archivoLog,"Ubicacion en Y: %d ",entrenador->ubicacion.y);
 								FD_CLR(i, &master);// eliminar del conjunto maestro
 
 								log_trace(archivoLog, "Agrego entrenador a preparados: %c", entrenador->simbolo);

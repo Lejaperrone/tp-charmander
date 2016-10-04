@@ -15,12 +15,12 @@ int sizeTrainersOnMap;
 
 //bool(*condition)(void*)
 
-bool estaDisponible (t_pokemonMapa* unPoke){
+bool estaDisponible (t_pokemon_custom* unPoke){
 	return (unPoke->disponible==1);
 }
 
 bool noHayPokemonsDisponiblesPara(t_entrenador* unE){
-	t_pokemonMapa* unPoke=malloc(sizeof(t_pokemonMapa));
+	t_pokemon_custom* unPoke=malloc(sizeof(t_pokemon_custom));
 	unPoke=unE->ultimoPokeSolicitado;
 	int sizePokenests=list_size(mapa->pokeNests);
 	int i;

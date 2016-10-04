@@ -28,16 +28,10 @@ void procesarEntrenadoresPreparados(){
 	int i;
 	log_trace(archivoLog, "Planificador - Hay %d entrenador/es preparado/s", list_size(entrenadoresPreparados));
 	for(i=0; i<list_size(entrenadoresPreparados); i++){
-
-		t_entrenador* entrenador = (t_entrenador*)list_get(entrenadoresPreparados,i);
-
-		//t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresPreparados, i);
+		t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresPreparados, i);
 		log_trace(archivoLog, "Planificador - Agrego entrenador a listos: %c", entrenador->simbolo);
-
 		list_add(entrenadoresListos, entrenador);
-		(t_entrenador*)list_remove(entrenadoresPreparados, i);
 		CrearPersonaje(elementosUI,entrenador->simbolo,entrenador->ubicacion.x,entrenador->ubicacion.y);
-		list_add(elementosUI,&entrenador->simbolo);
 	}
 	nivel_gui_dibujar(elementosUI,mapa->nombre);
 }
