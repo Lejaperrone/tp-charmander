@@ -44,11 +44,11 @@ void* deadlock(void* arg){
 	while (1){
 		sleep(mapa->retardo);
 		int i;
-		sizeTrainersOnMap=list_size(t_entrenadoresListos);
+		sizeTrainersOnMap=list_size(entrenadoresListos);
 				//+list_size(t_entrenadoresBloqueados);
 		t_list* posiblesEntrenadoresEnDeadlock=malloc(sizeof(t_list));
-		list_add_all(posiblesEntrenadoresEnDeadlock,t_entrenadoresListos);
-		list_add_all(posiblesEntrenadoresEnDeadlock,t_entrenadoresBloqueados);
+		list_add_all(posiblesEntrenadoresEnDeadlock,entrenadoresListos);
+		list_add_all(posiblesEntrenadoresEnDeadlock,entrenadoresBloqueados);
 		for (i=0;i<sizeTrainersOnMap;i++){
 			t_entrenador* posibleEntrenadorEnDeadlock=malloc(sizeof(t_entrenador));
 			posibleEntrenadorEnDeadlock=(t_entrenador*)list_get(posiblesEntrenadoresEnDeadlock,i);

@@ -31,7 +31,7 @@ void procesarEntrenadoresPreparados(){
 
 		t_entrenador* entrenador = (t_entrenador*)list_get(entrenadoresPreparados,i);
 
-		t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresPreparados, i);
+		//t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresPreparados, i);
 		log_trace(archivoLog, "Planificador - Agrego entrenador a listos: %c", entrenador->simbolo);
 
 		list_add(entrenadoresListos, entrenador);

@@ -101,12 +101,12 @@ void otorgarQuantum(t_entrenador* entrenador, int Q, int* t, int* duracion, char
 
 
 		int m;
-		m=send(*entrenador->socket,"QUANTUM",7,0);
+		m=send(entrenador->socket,"QUANTUM",7,0);
 		if (m==-1){
 			log_info(archivoLog, "no se envio el mensaje a %c\n",*paquete[0]);
 		}
 		log_info(archivoLog,"envie senial QUANTUM\n");
-		recv(*entrenador->socket,*paquete,6,0);
+		recv(entrenador->socket,*paquete,6,0);
 		log_info(archivoLog,"recibo respuesta del entrenador\n");
 		if (entrenadorQuiereConocerUbicacionDePokenest(*paquete)){
 			t_pokenest pokenestObjetivo;
@@ -117,16 +117,16 @@ void otorgarQuantum(t_entrenador* entrenador, int Q, int* t, int* duracion, char
 			log_info(archivoLog,"Posicion en x %s\n",posx);
 			sprintf(posy,"%i",pokenestObjetivo.ubicacion.y);
 			log_info(archivoLog,"Posicion en y %s\n",posy);
-			send(*entrenador->socket,posx, 2,0);
-			send(*entrenador->socket, posy,2,0);
+			send(entrenador->socket,posx, 2,0);
+			send(entrenador->socket, posy,2,0);
 			free(posy);
 			free(posx);
 			log_info(archivoLog,"encontre pokenest %d, %d\n",pokenestObjetivo.ubicacion.x, pokenestObjetivo.ubicacion.y);
 		}else{
 			if (entrenadorQuiereMoverse(*paquete)){
-				send(*entrenador->socket, "QUANTUM", 7, 0);
+				send(entrenador->socket, "QUANTUM", 7, 0);
 				char* mensaje=malloc(sizeof(char));
-				recv(*entrenador->socket,mensaje,6,0);
+				recv(entrenador->socket,mensaje,6,0);
 				//dibujar que se mueva
 				free(mensaje);
 			}else{
