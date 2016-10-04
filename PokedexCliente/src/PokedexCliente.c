@@ -182,7 +182,7 @@ static int hello_read(const char *path, char *buf, size_t size, off_t offset, st
  * Como se observa la estructura contiene punteros a funciones.
  */
 
-static struct fuse_operations hello_oper = {
+static struct fuse_operations bb_oper = {
 		.getattr = hello_getattr,
 		.readdir = hello_readdir,
 		.open = hello_open,
@@ -216,48 +216,41 @@ static struct fuse_opt fuse_options[] = {
 
 int main(int argc, char *argv[]){
 
-	int serverMapa;
+	struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
 
-		printf("Conectandose al servidor...\n");
-		create_socketClient(&serverMapa, IP, PUERTO);
-		printf("Conectado al servidor. Ya puede enviar mensajes. Escriba 'exit' para salir\n");
+		// Limpio la estructura que va a contener los parametros
+		memset(&runtime_options, 0, sizeof(struct t_runtime_options));
 
-	//------------Envio de mensajes al servidor------------
-		int enviar = 1;
-		char message[PACKAGESIZE];
-
-		while(enviar){
-			fgets(message, PACKAGESIZE, stdin);
-			if (!strcmp(message,"exit\n")) enviar = 0;
-			if (enviar) send(serverMapa, message, strlen(message) + 1, 0);
+		// Esta funcion de FUSE lee los parametros recibidos y los intepreta
+		if (fuse_opt_parse(&args, &runtime_options, fuse_options, NULL) == -1){
+			/** error parsing options */
+			perror("Invalid arguments!");
+			return EXIT_FAILURE;
 		}
 
-		struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
+		// Esta es la funcion principal de FUSE, es la que se encarga
+		// de realizar el montaje, comuniscarse con el kernel, delegar todo
+		// en varios threads
 
-			// Limpio la estructura que va a contener los parametros
-			memset(&runtime_options, 0, sizeof(struct t_runtime_options));
+		fuse_main(args.argc, args.argv, &bb_oper, NULL);
 
-			// Esta funcion de FUSE lee los parametros recibidos y los intepreta
-			if (fuse_opt_parse(&args, &runtime_options, fuse_options, NULL) == -1){
-				/** error parsing options */
-				perror("Invalid arguments!");
-				return EXIT_FAILURE;
+	int pokedexCliente;
+
+		printf("Conectandose al servidor...\n");
+		create_socketClient(&pokedexCliente, IP, PUERTO);
+		printf("Conectado al servidor. Ya puede enviar mensajes. Escriba 'exit' para salir\n");
+
+		//------------Envio de mensajes al servidor------------
+			int enviar = 1;
+			char message[PACKAGESIZE];
+
+			while(enviar){
+				fgets(message, PACKAGESIZE, stdin);
+				if (!strcmp(message,"exit\n")) enviar = 0;
+				if (enviar) send(pokedexCliente, message, strlen(message) + 1, 0);
 			}
 
-			// Si se paso el parametro --welcome-msg
-			// el campo welcome_msg deberia tener el
-			// valor pasado
-			if( runtime_options.welcome_msg != NULL ){
-				printf("%s\n", runtime_options.welcome_msg);
-			}
-
-			// Esta es la funcion principal de FUSE, es la que se encarga
-			// de realizar el montaje, comuniscarse con el kernel, delegar todo
-			// en varios threads
-			return fuse_main(args.argc, args.argv, &hello_oper, NULL);
-
-
-			close(serverMapa);
-			return 0;
+		close(pokedexCliente);
+		return 0;
 }
 
