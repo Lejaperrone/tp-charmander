@@ -12,7 +12,6 @@
 #include <fuse.h>
 #include <errno.h>
 #include <fcntl.h>
-#include "functions/log.h"
 
 #include "socketLib.h"
 
