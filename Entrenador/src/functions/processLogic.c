@@ -86,16 +86,26 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 					exit(EXIT_FAILURE);
 				}
 
-		}else{ //Tengo que solicitar el pokemon
-			/*char* mensaje ="FINOB";
-			int resp = send(serverMapa, &mensaje, 6, 0);
-			if(resp == -1){
-				printf("No pude enviar el mensaje: %s\n", mensaje);
+		}else{
+			//Creo el mensaje
+			char* mensaje = string_new();
+			string_append(&mensaje, "F");
+			string_append(&mensaje, objetivo->nombre);
+			log_info(archivoLog,"el mensaje que voy a enviar es: %s",mensaje);
+
+		//Envio el mensaje
+			int resp = send(serverMapa, mensaje, 2, 0);
+			if(resp <0){
+				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
 				exit(EXIT_FAILURE);
-			}*/
-			char mensaje='F';
-			send(serverMapa, &mensaje, 1, 0);
-			objetivo->logrado = 1;
+			}
+			log_info(archivoLog,"Envie el mensaje %s",mensaje);
+
+			char conf;
+			if (recv(serverMapa, conf, 1,  0) == 1 && conf=='C'){
+				objetivo->logrado = 1;
+			}
+
 			log_info(archivoLog,"Fin del objetivo");
 		}
 

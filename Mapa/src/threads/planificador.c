@@ -98,8 +98,12 @@ void atenderEntrenador(t_entrenador* entrenador){
 				}
 				break;
 			case 'F':
-				log_trace(archivoLog, "Planificador - Solicitud F");
-				list_add(entrenadoresListos, entrenador);
+				if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
+					log_trace(archivoLog, "Planificador - Solicitud F%c", paquete);
+					entrenador->pokenestBloqueante = find_pokenest_by_id(paquete);
+					list_add(entrenadoresBloqueados, entrenador);
+					log_trace(archivoLog, "Planificador - Lo mando a la lista de bloqueados");
+				}
 				break;
 			default:
 				log_trace(archivoLog, "Planificador - Solicitud desconocida: %c", paquete);
@@ -112,12 +116,10 @@ void atenderEntrenador(t_entrenador* entrenador){
 
 void* planificador(void* arg){
 	log_trace(archivoLog, "Planificador - Arranca");
-	//int count = 0;
 	while(1){
 		procesarEntrenadoresPreparados();
 
 		int i;
-		//log_info(archivoLog,"Planiaficador - %d entrenadores listos", list_size(entrenadoresListos));
 		for(i=0; i<list_size(entrenadoresListos); i++){
 			t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresListos, i);
 			log_trace(archivoLog, "Planificador - Envio turno a %c", entrenador->simbolo);
@@ -125,7 +127,8 @@ void* planificador(void* arg){
 			int nbytes = send(entrenador->socket, &Q, 1, 0);
 			log_trace(archivoLog, "Enviado : %d", nbytes);
 			atenderEntrenador(entrenador);
-			sleep(mapa->retardo/100);
+			//sleep(mapa->retardo/1000);
+			sleep(1);
 		}
 	}
 }
