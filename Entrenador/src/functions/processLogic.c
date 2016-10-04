@@ -43,15 +43,8 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			//Espero la respuesta
 				char pos[5];
 				if (recv(serverMapa, pos, 5,  0) == 5){
-					char x[2], y[2];
-					x[0] = pos[0];
-					x[1] = pos[1];
-					y[0] = pos[2];
-					y[1] = pos[3];
-					objetivo->ubicacion.x = atoi(x);
-					objetivo->ubicacion.y = atoi(y);
-					log_info(archivoLog,"Obtuve %s",pos);
-					//objetivo->ubicacion = pos;
+					objetivo->ubicacion.x = atoi(string_substring(pos, 0, 2));
+					objetivo->ubicacion.y = atoi(string_substring(pos, 2, 2));
 				}
 				log_info(archivoLog,"Obtuve posicion x:%d, y: %d.", objetivo->ubicacion.x, objetivo->ubicacion.y);
 		}else if((*movimiento = siguienteMovimiento(mapa->miPosicion, objetivo, *movimiento))){ //Me muevo
