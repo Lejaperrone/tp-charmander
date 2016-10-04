@@ -46,23 +46,23 @@ void atenderEntrenador(t_entrenador* entrenador){
 				if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
 					log_trace(archivoLog, "Planificador - Entrenador: %c solicito U con %c", entrenador->simbolo, paquete);
 					t_pokenest* pokenestObjetivo = find_pokenest_by_id(paquete);
-					char* ubic = string_new();
+					log_trace(archivoLog, "Planificador - Encontre la pokenest");
 
-					char* posx=malloc(sizeof(char));
+					char* posx=malloc(sizeof(char)*3);
 					sprintf(posx,"%i",pokenestObjetivo->ubicacion.x);
-					if(entrenador->ubicacion.x<=9){
-						string_append(&ubic,"0");
-					}
-					string_append(&ubic,posx);
 
-					char* posy=malloc(sizeof(char));
+					char* posy=malloc(sizeof(char)*3);
 					sprintf(posy,"%i",pokenestObjetivo->ubicacion.y);
-					if(entrenador->ubicacion.y<=9){
-						string_append(&ubic,"0");
-					}
-					string_append(&ubic,posy);
 
-					send(entrenador->socket, &ubic,4,0);
+					char pos[4];
+					pos[0] = posx[0];
+					pos[1]=posx[1];
+					pos[2]=posy[0];
+					pos[3]=posy[1];
+					send(entrenador->socket, pos,5,0);
+
+
+					log_trace(archivoLog, "Planificador - Le envie la informacion %d, %d", pokenestObjetivo->ubicacion.x, pokenestObjetivo->ubicacion.y);
 				}else{
 					//Se desconecta debido a procesamiento indebido de mensaje
 				}
@@ -70,7 +70,7 @@ void atenderEntrenador(t_entrenador* entrenador){
 			case 'M':
 				if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
 					log_trace(archivoLog, "Planificador - Entrenador: %c solicito M con %c", entrenador->simbolo, paquete);
-					int despl = atoi(paquete);
+					int despl = atoi(&paquete);
 					switch(despl){
 						case 1:
 							entrenador->ubicacion.x = entrenador->ubicacion.x -1; //Arriba
