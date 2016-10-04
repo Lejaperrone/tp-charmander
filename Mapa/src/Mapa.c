@@ -420,8 +420,8 @@ int main(int argc, char *argv[]){
 								entrenador->simbolo = package;
 								entrenador->socket = i;
 								entrenador->pokemons = list_create();
-								entrenador->ubicacion.x = 0;
-								entrenador->ubicacion.y = 0;
+								entrenador->ubicacion.x = 1;
+								entrenador->ubicacion.y = 1;
 								list_add(entrenadoresPreparados, entrenador);
 
 								FD_CLR(i, &master);// eliminar del conjunto maestro
