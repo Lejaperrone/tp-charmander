@@ -39,7 +39,7 @@ void loguearConfiguracion(t_log* archivoLogs, t_mapa* mapa){
 	int i;
 	for(i=0; i<list_size(mapa->pokeNests); i++){
 		t_pokenest* pokenest = (t_pokenest*)list_get(mapa->pokeNests, i);
-		log_info(archivoLogs, "Pokenest: %c", pokenest->identificador);
+		log_info(archivoLogs, "Pokenest: %c ubicacion: %d, %d", pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.y);
 
 		int j;
 		for(j=0; j<list_size(pokenest->pokemons); j++){

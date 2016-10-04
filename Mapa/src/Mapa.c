@@ -312,6 +312,7 @@ int main(int argc, char *argv[]){
 	//Inicializo UI
 		log_info(archivoLog,"Inicializo UI");
 		nivel_gui_inicializar();
+		nivel_gui_get_area_nivel(&rows, &cols);
 
 	//Alloco memoria de  mapa e inicializo su informacion
 		log_info(archivoLog,"Inicializo mapa y leo su configuracion");
@@ -347,7 +348,12 @@ int main(int argc, char *argv[]){
 		int j;
 		for(j=0; j<list_size(mapa->pokeNests); j++){
 			t_pokenest* pokenest = (t_pokenest*)list_get(mapa->pokeNests, j);
-			CrearCaja(elementosUI, pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.x, list_size(pokenest->pokemons));
+			if(pokenest->ubicacion.x<=cols && pokenest->ubicacion.y<=rows){
+				CrearCaja(elementosUI, pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.x, list_size(pokenest->pokemons));
+
+			}else{
+				log_info(archivoLog,"No se pudo dibujar el recurso %c", pokenest->identificador);
+			}
 		}
 
 		nivel_gui_dibujar(elementosUI, mapa->nombre);

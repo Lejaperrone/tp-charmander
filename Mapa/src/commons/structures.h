@@ -65,4 +65,6 @@
 	t_list* entrenadoresBloqueados;
 	t_list* elementosUI;
 
+	int rows, cols;
+
 #endif /* COMMONS_STRUCTURES_H_ */
