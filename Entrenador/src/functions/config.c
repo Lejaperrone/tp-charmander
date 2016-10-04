@@ -58,8 +58,8 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 			t_config* configMapa = config_create(pathMapa);
 			mapa->ip = config_get_string_value(configMapa, "IP");
 			mapa->puerto = config_get_string_value(configMapa, "Puerto");
-			mapa->miPosicion.x= 0;
-			mapa->miPosicion.y=0;
+			mapa->miPosicion.x= 1;
+			mapa->miPosicion.y= 1;
 
 			free(configMapa);
 

@@ -91,6 +91,8 @@ void atenderEntrenador(t_entrenador* entrenador){
 					MoverPersonaje(elementosUI,entrenador->simbolo,entrenador->ubicacion.x,entrenador->ubicacion.y);
 					nivel_gui_dibujar(elementosUI,mapa->nombre);
 					list_add(entrenadoresListos, entrenador);
+
+					log_trace(archivoLog, "Planificador - Hacia %d, %d", entrenador->ubicacion.x, entrenador->ubicacion.y);
 				}else{
 					//Se desconecta debido a procesamiento indebido de mensaje
 				}

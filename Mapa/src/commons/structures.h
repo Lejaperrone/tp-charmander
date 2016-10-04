@@ -50,6 +50,7 @@
 		t_coordenadas ubicacion;
 		t_list* pokemons;
 		t_pokemon_custom* ultimoPokeSolicitado;
+		t_pokenest* pokenestBloqueante;
 	}t_entrenador;
 
 	t_mapa* mapa;
