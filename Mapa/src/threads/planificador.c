@@ -26,14 +26,15 @@ t_pokenest *find_pokenest_by_id(char id) {
 
 void procesarEntrenadoresPreparados(){
 	int i;
-	log_trace(archivoLog, "Planificador - Hay %d entrenador/es preparado/s", list_size(entrenadoresPreparados));
-	for(i=0; i<list_size(entrenadoresPreparados); i++){
-		t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresPreparados, i);
-		log_trace(archivoLog, "Planificador - Agrego entrenador a listos: %c", entrenador->simbolo);
-		list_add(entrenadoresListos, entrenador);
-		CrearPersonaje(elementosUI,entrenador->simbolo,entrenador->ubicacion.x,entrenador->ubicacion.y);
+	if(list_size(entrenadoresPreparados)>0){
+		for(i=0; i<list_size(entrenadoresPreparados); i++){
+			t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresPreparados, i);
+			log_trace(archivoLog, "Planificador - Agrego entrenador a listos: %c", entrenador->simbolo);
+			list_add(entrenadoresListos, entrenador);
+			CrearPersonaje(elementosUI,entrenador->simbolo,entrenador->ubicacion.x,entrenador->ubicacion.y);
+		}
+		nivel_gui_dibujar(elementosUI,mapa->nombre);
 	}
-	nivel_gui_dibujar(elementosUI,mapa->nombre);
 }
 
 void atenderEntrenador(t_entrenador* entrenador){
@@ -102,19 +103,18 @@ void atenderEntrenador(t_entrenador* entrenador){
 				break;
 		}
 	}
-	sleep(mapa->retardo/1000);
 }
 
 
 
 void* planificador(void* arg){
 	log_trace(archivoLog, "Planificador - Arranca");
-	int count = 0;
+	//int count = 0;
 	while(1){
 		procesarEntrenadoresPreparados();
 
 		int i;
-		log_info(archivoLog,"Planiaficador - %d entrenadores listos", list_size(entrenadoresListos));
+		//log_info(archivoLog,"Planiaficador - %d entrenadores listos", list_size(entrenadoresListos));
 		for(i=0; i<list_size(entrenadoresListos); i++){
 			t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresListos, i);
 			log_trace(archivoLog, "Planificador - Envio turno a %c", entrenador->simbolo);
@@ -122,12 +122,7 @@ void* planificador(void* arg){
 			int nbytes = send(entrenador->socket, &Q, 1, 0);
 			log_trace(archivoLog, "Enviado : %d", nbytes);
 			atenderEntrenador(entrenador);
-		}
-
-		sleep(5);
-		count++;
-		if(count==100){
-			return arg;
+			sleep(mapa->retardo/100);
 		}
 	}
 }

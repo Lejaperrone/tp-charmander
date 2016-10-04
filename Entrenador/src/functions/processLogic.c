@@ -76,12 +76,12 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 				log_info(archivoLog,"Me muevo hacia %d %d",mapa->miPosicion.x, mapa->miPosicion.y);
 				break;
 			}
-			log_info(archivoLog,"Envio el mensaje: %s\n",mensaje);
+			log_info(archivoLog,"Envio el mensaje: %c%c\n",mensaje[0],mensaje[1]);
 
 			//Envio el mensaje
 			int resp = send(serverMapa, &mensaje, 2, 0);
 				if(resp == -1){
-					log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
+					log_info(archivoLog,"No pude enviar el mensaje: %c%c",mensaje[0],mensaje[1]);
 					exit(EXIT_FAILURE);
 				}
 
