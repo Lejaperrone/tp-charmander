@@ -42,11 +42,11 @@ void atenderEntrenador(t_entrenador* entrenador){
 	log_trace(archivoLog, "Planificador - Inicio atencion de %c", entrenador->simbolo);
 	if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
 		switch(paquete){
-			case 'U':
+			case 'U': //Ubicacion de pokenest
 				if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
-					log_trace(archivoLog, "Planificador - Entrenador: %c solicito U con %c", entrenador->simbolo, paquete);
+					log_trace(archivoLog, "Planificador - Solicitud U%c", paquete);
 					t_pokenest* pokenestObjetivo = find_pokenest_by_id(paquete);
-					log_trace(archivoLog, "Planificador - Encontre la pokenest");
+					log_trace(archivoLog, "Planificador - Encontre la pokenest %c");
 
 					char* posx=malloc(sizeof(char)*3);
 					sprintf(posx,"%i",pokenestObjetivo->ubicacion.x);
@@ -62,40 +62,43 @@ void atenderEntrenador(t_entrenador* entrenador){
 					send(entrenador->socket, pos,5,0);
 
 
-					log_trace(archivoLog, "Planificador - Le envie la informacion %d, %d", pokenestObjetivo->ubicacion.x, pokenestObjetivo->ubicacion.y);
+					log_trace(archivoLog, "Planificador - Posicion enviada %d, %d", pokenestObjetivo->ubicacion.x, pokenestObjetivo->ubicacion.y);
+					list_add(entrenadoresListos, entrenador);
 				}else{
 					//Se desconecta debido a procesamiento indebido de mensaje
 				}
 				break;
-			case 'M':
+			case 'M': //Solicitud para moverse
 				if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
-					log_trace(archivoLog, "Planificador - Entrenador: %c solicito M con %c", entrenador->simbolo, paquete);
+					log_trace(archivoLog, "Planificador - Solicitud M%c", paquete);
 					int despl = atoi(&paquete);
 					switch(despl){
 						case 1:
-							entrenador->ubicacion.x = entrenador->ubicacion.x -1; //Arriba
+							entrenador->ubicacion.x--; //Arriba
 							break;
 						case 2:
-							entrenador->ubicacion.x = entrenador->ubicacion.y +1; //Derecha
+							entrenador->ubicacion.y++; //Derecha
 							break;
 						case 3:
-							entrenador->ubicacion.x = entrenador->ubicacion.x +1; //Abajo
+							entrenador->ubicacion.x++; //Abajo
 							break;
 						case 4:
-							entrenador->ubicacion.x = entrenador->ubicacion.y -1; //Izquierda
+							entrenador->ubicacion.y--; //Izquierda
 							break;
 					}
 
 					MoverPersonaje(elementosUI,entrenador->simbolo,entrenador->ubicacion.x,entrenador->ubicacion.y);
+					nivel_gui_dibujar(elementosUI,mapa->nombre);
+					list_add(entrenadoresListos, entrenador);
 				}else{
 					//Se desconecta debido a procesamiento indebido de mensaje
 				}
 				break;
 			case 'F':
-				log_trace(archivoLog, "Planificador - Entrenador: %c solicito F", entrenador->simbolo);
+				log_trace(archivoLog, "Planificador - Solicitud F");
 				break;
 			default:
-				log_trace(archivoLog, "Planificador - Entrenador: %c solicito desconocida: %s", entrenador->simbolo, paquete);
+				log_trace(archivoLog, "Planificador - Solicitud desconocida: %c", paquete);
 				break;
 		}
 	}

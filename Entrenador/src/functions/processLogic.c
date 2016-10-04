@@ -50,33 +50,32 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 		}else if((*movimiento = siguienteMovimiento(mapa->miPosicion, objetivo, *movimiento))){ //Me muevo
 
 			//Creo el mensaje
-				char* mensaje = string_new();
-				string_append(&mensaje, "M");
+				char mensaje[2];
+				mensaje[0] = 'M';
 
 			switch(*movimiento){
 			case 1:
-				string_append(&mensaje, "1");
+				mensaje[1] = '1';
 				mapa->miPosicion.x--;
 				log_info(archivoLog,"Me muevo hacia %d %d",mapa->miPosicion.x, mapa->miPosicion.y);
 				break;
 			case 2:
-				string_append(&mensaje, "2");
+				mensaje[1] = '2';
 				mapa->miPosicion.y++;
 				log_info(archivoLog,"Me muevo hacia %d %d",mapa->miPosicion.x, mapa->miPosicion.y);
 				break;
 			case 3:
-				string_append(&mensaje, "3");
+				mensaje[1] = '3';
 				mapa->miPosicion.x++;
 				log_info(archivoLog,"Me muevo hacia %d %d",mapa->miPosicion.x, mapa->miPosicion.y);
 
 				break;
 			case 4:
-				string_append(&mensaje, "4");
+				mensaje[1] = '4';
 				mapa->miPosicion.y--;
 				log_info(archivoLog,"Me muevo hacia %d %d",mapa->miPosicion.x, mapa->miPosicion.y);
 				break;
 			}
-			string_append(&mensaje,&entrenador->simbolo);
 			log_info(archivoLog,"Envio el mensaje: %s\n",mensaje);
 
 			//Envio el mensaje
