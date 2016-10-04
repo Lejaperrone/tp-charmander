@@ -16,7 +16,7 @@
 
 	void leerConfiguracionMetadataMapa(t_mapa* mapa, char* name, char* pokedexPath);
 	void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath);
-	t_pokemon* createPokemon(char* pathPokemons, char* name);
+	t_pokemonMapa* createPokemon(char* pathPokemons, char* name);
 	t_pokenest* createPokeNest(char* pathPokenest, char* name);
 
 #endif /* FUNCTIONS_CONFIG_H_ */

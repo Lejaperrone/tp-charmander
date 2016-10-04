@@ -23,7 +23,7 @@
 		int nivel;
 		char id;
 		char identificador;
-	}t_pokemon;
+	}t_pokemonMapa;
 
 	typedef struct{
 		char* tipo;
@@ -49,6 +49,7 @@
 		int* socket;
 		t_coordenadas ubicacion;
 		t_list* pokemons;
+		t_pokemonMapa* ultimoPokeSolicitado;
 	}t_entrenador;
 
 	t_mapa* mapa;

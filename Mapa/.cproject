@@ -43,6 +43,7 @@
 									<listOptionValue builtIn="false" value="curses"/>
 									<listOptionValue builtIn="false" value="ncurses"/>
 									<listOptionValue builtIn="false" value="pthread"/>
+									<listOptionValue builtIn="false" value="pkmn-battle"/>
 								</option>
 								<option id="gnu.c.link.option.paths.1514908438" name="Library search path (-L)" superClass="gnu.c.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="/home/utnso/git/so-commons-library"/>

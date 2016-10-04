@@ -34,12 +34,6 @@ int h3;
 
 int inicioPlanificador=1;
 
-typedef struct entrenadorConectado{
-	int* sock;
-	char* paquete;
-}t_entrenadorConectado;
-
-t_entrenadorConectado* entrenador;
 t_list* t_elementosEnMapa;
 t_list* t_entrenadoresBloqueados;
 t_list* t_entrenadoresListos;
@@ -47,12 +41,8 @@ t_list* t_entrenadoresListos;
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
-void encolarEntrenadorAlIniciar(t_entrenadorConectado* entrenador){
-	list_add(t_entrenadoresListos,entrenador);
-}
-
-t_pokemon* find_pokemon_by_id(t_list* pokemons, t_pokenest pokenest) {
-            		int _is_the_one(t_pokemon *poke) {
+t_pokemonMapa* find_pokemon_by_id(t_list* pokemons, t_pokenest pokenest) {
+            		int _is_the_one(t_pokemonMapa *poke) {
 
             			return (pokenest.identificador==poke->id);
 
@@ -60,16 +50,16 @@ t_pokemon* find_pokemon_by_id(t_list* pokemons, t_pokenest pokenest) {
 
 
             	}
-            		 t_pokemon* pokemonCapturado=malloc(sizeof(t_pokemon));
+            		 t_pokemonMapa* pokemonCapturado=malloc(sizeof(t_pokemonMapa));
             		 pokemonCapturado = list_find(mapa->pokeNests, (void*) _is_the_one);
             		pokemonCapturado->disponible=0;
             		return list_find(mapa->pokeNests, (void*) _is_the_one);
 }
 
-int estaEnLaPokenest(t_pokemon* pokemon){
+int estaEnLaPokenest(t_pokemonMapa* pokemon){
 	return pokemon->disponible==0;
 }
-bool pudoSerCapturado(t_pokemon pokemon, t_pokenest* pokenest){
+bool pudoSerCapturado(t_pokemonMapa pokemon, t_pokenest* pokenest){
 	return list_is_empty(list_filter(pokenest->pokemons,(void*)estaEnLaPokenest));
 }
 
@@ -98,12 +88,12 @@ return (paquete[0]=='M'&&paquete[1]=='O'&&paquete[2]=='V'&&paquete[3]=='E'&&paqu
 int entrenadorQuiereAtraparUnPokemon (char* paquete){
 	return (paquete[0]=='F'&&paquete[1]=='I'&&paquete[2]=='N'&&paquete[3]=='O'&&paquete[4]=='B');
 }
-void waitEntrenador(t_entrenadorConectado* entrenadorAbloquear){
+void waitEntrenador(t_entrenador* entrenadorAbloquear){
 	list_add(t_entrenadoresBloqueados,entrenadorAbloquear);
 	list_remove(t_entrenadoresListos,0);
 }
 
-void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* duracion, char** paquete){
+void otorgarQuantum(t_entrenador* entrenador, int Q, int* t, int* duracion, char** paquete){
 	int i;
 	*duracion=0;
 	for (i=0;i<=Q;i++){
@@ -111,12 +101,12 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 
 
 		int m;
-		m=send(*entrenador->sock,"QUANTUM",7,0);
+		m=send(*entrenador->socket,"QUANTUM",7,0);
 		if (m==-1){
 			log_info(archivoLog, "no se envio el mensaje a %c\n",*paquete[0]);
 		}
 		log_info(archivoLog,"envie senial QUANTUM\n");
-		recv(*entrenador->sock,*paquete,6,0);
+		recv(*entrenador->socket,*paquete,6,0);
 		log_info(archivoLog,"recibo respuesta del entrenador\n");
 		if (entrenadorQuiereConocerUbicacionDePokenest(*paquete)){
 			t_pokenest pokenestObjetivo;
@@ -127,16 +117,16 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 			log_info(archivoLog,"Posicion en x %s\n",posx);
 			sprintf(posy,"%i",pokenestObjetivo.ubicacion.y);
 			log_info(archivoLog,"Posicion en y %s\n",posy);
-			send(*entrenador->sock,posx, 2,0);
-			send(*entrenador->sock, posy,2,0);
+			send(*entrenador->socket,posx, 2,0);
+			send(*entrenador->socket, posy,2,0);
 			free(posy);
 			free(posx);
 			log_info(archivoLog,"encontre pokenest %d, %d\n",pokenestObjetivo.ubicacion.x, pokenestObjetivo.ubicacion.y);
 		}else{
 			if (entrenadorQuiereMoverse(*paquete)){
-				send(*entrenador->sock, "QUANTUM", 7, 0);
+				send(*entrenador->socket, "QUANTUM", 7, 0);
 				char* mensaje=malloc(sizeof(char));
-				recv(*entrenador->sock,mensaje,6,0);
+				recv(*entrenador->socket,mensaje,6,0);
 				//dibujar que se mueva
 				free(mensaje);
 			}else{
@@ -144,7 +134,7 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 					t_pokenest pokenestObjetivo;
 					pokenestObjetivo = find_pokenest_by_id(*paquete[6])[0];
 					//ACA VA UN MUTEX
-					t_pokemon* pokeActual=malloc(sizeof(t_pokemon));
+					t_pokemonMapa* pokeActual=malloc(sizeof(t_pokemonMapa));
 					pokeActual=find_pokemon_by_id(pokenestObjetivo.pokemons,pokenestObjetivo);
 					list_remove_by_condition(pokenestObjetivo.pokemons, (void*)pudoSerCapturado);
 					waitEntrenador(entrenador);
@@ -166,7 +156,7 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 
 }
 
-void bloquearEntrenador(t_entrenadorConectado* entrenadorAbloquear){
+void bloquearEntrenador(t_entrenador* entrenadorAbloquear){
 	list_add(t_entrenadoresBloqueados,entrenadorAbloquear);
 	list_remove(t_entrenadoresListos,0);
 }
@@ -175,8 +165,8 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 	int i;
 	*duracion=0;
 	for (i=0;i<=Q;i++){
-		send(*entrenador->sock,"QUANTUM",7,0);
-		recv(*entrenador->sock,*paquete,6,0);
+		send(*entrenador->socket,"QUANTUM",7,0);
+		recv(*entrenador->socket,*paquete,6,0);
 		if (entrenadorQuiereConocerUbicacionDePokenest(*paquete)){
 			t_pokenest pokenestObjetivo;
 			pokenestObjetivo =find_pokenest_by_id(*paquete[5])[0];
@@ -186,16 +176,16 @@ void otorgarQuantum(t_entrenadorConectado* entrenador, int Q, int* t, int* durac
 			log_info(archivoLog,"Posicion en x %s\n",posx);
 			sprintf(posy,"%i",pokenestObjetivo.ubicacion.y);
 			log_info(archivoLog,"Posicion en y %s\n",posy);
-			send(*entrenador->sock,posx, 2,0);
-			send(*entrenador->sock, posy,2,0);
+			send(*entrenador->socket,posx, 2,0);
+			send(*entrenador->socket, posy,2,0);
 			free(posy);
 			free(posx);
 			log_info(archivoLog,"encontre pokenest %d, %d\n",pokenestObjetivo.ubicacion.x, pokenestObjetivo.ubicacion.y);
 		}else{
 			if (entrenadorQuiereMoverse(*paquete)){
-				send(*entrenador->sock, "QUANTUM", 7, 0);
+				send(*entrenador->socket, "QUANTUM", 7, 0);
 				char* mensaje=malloc(sizeof(char));
-				recv(*entrenador->sock,mensaje,6,0);
+				recv(*entrenador->socket,mensaje,6,0);
 				//dibujar que se mueva
 				free(mensaje);
 			}else{
@@ -335,7 +325,7 @@ int main(int argc, char *argv[]){
 		loguearConfiguracion(archivoLog, mapa);
 
 	//Creo el hilo planificador
-		log_info(archivoLog,"Inicializo los hilos de planificaciony deadlock");
+		log_info(archivoLog,"Inicializo los hilos de planificacion y deadlock");
 		pthread_create(&hiloPlanificador,NULL,planificador, NULL);
 		pthread_create(&hiloDeadlock,NULL,deadlock, NULL );
 
@@ -426,9 +416,12 @@ int main(int argc, char *argv[]){
 								entrenador->pokemons = list_create();
 								entrenador->ubicacion.x = 0;
 								entrenador->ubicacion.y = 0;
-
 								list_add(entrenadoresPreparados, entrenador);
 
+								log_info(archivoLog,"Ingreso: ");
+								log_info(archivoLog,"Simbolo: %c ",entrenador->simbolo);
+								log_info(archivoLog,"Ubicacion en X: %d ",entrenador->ubicacion.x);
+								log_info(archivoLog,"Ubicacion en Y: %d ",entrenador->ubicacion.y);
 								FD_CLR(i, &master);// eliminar del conjunto maestro
 							}
 

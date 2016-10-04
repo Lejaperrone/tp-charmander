@@ -43,7 +43,7 @@ void loguearConfiguracion(t_log* archivoLogs, t_mapa* mapa){
 
 		int j;
 		for(j=0; j<list_size(pokenest->pokemons); j++){
-			t_pokemon* pokemon = (t_pokemon*)list_get(pokenest->pokemons, j);
+			t_pokemonMapa* pokemon = (t_pokemonMapa*)list_get(pokenest->pokemons, j);
 			log_info(archivoLogs, "Pokemon path: %s", pokemon->path);
 			log_info(archivoLogs, "Pokemon nivel: %d", pokemon->nivel);
 		}

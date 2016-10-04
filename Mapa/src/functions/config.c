@@ -17,7 +17,7 @@
 
 #include "../commons/structures.h"
 
-t_pokemon* createPokemon(char* pathPokemons, char* name){
+t_pokemonMapa* createPokemon(char* pathPokemons, char* name){
 
 	//Genero path del pokemon
 		char* pathPokemon = string_new();
@@ -26,7 +26,7 @@ t_pokemon* createPokemon(char* pathPokemons, char* name){
 		string_append(&pathPokemon, name);
 
 	//Alloco el pokemon
-		t_pokemon* pokemon = malloc(sizeof(t_pokemon));
+		t_pokemonMapa* pokemon = malloc(sizeof(t_pokemonMapa));
 
 	//Levanto la configuracion del pokemon
 		t_config* configPokemon = config_create(pathPokemon);
@@ -70,7 +70,7 @@ t_pokenest* createPokeNest(char* pathPokenest, char* name){
 		if (pokemons != NULL){
 			while ((ep2 = readdir (pokemons))){
 				if(string_ends_with(ep2->d_name, "dat")){
-					t_pokemon* pokemon = createPokemon(pathPokenest, ep2->d_name); //Creo el  pokemon
+					t_pokemonMapa* pokemon = createPokemon(pathPokenest, ep2->d_name); //Creo el  pokemon
 					list_add(pokenest->pokemons,pokemon); //Agrego a la lista de pokemons de la pokenest
 				}
 			}
