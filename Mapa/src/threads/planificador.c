@@ -73,7 +73,6 @@ t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenador
 
 void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador){
 	char paquete;
-	int nbytes;
 	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
 		log_trace(archivoLog, "Planificador - Solicitud U%c", paquete);
 		t_pokenest* pokenestObjetivo = find_pokenest_by_id(paquete);
@@ -98,7 +97,6 @@ void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador){
 }
 void atenderEntrenadorMover(t_entrenador* entrenador){
 	char paquete;
-	int nbytes;
 	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
 		log_trace(archivoLog, "Planificador - Solicitud M%c", paquete);
 		int despl = atoi(&paquete);
@@ -126,7 +124,6 @@ void atenderEntrenadorMover(t_entrenador* entrenador){
 }
 void atenderEntrenadorCapturar(t_entrenador* entrenador){
 	char paquete;
-	int nbytes;
 
 	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
 		log_trace(archivoLog, "Planificador - Solicitud F%c", paquete);
@@ -136,7 +133,6 @@ void atenderEntrenadorCapturar(t_entrenador* entrenador){
 	}
 }
 void atenderEntrenador(t_entrenador* entrenador){
-	int nbytes;
 	char paquete;
 	log_trace(archivoLog, "Planificador - Inicio atencion de %c", entrenador->simbolo);
 	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
