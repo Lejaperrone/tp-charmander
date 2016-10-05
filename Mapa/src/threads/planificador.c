@@ -35,6 +35,9 @@ void procesarEntrenadoresPreparados(){
 void procesarEntrenadoresBloqueados(){
 	//TODO
 }
+void procesarEntrenadorGarbageCollector(){
+	//TODO
+}
 
 int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador){
 	int nbytes = recv(socket, package, cantBytes, 0);
@@ -161,6 +164,7 @@ void* planificador(void* arg){
 	/*char Q = 'Q';
 	t_entrenador* entrenador = NULL;
 	while(1){
+		procesarEntrenadorGarbageCollector();
 		procesarEntrenadoresBloqueados();
 		procesarEntrenadoresPreparados();
 
