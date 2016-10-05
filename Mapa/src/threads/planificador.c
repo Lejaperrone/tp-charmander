@@ -42,6 +42,7 @@ void procesarEntrenadorGarbageCollector(){
 int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador){
 	int nbytes = recv(socket, package, cantBytes, 0);
 	if(nbytes!=cantBytes){
+		log_trace(archivoLog, "Planificador - Mando a %c al Garbage collector", entrenador->simbolo);
 		list_add(garbageCollectorEntrenadores, entrenador);
 		return 0;
 	}
@@ -51,6 +52,7 @@ int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrena
 int sendWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador){
 	int nbytes = send(socket, package, cantBytes, 0);
 	if(nbytes!=cantBytes){
+		log_trace(archivoLog, "Planificador - Mando a %c al Garbage collector", entrenador->simbolo);
 		list_add(garbageCollectorEntrenadores, entrenador);
 		return 0;
 	}
