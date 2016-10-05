@@ -11,8 +11,8 @@
 void procesarEntrenadoresPreparados();
 void procesarEntrenadoresBloqueados();
 
-int recvWithGarbageCollector(int socket, char* paquete, int cantBytes, t_entrenador* entrenador);
-int sendWithGarbageCollector(int socket, char* paquete, int cantBytes, t_entrenador* entrenador);
+int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador);
+int sendWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador);
 
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAnterior);
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenadorAnterior);
