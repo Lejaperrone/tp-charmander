@@ -69,4 +69,24 @@
 
 	int rows, cols;
 
+	typedef struct pokemonsDisponibles{
+		char idPokenest;
+		int cantidad;
+	}t_pokemonsDisponibles;
+
+	typedef struct pokemonsCapturados{
+		char idPokemon;
+		int cantidad;
+	}t_pokemon_transac;
+
+	typedef struct pokemonsAsignados{
+	char idEntrenador;
+	t_pokemon_transac pokemonsCapturados;
+	}t_poke_asignados;
+
+	typedef struct pokemonsSolicitados{
+		char idEntrenador;
+		t_pokemon_transac pokemonsSolicitados;
+	}t_poke_solicitados;
+
 #endif /* COMMONS_STRUCTURES_H_ */
