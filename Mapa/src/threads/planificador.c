@@ -53,7 +53,7 @@ void procesarEntrenadorGarbageCollector(){
 			t_entrenador* entrenador = list_get(garbageCollectorEntrenadores,i);
 			liberarPokemonsDelEntrenador(entrenador);
 			BorrarItem(elementosUI, entrenador->simbolo);
-			//Tengo que invocar la funcion de dibujar el mapa?
+			nivel_gui_dibujar(elementosUI, mapa->nombre);
 			close(entrenador->socket);
 			free(entrenador);
 		}
