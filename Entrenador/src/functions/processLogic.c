@@ -102,7 +102,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			log_info(archivoLog,"Envie el mensaje %s",mensaje);
 
 			char conf;
-			if (recv(serverMapa, conf, 1,  0) == 1 && conf=='C'){
+			if (recv(serverMapa, &conf, 1,  0) == 1 && conf=='C'){
 				objetivo->logrado = 1;
 			}
 

@@ -33,7 +33,29 @@ void procesarEntrenadoresPreparados(){
 		nivel_gui_dibujar(elementosUI,mapa->nombre);
 	}
 }
+void procesarEntrenadoresBloqueados(){
+	//TODO
+}
 
+int recvWithGarbageCollector(int socket, char* paquete, int cantBytes, t_entrenador* entrenador){
+	//TODO
+	return 1;
+}
+int sendWithGarbageCollector(int socket, char* paquete, int cantBytes, t_entrenador* entrenador){
+	//TODO
+	return 1;
+}
+
+t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAnterior){
+	//TODO
+	t_entrenador* proximoEntrenador;
+	return proximoEntrenador;
+}
+t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenadorAnterior){
+	//TODO
+	t_entrenador* proximoEntrenador;
+	return proximoEntrenador;
+}
 
 void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador){
 	char paquete;
@@ -61,7 +83,6 @@ void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador){
 		list_add(entrenadoresListos, entrenador);
 	}
 }
-
 void atenderEntrenadorMover(t_entrenador* entrenador){
 	char paquete;
 	int nbytes;
@@ -92,7 +113,6 @@ void atenderEntrenadorMover(t_entrenador* entrenador){
 		//Se desconecta debido a procesamiento indebido de mensaje
 	}
 }
-
 void atenderEntrenadorCapturar(t_entrenador* entrenador){
 	char paquete;
 	int nbytes;
@@ -104,7 +124,6 @@ void atenderEntrenadorCapturar(t_entrenador* entrenador){
 		log_trace(archivoLog, "Planificador - Lo mando a la lista de bloqueados");
 	}
 }
-
 void atenderEntrenador(t_entrenador* entrenador){
 	int nbytes;
 	char paquete;
@@ -127,9 +146,28 @@ void atenderEntrenador(t_entrenador* entrenador){
 	}
 }
 
-
 void* planificador(void* arg){
 	log_trace(archivoLog, "Planificador - Arranca");
+
+	/*char Q = 'Q';
+	t_entrenador* entrenador = NULL;
+	while(1){
+		procesarEntrenadoresBloqueados();
+		procesarEntrenadoresPreparados();
+
+		if(strcmp(mapa->algoritmo, "")){
+			t_entrenador* entrenador = obtenerSiguienteEntrenadorPlanificadoRR(entrenador);
+		}else{
+			t_entrenador* entrenador = obtenerSiguienteEntrenadorPlanificadoSRDF(entrenador);
+		}
+
+		log_trace(archivoLog, "Planificador - Envio turno a %c", entrenador->simbolo);
+		if(sendWithGarbageCollector(entrenador->socket, &Q, 1, entrenador)){
+			atenderEntrenador(entrenador);
+			sleep(1);
+		}
+	}*/
+
 	while(1){
 		procesarEntrenadoresPreparados();
 
@@ -141,7 +179,6 @@ void* planificador(void* arg){
 			int nbytes = send(entrenador->socket, &Q, 1, 0);
 			log_trace(archivoLog, "Enviado : %d", nbytes);
 			atenderEntrenador(entrenador);
-			//sleep(mapa->retardo/1000);
 			sleep(1);
 		}
 	}

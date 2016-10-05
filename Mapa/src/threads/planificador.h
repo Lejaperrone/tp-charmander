@@ -9,6 +9,13 @@
 #define THREADS_PLANIFICADOR_H_
 
 void procesarEntrenadoresPreparados();
+void procesarEntrenadoresBloqueados();
+
+int recvWithGarbageCollector(int socket, char* paquete, int cantBytes, t_entrenador* entrenador);
+int sendWithGarbageCollector(int socket, char* paquete, int cantBytes, t_entrenador* entrenador);
+
+t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAnterior);
+t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenadorAnterior);
 
 void atenderEntrenador(t_entrenador* entrenador);
 void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador);
