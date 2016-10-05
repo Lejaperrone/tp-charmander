@@ -18,3 +18,10 @@ void list_remove_custom(t_list* items, int i) {
 
     list_remove_by_condition(items, (void*) _search_by_socket);
 }
+
+t_pokenest *find_pokenest_by_id(char id) {
+	int _is_the_one(t_pokenest *p) {
+			return (p->identificador==id);
+	}
+    return list_find(mapa->pokeNests, (void*) _is_the_one);
+}
