@@ -65,6 +65,7 @@
 	t_list* entrenadoresListos;
 	t_list* entrenadoresBloqueados;
 	t_list* elementosUI;
+	t_list* garbageCollectorEntrenadores;
 
 	int rows, cols;
 

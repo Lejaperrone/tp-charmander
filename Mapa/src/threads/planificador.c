@@ -20,7 +20,6 @@
 #include "../functions/collections_list_extension.h"
 
 
-
 void procesarEntrenadoresPreparados(){
 	int i;
 	if(list_size(entrenadoresPreparados)>0){

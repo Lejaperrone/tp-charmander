@@ -308,6 +308,7 @@ int main(int argc, char *argv[]){
 		entrenadoresListos = list_create();
 		entrenadoresBloqueados = list_create();
 		elementosUI = list_create();
+		garbageCollectorEntrenadores = list_create();
 
 	//Inicializo UI
 		log_info(archivoLog,"Inicializo UI");
