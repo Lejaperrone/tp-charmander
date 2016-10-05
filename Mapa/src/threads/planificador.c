@@ -35,9 +35,32 @@ void procesarEntrenadoresPreparados(){
 void procesarEntrenadoresBloqueados(){
 	//TODO
 }
-void procesarEntrenadorGarbageCollector(){
-	//TODO
+void liberarPokemonsDelEntrenador(t_entrenador* entrenador){
+	int longitudListaPokemons = list_size(entrenador->pokemons);
+	int j;
+	for(j=1; j<=longitudListaPokemons; j++){
+		t_pokemon_custom* pokemon = list_get(entrenador->pokemons,j);
+		pokemon->disponible = 1;
+	}
+
+	list_destroy(entrenador->pokemons);
 }
+void procesarEntrenadorGarbageCollector(){
+	if (!list_is_empty(garbageCollectorEntrenadores)){
+		int longitudLista = list_size(garbageCollectorEntrenadores);
+		int i;
+		for(i=1; i<=longitudLista; i++){
+			t_entrenador* entrenador = list_get(garbageCollectorEntrenadores,i);
+			liberarPokemonsDelEntrenador(entrenador);
+			BorrarItem(elementosUI, entrenador->simbolo);
+			//Tengo que invocar la funcion de dibujar el mapa?
+			close(entrenador->socket);
+			free(entrenador);
+		}
+	}
+}
+
+
 
 int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador){
 	int nbytes = recv(socket, package, cantBytes, 0);
