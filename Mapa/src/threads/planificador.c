@@ -72,7 +72,7 @@ t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenador
 void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador){
 	char paquete;
 	int nbytes;
-	if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
+	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
 		log_trace(archivoLog, "Planificador - Solicitud U%c", paquete);
 		t_pokenest* pokenestObjetivo = find_pokenest_by_id(paquete);
 		log_trace(archivoLog, "Planificador - Encontre la pokenest %c");
@@ -88,17 +88,16 @@ void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador){
 		pos[1]=posx[1];
 		pos[2]=posy[0];
 		pos[3]=posy[1];
-		send(entrenador->socket, pos,5,0);
-
-
-		log_trace(archivoLog, "Planificador - Posicion enviada %d, %d", pokenestObjetivo->ubicacion.x, pokenestObjetivo->ubicacion.y);
-		list_add(entrenadoresListos, entrenador);
+		if(sendWithGarbageCollector(entrenador->socket, pos,5,entrenador)){
+			log_trace(archivoLog, "Planificador - Posicion enviada %d, %d", pokenestObjetivo->ubicacion.x, pokenestObjetivo->ubicacion.y);
+			list_add(entrenadoresListos, entrenador);
+		}
 	}
 }
 void atenderEntrenadorMover(t_entrenador* entrenador){
 	char paquete;
 	int nbytes;
-	if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
+	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
 		log_trace(archivoLog, "Planificador - Solicitud M%c", paquete);
 		int despl = atoi(&paquete);
 		switch(despl){
@@ -121,15 +120,13 @@ void atenderEntrenadorMover(t_entrenador* entrenador){
 		list_add(entrenadoresListos, entrenador);
 
 		log_trace(archivoLog, "Planificador - Hacia %d, %d", entrenador->ubicacion.x, entrenador->ubicacion.y);
-	}else{
-		//Se desconecta debido a procesamiento indebido de mensaje
 	}
 }
 void atenderEntrenadorCapturar(t_entrenador* entrenador){
 	char paquete;
 	int nbytes;
 
-	if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
+	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
 		log_trace(archivoLog, "Planificador - Solicitud F%c", paquete);
 		entrenador->pokenestBloqueante = find_pokenest_by_id(paquete);
 		list_add(entrenadoresBloqueados, entrenador);
@@ -140,7 +137,7 @@ void atenderEntrenador(t_entrenador* entrenador){
 	int nbytes;
 	char paquete;
 	log_trace(archivoLog, "Planificador - Inicio atencion de %c", entrenador->simbolo);
-	if((nbytes = recv(entrenador->socket, &paquete, 1,0)) ==1){
+	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
 		switch(paquete){
 			case 'U': //Ubicacion de pokenest
 				atenderEntrenadorUbicacionPokenest(entrenador);
@@ -189,10 +186,11 @@ void* planificador(void* arg){
 			t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresListos, i);
 			log_trace(archivoLog, "Planificador - Envio turno a %c", entrenador->simbolo);
 			char Q = 'Q';
-			int nbytes = send(entrenador->socket, &Q, 1, 0);
-			log_trace(archivoLog, "Enviado : %d", nbytes);
-			atenderEntrenador(entrenador);
-			sleep(1);
+			if(sendWithGarbageCollector(entrenador->socket, &Q, 1, entrenador)){
+				log_trace(archivoLog, "Turno enviado");
+				atenderEntrenador(entrenador);
+				sleep(1);
+			}
 		}
 	}
 
