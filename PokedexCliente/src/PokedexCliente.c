@@ -8,59 +8,78 @@
 #include <stdbool.h>
 #include <tad_items.h>
 #include <commons/log.h>
+#include <commons/string.h>
 #include <stddef.h>
 #include <fuse.h>
 #include <errno.h>
 #include <fcntl.h>
 #include "functions/log.h"
+#include "commons/structures.h"
 
 #include "socketLib.h"
 
-#define IP "127.0.0.1" //Deberia estar por variable de entorno
-#define PUERTO "7666" //Deberia estar por variable de entorno
-#define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
+static int fuse_getattr(const char *path, struct stat *stbuf) {
+		int res = 0;
+		char * mensaje = string_new();
+		string_append(&mensaje, "GETATTR");
+		string_append(&mensaje, path);
 
-t_log* archivoLog;
-char* puntoPontaje;
+		if(send(pokedexCliente, &mensaje, sizeof(mensaje), 0)){
+		char * resp;
+		recv(pokedexCliente, &resp, 1024, 0);
+	}
+		memset(stbuf, 0, sizeof(struct stat));
 
-// Variables de entorno
-	//char *PUERTO;
-	//char *IP;
+	//Si path es igual a "/" nos estan pidiendo los atributos del punto de montaje
+		if (strcmp(path, "/") == 0) {
+			stbuf->st_mode = S_IFDIR | 0755;
+			stbuf->st_nlink = 2;
+	} 	else if (strcmp(path, "Default file path") == 0) {
+			stbuf->st_mode = S_IFREG | 0444;
+			stbuf->st_nlink = 1;
+			stbuf->st_size = strlen("Default file name");
+	} 	else {
+			res = -ENOENT;
+	}
+		return res;
+}
 
-/*
- * Esta es una estructura auxiliar utilizada para almacenar parametros
- * que nosotros le pasemos por linea de comando a la funcion principal
- * de FUSE
- */
-struct t_runtime_options {
-	char* welcome_msg;
-} runtime_options;
+static int fuse_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
+		(void) offset;
+		(void) fi;
 
-/*
- * Esta Macro sirve para definir nuestros propios parametros que queremos que
- * FUSE interprete. Esta va a ser utilizada mas abajo para completar el campos
- * welcome_msg de la variable runtime_options
- */
-#define CUSTOM_FUSE_OPT_KEY(t, p, v) { t, offsetof(struct t_runtime_options, p), v }
+		char * mensaje = string_new();
+		string_append(&mensaje, "READDIR");
+		string_append(&mensaje, path);
 
+		if(send(pokedexCliente, &mensaje, sizeof(mensaje), 0)){
+		char * resp;
+		recv(pokedexCliente, &resp, 1024, 0);
+		}
+
+		if (strcmp(path, "/") != 0)
+		return -ENOENT;
+
+		filler(buf, ".", NULL, 0);
+		filler(buf, "..", NULL, 0);
+		filler(buf, "Default File Name", NULL, 0);
+
+		return 0;
+}
 
 /*
  * Esta es la estructura principal de FUSE con la cual nosotros le decimos a
  * biblioteca que funciones tiene que invocar segun que se le pida a FUSE.
  * Como se observa la estructura contiene punteros a funciones.
  */
-
 static struct fuse_operations bb_oper = {
-		//.getattr = fuse_getattr,
-		//.readdir = fuse_readdir,
+		.getattr = fuse_getattr,
+		.readdir = fuse_readdir,
 		//.open = fuse_open,
 		//.read = fuse_read,
 };
+
 /*
-static int fuse_getattr(const char *path, struct stat *stbuf) {
-	// Todo Realizar el send de la peticion
-	return 0;
-}
 static int fuse_readdir(const char *path, struct stat *stbuf) {
 	// Todo Realizar el send de la peticion
 	return 0;
@@ -75,28 +94,6 @@ static int fuse_read(const char *path, struct stat *stbuf) {
 }
 */
 
-/** keys for FUSE_OPT_ options */
-enum {
-	KEY_VERSION,
-	KEY_HELP,
-};
-
-/*
- * Esta estructura es utilizada para decirle a la biblioteca de FUSE que
- * parametro puede recibir y donde tiene que guardar el valor de estos
- */
-static struct fuse_opt fuse_options[] = {
-		// Este es un parametro definido por nosotros
-		CUSTOM_FUSE_OPT_KEY("--welcome-msg %s", welcome_msg, 0),
-
-		// Estos son parametros por defecto que ya tiene FUSE
-		FUSE_OPT_KEY("-V", KEY_VERSION),
-		FUSE_OPT_KEY("--version", KEY_VERSION),
-		FUSE_OPT_KEY("-h", KEY_HELP),
-		FUSE_OPT_KEY("--help", KEY_HELP),
-		FUSE_OPT_END,
-};
-
 int main(int argc, char *argv[]){
 
 	// Creo archivo log
@@ -105,6 +102,7 @@ int main(int argc, char *argv[]){
 	//Recivo parametros por linea de comandos
 		if(argc != 2){
 			log_info(archivoLog,"El pokedexCliente no tiene los parametros correctamente seteados.");
+			printf("Agregue un punto de montaje.\n");
 			return 1;
 		}
 		puntoPontaje = argv[1]; //tmp
@@ -125,13 +123,10 @@ int main(int argc, char *argv[]){
 			return EXIT_FAILURE;
 		}
 
-		int pokedexCliente;
-
 		create_socketClient(&pokedexCliente, IP, PUERTO);
 		printf("Conectado al servidor\n");
 		log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
 
-	//Funcion que se encarga de montar y delegar todo al Kernel
 		fuse_main(args.argc, args.argv, &bb_oper, NULL);
 		log_info(archivoLog, "Levanto fuse\n");
 
