@@ -35,28 +35,20 @@ void procesarEntrenadoresPreparados(){
 void procesarEntrenadoresBloqueados(){
 	//TODO
 }
-void liberarPokemonsDelEntrenador(t_entrenador* entrenador){
-	int longitudListaPokemons = list_size(entrenador->pokemons);
-	int j;
-	for(j=1; j<=longitudListaPokemons; j++){
-		t_pokemon_custom* pokemon = list_get(entrenador->pokemons,j);
-		pokemon->disponible = 1;
-	}
-
-	list_destroy(entrenador->pokemons);
+void liberarPokemonsDeLaListaDelEntrenador(t_pokemon_custom* pokemon){
+	pokemon->disponible = 1;
+}
+void liberarEntrenadoresDelGarbage(t_entrenador* entrenador){
+	list_iterate(entrenador->pokemons, (void*) liberarPokemonsDeLaListaDelEntrenador);
+	list_clean(entrenador->pokemons);
+	BorrarItem(elementosUI, entrenador->simbolo);
+	nivel_gui_dibujar(elementosUI, mapa->nombre);
+	close(entrenador->socket);
+	free(entrenador);
 }
 void procesarEntrenadorGarbageCollector(){
 	if (!list_is_empty(garbageCollectorEntrenadores)){
-		int longitudLista = list_size(garbageCollectorEntrenadores);
-		int i;
-		for(i=1; i<=longitudLista; i++){
-			t_entrenador* entrenador = list_get(garbageCollectorEntrenadores,i);
-			liberarPokemonsDelEntrenador(entrenador);
-			BorrarItem(elementosUI, entrenador->simbolo);
-			nivel_gui_dibujar(elementosUI, mapa->nombre);
-			close(entrenador->socket);
-			free(entrenador);
-		}
+			list_iterate(garbageCollectorEntrenadores, (void*) liberarEntrenadoresDelGarbage);
 	}
 }
 
