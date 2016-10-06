@@ -34,8 +34,24 @@ void procesarEntrenadoresPreparados(){
 		logColasEntrenadores();
 	}
 }
+void asignarPokemonDisponiblePorElCualElEntrenadorSeBloqueo(t_entrenador* entrenador){
+	//Aca pueden haber varios pokemons por el cual el entrenador esta bloqueado?
+	//Porque asumo que el ultimoSolicitado es el pokemon por el cual se bloqueo (que creo que no esta bien)
+	if(entrenador->ultimoPokeSolicitado->disponible == 1){
+		entrenador->ultimoPokeSolicitado->disponible = 0;
+		entrenador->ultimoPokeSolicitado->duenio = entrenador->simbolo;
+	}
+}
 void procesarEntrenadoresBloqueados(){
-	//TODO
+	int i;
+	if(!list_is_empty(entrenadoresBloqueados)){
+		for(i=0 ;i<list_size(entrenadoresBloqueados); i++){
+			t_entrenador* entrenador = list_get(entrenadoresBloqueados,i);
+			asignarPokemonDisponiblePorElCualElEntrenadorSeBloqueo(entrenador);
+			list_remove(entrenadoresBloqueados,i);
+			list_add(entrenadoresListos,entrenador);
+		}
+	}
 }
 void procesorPokemonEntrenadorGarbagecollector(t_pokemon_custom* pokemon){
 	pokemon->disponible = 1;
