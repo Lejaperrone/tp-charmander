@@ -124,3 +124,13 @@ int esperaCircularPop(esperaCircular_t *c, uint8_t *data)
 	return 0;
 }
 
+
+//falta asociar a la fila y columna con la estructura en mapas (t_list* entrenadoresBloqueados y el int cantidad de pokemonesAsignados)
+typedef struct matrizAsignada {
+	int fila_entrenadoresBloqueados;
+	int columna_PokeAsignados;
+	int **matriz;
+	matriz = new int *[fila_entrenadoresBloqueados];
+	for(int i=0; i<fila_entrenadoresBloqueados; i++);
+	matriz[i] = new int[columna_PokeAsignados];
+}t_matriz_asignada;
