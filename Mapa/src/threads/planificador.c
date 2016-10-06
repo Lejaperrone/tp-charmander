@@ -83,22 +83,28 @@ int sendWithGarbageCollector(int socket, char* package, int cantBytes, t_entrena
 
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAnterior){
 	if(entrenadorAnterior != NULL){
-		t_entrenador* otroEntrenador = list_get(entrenadoresListos, list_size(entrenadoresListos)-1);
-		if(otroEntrenador->simbolo==entrenadorAnterior->simbolo && entrenadorAnterior->planificador.quantum>0){
-			list_remove(entrenadoresListos, list_size(entrenadoresListos)-1);
+		if(list_size(entrenadoresListos)>0){
+			t_entrenador* otroEntrenador = list_get(entrenadoresListos, list_size(entrenadoresListos)-1);
 
-			entrenadorAnterior->planificador.quantum--;
-			return entrenadorAnterior;
+			if(otroEntrenador->simbolo==entrenadorAnterior->simbolo && entrenadorAnterior->planificador.quantum>0){
+				list_remove(entrenadoresListos, list_size(entrenadoresListos)-1);
+
+				entrenadorAnterior->planificador.quantum--;
+				return entrenadorAnterior;
+			}else{
+				entrenadorAnterior->planificador.quantum=0;
+
+				if(list_size(entrenadoresListos)>0){
+					t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
+					proximoEntrenador->planificador.quantum = mapa->quantum-1;
+					return proximoEntrenador;
+				}else{
+					return NULL;
+				}
+			}
 		}else{
 			entrenadorAnterior->planificador.quantum=0;
-
-			if(list_size(entrenadoresListos)>0){
-				t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
-				proximoEntrenador->planificador.quantum = mapa->quantum-1;
-				return proximoEntrenador;
-			}else{
-				return NULL;
-			}
+			return NULL;
 		}
 	}else{
 		if(list_size(entrenadoresListos)>0){
@@ -203,15 +209,15 @@ void* planificador(void* arg){
 	char Q = 'Q';
 	t_entrenador* entrenador = NULL;
 	while(1){
-		//procesarEntrenadorGarbageCollector();
-		//procesarEntrenadoresBloqueados();
-		procesarEntrenadoresPreparados();
-
 		if(!strcmp(mapa->algoritmo, "RR")){
 			entrenador = obtenerSiguienteEntrenadorPlanificadoRR(entrenador);
 		}else{
-			t_entrenador* entrenador = obtenerSiguienteEntrenadorPlanificadoSRDF(entrenador);
+			entrenador = obtenerSiguienteEntrenadorPlanificadoSRDF(entrenador);
 		}
+
+		//procesarEntrenadorGarbageCollector();
+		//procesarEntrenadoresBloqueados();
+		procesarEntrenadoresPreparados();
 
 		if(entrenador != NULL){
 			log_trace(archivoLog, "Planificador - Envio turno a %c", entrenador->simbolo);
