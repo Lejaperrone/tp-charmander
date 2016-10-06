@@ -14,7 +14,7 @@ t_list* entrenadoresEnDeadlock;
 t_list* posiblesEntrenadoresEnDeadlock;
 int sizeTrainersOnMap;
 int **mAsignacion;
-int **mSolicitud;
+int **mNecesidad;
 
 //bool(*condition)(void*)
 
@@ -84,6 +84,64 @@ int asignarCantidadDePokemons (int entr, int poke){
 int noHayEntrenadoresBloqueados(){
 	return list_is_empty(entrenadoresBloqueados);
 }
+void crearMatrizAsignacion(){
+	int numEntrenador;
+mAsignacion=(int**)malloc(list_size(entrenadoresBloqueados)*sizeof(int*));
+		for (numEntrenador=0;numEntrenador<list_size(entrenadoresBloqueados);numEntrenador++){
+			mAsignacion[numEntrenador]=(int*)malloc(list_size(mapa->pokeNests)*sizeof(int));
+		}
+}
+
+void crearMatrizNecesidad(){
+	int numEntrenador;
+	mNecesidad=(int**)malloc(list_size(entrenadoresBloqueados)*sizeof(int*));
+			for (numEntrenador=0;numEntrenador<list_size(entrenadoresBloqueados);numEntrenador++){
+				mNecesidad[numEntrenador]=(int*)malloc(list_size(mapa->pokeNests)*sizeof(int));
+			}
+}
+void completarMatrizAsignacion(){
+	int numEntrenador;
+	int numPokenest;
+	for (numEntrenador=0;numEntrenador<list_size(entrenadoresBloqueados);numEntrenador++){
+				for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
+				mAsignacion[numEntrenador][numPokenest]=asignarCantidadDePokemons(numEntrenador,numPokenest);
+				//Esto que sigue es solo para verificar que todo este bien cargado
+				t_entrenador* e = (t_entrenador*)malloc(sizeof(t_entrenador));
+				e=list_get(entrenadoresBloqueados,numEntrenador);
+				t_pokenest* p=(t_pokenest*)malloc(sizeof(t_pokenest));
+				p=list_get(mapa->pokeNests,numPokenest);
+				log_info(archivoLog,"%c tiene asignados %d %c",e->simbolo,mAsignacion[numEntrenador][numPokenest],p->identificador );
+				free(e);
+				free(p);
+				}
+			}
+
+
+}
+int asignarNecesidad(int numEntrenador, int numPokenest){
+	t_entrenador* e = (t_entrenador*)malloc(sizeof(t_entrenador));
+	e=list_get(entrenadoresBloqueados,numEntrenador);
+	t_pokenest* p=(t_pokenest*)malloc(sizeof(t_pokenest));
+	p=list_get(mapa->pokeNests,numPokenest);
+	if (e->pokenestBloqueante->identificador==p->identificador){
+		free(e);
+		free(p);
+		return 1;
+	}else{
+		free(e);
+		free(p);
+		return 0;
+	}
+}
+void completarMatrizNecesidad(){
+	int numEntrenador;
+	int numPokenest;
+	for (numEntrenador=0;numEntrenador<list_size(entrenadoresBloqueados);numEntrenador++){
+		for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
+			mNecesidad[numEntrenador][numPokenest]=asignarNecesidad(numEntrenador,numPokenest);
+		}
+	}
+}
 void* deadlock(void* arg){
 	log_trace(archivoLog, "Deadldock - Arranca");
 	while (1){
@@ -100,32 +158,21 @@ void* deadlock(void* arg){
 		t_list* entrenadoresParaAnalizar=malloc(sizeof(t_entrenador));
 		t_list* entrenadoresAnalizados=malloc(sizeof(t_entrenador));
 		log_info(archivoLog,"Se crea la matriz de asignacion de pokemons ");
-		mAsignacion=(int**)malloc(list_size(entrenadoresBloqueados)*sizeof(int*));
-		for (i=0;i<list_size(entrenadoresBloqueados);i++){
-			mAsignacion[i]=(int*)malloc(list_size(mapa->pokeNests)*sizeof(int));
-		}
+		crearMatrizAsignacion();
 		log_info(archivoLog,"Comienzo a llenar la matriz ");
-
-		for (i=0;i<list_size(entrenadoresBloqueados);i++){
-			for (j=0;j<list_size(mapa->pokeNests);j++){
-			mAsignacion[i][j]=asignarCantidadDePokemons(i,j);
-			t_entrenador* e = (t_entrenador*)malloc(sizeof(t_entrenador));
-			e=list_get(entrenadoresBloqueados,i);
-			t_pokenest* p=(t_pokenest*)malloc(sizeof(t_pokenest));
-			p=list_get(mapa->pokeNests,j);
-			log_info(archivoLog,"%c tiene asignados %d %c",e->simbolo,mAsignacion[i][j],p->identificador );
-			}
-		}
-
+		completarMatrizAsignacion();
 		//Logueo la matriz
 		for (i=0;i<list_size(entrenadoresBloqueados);i++){
 					for (j=0;j<list_size(mapa->pokeNests);j++){
 					log_info(archivoLog,"%d ",mAsignacion[i][j]);
 					}
 				}
+		log_info(archivoLog,"Se crea la matriz de necesidad");
+		crearMatrizNecesidad();
+		log_info(archivoLog,"Comienzo a llenar la matriz de necesidad");
+		completarMatrizNecesidad();
 
-
-		juntarTodosLosEntrenadores(entrenadoresParaAnalizar);
+		//juntarTodosLosEntrenadores(entrenadoresParaAnalizar);
 		entrenadoresAnalizados=analizarDeadlock(entrenadoresParaAnalizar);
 		if (hayEntrenadoresEnDeadlock(entrenadoresParaAnalizar)){
 			if (batallaActivada()){
