@@ -60,8 +60,6 @@ void procesarEntrenadorGarbageCollector(){
 	}
 }
 
-
-
 int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador){
 	int nbytes = recv(socket, package, cantBytes, 0);
 	if(nbytes!=cantBytes){
@@ -84,14 +82,37 @@ int sendWithGarbageCollector(int socket, char* package, int cantBytes, t_entrena
 }
 
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAnterior){
-	//TODO
-	t_entrenador* proximoEntrenador;
-	return proximoEntrenador;
+	if(entrenadorAnterior != NULL){
+		t_entrenador* otroEntrenador = list_get(entrenadoresListos, list_size(entrenadoresListos)-1);
+		if(otroEntrenador->simbolo==entrenadorAnterior->simbolo && entrenadorAnterior->planificador.quantum>0){
+			list_remove(entrenadoresListos, list_size(entrenadoresListos)-1);
+
+			entrenadorAnterior->planificador.quantum--;
+			return entrenadorAnterior;
+		}else{
+			entrenadorAnterior->planificador.quantum=0;
+
+			if(list_size(entrenadoresListos)>0){
+				t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
+				proximoEntrenador->planificador.quantum = mapa->quantum-1;
+				return proximoEntrenador;
+			}else{
+				return NULL;
+			}
+		}
+	}else{
+		if(list_size(entrenadoresListos)>0){
+			t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
+			proximoEntrenador->planificador.quantum = mapa->quantum-1;
+			return proximoEntrenador;
+		}else{
+			return NULL;
+		}
+	}
 }
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenadorAnterior){
 	//TODO
-	t_entrenador* proximoEntrenador;
-	return proximoEntrenador;
+	return NULL;
 }
 
 void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador){
@@ -179,40 +200,26 @@ void atenderEntrenador(t_entrenador* entrenador){
 void* planificador(void* arg){
 	log_trace(archivoLog, "Planificador - Arranca");
 
-	/*char Q = 'Q';
+	char Q = 'Q';
 	t_entrenador* entrenador = NULL;
 	while(1){
-		procesarEntrenadorGarbageCollector();
-		procesarEntrenadoresBloqueados();
+		//procesarEntrenadorGarbageCollector();
+		//procesarEntrenadoresBloqueados();
 		procesarEntrenadoresPreparados();
 
-		if(strcmp(mapa->algoritmo, "")){
-			t_entrenador* entrenador = obtenerSiguienteEntrenadorPlanificadoRR(entrenador);
+		if(!strcmp(mapa->algoritmo, "RR")){
+			entrenador = obtenerSiguienteEntrenadorPlanificadoRR(entrenador);
 		}else{
 			t_entrenador* entrenador = obtenerSiguienteEntrenadorPlanificadoSRDF(entrenador);
 		}
 
-		log_trace(archivoLog, "Planificador - Envio turno a %c", entrenador->simbolo);
-		if(sendWithGarbageCollector(entrenador->socket, &Q, 1, entrenador)){
-			atenderEntrenador(entrenador);
-			sleep(1);
-		}
-	}*/
-
-	while(1){
-		procesarEntrenadoresPreparados();
-
-		int i;
-		for(i=0; i<list_size(entrenadoresListos); i++){
-			t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresListos, i);
+		if(entrenador != NULL){
 			log_trace(archivoLog, "Planificador - Envio turno a %c", entrenador->simbolo);
-			char Q = 'Q';
 			if(sendWithGarbageCollector(entrenador->socket, &Q, 1, entrenador)){
-				log_trace(archivoLog, "Turno enviado");
 				atenderEntrenador(entrenador);
-				sleep(1);
 			}
 		}
+		sleep(1);
 	}
 
 	return arg;

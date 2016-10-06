@@ -45,12 +45,17 @@
 		}t_mapa;
 
 	typedef struct{
+		int quantum;
+	}t_planificador_entrenador;
+
+	typedef struct{
 		char simbolo;
 		int socket;
 		t_coordenadas ubicacion;
 		t_list* pokemons;
 		t_pokemon_custom* ultimoPokeSolicitado;
 		t_pokenest* pokenestBloqueante;
+		t_planificador_entrenador planificador;
 	}t_entrenador;
 
 	t_mapa* mapa;
