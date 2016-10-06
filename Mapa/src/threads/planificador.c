@@ -37,20 +37,23 @@ void procesarEntrenadoresPreparados(){
 void procesarEntrenadoresBloqueados(){
 	//TODO
 }
-void liberarPokemonsDeLaListaDelEntrenador(t_pokemon_custom* pokemon){
+void procesorPokemonEntrenadorGarbagecollector(t_pokemon_custom* pokemon){
 	pokemon->disponible = 1;
+	pokemon->duenio = ' ';
 }
-void liberarEntrenadoresDelGarbage(t_entrenador* entrenador){
-	list_iterate(entrenador->pokemons, (void*) liberarPokemonsDeLaListaDelEntrenador);
-	list_clean(entrenador->pokemons);
+void procesarEntrenadorGarbageCollector(t_entrenador* entrenador){
+	list_iterate(entrenador->pokemons, (void*) procesorPokemonEntrenadorGarbagecollector);
+	list_destroy(entrenador->pokemons);
 	BorrarItem(elementosUI, entrenador->simbolo);
-	nivel_gui_dibujar(elementosUI, mapa->nombre);
 	close(entrenador->socket);
 	free(entrenador);
 }
-void procesarEntrenadorGarbageCollector(){
+void procesarEntrenadoresGarbageCollector(){
 	if (!list_is_empty(garbageCollectorEntrenadores)){
-			list_iterate(garbageCollectorEntrenadores, (void*) liberarEntrenadoresDelGarbage);
+		list_iterate(garbageCollectorEntrenadores, (void*) procesarEntrenadorGarbageCollector);
+		list_clean(garbageCollectorEntrenadores);
+		//Aca falta redibujar los recursos disponibles despues de la liberacion de los entrenadores
+		nivel_gui_dibujar(elementosUI, mapa->nombre);
 	}
 }
 
@@ -239,7 +242,7 @@ void* planificador(void* arg){
 			entrenador = obtenerSiguienteEntrenadorPlanificadoSRDF(entrenador);
 		}
 
-		//procesarEntrenadorGarbageCollector();
+		//procesarEntrenadoresGarbageCollector();
 		//procesarEntrenadoresBloqueados();
 		procesarEntrenadoresPreparados();
 

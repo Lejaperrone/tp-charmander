@@ -10,7 +10,9 @@
 
 void procesarEntrenadoresPreparados();
 void procesarEntrenadoresBloqueados();
-void procesarEntrenadorGarbageCollector();
+void procesorPokemonEntrenadorGarbagecollector(t_pokemon_custom* pokemon);
+void procesarEntrenadorGarbageCollector(t_entrenador* entrenador);
+void procesarEntrenadoresGarbageCollector();
 
 int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador);
 int sendWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador);
