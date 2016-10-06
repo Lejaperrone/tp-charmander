@@ -81,7 +81,9 @@ int asignarCantidadDePokemons (int entr, int poke){
 
 	return list_count_satisfying(pokenestAsig->pokemons, (void*)loTieneAsignado);
 }
-
+int noHayEntrenadoresBloqueados(){
+	return list_is_empty(entrenadoresBloqueados);
+}
 void* deadlock(void* arg){
 	log_trace(archivoLog, "Deadldock - Arranca");
 	while (1){
@@ -90,9 +92,10 @@ void* deadlock(void* arg){
 		sleep(2);
 		log_info(archivoLog,"Hilo deadlock comienza su deteccion");
 		int i,j;
-		if (list_size(entrenadoresBloqueados)==0){
+		if (noHayEntrenadoresBloqueados()){
 					log_info(archivoLog,"No hay entrenadores bloqueados aun");
 				}else{
+
 		//REFACTORIZAR TODO ESTE ELSE EN FUNCIONES MAS CHICAS
 		t_list* entrenadoresParaAnalizar=malloc(sizeof(t_entrenador));
 		t_list* entrenadoresAnalizados=malloc(sizeof(t_entrenador));
