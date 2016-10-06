@@ -302,7 +302,7 @@ int main(int argc, char *argv[]){
 		log_info(archivoLog,"PokedexPath: %s", pokedexPath);
 
 
-	//Inicializo listas para el manejo de entrenadores y dibujo del mapa
+	//Inicializo listas para el manejo de entrenadores
 		log_info(archivoLog,"Inicializo listas");
 		entrenadoresPreparados = list_create();
 		entrenadoresListos = list_create();

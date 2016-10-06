@@ -30,6 +30,8 @@ void procesarEntrenadoresPreparados(){
 			CrearPersonaje(elementosUI,entrenador->simbolo,entrenador->ubicacion.x,entrenador->ubicacion.y);
 		}
 		nivel_gui_dibujar(elementosUI,mapa->nombre);
+
+		logColasEntrenadores();
 	}
 }
 void procesarEntrenadoresBloqueados(){
@@ -95,6 +97,7 @@ t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAn
 				entrenadorAnterior->planificador.quantum=0;
 
 				if(list_size(entrenadoresListos)>0){
+					logColasEntrenadores();
 					t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
 					proximoEntrenador->planificador.quantum = mapa->quantum-1;
 					return proximoEntrenador;
@@ -176,10 +179,10 @@ void atenderEntrenadorCapturar(t_entrenador* entrenador){
 	char paquete;
 
 	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
-		log_trace(archivoLog, "Planificador - Solicitud F%c", paquete);
+		log_trace(archivoLog, "Planificador - Solicitud F%c - Envio a lista de bloqueados", paquete);
 		entrenador->pokenestBloqueante = find_pokenest_by_id(paquete);
 		list_add(entrenadoresBloqueados, entrenador);
-		log_trace(archivoLog, "Planificador - Lo mando a la lista de bloqueados");
+		logColasEntrenadores();
 	}
 }
 void atenderEntrenador(t_entrenador* entrenador){
@@ -201,6 +204,35 @@ void atenderEntrenador(t_entrenador* entrenador){
 				break;
 		}
 	}
+}
+
+void logEntrenadoresListos(){
+	int i;
+	char * mensaje = string_new();
+	string_append(&mensaje, "Entrenadores listos: ");
+	for(i=0; i<list_size(entrenadoresListos); i++){
+		t_entrenador* entrenador = list_get(entrenadoresListos, i);
+		string_append(&mensaje, &(entrenador->simbolo));
+		string_append(&mensaje, " ");
+	}
+
+	log_info(archivoLog, mensaje);
+}
+void logEntrenadoresBloqueados(){
+	int i;
+	char * mensaje = string_new();
+	string_append(&mensaje, "Entrenadores bloqueados: ");
+	for(i=0; i<list_size(entrenadoresBloqueados); i++){
+		t_entrenador* entrenador = list_get(entrenadoresBloqueados, i);
+		string_append(&mensaje, &(entrenador->simbolo));
+		string_append(&mensaje, " ");
+	}
+
+	log_info(archivoLog, mensaje);
+}
+void logColasEntrenadores(){
+	logEntrenadoresListos();
+	logEntrenadoresBloqueados();
 }
 
 void* planificador(void* arg){

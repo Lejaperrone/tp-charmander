@@ -23,6 +23,10 @@ void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador);
 void atenderEntrenadorMover(t_entrenador* entrenador);
 void atenderEntrenadorCapturar(t_entrenador* entrenador);
 
+void logEntrenadoresListos();
+void logEntrenadoresBloqueados();
+void logColasEntrenadores();
+
 void* planificador(void* arg);
 
 #endif /* THREADS_PLANIFICADOR_H_ */
