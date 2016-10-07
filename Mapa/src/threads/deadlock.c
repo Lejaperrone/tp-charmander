@@ -150,7 +150,7 @@ void crearVectorPokemonsDisponibles(int **vecPokeDisp){
 		for(numEntr=0;numEntr<list_size(entrenadoresBloqueados);numEntr++){
 			totalDeUnaPokenest=totalDeUnaPokenest+mAsignacion[numEntr][numPokenest];
 		}
-		vecPokeDisp[numPokenest]=totalDeUnaPokenest;
+		*vecPokeDisp[numPokenest]=totalDeUnaPokenest;
 	}
 }
 void loguearVectorDisponibles(){
