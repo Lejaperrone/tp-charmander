@@ -142,25 +142,46 @@ void completarMatrizNecesidad(){
 		}
 	}
 }
-void crearVectorPokemonsDisponibles(int **vecPokeDisp){
+void crearVectorPokemonsDisponibles(int *vecPokeDisp){
 	int numPokenest;
 	int numEntr;
+	if (list_is_empty(entrenadoresBloqueados)){
+		log_info(archivoLog,"No hay entrenadores bloqueados");
+		for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
+			t_pokenest* pknst=(t_pokenest*)malloc(sizeof(t_pokenest));
+			pknst=list_get(mapa->pokeNests,numPokenest);
+			log_info(archivoLog,"obtengo los pokemons disponibles para %c",pknst->identificador);
+			vecPokeDisp[numPokenest]=list_size(pknst->pokemons);
+			log_info(archivoLog,"%d disponibles de %c",vecPokeDisp[numPokenest],pknst->identificador);
+			free(pknst);
+			}
+	}else{
 	for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
 		int totalDeUnaPokenest=0;
 		for(numEntr=0;numEntr<list_size(entrenadoresBloqueados);numEntr++){
 			totalDeUnaPokenest=totalDeUnaPokenest+mAsignacion[numEntr][numPokenest];
 		}
-		*vecPokeDisp[numPokenest]=totalDeUnaPokenest;
+		vecPokeDisp[numPokenest]=totalDeUnaPokenest;
+	}
 	}
 }
-void loguearVectorDisponibles(){
-
+void loguearVectorDisponibles(int *vecPokeDisp){
+	int numPokenest;
+	for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
+		t_pokenest* pknst=(t_pokenest*)malloc(sizeof(t_pokenest));
+		pknst=list_get(mapa->pokeNests,numPokenest);
+		vecPokeDisp[numPokenest]=list_size(pknst->pokemons);
+		log_info(archivoLog,"Hay %d disponible(s) para: %c",vecPokeDisp[numPokenest],pknst->identificador);
+		free(pknst);
+	}
 }
 void* deadlock(void* arg){
 	log_trace(archivoLog, "Deadldock - Arranca");
 	while (1){
 		int* vecPokeDisp=(int*)malloc(sizeof(int));
 		log_info(archivoLog,"Hilo deadlock espera proxima vez de chequeo");
+		//crearVectorPokemonsDisponibles(vecPokeDisp);
+		//loguearVectorDisponibles(vecPokeDisp);
 		//sleep(0.1*(mapa->retardo));
 		sleep(2);
 		log_info(archivoLog,"Hilo deadlock comienza su deteccion");
@@ -187,8 +208,7 @@ void* deadlock(void* arg){
 		log_info(archivoLog,"Comienzo a llenar la matriz de necesidad");
 		completarMatrizNecesidad();
 		log_info(archivoLog,"Se crea el vector de pokemons disponibles");
-		crearVectorPokemonsDisponibles(&vecPokeDisp);
-		loguearVectorDisponibles();
+
 		//juntarTodosLosEntrenadores(entrenadoresParaAnalizar);
 		entrenadoresAnalizados=analizarDeadlock(entrenadoresParaAnalizar);
 		if (hayEntrenadoresEnDeadlock(entrenadoresParaAnalizar)){
