@@ -326,6 +326,21 @@ int main(int argc, char *argv[]){
 		log_info(archivoLog,"Logueo configuracion");
 		loguearConfiguracion(archivoLog, mapa);
 
+	//Muestro recursos en el mapa
+		log_info(archivoLog,"Cargo elementos a la UI");
+		int j;
+		for(j=0; j<list_size(mapa->pokeNests); j++){
+			t_pokenest* pokenest = (t_pokenest*)list_get(mapa->pokeNests, j);
+			if(pokenest->ubicacion.x<=cols && pokenest->ubicacion.y<=rows){
+				CrearCaja(elementosUI, pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.x, list_size(pokenest->pokemons));
+
+			}else{
+				log_info(archivoLog,"No se pudo dibujar el recurso %c", pokenest->identificador);
+			}
+		}
+
+		nivel_gui_dibujar(elementosUI, mapa->nombre);
+
 	//Creo el hilo planificador
 		log_info(archivoLog,"Inicializo los hilos de planificacion y deadlock");
 		pthread_create(&hiloPlanificador,NULL,planificador, NULL);
@@ -343,21 +358,6 @@ int main(int argc, char *argv[]){
 	//Registro signal handler
 		log_info(archivoLog,"Registro handler de seniales");
 		signal(SIGUSR2, sigusr2_handler); //signal-number 12
-
-	//Muestro recursos en el mapa
-		log_info(archivoLog,"Cargo elementos a la UI");
-		int j;
-		for(j=0; j<list_size(mapa->pokeNests); j++){
-			t_pokenest* pokenest = (t_pokenest*)list_get(mapa->pokeNests, j);
-			if(pokenest->ubicacion.x<=cols && pokenest->ubicacion.y<=rows){
-				CrearCaja(elementosUI, pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.x, list_size(pokenest->pokemons));
-
-			}else{
-				log_info(archivoLog,"No se pudo dibujar el recurso %c", pokenest->identificador);
-			}
-		}
-
-		nivel_gui_dibujar(elementosUI, mapa->nombre);
 
 	//Inicializo el select
 		log_info(archivoLog,"Inicializo el SELECT");
