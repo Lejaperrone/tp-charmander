@@ -86,7 +86,7 @@ int noHayEntrenadoresBloqueados(){
 }
 void crearMatrizAsignacion(){
 	int numEntrenador;
-mAsignacion=(int**)malloc(list_size(entrenadoresBloqueados)*sizeof(int*));
+	mAsignacion=(int**)malloc(list_size(entrenadoresBloqueados)*sizeof(int*));
 		for (numEntrenador=0;numEntrenador<list_size(entrenadoresBloqueados);numEntrenador++){
 			mAsignacion[numEntrenador]=(int*)malloc(list_size(mapa->pokeNests)*sizeof(int));
 		}
@@ -142,9 +142,24 @@ void completarMatrizNecesidad(){
 		}
 	}
 }
+void crearVectorPokemonsDisponibles(int **vecPokeDisp){
+	int numPokenest;
+	int numEntr;
+	for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
+		int totalDeUnaPokenest=0;
+		for(numEntr=0;numEntr<list_size(entrenadoresBloqueados);numEntr++){
+			totalDeUnaPokenest=totalDeUnaPokenest+mAsignacion[numEntr][numPokenest];
+		}
+		vecPokeDisp[numPokenest]=totalDeUnaPokenest;
+	}
+}
+void loguearVectorDisponibles(){
+
+}
 void* deadlock(void* arg){
 	log_trace(archivoLog, "Deadldock - Arranca");
 	while (1){
+		int* vecPokeDisp=(int*)malloc(sizeof(int));
 		log_info(archivoLog,"Hilo deadlock espera proxima vez de chequeo");
 		//sleep(0.1*(mapa->retardo));
 		sleep(2);
@@ -171,7 +186,9 @@ void* deadlock(void* arg){
 		crearMatrizNecesidad();
 		log_info(archivoLog,"Comienzo a llenar la matriz de necesidad");
 		completarMatrizNecesidad();
-
+		log_info(archivoLog,"Se crea el vector de pokemons disponibles");
+		crearVectorPokemonsDisponibles(&vecPokeDisp);
+		loguearVectorDisponibles();
 		//juntarTodosLosEntrenadores(entrenadoresParaAnalizar);
 		entrenadoresAnalizados=analizarDeadlock(entrenadoresParaAnalizar);
 		if (hayEntrenadoresEnDeadlock(entrenadoresParaAnalizar)){
@@ -183,6 +200,9 @@ void* deadlock(void* arg){
 			free(posiblesEntrenadoresEnDeadlock);
 			free(entrenadoresParaAnalizar);
 				free(entrenadoresAnalizados);
+				free(vecPokeDisp);
+				free(mAsignacion);
+				free(mNecesidad);
 	}
 	}
 	}
