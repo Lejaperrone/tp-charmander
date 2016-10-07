@@ -71,6 +71,7 @@ t_pokenest* createPokeNest(char* pathPokenest, char* name){
 			while ((ep2 = readdir (pokemons))){
 				if(string_ends_with(ep2->d_name, "dat")){
 					t_pokemon_custom* pokemon = createPokemon(pathPokenest, ep2->d_name); //Creo el  pokemon
+					pokemon->identificadorPokenest = pokenest->identificador;
 					list_add(pokenest->pokemons,pokemon); //Agrego a la lista de pokemons de la pokenest
 				}
 			}

@@ -46,7 +46,7 @@ t_pokemon_custom* find_pokemon_by_id(t_list* pokemons, t_pokenest pokenest) {
 
             			return (pokenest.identificador==poke->id);
 
-            			return (pokenest.identificador==poke->identificador);
+            			return (pokenest.identificador==poke->identificadorPokenest);
 
 
             	}

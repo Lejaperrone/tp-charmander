@@ -34,42 +34,59 @@ void procesarEntrenadoresPreparados(){
 		logColasEntrenadores();
 	}
 }
-void asignarPokemonDisponiblePorElCualElEntrenadorSeBloqueo(t_entrenador* entrenador){
-	//Aca pueden haber varios pokemons por el cual el entrenador esta bloqueado?
-	//Porque asumo que el ultimoSolicitado es el pokemon por el cual se bloqueo (que creo que no esta bien)
-	if(entrenador->ultimoPokeSolicitado->disponible == 1){
-		entrenador->ultimoPokeSolicitado->disponible = 0;
-		entrenador->ultimoPokeSolicitado->duenio = entrenador->simbolo;
-	}
-}
+
 void procesarEntrenadoresBloqueados(){
+	bool _pokemon_Este_Disponible(t_pokemon_custom* pokemon){
+		return (pokemon->disponible == 1);
+	}
+	int _asignar_PokemonsDisponible_PorElCualElEntrenadorSeBloqueo(t_entrenador* entrenador){
+		t_pokemon_custom* pokemon = list_find(entrenador->pokenestBloqueante->pokemons, (void*)_pokemon_Este_Disponible);
+		if(pokemon != NULL){
+			pokemon->disponible = 0;
+			pokemon->duenio = entrenador->simbolo;
+			list_add(entrenador->pokemons, pokemon);
+			restarRecurso(elementosUI,entrenador->pokenestBloqueante->identificador);
+			nivel_gui_dibujar(elementosUI, mapa->nombre);
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+
 	int i;
 	if(!list_is_empty(entrenadoresBloqueados)){
 		for(i=0 ;i<list_size(entrenadoresBloqueados); i++){
 			t_entrenador* entrenador = list_get(entrenadoresBloqueados,i);
-			asignarPokemonDisponiblePorElCualElEntrenadorSeBloqueo(entrenador);
-			list_remove(entrenadoresBloqueados,i);
-			list_add(entrenadoresListos,entrenador);
+			int valorDeRetorno = _asignar_PokemonsDisponible_PorElCualElEntrenadorSeBloqueo(entrenador);
+			if (valorDeRetorno == 1){
+				list_remove(entrenadoresBloqueados,i);
+				list_add(entrenadoresListos,entrenador);
+			}
 		}
 	}
 }
-void procesorPokemonEntrenadorGarbagecollector(t_pokemon_custom* pokemon){
-	pokemon->disponible = 1;
-	pokemon->duenio = ' ';
-}
-void procesarEntrenadorGarbageCollector(t_entrenador* entrenador){
-	list_iterate(entrenador->pokemons, (void*) procesorPokemonEntrenadorGarbagecollector);
-	list_destroy(entrenador->pokemons);
-	BorrarItem(elementosUI, entrenador->simbolo);
-	close(entrenador->socket);
-	free(entrenador);
-}
+
+
 void procesarEntrenadoresGarbageCollector(){
+	void _procesar_Entrenador_GarbageCollector(t_entrenador* entrenador){
+		void _procesor_Pokemon_Entrenador_GarbageCollector(t_pokemon_custom* pokemon){
+			pokemon->disponible = 1;
+			pokemon->duenio = ' ';
+			sumarRecurso(elementosUI,pokemon->identificadorPokenest);		//Por que me tira warning aca? Habre creado mal el recursos.c y .h en functions?
+			nivel_gui_dibujar(elementosUI, mapa->nombre);
+		}
+
+		list_iterate(entrenador->pokemons, (void*) _procesor_Pokemon_Entrenador_GarbageCollector);
+		list_destroy(entrenador->pokemons);
+		BorrarItem(elementosUI, entrenador->simbolo);
+		close(entrenador->socket);
+		free(entrenador);
+	}
+
 	if (!list_is_empty(garbageCollectorEntrenadores)){
-		list_iterate(garbageCollectorEntrenadores, (void*) procesarEntrenadorGarbageCollector);
+		list_iterate(garbageCollectorEntrenadores, (void*) _procesar_Entrenador_GarbageCollector);
 		list_clean(garbageCollectorEntrenadores);
-		//Aca falta redibujar los recursos disponibles despues de la liberacion de los entrenadores
-		nivel_gui_dibujar(elementosUI, mapa->nombre);
 	}
 }
 

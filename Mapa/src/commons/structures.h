@@ -22,7 +22,7 @@
 		char duenio;
 		int nivel;
 		char id;
-		char identificador;
+		char identificadorPokenest;
 	}t_pokemon_custom;
 
 	typedef struct{
