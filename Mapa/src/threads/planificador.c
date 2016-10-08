@@ -19,6 +19,7 @@
 #include "../commons/structures.h"
 #include "../functions/collections_list_extension.h"
 
+extern pthread_mutex_t mutexEntrBQ;
 
 void procesarEntrenadoresPreparados(){
 	int i;
@@ -250,12 +251,13 @@ void logEntrenadoresBloqueados(){
 	int i;
 	char * mensaje = string_new();
 	string_append(&mensaje, "Entrenadores bloqueados: ");
+	pthread_mutex_lock(&mutexEntrBQ);
 	for(i=0; i<list_size(entrenadoresBloqueados); i++){
 		t_entrenador* entrenador = list_get(entrenadoresBloqueados, i);
 		string_append(&mensaje, &(entrenador->simbolo));
 		string_append(&mensaje, " ");
 	}
-
+	pthread_mutex_unlock(&mutexEntrBQ);
 	log_info(archivoLog, mensaje);
 }
 void logColasEntrenadores(){

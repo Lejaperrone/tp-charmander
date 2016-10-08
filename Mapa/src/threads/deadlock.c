@@ -15,6 +15,7 @@ t_list* posiblesEntrenadoresEnDeadlock;
 int sizeTrainersOnMap;
 int **mAsignacion;
 int **mNecesidad;
+extern pthread_mutex_t mutexEntrBQ;
 
 //bool(*condition)(void*)
 
