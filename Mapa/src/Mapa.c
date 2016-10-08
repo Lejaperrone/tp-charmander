@@ -31,6 +31,7 @@ char* arg3="hiloDeteccionDeadlock";
 int h1;
 int h2;
 int h3;
+pthread_mutex_t mutexEntrBQ=PTHREAD_MUTEX_INITIALIZER;
 
 int inicioPlanificador=1;
 
