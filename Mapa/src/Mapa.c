@@ -32,7 +32,7 @@ int h1;
 int h2;
 int h3;
 pthread_mutex_t mutexEntrBQ=PTHREAD_MUTEX_INITIALIZER;
-
+pthread_mutex_t mutexEntrRD=PTHREAD_MUTEX_INITIALIZER;
 int inicioPlanificador=1;
 
 t_list* t_elementosEnMapa;
@@ -288,7 +288,6 @@ bool primeraPasada=true;
 int main(int argc, char *argv[]){
 	//Creo archivo de log
 		archivoLog = crearArchivoLog();
-
 	//Informo mi PID
 		log_info(archivoLog,"PID: %d", getpid());
 
@@ -424,8 +423,9 @@ int main(int argc, char *argv[]){
 								entrenador->pokemons = list_create();
 								entrenador->ubicacion.x = 1;
 								entrenador->ubicacion.y = 1;
+								pthread_mutex_lock(&mutexEntrRD);
 								list_add(entrenadoresPreparados, entrenador);
-
+								pthread_mutex_unlock(&mutexEntrRD);
 								FD_CLR(i, &master);// eliminar del conjunto maestro
 
 								log_trace(archivoLog, "Agrego entrenador a preparados: %c", entrenador->simbolo);
@@ -437,6 +437,7 @@ int main(int argc, char *argv[]){
 			}
 		}
 		//Destruyo el semaforo de los entrenadores bloqueados
+		pthread_mutex_destroy(&mutexEntrRD);
 		pthread_mutex_destroy(&mutexEntrBQ);
 	//Libero memoria y termino ui
 		free(archivoLog);

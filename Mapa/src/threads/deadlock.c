@@ -29,10 +29,8 @@ bool noHayPokemonsDisponiblesPara(t_entrenador* unE){
 	unPoke=unE->ultimoPokeSolicitado;
 	int numPokenest;
 	for(numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
-	t_pokenest* unaPokenest=malloc(sizeof(t_pokenest));
-			 unaPokenest=list_get(mapa->pokeNests,numPokenest);
+	t_pokenest* unaPokenest=list_get(mapa->pokeNests,numPokenest);
 			 pokemonsDisponibles=list_filter(unaPokenest->pokemons,(void*)estaDisponible (unPoke));
-			 free(unaPokenest);
 	}
 	 free(unPoke);
 //	 free(pokemonsDisponibles);
@@ -52,8 +50,7 @@ void juntarTodosLosEntrenadores(t_list* posiblesEntrenadoresEnDeadlock) {
 t_list* analizarDeadlock (){
 	int i;
 	for (i=0;i<sizeTrainersOnMap;i++){
-				t_entrenador* posibleEntrenadorEnDeadlock=malloc(sizeof(t_entrenador));
-				posibleEntrenadorEnDeadlock=(t_entrenador*)list_get(posiblesEntrenadoresEnDeadlock,i);
+				t_entrenador* posibleEntrenadorEnDeadlock=(t_entrenador*)list_get(posiblesEntrenadoresEnDeadlock,i);
 				if (noHayPokemonsDisponiblesPara(posibleEntrenadorEnDeadlock) && poseePokemonSolicitado(posibleEntrenadorEnDeadlock) ){
 					list_add(entrenadoresEnDeadlock,posibleEntrenadorEnDeadlock);
 				}
@@ -75,11 +72,8 @@ bool loTieneAsignado(t_entrenador* e, t_list* p){
 	return list_any_satisfy(lpok, (void*)esEsePokemon );
 }
 int asignarCantidadDePokemons (int entr, int poke){
-	t_entrenador* entrAsig=(t_entrenador*)malloc(sizeof(t_entrenador));
-	entrAsig=list_get(entrenadoresBloqueados,entr);
-	t_pokenest* pokenestAsig=(t_pokenest*)malloc(sizeof(t_pokenest));
-	pokenestAsig=(t_pokenest*)list_get(mapa->pokeNests,poke);
-
+	t_entrenador* entrAsig=list_get(entrenadoresBloqueados,entr);
+	t_pokenest* pokenestAsig=(t_pokenest*)list_get(mapa->pokeNests,poke);
 	return list_count_satisfying(pokenestAsig->pokemons, (void*)loTieneAsignado);
 }
 int noHayEntrenadoresBloqueados(){
@@ -107,30 +101,20 @@ void completarMatrizAsignacion(){
 				for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
 				mAsignacion[numEntrenador][numPokenest]=asignarCantidadDePokemons(numEntrenador,numPokenest);
 				//Esto que sigue es solo para verificar que todo este bien cargado
-				t_entrenador* e = (t_entrenador*)malloc(sizeof(t_entrenador));
-				e=list_get(entrenadoresBloqueados,numEntrenador);
-				t_pokenest* p=(t_pokenest*)malloc(sizeof(t_pokenest));
-				p=list_get(mapa->pokeNests,numPokenest);
+				t_entrenador* e =list_get(entrenadoresBloqueados,numEntrenador);
+				t_pokenest* p=list_get(mapa->pokeNests,numPokenest);
 				log_info(archivoLog,"%c tiene asignados %d %c",e->simbolo,mAsignacion[numEntrenador][numPokenest],p->identificador );
-				free(e);
-				free(p);
 				}
 			}
 
 
 }
 int asignarNecesidad(int numEntrenador, int numPokenest){
-	t_entrenador* e = (t_entrenador*)malloc(sizeof(t_entrenador));
-	e=list_get(entrenadoresBloqueados,numEntrenador);
-	t_pokenest* p=(t_pokenest*)malloc(sizeof(t_pokenest));
-	p=list_get(mapa->pokeNests,numPokenest);
+	t_entrenador* e =list_get(entrenadoresBloqueados,numEntrenador);
+	t_pokenest* p=list_get(mapa->pokeNests,numPokenest);
 	if (e->pokenestBloqueante->identificador==p->identificador){
-		free(e);
-		free(p);
 		return 1;
 	}else{
-		free(e);
-		free(p);
 		return 0;
 	}
 }
@@ -149,12 +133,10 @@ void crearVectorPokemonsDisponibles(int *vecPokeDisp){
 	if (list_is_empty(entrenadoresBloqueados)){
 		log_info(archivoLog,"No hay entrenadores bloqueados");
 		for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
-			t_pokenest* pknst=(t_pokenest*)malloc(sizeof(t_pokenest));
-			pknst=list_get(mapa->pokeNests,numPokenest);
+			t_pokenest* pknst=list_get(mapa->pokeNests,numPokenest);
 			log_info(archivoLog,"obtengo los pokemons disponibles para %c",pknst->identificador);
 			vecPokeDisp[numPokenest]=list_size(pknst->pokemons);
 			log_info(archivoLog,"%d disponibles de %c",vecPokeDisp[numPokenest],pknst->identificador);
-			free(pknst);
 			}
 	}else{
 	for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
@@ -169,22 +151,22 @@ void crearVectorPokemonsDisponibles(int *vecPokeDisp){
 void loguearVectorDisponibles(int *vecPokeDisp){
 	int numPokenest;
 	for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
-		t_pokenest* pknst=(t_pokenest*)malloc(sizeof(t_pokenest));
-		pknst=list_get(mapa->pokeNests,numPokenest);
+		t_pokenest* pknst=list_get(mapa->pokeNests,numPokenest);
 		vecPokeDisp[numPokenest]=list_size(pknst->pokemons);
 		log_info(archivoLog,"Hay %d disponible(s) para: %c",vecPokeDisp[numPokenest],pknst->identificador);
-		free(pknst);
 	}
 }
 void* deadlock(void* arg){
 	log_trace(archivoLog, "Deadldock - Arranca");
 	while (1){
-		int* vecPokeDisp=(int*)malloc(sizeof(int));
+		sleep(2);
+		int tamPokenests=list_size(mapa->pokeNests);
+		int vecPokeDisp[tamPokenests];
 		log_info(archivoLog,"Hilo deadlock espera proxima vez de chequeo");
-		//crearVectorPokemonsDisponibles(vecPokeDisp);
+		crearVectorPokemonsDisponibles(vecPokeDisp);
 		//loguearVectorDisponibles(vecPokeDisp);
 		//sleep(0.1*(mapa->retardo));
-		sleep(2);
+
 		log_info(archivoLog,"Hilo deadlock comienza su deteccion");
 		int i,j;
 		if (noHayEntrenadoresBloqueados()){
