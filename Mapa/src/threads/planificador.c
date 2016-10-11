@@ -18,78 +18,7 @@
 
 #include "../commons/structures.h"
 #include "../functions/collections_list_extension.h"
-
-extern pthread_mutex_t mutexEntrBQ;
-
-void procesarEntrenadoresPreparados(){
-	int i;
-	if(list_size(entrenadoresPreparados)>0){
-		for(i=0; i<list_size(entrenadoresPreparados); i++){
-			t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresPreparados, i);
-			log_trace(archivoLog, "Planificador - Agrego entrenador a listos: %c", entrenador->simbolo);
-			list_add(entrenadoresListos, entrenador);
-			CrearPersonaje(elementosUI,entrenador->simbolo,entrenador->ubicacion.x,entrenador->ubicacion.y);
-		}
-		nivel_gui_dibujar(elementosUI,mapa->nombre);
-
-		logColasEntrenadores();
-	}
-}
-
-void procesarEntrenadoresBloqueados(){
-	bool _pokemon_Este_Disponible(t_pokemon_custom* pokemon){
-		return (pokemon->disponible == 1);
-	}
-	int _asignar_PokemonsDisponible_PorElCualElEntrenadorSeBloqueo(t_entrenador* entrenador){
-		t_pokemon_custom* pokemon = list_find(entrenador->pokenestBloqueante->pokemons, (void*)_pokemon_Este_Disponible);
-		if(pokemon != NULL){
-			pokemon->disponible = 0;
-			pokemon->duenio = entrenador->simbolo;
-			list_add(entrenador->pokemons, pokemon);
-			restarRecurso(elementosUI,entrenador->pokenestBloqueante->identificador);
-			nivel_gui_dibujar(elementosUI, mapa->nombre);
-			return 1;
-		}
-		else{
-			return 0;
-		}
-	}
-
-	int i;
-	if(!list_is_empty(entrenadoresBloqueados)){
-		for(i=0 ;i<list_size(entrenadoresBloqueados); i++){
-			t_entrenador* entrenador = list_get(entrenadoresBloqueados,i);
-			int valorDeRetorno = _asignar_PokemonsDisponible_PorElCualElEntrenadorSeBloqueo(entrenador);
-			if (valorDeRetorno == 1){
-				list_remove(entrenadoresBloqueados,i);
-				list_add(entrenadoresListos,entrenador);
-			}
-		}
-	}
-}
-
-
-void procesarEntrenadoresGarbageCollector(){
-	void _procesar_Entrenador_GarbageCollector(t_entrenador* entrenador){
-		void _procesor_Pokemon_Entrenador_GarbageCollector(t_pokemon_custom* pokemon){
-			pokemon->disponible = 1;
-			pokemon->duenio = ' ';
-			sumarRecurso(elementosUI,pokemon->identificadorPokenest);		//Por que me tira warning aca? Habre creado mal el recursos.c y .h en functions?
-			nivel_gui_dibujar(elementosUI, mapa->nombre);
-		}
-
-		list_iterate(entrenador->pokemons, (void*) _procesor_Pokemon_Entrenador_GarbageCollector);
-		list_destroy(entrenador->pokemons);
-		BorrarItem(elementosUI, entrenador->simbolo);
-		close(entrenador->socket);
-		free(entrenador);
-	}
-
-	if (!list_is_empty(garbageCollectorEntrenadores)){
-		list_iterate(garbageCollectorEntrenadores, (void*) _procesar_Entrenador_GarbageCollector);
-		list_clean(garbageCollectorEntrenadores);
-	}
-}
+#include "../functions/recursos.h"
 
 int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador){
 	int nbytes = recv(socket, package, cantBytes, 0);
@@ -110,6 +39,119 @@ int sendWithGarbageCollector(int socket, char* package, int cantBytes, t_entrena
 	}
 
 	return 1;
+}
+
+void logEntrenadoresListos(){
+	int i;
+	char * mensaje = string_new();
+	string_append(&mensaje, "Entrenadores listos: ");
+	for(i=0; i<list_size(entrenadoresListos); i++){
+		t_entrenador* entrenador = list_get(entrenadoresListos, i);
+		string_append(&mensaje, &(entrenador->simbolo));
+		string_append(&mensaje, " ");
+	}
+
+	log_info(archivoLog, mensaje);
+}
+void logEntrenadoresBloqueados(){
+	int i;
+	char * mensaje = string_new();
+	string_append(&mensaje, "Entrenadores bloqueados: ");
+	for(i=0; i<list_size(entrenadoresBloqueados); i++){
+		t_entrenador* entrenador = list_get(entrenadoresBloqueados, i);
+		string_append(&mensaje, &(entrenador->simbolo));
+		string_append(&mensaje, " ");
+	}
+	log_info(archivoLog, mensaje);
+}
+void logColasEntrenadores(){
+	logEntrenadoresListos();
+	logEntrenadoresBloqueados();
+}
+
+void procesarEntrenadoresPreparados(){
+	int i;
+	if(list_size(entrenadoresPreparados)>0){
+		for(i=0; i<list_size(entrenadoresPreparados); i++){
+			t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresPreparados, i);
+			log_trace(archivoLog, "Planificador - Agrego entrenador a listos: %c", entrenador->simbolo);
+			list_add(entrenadoresListos, entrenador);
+			CrearPersonaje(elementosUI,entrenador->simbolo,entrenador->ubicacion.x,entrenador->ubicacion.y);
+		}
+		nivel_gui_dibujar(elementosUI,mapa->nombre);
+
+		logColasEntrenadores();
+	}
+}
+void procesarEntrenadoresBloqueados(){
+	bool _pokemon_Este_Disponible(t_pokemon_custom* pokemon){
+		return (pokemon->disponible == 1);
+	}
+	int _asignar_PokemonsDisponible_PorElCualElEntrenadorSeBloqueo(t_entrenador* entrenador){
+		log_trace(archivoLog, "Planificador - %c quiere %c",entrenador->simbolo, entrenador->pokenestBloqueante->identificador);
+		t_pokemon_custom* pokemon = list_find(entrenador->pokenestBloqueante->pokemons, (void*)_pokemon_Este_Disponible);
+		if(pokemon != NULL){
+			log_trace(archivoLog, "Planificador - encontre uno disponible %s",pokemon->path);
+			pokemon->disponible = 0;
+			pokemon->duenio = entrenador->simbolo;
+			list_add(entrenador->pokemons, pokemon);
+			restarRecurso(elementosUI,entrenador->pokenestBloqueante->identificador);
+
+			char * C = "C";
+			if(sendWithGarbageCollector(entrenador->socket, C, 1, entrenador)){
+				log_trace(archivoLog, "Planificador - envie confirmacion");
+				return 1;
+			}else{
+				pokemon->disponible = 1;
+				pokemon->duenio = ' ';
+				sumarRecurso(elementosUI,pokemon->identificadorPokenest);
+				return 2;
+			}
+		}else{
+			return 0;
+		}
+	}
+
+	int i;
+	if(!list_is_empty(entrenadoresBloqueados)){
+		for(i=0 ;i<list_size(entrenadoresBloqueados); i++){
+			t_entrenador* entrenador = list_get(entrenadoresBloqueados,i);
+			int valorDeRetorno = _asignar_PokemonsDisponible_PorElCualElEntrenadorSeBloqueo(entrenador);
+			switch(valorDeRetorno){
+			case 1:
+				list_remove(entrenadoresBloqueados,i);
+				list_add(entrenadoresListos,entrenador);
+				break;
+			case 2:
+				list_remove(entrenadoresBloqueados,i);
+				break;
+			}
+		}
+	}
+
+	nivel_gui_dibujar(elementosUI, mapa->nombre);
+}
+void procesarEntrenadoresGarbageCollector(){
+	void _procesar_Entrenador_GarbageCollector(t_entrenador* entrenador){
+		void _procesor_Pokemon_Entrenador_GarbageCollector(t_pokemon_custom* pokemon){
+			pokemon->disponible = 1;
+			pokemon->duenio = ' ';
+			sumarRecurso(elementosUI,pokemon->identificadorPokenest);
+		}
+
+		list_iterate(entrenador->pokemons, (void*) _procesor_Pokemon_Entrenador_GarbageCollector);
+		list_destroy(entrenador->pokemons);
+		BorrarItem(elementosUI, entrenador->simbolo);
+		close(entrenador->socket);
+		free(entrenador);
+	}
+
+	if (!list_is_empty(garbageCollectorEntrenadores)){
+		list_iterate(garbageCollectorEntrenadores, (void*) _procesar_Entrenador_GarbageCollector);
+		list_clean(garbageCollectorEntrenadores);
+	}
+
+	nivel_gui_dibujar(elementosUI, mapa->nombre);
 }
 
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAnterior){
@@ -235,36 +277,6 @@ void atenderEntrenador(t_entrenador* entrenador){
 	}
 }
 
-void logEntrenadoresListos(){
-	int i;
-	char * mensaje = string_new();
-	string_append(&mensaje, "Entrenadores listos: ");
-	for(i=0; i<list_size(entrenadoresListos); i++){
-		t_entrenador* entrenador = list_get(entrenadoresListos, i);
-		string_append(&mensaje, &(entrenador->simbolo));
-		string_append(&mensaje, " ");
-	}
-
-	log_info(archivoLog, mensaje);
-}
-void logEntrenadoresBloqueados(){
-	int i;
-	char * mensaje = string_new();
-	string_append(&mensaje, "Entrenadores bloqueados: ");
-	pthread_mutex_lock(&mutexEntrBQ);
-	for(i=0; i<list_size(entrenadoresBloqueados); i++){
-		t_entrenador* entrenador = list_get(entrenadoresBloqueados, i);
-		string_append(&mensaje, &(entrenador->simbolo));
-		string_append(&mensaje, " ");
-	}
-	pthread_mutex_unlock(&mutexEntrBQ);
-	log_info(archivoLog, mensaje);
-}
-void logColasEntrenadores(){
-	logEntrenadoresListos();
-	logEntrenadoresBloqueados();
-}
-
 void* planificador(void* arg){
 	log_trace(archivoLog, "Planificador - Arranca");
 
@@ -277,8 +289,8 @@ void* planificador(void* arg){
 			entrenador = obtenerSiguienteEntrenadorPlanificadoSRDF(entrenador);
 		}
 
-		//procesarEntrenadoresGarbageCollector();
-		//procesarEntrenadoresBloqueados();
+		procesarEntrenadoresGarbageCollector();
+		procesarEntrenadoresBloqueados();
 		procesarEntrenadoresPreparados();
 
 		if(entrenador != NULL){
@@ -292,5 +304,3 @@ void* planificador(void* arg){
 
 	return arg;
 }
-
-

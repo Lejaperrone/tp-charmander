@@ -344,7 +344,7 @@ int main(int argc, char *argv[]){
 	//Creo el hilo planificador
 		log_info(archivoLog,"Inicializo los hilos de planificacion y deadlock");
 		pthread_create(&hiloPlanificador,NULL,planificador, NULL);
-		pthread_create(&hiloDeadlock,NULL,deadlock, NULL );
+		//pthread_create(&hiloDeadlock,NULL,deadlock, NULL );
 
 
 
