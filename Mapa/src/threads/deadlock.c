@@ -15,6 +15,11 @@ t_list* posiblesEntrenadoresEnDeadlock;
 int sizeTrainersOnMap;
 int **mAsignacion;
 int **mNecesidad;
+typedef struct entrPosiblesDeadlock{
+	t_entrenador* e;
+	int status;
+}t_entrPosibleDeadlock;
+
 
 extern pthread_mutex_t mutexEntrBQ;
 
@@ -47,10 +52,6 @@ void juntarTodosLosEntrenadores(t_list* posiblesEntrenadoresEnDeadlock) {
 			list_add_all(posiblesEntrenadoresEnDeadlock,entrenadoresBloqueados);
 
 }
-typedef struct entrPosiblesDeadlock{
-	t_entrenador* e;
-	int status;
-}t_entrPosibleDeadlock;
 
 bool chequearAsignacionAjena (int id, t_list **entrsBQ, int** vecDisp, t_list**posiblesEntrsEnDL){
 	int total_trainers__to_check=list_size(*entrsBQ);
