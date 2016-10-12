@@ -17,6 +17,9 @@ void procesarEntrenadoresGarbageCollector();
 int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador);
 int sendWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador);
 
+int calcularDistanciaEntrenadorObjetivo(t_entrenador* entrenador);
+t_entrenador* obtenerProximoEntrenadorCercano();
+
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAnterior);
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenadorAnterior);
 
