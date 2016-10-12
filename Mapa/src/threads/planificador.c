@@ -74,7 +74,7 @@ void procesarEntrenadoresPreparados(){
 	if(list_size(entrenadoresPreparados)>0){
 		for(i=0; i<list_size(entrenadoresPreparados); i++){
 			t_entrenador* entrenador = (t_entrenador*)list_remove(entrenadoresPreparados, i);
-			log_trace(archivoLog, "Planificador - Agrego entrenador a listos: %c", entrenador->simbolo);
+			log_info(archivoLog, "Planificador - Agrego entrenador %c a lista de Listos", entrenador->simbolo);
 			list_add(entrenadoresListos, entrenador);
 			CrearPersonaje(elementosUI,entrenador->simbolo,entrenador->ubicacion.x,entrenador->ubicacion.y);
 		}
@@ -97,8 +97,10 @@ void procesarEntrenadoresBloqueados(){
 			list_add(entrenador->pokemons, pokemon);
 			restarRecurso(elementosUI,entrenador->pokenestBloqueante->identificador);
 
-			char * C = "C";
+			char* C = "C";
 			if(sendWithGarbageCollector(entrenador->socket, C, 1, entrenador)){
+				entrenador->ubicacionObjetivo.x=-1;
+				entrenador->ubicacionObjetivo.y=-1;
 				log_trace(archivoLog, "Planificador - envie confirmacion");
 				return 1;
 			}else{
@@ -154,6 +156,27 @@ void procesarEntrenadoresGarbageCollector(){
 	nivel_gui_dibujar(elementosUI, mapa->nombre);
 }
 
+int calcularDistanciaEntrenadorObjetivo(t_entrenador* entrenador){
+	if(entrenador->ubicacionObjetivo.x!=-1 && entrenador->ubicacionObjetivo.y!=-1){
+		int distanciaX = entrenador->ubicacionObjetivo.x - entrenador->ubicacion.x;
+		if(distanciaX <0){
+			distanciaX = distanciaX * -1;
+		}
+
+		int distanciaY = entrenador->ubicacionObjetivo.y - entrenador->ubicacion.y;
+		if(distanciaY <0){
+			distanciaY = distanciaY * -1;
+		}
+
+		return distanciaX + distanciaY;
+	}else{
+		return -1;
+	}
+}
+t_entrenador* obtenerProximoEntrenadorCercano(){
+	return NULL;
+}
+
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAnterior){
 	if(entrenadorAnterior != NULL){
 		if(list_size(entrenadoresListos)>0){
@@ -166,11 +189,14 @@ t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAn
 				return entrenadorAnterior;
 			}else{
 				entrenadorAnterior->planificador.quantum=0;
+				log_info(archivoLog, "Planficador - El entrenador %c va al final de la cola de Listos", entrenadorAnterior->simbolo);
 
 				if(list_size(entrenadoresListos)>0){
-					logColasEntrenadores();
 					t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
 					proximoEntrenador->planificador.quantum = mapa->quantum-1;
+
+					log_info(archivoLog, "Planficador - Planifico al entrenador %c", proximoEntrenador->simbolo);
+					logColasEntrenadores();
 					return proximoEntrenador;
 				}else{
 					return NULL;
@@ -191,8 +217,30 @@ t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAn
 	}
 }
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenadorAnterior){
-	//TODO
-	return NULL;
+	if(entrenadorAnterior != NULL){
+		if(list_size(entrenadoresListos)>0){
+			t_entrenador* otroEntrenador = list_get(entrenadoresListos, list_size(entrenadoresListos)-1);
+			if(otroEntrenador->simbolo == entrenadorAnterior->simbolo){
+				if(entrenadorAnterior->planificador.quantum>0){
+					return obtenerSiguienteEntrenadorPlanificadoRR(entrenadorAnterior);
+				}else if(entrenadorAnterior->planificador.quantum == -1){
+					return entrenadorAnterior;
+				}else if(entrenadorAnterior->planificador.quantum == -2){
+					entrenadorAnterior->planificador.quantum = 0;
+					return obtenerProximoEntrenadorCercano();
+				}else{
+					return obtenerProximoEntrenadorCercano();
+				}
+			}else{
+				entrenadorAnterior->planificador.quantum=0;
+				return obtenerProximoEntrenadorCercano();
+			}
+		}else{
+			return NULL;
+		}
+	}else{
+		return obtenerProximoEntrenadorCercano();
+	}
 }
 
 void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador){
@@ -250,9 +298,10 @@ void atenderEntrenadorCapturar(t_entrenador* entrenador){
 	char paquete;
 
 	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
-		log_trace(archivoLog, "Planificador - Solicitud F%c - Envio a lista de bloqueados", paquete);
+		log_info(archivoLog, "Planificador - Envio a %c a la lista de bloqueados", entrenador->simbolo);
 		entrenador->pokenestBloqueante = find_pokenest_by_id(paquete);
 		list_add(entrenadoresBloqueados, entrenador);
+
 		logColasEntrenadores();
 	}
 }
