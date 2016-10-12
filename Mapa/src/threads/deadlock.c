@@ -243,6 +243,20 @@ void loguearVectorDisponibles(int *vecPokeDisp){
 		log_info(archivoLog,"Deadlock - Hay %d disponible(s) para: %c",vecPokeDisp[numPokenest],pknst->identificador);
 	}
 }
+t_pokemon_custom* elegir_mejor_pokemon(t_entrenador* e){
+	int cantidadPokemons=list_size(e->pokemons);
+	int i;
+	t_pokemon_custom* mejorPoke=(t_pokemon_custom*)malloc(sizeof(t_pokemon_custom));
+	mejorPoke=list_get(e->pokemons,0);
+	log_info(archivoLog,"Por el momento el mejor pokemon de %c es %c", e->simbolo, mejorPoke->id);
+	for (i=0;i<cantidadPokemons;i++){
+		t_pokemon_custom* otroPoke=(t_pokemon_custom*)list_get(e->pokemons,i);
+		if (otroPoke->nivel>mejorPoke->nivel){
+			mejorPoke=otroPoke;
+		}
+	}
+	return mejorPoke;
+}
 void* deadlock(void* arg){
 	log_trace(archivoLog, "Deadldock - Arranca");
 	while (1){
@@ -276,7 +290,18 @@ void* deadlock(void* arg){
 			list_add_all(entrenadoresAnalizados,analizarDeadlock(&vecPokeDisp,entrenadoresParaAnalizar));
 		if (hayEntrenadoresEnDeadlock(entrenadoresAnalizados)){
 			if (batallaActivada()){
-				//BATALLA PKMN
+				t_entrenador* entrenadorAMatar=(t_entrenador*)malloc(sizeof(t_entrenador));
+				int entrenadoresEnBatalla=list_size(entrenadoresBloqueados);
+				int nroBatalla;
+				for (nroBatalla=0;nroBatalla<entrenadoresEnBatalla-1;nroBatalla++){
+					t_entrenador* e1=list_get(entrenadoresBloqueados,nroBatalla);
+					t_entrenador* e2=list_get(entrenadoresBloqueados,nroBatalla+1);
+					t_pokemon_custom* unPoke=elegir_mejor_pokemon(e1);
+					t_pokemon_custom* unPoke2=elegir_mejor_pokemon(e2);
+					log_info(archivoLog,"Se ha elegido a %c para el entrenador %c",unPoke->id, e1->simbolo );
+					log_info(archivoLog,"Se ha elegido a %c para el entrenador %c",unPoke2->id, e2->simbolo );
+				//	t_pokemon*=pkmn_battle();
+				}
 		}else{
 		log_info(archivoLog,"Hay DEADLOCK pero no hay batalla pokemon configurada");
 		}
