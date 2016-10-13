@@ -54,24 +54,27 @@ void juntarTodosLosEntrenadores(t_list* posiblesEntrenadoresEnDeadlock) {
 }
 
 bool chequearAsignacionAjena (int id, t_list **entrsBQ, int** vecDisp, t_list**posiblesEntrsEnDL){
-	int total_trainers__to_check=list_size(*entrsBQ);
+	int total_trainers__to_check=list_size(*entrsBQ)-1;
 	log_info(archivoLog,"Deadlock - La cantidad de entrenadores bloqueados para chequear asignacion ajena es: %d", total_trainers__to_check);
-	int i;
+	int i=0;
 	bool hayAsignacionAjena=false;
+	log_info(archivoLog,"Deadlock - Chequeo que alguien tenga el pokemon solicitado");
 	for (i=0;i<total_trainers__to_check;i++){
 		if (mAsignacion[i][id]>0){
 			t_entrenador* trainer=(t_entrenador*)list_get(entrenadoresBloqueados,i);
 			t_entrPosibleDeadlock* trainer_on_deadlock=(t_entrPosibleDeadlock*)malloc(sizeof(t_entrPosibleDeadlock));
 			trainer_on_deadlock->e=trainer;
 			trainer_on_deadlock->status=1;
-			//esto a modo de verificacion
+			log_info(archivoLog,"Deadlock - el entrenador %c tiene a %c",(trainer_on_deadlock->e)->simbolo,((t_pokenest*)list_get(mapa->pokeNests,id))->identificador);
+			/*//esto a modo de verificacion
 			t_pokenest* pk=list_get(mapa->pokeNests,id);
 			char pok=pk->identificador;
 			log_info(archivoLog,"Deadlock - El entrenador %c tiene a %c",trainer_on_deadlock->e->simbolo,pok);
 			hayAsignacionAjena=true;
 			list_add(*posiblesEntrsEnDL,trainer_on_deadlock);
-			free(trainer_on_deadlock);
+			free(trainer_on_deadlock);*/
 			}
+		hayAsignacionAjena=true;
 		}
 	return hayAsignacionAjena;
 }
@@ -111,7 +114,7 @@ t_list* analizarDeadlock (int** vecDisp,t_list* entr){
 				t_entrenador* unE=list_get(entr,iEntrDeadlock);
 				log_info(archivoLog,"Deadlock - Se analiza el bloqueo de %c", unE->simbolo);
 				int pokeOnMatrix=find_pokenest_on_map(unE->pokenestBloqueante->identificador);
-				log_info(archivoLog,"Deadlock - La pokenest bloqueante es: %c",unE->pokenestBloqueante->identificador);
+				log_info(archivoLog,"Deadlock - La pokenest bloqueante de %c es: %c",unE->simbolo,unE->pokenestBloqueante->identificador);
 				chequearAsignacionAjena(pokeOnMatrix,&entr, vecDisp,&entrsPosiblesDeadlock);
 				if ((t_entrenador*)list_get(entrsPosiblesDeadlock,iEntrDeadlock)==entrenadorQueDeterminaDeadlock){
 					fin =1;
@@ -149,10 +152,10 @@ int asignarCantidadDePokemons (int entr, int poke){
 	log_info(archivoLog,"Se asignaran a %c",entrAsig->simbolo);
 	t_pokenest* pokenestAsig=(t_pokenest*)list_get(mapa->pokeNests,poke);
 	log_info(archivoLog,"Se asignara 1 de %c",pokenestAsig->identificador);
-	int r=tiene_estos_pokemons(entrAsig->pokemons,pokenestAsig->identificador);
-	log_info(archivoLog,"%c tiene %d pokemons de %c", entrAsig->simbolo, r, pokenestAsig->identificador);
-	log_info(archivoLog,"r vale %d",r);
-	return r;
+	mAsignacion[entr][poke]=tiene_estos_pokemons(entrAsig->pokemons,pokenestAsig->identificador);
+	log_info(archivoLog,"%c tiene %d pokemons de %c", entrAsig->simbolo, mAsignacion[entr][poke], pokenestAsig->identificador);
+
+	return mAsignacion[entr][poke];
 }
 int noHayEntrenadoresBloqueados(){
 	return list_is_empty(entrenadoresBloqueados);
@@ -181,11 +184,13 @@ void completarMatrizAsignacionParaEntrenadoresBloqueados(){
 	for (numEntrenador=0;numEntrenador<list_size(entrenadoresBloqueados);numEntrenador++){
 				for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
 				mAsignacion[numEntrenador][numPokenest]=asignarCantidadDePokemons(numEntrenador,numPokenest);
+				int asignado=mAsignacion[numEntrenador][numPokenest];
+				log_info(archivoLog,"Deadlock - Lo asignado %d", asignado);
 				//Esto que sigue es solo para verificar que todo este bien cargado
 				log_info(archivoLog,"ya se completo la matriz de asignacion para alguien");
 				t_entrenador* e =list_get(entrenadoresBloqueados,numEntrenador);
 				t_pokenest* p=list_get(mapa->pokeNests,numPokenest);
-				log_info(archivoLog,"%c tiene asignados %d %c",e->simbolo,mAsignacion[numEntrenador][numPokenest],p->identificador );
+				log_info(archivoLog,"%c tiene asignados %d %c",e->simbolo,mAsignacion[numEntrenador][numPokenest],p->identificador);
 				}
 			}
 	}
@@ -209,6 +214,7 @@ void completarMatrizNecesidadParaEntrenadoresBloqueados(){
 	for (numEntrenador=0;numEntrenador<list_size(entrenadoresBloqueados);numEntrenador++){
 		for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
 			mNecesidad[numEntrenador][numPokenest]=asignarNecesidad(numEntrenador,numPokenest);
+			log_info(archivoLog,"%c necesita %d de %c", ((t_entrenador*)list_get(entrenadoresBloqueados,numEntrenador))->simbolo, mNecesidad[numEntrenador][numPokenest],((t_pokemon_custom*)list_get(mapa->pokeNests,numPokenest))->id);
 		}
 	}
 	}
@@ -285,7 +291,9 @@ bool pokePerteneceA(t_pokemon* unP, t_entrenador* unE){
 	}
 	return pertenece;
 }*/
-
+bool hayMasDe1EntrenadorBloqueado (){
+	return (list_size(entrenadoresBloqueados)>1);
+}
 void* deadlock(void* arg){
 	log_trace(archivoLog, "Deadldock - Arranca");
 	while (1){
@@ -310,6 +318,7 @@ void* deadlock(void* arg){
 		if (noHayEntrenadoresBloqueados()){
 					log_info(archivoLog,"Deadlock - No hay entrenadores bloqueados aun");
 				}else{
+					if(hayMasDe1EntrenadorBloqueado()){
 			t_list* entrenadoresParaAnalizar= list_create();
 			log_info(archivoLog,"Deadlock - Creo lista de entrenadores para analizar deadlock. Tiene %d entrenadores",list_size(entrenadoresBloqueados));
 			t_list* entrenadoresAnalizados=list_create();
@@ -338,7 +347,9 @@ void* deadlock(void* arg){
 						entrenadorAMatar=eRotatorio;
 					}*/
 
-		}else{
+		}
+		}
+					else{
 		log_info(archivoLog,"Hay DEADLOCK pero no hay batalla pokemon configurada");
 		}
 			free(posiblesEntrenadoresEnDeadlock);
