@@ -101,10 +101,10 @@ t_list* analizarDeadlock (int** vecDisp,t_list* entr){
 	int size_trainers_maybe_on_deadlock,iEntrDeadlock;
 	size_trainers_maybe_on_deadlock=list_size(entr);
 	log_info(archivoLog,"Deadlock - hay %d entrenadores para analizar", size_trainers_maybe_on_deadlock);
-	if ((size_trainers_maybe_on_deadlock<2)&&(noHayPokemonsDisponiblesPara(entrenadorQueDeterminaDeadlock, vecDisp))){
+	/*if ((size_trainers_maybe_on_deadlock<2)&&(noHayPokemonsDisponiblesPara(entrenadorQueDeterminaDeadlock, vecDisp))){
 		log_info(archivoLog,"Deadlock - El entrenador %c esta en inanicion",entrenadorQueDeterminaDeadlock->simbolo);
 		return entrsPosiblesDeadlock;
-	}else{
+	}else{*/
 		while (fin!=1){
 			for (iEntrDeadlock=0;iEntrDeadlock<size_trainers_maybe_on_deadlock;iEntrDeadlock++){
 				//Elijo al primer entrenador y me fijo si alguien mas tiene lo que necesita
@@ -118,7 +118,7 @@ t_list* analizarDeadlock (int** vecDisp,t_list* entr){
 					}
 			}
 		}
-	}
+
 	return entrsPosiblesDeadlock;
 }
 bool hayEntrenadoresEnDeadlock(t_list* entrenadores){
@@ -213,10 +213,21 @@ void completarMatrizNecesidadParaEntrenadoresBloqueados(){
 	}
 	}
 }
+int pokemonsDisponiblesPara (t_pokenest* p){
+	int cantPoke;
+	int cant=0;
+	for (cantPoke=0;cantPoke<list_size(p->pokemons);cantPoke++){
+		t_pokemon_custom* pk=(t_pokemon_custom*)list_get(p->pokemons,cantPoke);
+		if (pk->disponible){
+			cant=cant+1;
+		}
+	}
+	log_info(archivoLog,"Deadlock - Hay %d pokemons disponibles de %c",cant,p->identificador);
+	return cant;
+}
 int * crearVectorPokemonsDisponibles(int *vecPokeDisp){
 	int numPokenest;
-	int numEntr;
-	if (list_is_empty(entrenadoresBloqueados)){
+	/*if (list_is_empty(entrenadoresBloqueados)){
 		log_info(archivoLog,"Deadlock - No hay entrenadores bloqueados");
 		for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
 			t_pokenest* pknst=list_get(mapa->pokeNests,numPokenest);
@@ -228,10 +239,14 @@ int * crearVectorPokemonsDisponibles(int *vecPokeDisp){
 	for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
 		int totalDeUnaPokenest=0;
 		for(numEntr=0;numEntr<list_size(entrenadoresBloqueados);numEntr++){
-			totalDeUnaPokenest=totalDeUnaPokenest-mAsignacion[numEntr][numPokenest];
+			//totalDeUnaPokenest=totalDeUnaPokenest-mAsignacion[numEntr][numPokenest];
+			t_pokenest* unaPkns=list_get()
 		}
 		vecPokeDisp[numPokenest]=totalDeUnaPokenest;
 	}
+	}*/
+	for (numPokenest=0;numPokenest<list_size(mapa->pokeNests);numPokenest++){
+		vecPokeDisp[numPokenest]=pokemonsDisponiblesPara(list_get(mapa->pokeNests,numPokenest));
 	}
 	return vecPokeDisp;
 }
@@ -243,7 +258,7 @@ void loguearVectorDisponibles(int *vecPokeDisp){
 		log_info(archivoLog,"Deadlock - Hay %d disponible(s) para: %c",vecPokeDisp[numPokenest],pknst->identificador);
 	}
 }
-t_pokemon_custom* elegir_mejor_pokemon(t_entrenador* e){
+/*t_pokemon_custom* elegir_mejor_pokemon(t_entrenador* e){
 	int cantidadPokemons=list_size(e->pokemons);
 	int i;
 	t_pokemon_custom* mejorPoke=(t_pokemon_custom*)malloc(sizeof(t_pokemon_custom));
@@ -254,9 +269,23 @@ t_pokemon_custom* elegir_mejor_pokemon(t_entrenador* e){
 		if (otroPoke->nivel>mejorPoke->nivel){
 			mejorPoke=otroPoke;
 		}
+
 	}
 	return mejorPoke;
 }
+
+bool pokePerteneceA(t_pokemon* unP, t_entrenador* unE){
+	bool pertenece=false;
+	int i,size_trainer_poke=list_size(unE->pokemons);
+	for (i=0;i<size_trainer_poke;i++){
+			t_pokemon_custom* unPoke=list_get(unE->pokemons,i);
+	if(unP==(t_pokemon*)unPoke){
+		pertenece=true;
+	}
+	}
+	return pertenece;
+}*/
+
 void* deadlock(void* arg){
 	log_trace(archivoLog, "Deadldock - Arranca");
 	while (1){
@@ -290,18 +319,25 @@ void* deadlock(void* arg){
 			list_add_all(entrenadoresAnalizados,analizarDeadlock(&vecPokeDisp,entrenadoresParaAnalizar));
 		if (hayEntrenadoresEnDeadlock(entrenadoresAnalizados)){
 			if (batallaActivada()){
-				t_entrenador* entrenadorAMatar=(t_entrenador*)malloc(sizeof(t_entrenador));
+				/*t_entrenador* entrenadorAMatar=(t_entrenador*)malloc(sizeof(t_entrenador));
+				if (entrenadorAMatar==NULL){
+					log_info(archivoLog,"Deadlock - Fallo el malloc del entrenador a matar");
+				}else{
+				log_info(archivoLog,"Deadlock - Se guarda memoria para entrenador a matar");
+				}
 				int entrenadoresEnBatalla=list_size(entrenadoresBloqueados);
 				int nroBatalla;
-				for (nroBatalla=0;nroBatalla<entrenadoresEnBatalla-1;nroBatalla++){
-					t_entrenador* e1=list_get(entrenadoresBloqueados,nroBatalla);
-					t_entrenador* e2=list_get(entrenadoresBloqueados,nroBatalla+1);
-					t_pokemon_custom* unPoke=elegir_mejor_pokemon(e1);
-					t_pokemon_custom* unPoke2=elegir_mejor_pokemon(e2);
-					log_info(archivoLog,"Se ha elegido a %c para el entrenador %c",unPoke->id, e1->simbolo );
-					log_info(archivoLog,"Se ha elegido a %c para el entrenador %c",unPoke2->id, e2->simbolo );
-				//	t_pokemon*=pkmn_battle();
-				}
+				for (nroBatalla=0;nroBatalla<(entrenadoresEnBatalla-1);nroBatalla++){
+					t_entrenador* eRotatorio=list_get(entrenadoresBloqueados,nroBatalla);
+					t_pokemon_custom* unPoke=elegir_mejor_pokemon(entrenadorAMatar);
+					t_pokemon_custom* unPoke2=elegir_mejor_pokemon(eRotatorio);
+					log_info(archivoLog,"Se ha elegido a %c para el entrenador %c",unPoke->id, eRotatorio->simbolo );
+					log_info(archivoLog,"Se ha elegido a %c para el entrenador %c",unPoke2->id, entrenadorAMatar->simbolo );
+					t_pokemon* pokePerdedor=pkmn_battle((t_pokemon*)unPoke,(t_pokemon*)unPoke2);
+					if (pokePerteneceA(pokePerdedor,eRotatorio)){
+						entrenadorAMatar=eRotatorio;
+					}*/
+
 		}else{
 		log_info(archivoLog,"Hay DEADLOCK pero no hay batalla pokemon configurada");
 		}
