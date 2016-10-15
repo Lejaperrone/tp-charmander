@@ -1,4 +1,5 @@
 /*
+ /*
  * structures.h
  *
  *  Created on: 11/9/2016
@@ -72,6 +73,7 @@
 	t_list* entrenadoresBloqueados;
 	t_list* elementosUI;
 	t_list* garbageCollectorEntrenadores;
+	t_list* listaDeIdentificadoresDePokenests;
 
 	int rows, cols;
 

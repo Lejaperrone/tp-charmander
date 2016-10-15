@@ -54,6 +54,7 @@ int main(int argc, char *argv[]){
 		entrenadoresBloqueados = list_create();
 		elementosUI = list_create();
 		garbageCollectorEntrenadores = list_create();
+		listaDeIdentificadoresDePokenests = list_create();
 
 	//Inicializo UI
 		log_info(archivoLog,"Inicializo UI");
@@ -77,7 +78,7 @@ int main(int argc, char *argv[]){
 		for(j=0; j<list_size(mapa->pokeNests); j++){
 			t_pokenest* pokenest = (t_pokenest*)list_get(mapa->pokeNests, j);
 			if(pokenest->ubicacion.x<=cols && pokenest->ubicacion.y<=rows){
-				CrearCaja(elementosUI, pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.x, list_size(pokenest->pokemons));
+				CrearCaja(elementosUI, pokenest->identificador, pokenest->ubicacion.x, pokenest->ubicacion.y, list_size(pokenest->pokemons));
 
 			}else{
 				log_info(archivoLog,"No se pudo dibujar el recurso %c", pokenest->identificador);
@@ -108,21 +109,21 @@ int main(int argc, char *argv[]){
 		log_info(archivoLog,"Inicializo el SELECT");
 		fd_set master;		// conjunto maestro de descriptores de fichero
 		fd_set read_fds;	// conjunto temporal de descriptores de fichero para select()
-		int fdmax;			// número máximo de descriptores de fichero
-		int newfd;			// descriptor de socket de nueva conexión aceptada
+		int fdmax;			// nÃºmero mÃ¡ximo de descriptores de fichero
+		int newfd;			// descriptor de socket de nueva conexiÃ³n aceptada
 		int i;
 		int nbytes;
 		char package;
 
 		FD_ZERO(&master);					// borra los conjuntos maestro y temporal
 		FD_ZERO(&read_fds);
-		FD_SET(listeningSocket, &master);	// añadir listener al conjunto maestro
+		FD_SET(listeningSocket, &master);	// aÃ±adir listener al conjunto maestro
 		fdmax = listeningSocket; 			// seguir la pista del descriptor de fichero mayor, por ahora es este
 
 		//Me mantengo en el bucle para asi poder procesar cambios en los sockets
 		while(1) {
 			//Copio los sockets y me fijo si alguno tiene cambios, si no hay itinero de vuelta
-			read_fds = master; // cópialo
+			read_fds = master; // cÃ³pialo
 			if (select(fdmax+1, &read_fds, NULL, NULL, NULL) == -1) {
 				perror("select");
 				exit(1);
@@ -138,7 +139,7 @@ int main(int argc, char *argv[]){
 						if ((newfd = accept(listeningSocket, (struct sockaddr*)&addr, &addrlen)) == -1){
 							log_info(archivoLog,"Ocurrio error al aceptar una conexion");
 						} else {
-							FD_SET(newfd, &master); // Añado el nuevo socket al  select
+							FD_SET(newfd, &master); // AÃ±ado el nuevo socket al  select
 							//Actualizo la cantidad
 							if (newfd > fdmax) {
 								fdmax = newfd;
@@ -159,7 +160,7 @@ int main(int argc, char *argv[]){
 							close(i);
 							FD_CLR(i, &master); // eliminar del conjunto maestro
 						} else {
-							// tenemos datos de algún cliente
+							// tenemos datos de algÃºn cliente
 							if (nbytes != 0){
 								log_trace(archivoLog, "Ingresa nuevo entrenador a la lista de entrenadores preparados");
 								t_entrenador* entrenador = malloc(sizeof(t_entrenador));
@@ -196,4 +197,3 @@ int main(int argc, char *argv[]){
 		return 0;
 
 }
-
