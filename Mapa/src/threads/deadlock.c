@@ -31,9 +31,10 @@ int tiene_estos_pokemons(t_list* pokemons, char* id_pokenest){
 	}
 	return totAsignado;
 }
-t_pokemon* buscarPokeMasFuerte(t_entrenador* unE){
+char* nombreDelPokeMasFuerte(t_entrenador* unE){
 	int cantPokemonsQuePosee=list_size(unE->pokemons);
 	int numPoke;
+	t_pokenest* mejor_pokenest;
 	t_pokemon_custom* pokeMasFuerte=(t_pokemon_custom*)list_get(unE->pokemons,0);
 	for (numPoke=0;numPoke<cantPokemonsQuePosee;numPoke++){
 		t_pokemon_custom* pokeDePrueba=(t_pokemon_custom*)list_get(unE->pokemons,numPoke);
@@ -41,8 +42,21 @@ t_pokemon* buscarPokeMasFuerte(t_entrenador* unE){
 			pokeMasFuerte=pokeDePrueba;
 		}
 	}
-	t_pokemon* pokeElegido=(t_pokemon*)pokeMasFuerte;
-	return pokeElegido;
+	log_info(archivoLog,"El pokemon mas fuerte de %c es %s",unE->simbolo,pokeMasFuerte->nombre);
+	return pokeMasFuerte->nombre;
+}
+
+int nivelDelPokeMasFuerte(t_entrenador* unE){
+	int cantPokemonsQuePosee=list_size(unE->pokemons);
+		int numPoke;
+		t_pokemon_custom* pokeMasFuerte=(t_pokemon_custom*)list_get(unE->pokemons,0);
+		for (numPoke=0;numPoke<cantPokemonsQuePosee;numPoke++){
+			t_pokemon_custom* pokeDePrueba=(t_pokemon_custom*)list_get(unE->pokemons,numPoke);
+			if (pokeDePrueba->nivel>pokeMasFuerte->nivel){
+				pokeMasFuerte=pokeDePrueba;
+			}
+		}
+		return pokeMasFuerte->nivel;
 }
 bool hayEntrenadoresEnDeadlock(){
 	return (list_size(entrenadoresBloqueados)>1);
@@ -76,28 +90,56 @@ t_entrenador* buscarDuenioDe(t_pokemon_custom* unP){
 bool batallaActivada(){
 	return mapa->batalla==1;
 }
-/*void batallaPokemon(){
+void devolverPokemons(t_entrenador* unE){
+	int cantPokemonsQueTenia=list_size(unE->pokemons);
+	int i;
+	for (i=0;i<cantPokemonsQueTenia;i++){
+		t_pokemon_custom* unPoke=(t_pokemon_custom*)list_get(unE->pokemons,i);
+		t_pokenest* unaPokenest=find_pokenest_by_id(unPoke->identificadorPokenest);
+		CrearItem(elementosUI,
+				unPoke->identificadorPokenest,
+				unaPokenest->ubicacion.x,
+				unaPokenest->ubicacion.y,
+				unaPokenest->tipo[0],
+				tiene_estos_pokemons(unE->pokemons,unaPokenest->identificador));
+	}
+}
+char vectorBatalla[2];
+void batallaPokemon(){
 	if (batallaActivada()){
 	if (hayEntrenadoresEnDeadlock()){
+		  t_pkmn_factory* pokemon_factory = create_pkmn_factory();
 		int cantEntrenadoresEnDeadlock=list_size(entrenadoresBloqueados);
 		int numBatalla;
 		t_entrenador* unE=(t_entrenador*)list_get(entrenadoresBloqueados,0);
+
 		for (numBatalla=1;numBatalla<cantEntrenadoresEnDeadlock;numBatalla++){
 			log_info(archivoLog,"Deadlock - Habra %d batallas pokemon",cantEntrenadoresEnDeadlock-1);
+			log_info(archivoLog,"Entrenador a pelear: %c",unE->simbolo);
 			t_entrenador* otroE=(t_entrenador*)list_get(entrenadoresBloqueados,numBatalla);
-			t_pokemon* unPoke=pkmn_battle((t_pokemon*)buscarPokeMasFuerte(unE),(t_pokemon*)buscarPokeMasFuerte(otroE));
-			t_pokemon_custom* unPokeAdaptado=(t_pokemon_custom*)unPoke;
-			log_info(archivoLog,"Deadlock - Ha perdido %c",(unPokeAdaptado->duenio));
-			t_entrenador* entrenadorPerdedor=buscarDuenioDe((t_pokemon_custom*)unPoke);
-			log_info(archivoLog,"El entrenador que perdio es %c",entrenadorPerdedor->simbolo);
-			unE=entrenadorPerdedor;
+			log_info(archivoLog,"Deadlock - Entrendor a pelear con %c es: %c",unE->simbolo,otroE->simbolo);
+			//Convierto los pokemons a t_pokemon
+			t_pokemon * poke1 = create_pokemon(pokemon_factory, nombreDelPokeMasFuerte(unE), nivelDelPokeMasFuerte(unE));
+			vectorBatalla[1]=poke1->level;
+			t_pokemon * poke2 = create_pokemon(pokemon_factory, nombreDelPokeMasFuerte(otroE), nivelDelPokeMasFuerte(otroE));
+			vectorBatalla[2]=poke2->level;
+			//Batalla propiamente dicha
+			  t_pokemon* unPoke=pkmn_battle(poke1,poke2);
+			log_info(archivoLog,"Se ha llevado a cabo la batalla pokemon");
+			if (vectorBatalla[1]>vectorBatalla[2]){
+				log_info(archivoLog,"El entrenador que perdio es %c",otroE->simbolo);
+			}else{
+				log_info(archivoLog,"El entrenador que perdio es %c", unE->simbolo);
+			}
 		}
 		log_info(archivoLog,"El entrenador %c sera elegido como victima", unE->simbolo);
+		list_remove(entrenadoresBloqueados,unE);
+		devolverPokemons(unE);
 	}
 	}else{
 		log_info(archivoLog,"No esta la batalla Pokemon activada");
 	}
-}*/
+}
 
 int pokemonsDisponiblesPara (t_pokenest* p){
 	int cantPoke;
@@ -140,7 +182,7 @@ void* deadlock(void* arg){
 			llenarMatricesYVectores();
 			log_info(archivoLog,"Deadlock - Inicio algoritmo de deteccion");
 			algoritmoDeDeteccion();
-			//batallaPokemon();
+			batallaPokemon();
 			liberarMemoriaMatrices();
 	}else{
 
