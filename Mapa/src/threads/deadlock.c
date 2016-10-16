@@ -101,12 +101,28 @@ int pokemonsDisponiblesPara (t_pokenest* p){
 	return cant;
 }
 
+void liberarMemoriaMatrices(){
+	int iteracion;
+
+		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+			int* punteroDeMaximos = mMaximos[iteracion];
+			free(punteroDeMaximos);
+		}
+
+		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+			int* punteroDeAsignacion = mAsignacion[iteracion];
+			free(punteroDeAsignacion);
+		}
+
+		free(vPokeDisponibles);
+}
 void* deadlock(void* arg){
 
 	entrenadoresEnDeadlock = list_create();
 	llenarMatricesYVectores();
 	algoritmoDeDeteccion();
 
+	liberarMemoriaMatrices();
 	batallaPokemon();
 	return arg;
 }
