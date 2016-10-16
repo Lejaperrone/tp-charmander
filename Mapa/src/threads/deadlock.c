@@ -136,9 +136,14 @@ void llenarMatricesYVectores(){
 
 	//Alocacion de memoria para matriz de maximos
 	mMaximos = (int**)malloc(cantDeEntrenadores*sizeof(int*));
-	for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
-		mMaximos[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
-	}
+		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+			mMaximos[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
+		}
+
+	mAsignacion = (int**)malloc(cantDeEntrenadores*sizeof(int*));
+		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+			mAsignacion[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
+		}
 
 	//-------------------------LLENADO DE LAS MATRICES-----------------------------------
 
@@ -152,7 +157,6 @@ void llenarMatricesYVectores(){
 	}
 
 	//Para matriz de asignacion
-//	printf("Ingresar la Matriz de Asignacion\n");
 	for(i=0;i<cantDeEntrenadores;i++){
 		t_entrenador* entrenador = list_get(entrenadoresBloqueados, i);
 		  for(j=0;j<cantDeRecursosDePokemons;j++){
