@@ -106,7 +106,7 @@ void llenarMatricesYVectores(){
 		int cantDeEstePokemon = 0;
 		if (!list_is_empty(entrenador->pokemons)){
 			cantDeEstePokemon = tiene_estos_pokemons(entrenador->pokemons,identificadorPokenest);
-			if(strcmp(entrenador->ultimoPokeSolicitado->identificadorPokenest,identificadorPokenest) == 0){
+			if(strcmp(&(entrenador->pokenestBloqueante->identificador),identificadorPokenest) == 0){
 				cantDeEstePokemon++;
 			}
 		}
