@@ -188,8 +188,7 @@ void llenarMatricesYVectores(){
 }
 
 void algoritmoDeDeteccion(){
-	int finish[100],temp,need[100][100],flag=1,k,c1=0;
-	int dead[100];
+	int finish[100],temp,need[100][100],flagDeDeteccionDeDeadlock=1,k,c1=0;
 	int safe[100];
 	int i,j;
 	for(i=0;i<cantDeEntrenadores;i++){
@@ -201,8 +200,8 @@ void algoritmoDeDeteccion(){
 			need[i][j]=mMaximos[i][j]-mAsignacion[i][j];
 		}
 	}
-	while(flag){
-		flag=0;
+	while(flagDeDeteccionDeDeadlock){
+		flagDeDeteccionDeDeadlock=0;
 		for(i=0;i<cantDeEntrenadores;i++){
 			int c=0;
 			for(j=0;j<cantDeRecursosDePokemons;j++){
@@ -212,7 +211,7 @@ void algoritmoDeDeteccion(){
 						for(k=0;k<cantDeRecursosDePokemons;k++){
 							vPokeDisponibles[k]+=mAsignacion[i][j];
 							finish[i]=1;
-							flag=1;
+							flagDeDeteccionDeDeadlock=1;
 						}
 						//printf("\nP%d",i);
 						if(finish[i]==1){
@@ -224,12 +223,14 @@ void algoritmoDeDeteccion(){
 		}
 	}
 	j=0;
-	flag=0;
+	flagDeDeteccionDeDeadlock=0;
 	for(i=0;i<cantDeEntrenadores;i++){
 		if(finish[i]==0){
-			dead[j]=i;
+			t_entrenador* unE_en_deadlock=(t_entrenador*)list_get(entrenadoresBloqueados,i);
+			list_add(entrenadoresEnDeadlock,unE_en_deadlock);
 			j++;
-			flag=1;
+			flagDeDeteccionDeDeadlock=1;
+			log_info(archivoLog,"El entrenador %c esta en deadlock",unE_en_deadlock->simbolo);
 		}
 	}
 
@@ -237,18 +238,7 @@ void algoritmoDeDeteccion(){
 
 		//1) agregarlos a la lista de entrenadoresEnDeadlock
 		//2) loguear los entrenadores involucrados en el deadlock, y loguear las matrices utilizadas (lo pide el tp)
-	if(flag==1){
-		printf("\n\nEl sistema esta en Deadlock y los procesos en Deadlock son:\n");
-		for(i=0;i<cantDeEntrenadores;i++){
-			printf("P%d\t",dead[i]);
-		}
-		printf("\n");
-		printf("------------------------------------------------------------------");
-		printf("\n");
-	}
-	else{
-		printf("\nNo ocurrio Deadlock\n");
-	}
+
 }
 
 
