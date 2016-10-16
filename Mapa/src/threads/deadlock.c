@@ -103,9 +103,12 @@ void* deadlock(void* arg){
 
 void llenarMatricesYVectores(){
 	int _contarCantDePokemonsDelEntrenadorParaEstaColumna(t_entrenador* entrenador, char* identificadorPokenest){
-		int cantDeEstePokemon;
+		int cantDeEstePokemon = 0;
 		if (!list_is_empty(entrenador->pokemons)){
 			cantDeEstePokemon = tiene_estos_pokemons(entrenador->pokemons,identificadorPokenest);
+			if(strcmp(entrenador->ultimoPokeSolicitado->identificadorPokenest,identificadorPokenest) == 0){
+				cantDeEstePokemon++;
+			}
 		}
 		return cantDeEstePokemon;
 	}
