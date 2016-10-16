@@ -89,6 +89,17 @@ void batallaPokemon(){
 	}
 }
 
+int pokemonsDisponiblesPara (t_pokenest* p){
+	int cantPoke;
+	int cant = 0;
+	for (cantPoke=0;cantPoke<list_size(p->pokemons);cantPoke++){
+		t_pokemon_custom* pk=(t_pokemon_custom*)list_get(p->pokemons,cantPoke);
+		if (pk->disponible == 1){
+			cant++;
+		}
+	}
+	return cant;
+}
 
 void* deadlock(void* arg){
 
@@ -149,9 +160,8 @@ void llenarMatricesYVectores(){
 	}
 
 	//Para vector de recursos disponibles
-//	printf("Ingresar Vector de Recursos Disponibles\n");
 	for(j=0;j<cantDeRecursosDePokemons;j++){
-		scanf("%d",&vPokeDisponibles[j]);
+		vPokeDisponibles[j]= pokemonsDisponiblesPara(list_get(mapa->pokeNests,j));
 	}
 }
 
