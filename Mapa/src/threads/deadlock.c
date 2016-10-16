@@ -25,7 +25,7 @@ int tiene_estos_pokemons(t_list* pokemons, char* id_pokenest){
 	totAsignado = 0;
 	for (i=0;i<tam;i++){
 		t_pokemon_custom* unPoke=(t_pokemon_custom*)list_get(pokemons,i);
-		if (strcmp(&(unPoke->identificadorPokenest), id_pokenest) == 0){
+		if (unPoke->identificadorPokenest==id_pokenest[0]){
 			totAsignado++;
 		}
 	}
@@ -107,7 +107,9 @@ int pokemonsDisponiblesPara (t_pokenest* p){
 		if (pk->disponible == 1){
 			cant++;
 		}
+
 	}
+
 	return cant;
 }
 
@@ -127,20 +129,23 @@ void liberarMemoriaMatrices(){
 		free(vPokeDisponibles);
 }
 void* deadlock(void* arg){
+	while (1){
+	sleep(2);
 
 	if (!list_is_empty(entrenadoresBloqueados)){
 		pthread_mutex_lock(&mutexEntrBQ);
-		log_info(archivoLog,"Creo lista de entrenadores bloqueados");
+		log_info(archivoLog,"Deadlock - Creo lista de entrenadores bloqueados");
 			entrenadoresEnDeadlock = list_create();
-			log_info(archivoLog,"Creo matrices y vectores");
+			log_info(archivoLog,"Deadlock - Creo matrices y vectores");
 			llenarMatricesYVectores();
-			log_info(archivoLog,"Inicio algoritmo de deteccion");
+			log_info(archivoLog,"Deadlock - Inicio algoritmo de deteccion");
 			algoritmoDeDeteccion();
 			//batallaPokemon();
 			liberarMemoriaMatrices();
 	}else{
 
 
+	}
 	}
 	return arg;
 }
@@ -160,41 +165,34 @@ void llenarMatricesYVectores(){
 
 	//Variables que uso en la funcion
 	int i,j, iteracion;
-	log_info(archivoLog,"Variables");
+
 	//INICIALIZACION DE MATRICES Y ALOCACION DE MEMORIA
 	//Filas para las matrices
-
-	log_info(archivoLog,"Lock");
-
 	cantDeEntrenadores = list_size(entrenadoresBloqueados);
-	log_info(archivoLog,"List size");
+
 	//Columnas para las matrices
 	cantDeRecursosDePokemons = list_size(mapa->pokeNests);
-	log_info(archivoLog,"Columnas");
+
 	//Alocacion de memoria para matriz de maximos
 	mMaximos = (int**)malloc(cantDeEntrenadores*sizeof(int*));
-	log_info(archivoLog,"Malloc de filas de matriz maximos");
+
 		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
 			mMaximos[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
 		}
-		log_info(archivoLog,"Malloc de columnas de matriz maximos");
+
 
 	mAsignacion = (int**)malloc(cantDeEntrenadores*sizeof(int*));
-	log_info(archivoLog,"Malloc de columnas de matriz asig");
+
 		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
 			mAsignacion[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
 		}
-		log_info(archivoLog,"Malloc de filas de matriz asig");
+
 
 	//-------------------------LLENADO DE LAS MATRICES-----------------------------------
 
 	//Para matrices de peticiones maximas
 	for(i=0;i<cantDeEntrenadores;i++){
-		log_info(archivoLog,"Lock nuevamente");
-
-		log_info(archivoLog,"Lock para peticiones maxximas");
 		t_entrenador* entrenador = (t_entrenador*)list_get(entrenadoresBloqueados, i);
-
 		for(j=0;j<cantDeRecursosDePokemons;j++){
 				char* idPokenest = (char*)list_get(listaDeIdentificadoresDePokenests,j);
 				mMaximos[i][j] = _contarCantDePokemonsDelEntrenadorParaEstaColumna(entrenador, idPokenest);
@@ -205,15 +203,17 @@ void llenarMatricesYVectores(){
 	for(i=0;i<cantDeEntrenadores;i++){
 
 		t_entrenador* entrenador = list_get(entrenadoresBloqueados, i);
-
 		  for(j=0;j<cantDeRecursosDePokemons;j++){
 			  char* idPokenest = (char*)list_get(listaDeIdentificadoresDePokenests,j);
 			  	  mAsignacion[i][j]=tiene_estos_pokemons(entrenador->pokemons,idPokenest);
+
 		}
 	}
 
 	//Para vector de recursos disponibles
+	vPokeDisponibles=(int*)malloc(sizeof(int));
 	for(j=0;j<cantDeRecursosDePokemons;j++){
+
 		vPokeDisponibles[j]= pokemonsDisponiblesPara(list_get(mapa->pokeNests,j));
 	}
 
