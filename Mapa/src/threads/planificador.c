@@ -15,10 +15,12 @@
 #include <curses.h>
 #include <nivel.h>
 #include <unistd.h>
+#include <pthread.h>
 
 #include "../commons/structures.h"
 #include "../functions/collections_list_extension.h"
 #include "../functions/recursos.h"
+extern pthread_mutex_t mutexEntrBQ;
 
 int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador){
 	int nbytes = recv(socket, package, cantBytes, 0);
@@ -117,6 +119,7 @@ void procesarEntrenadoresBloqueados(){
 	int i;
 	if(!list_is_empty(entrenadoresBloqueados)){
 		for(i=0 ;i<list_size(entrenadoresBloqueados); i++){
+			//pthread_mutex_lock(&mutexEntrBQ);
 			t_entrenador* entrenador = list_get(entrenadoresBloqueados,i);
 			int valorDeRetorno = _asignar_PokemonsDisponible_PorElCualElEntrenadorSeBloqueo(entrenador);
 			switch(valorDeRetorno){
@@ -128,6 +131,7 @@ void procesarEntrenadoresBloqueados(){
 				list_remove(entrenadoresBloqueados,i);
 				break;
 			}
+			//pthread_mutex_unlock(&mutexEntrBQ);
 		}
 	}
 
@@ -300,9 +304,10 @@ void atenderEntrenadorCapturar(t_entrenador* entrenador){
 	if(recvWithGarbageCollector(entrenador->socket, &paquete, 1,entrenador)){
 		log_info(archivoLog, "Planificador - Envio a %c a la lista de bloqueados", entrenador->simbolo);
 		entrenador->pokenestBloqueante = find_pokenest_by_id(paquete);
+		pthread_mutex_lock(&mutexEntrBQ);
 		list_add(entrenadoresBloqueados, entrenador);
-
 		logColasEntrenadores();
+		pthread_mutex_unlock(&mutexEntrBQ);
 	}
 }
 void atenderEntrenador(t_entrenador* entrenador){

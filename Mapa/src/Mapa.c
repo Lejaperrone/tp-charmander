@@ -25,8 +25,9 @@
 #include "threads/deadlock.h"
 
 
-pthread_mutex_t mutexEntrBQ = PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_t mutexEntrRD = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t mutexEntrBQ;
+
+pthread_mutex_t mutexEntrRD;
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
@@ -89,6 +90,7 @@ int main(int argc, char *argv[]){
 
 	//Creo el hilo planificador
 		log_info(archivoLog,"Inicializo los hilos de planificacion y deadlock");
+		pthread_mutex_init(&mutexEntrBQ,NULL);
 		pthread_create(&hiloPlanificador,NULL,planificador, NULL);
 		pthread_create(&hiloDeadlock,NULL,deadlock, NULL );
 
