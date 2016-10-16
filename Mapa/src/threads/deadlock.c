@@ -154,8 +154,10 @@ void llenarMatricesYVectores(){
 	//Para matriz de asignacion
 //	printf("Ingresar la Matriz de Asignacion\n");
 	for(i=0;i<cantDeEntrenadores;i++){
-		for(j=0;j<cantDeRecursosDePokemons;j++){
-			scanf("%d",&mAsignacion[i][j]);
+		t_entrenador* entrenador = list_get(entrenadoresBloqueados, i);
+		  for(j=0;j<cantDeRecursosDePokemons;j++){
+			  char* idPokenest = (char*)list_get(listaDeIdentificadoresDePokenests,j);
+			  	  mAsignacion[i][j]=tiene_estos_pokemons(entrenador->pokemons,idPokenest);
 		}
 	}
 
