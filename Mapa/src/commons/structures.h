@@ -24,6 +24,7 @@
 		int nivel;
 		char id;
 		char identificadorPokenest;
+		char* nombre;
 	}t_pokemon_custom;
 
 	typedef struct{

@@ -42,8 +42,10 @@ char* nombreDelPokeMasFuerte(t_entrenador* unE){
 			pokeMasFuerte=pokeDePrueba;
 		}
 	}
+/*
 	log_info(archivoLog,"El pokemon mas fuerte de %c es %s",unE->simbolo,pokeMasFuerte->nombre);
 	return pokeMasFuerte->nombre;
+*/
 }
 
 int nivelDelPokeMasFuerte(t_entrenador* unE){
