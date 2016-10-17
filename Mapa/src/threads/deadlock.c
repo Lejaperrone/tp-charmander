@@ -340,7 +340,6 @@ void algoritmoDeDeteccion(){
 							finish[i]=1;
 							flagDeDeteccionDeDeadlock=1;
 						}
-						//printf("\nP%d",i);
 						if(finish[i]==1){
 							i=cantDeEntrenadores;
 						}
@@ -360,11 +359,6 @@ void algoritmoDeDeteccion(){
 			log_info(archivoLog,"El entrenador %c esta en deadlock",unE_en_deadlock->simbolo);
 		}
 	}
-
-	//Aca en lugar de printear deberia:
-
-		//1) agregarlos a la lista de entrenadoresEnDeadlock
-		//2) loguear los entrenadores involucrados en el deadlock, y loguear las matrices utilizadas (lo pide el tp)
 
 }
 

@@ -1,11 +1,3 @@
-/*
- /*
- * structures.h
- *
- *  Created on: 11/9/2016
- *      Author: utnso
- */
-
 #include <commons/collections/list.h>
 #include <commons/log.h>
 
