@@ -7,6 +7,8 @@
 #include "../functions/recursos.h"
 #include "../functions/collections_list_extension.h"
 #include "../threads/planificador.h"
+#include <sys/socket.h>
+#include "../socketLib.h"
 
 //Variables globales
 t_list* entrenadoresBloqueados;
@@ -131,6 +133,11 @@ void resolverNecesidades(t_entrenador* unE){
 		list_add(garbageCollectorEntrenadores, unE);
 
 }
+void informarMuerteAlEntrenador (t_entrenador* unE){
+	char m='K';
+	send(unE->socket,&m,1,0);
+	log_info(archivoLog,"Informo muerte a %c ",unE->simbolo);
+}
 
 void batallaPokemon(){
 	if (batallaActivada()){
@@ -161,6 +168,7 @@ void batallaPokemon(){
 			}
 		}
 		log_info(archivoLog,"El entrenador %c sera elegido como victima", unE->simbolo);
+		//informarMuerteAlEntrenador(unE);
 		list_remove(entrenadoresBloqueados,find_index_trainer_on_blocked(unE));
 		BorrarItem(elementosUI,unE->simbolo);
 		nivel_gui_dibujar(elementosUI,mapa->nombre);
