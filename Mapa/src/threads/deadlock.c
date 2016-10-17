@@ -3,6 +3,10 @@
 #include <unistd.h>
 #include <ncurses.h>
 #include <pthread.h>
+#include <nivel.h>
+#include "../functions/recursos.h"
+#include "../functions/collections_list_extension.h"
+#include "../threads/planificador.h"
 
 //Variables globales
 t_list* entrenadoresBloqueados;
@@ -13,6 +17,7 @@ int** mMaximos;
 int** mAsignacion;
 int** mNecesidad;
 int* vPokeDisponibles;
+int* finish;
 int cantDeEntrenadores,cantDeRecursosDePokemons;
 extern pthread_mutex_t mutexEntrBQ;
 
@@ -34,7 +39,6 @@ int tiene_estos_pokemons(t_list* pokemons, char* id_pokenest){
 char* nombreDelPokeMasFuerte(t_entrenador* unE){
 	int cantPokemonsQuePosee=list_size(unE->pokemons);
 	int numPoke;
-	t_pokenest* mejor_pokenest;
 	t_pokemon_custom* pokeMasFuerte=(t_pokemon_custom*)list_get(unE->pokemons,0);
 	for (numPoke=0;numPoke<cantPokemonsQuePosee;numPoke++){
 		t_pokemon_custom* pokeDePrueba=(t_pokemon_custom*)list_get(unE->pokemons,numPoke);
@@ -42,10 +46,9 @@ char* nombreDelPokeMasFuerte(t_entrenador* unE){
 			pokeMasFuerte=pokeDePrueba;
 		}
 	}
-/*
+
 	log_info(archivoLog,"El pokemon mas fuerte de %c es %s",unE->simbolo,pokeMasFuerte->nombre);
 	return pokeMasFuerte->nombre;
-*/
 }
 
 int nivelDelPokeMasFuerte(t_entrenador* unE){
@@ -61,7 +64,7 @@ int nivelDelPokeMasFuerte(t_entrenador* unE){
 		return pokeMasFuerte->nivel;
 }
 bool hayEntrenadoresEnDeadlock(){
-	return (list_size(entrenadoresBloqueados)>1);
+	return (list_size(entrenadoresEnDeadlock)>1);
 }
 
 bool entrenadorTieneA(t_entrenador* unE,t_pokemon_custom* unP){
@@ -97,16 +100,38 @@ void devolverPokemons(t_entrenador* unE){
 	int i;
 	for (i=0;i<cantPokemonsQueTenia;i++){
 		t_pokemon_custom* unPoke=(t_pokemon_custom*)list_get(unE->pokemons,i);
-		t_pokenest* unaPokenest=find_pokenest_by_id(unPoke->identificadorPokenest);
-		CrearItem(elementosUI,
-				unPoke->identificadorPokenest,
-				unaPokenest->ubicacion.x,
-				unaPokenest->ubicacion.y,
-				unaPokenest->tipo[0],
-				tiene_estos_pokemons(unE->pokemons,unaPokenest->identificador));
+		sumarRecurso(elementosUI,unPoke->identificadorPokenest);
+		t_pokenest* pokenestActualizar=find_pokenest_by_id(unPoke->identificadorPokenest);
+		unPoke->disponible=1;
+		list_add(pokenestActualizar->pokemons,unPoke);
 	}
 }
-char vectorBatalla[2];
+
+int find_index_trainer_on_blocked(t_entrenador* unE){
+	int cantEntrenadoresBloqueados=list_size(entrenadoresBloqueados);
+	int i;
+	int index=0;
+	for (i=0;i<cantEntrenadoresBloqueados;i++){
+		t_entrenador* e=(t_entrenador*)list_get(entrenadoresBloqueados,i);
+		if (e->simbolo==unE->simbolo){
+			index=i;
+		}
+	}
+	return index;
+}
+
+int vNivelBatalla[2];
+void resolverNecesidades(t_entrenador* unE){
+
+	/*int totalBloqueados=list_size(entrenadoresBloqueados);
+	log_info(archivoLog,"Hay %d entrenadores bloqueados",totalBloqueados);
+	int i;
+	for (i=0;i<totalBloqueados;i++){
+		t_entrenador* unE=(t_entrenador*)list_get(entrenadoresBloqueados,i);*/
+		list_add(garbageCollectorEntrenadores, unE);
+
+}
+
 void batallaPokemon(){
 	if (batallaActivada()){
 	if (hayEntrenadoresEnDeadlock()){
@@ -122,21 +147,25 @@ void batallaPokemon(){
 			log_info(archivoLog,"Deadlock - Entrendor a pelear con %c es: %c",unE->simbolo,otroE->simbolo);
 			//Convierto los pokemons a t_pokemon
 			t_pokemon * poke1 = create_pokemon(pokemon_factory, nombreDelPokeMasFuerte(unE), nivelDelPokeMasFuerte(unE));
-			vectorBatalla[1]=poke1->level;
+			vNivelBatalla[0]=poke1->level;
 			t_pokemon * poke2 = create_pokemon(pokemon_factory, nombreDelPokeMasFuerte(otroE), nivelDelPokeMasFuerte(otroE));
-			vectorBatalla[2]=poke2->level;
+			vNivelBatalla[1]=poke2->level;
 			//Batalla propiamente dicha
 			  t_pokemon* unPoke=pkmn_battle(poke1,poke2);
 			log_info(archivoLog,"Se ha llevado a cabo la batalla pokemon");
-			if (vectorBatalla[1]>vectorBatalla[2]){
-				log_info(archivoLog,"El entrenador que perdio es %c",otroE->simbolo);
+			if (unPoke->level==vNivelBatalla[0]){
+				log_info(archivoLog,"El entrenador que perdio es %c",unE->simbolo);
 			}else{
-				log_info(archivoLog,"El entrenador que perdio es %c", unE->simbolo);
+				unE=otroE;
+				log_info(archivoLog,"El entrenador que perdio es %c", otroE->simbolo);
 			}
 		}
 		log_info(archivoLog,"El entrenador %c sera elegido como victima", unE->simbolo);
-		list_remove(entrenadoresBloqueados,unE);
+		list_remove(entrenadoresBloqueados,find_index_trainer_on_blocked(unE));
+		BorrarItem(elementosUI,unE->simbolo);
+		nivel_gui_dibujar(elementosUI,mapa->nombre);
 		devolverPokemons(unE);
+		resolverNecesidades(unE);
 	}
 	}else{
 		log_info(archivoLog,"No esta la batalla Pokemon activada");
@@ -158,6 +187,7 @@ int pokemonsDisponiblesPara (t_pokenest* p){
 }
 
 void liberarMemoriaMatrices(){
+	pthread_mutex_unlock(&mutexEntrBQ);
 	int iteracion;
 
 		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
@@ -169,6 +199,10 @@ void liberarMemoriaMatrices(){
 			int* punteroDeAsignacion = mAsignacion[iteracion];
 			free(punteroDeAsignacion);
 		}
+		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+					int* punteroDeNecesidad = mNecesidad[iteracion];
+					free(punteroDeNecesidad);
+				}
 
 		free(vPokeDisponibles);
 }
@@ -176,7 +210,7 @@ void* deadlock(void* arg){
 	while (1){
 	sleep(2);
 
-	if (!list_is_empty(entrenadoresBloqueados)){
+	if (list_size(entrenadoresBloqueados)>1){
 		pthread_mutex_lock(&mutexEntrBQ);
 		log_info(archivoLog,"Deadlock - Creo lista de entrenadores bloqueados");
 			entrenadoresEnDeadlock = list_create();
@@ -230,6 +264,11 @@ void llenarMatricesYVectores(){
 		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
 			mAsignacion[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
 		}
+		//Alocacion de memoria para matriz de necesidad
+	mNecesidad=(int**)malloc(cantDeEntrenadores*sizeof(int*));
+		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+					mNecesidad[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
+				}
 
 
 	//-------------------------LLENADO DE LAS MATRICES-----------------------------------
@@ -260,12 +299,16 @@ void llenarMatricesYVectores(){
 
 		vPokeDisponibles[j]= pokemonsDisponiblesPara(list_get(mapa->pokeNests,j));
 	}
+	//Para vector de terminados
+	finish=(int*)malloc(cantDeEntrenadores*sizeof(int));
+
 
 }
 
 void algoritmoDeDeteccion(){
-	int finish[100],temp,need[100][100],flagDeDeteccionDeDeadlock=1,k,c1=0;
-	int safe[100];
+	int flagDeDeteccionDeDeadlock=1,k;
+
+	//int safe[100];
 	int i,j;
 	for(i=0;i<cantDeEntrenadores;i++){
 		finish[i]=0;
@@ -273,7 +316,7 @@ void algoritmoDeDeteccion(){
 	//find mNecesidad matrix
 	for(i=0;i<cantDeEntrenadores;i++){
 		for(j=0;j<cantDeRecursosDePokemons;j++){
-			need[i][j]=mMaximos[i][j]-mAsignacion[i][j];
+			mNecesidad[i][j]=mMaximos[i][j]-mAsignacion[i][j];
 		}
 	}
 	while(flagDeDeteccionDeDeadlock){
@@ -281,7 +324,7 @@ void algoritmoDeDeteccion(){
 		for(i=0;i<cantDeEntrenadores;i++){
 			int c=0;
 			for(j=0;j<cantDeRecursosDePokemons;j++){
-				if((finish[i]==0)&&(need[i][j]<=vPokeDisponibles[j])){
+				if((finish[i]==0)&&(mNecesidad[i][j]<=vPokeDisponibles[j])){
 					c++;
 					if(c==cantDeRecursosDePokemons){
 						for(k=0;k<cantDeRecursosDePokemons;k++){
@@ -309,7 +352,7 @@ void algoritmoDeDeteccion(){
 			log_info(archivoLog,"El entrenador %c esta en deadlock",unE_en_deadlock->simbolo);
 		}
 	}
-	pthread_mutex_unlock(&mutexEntrBQ);
+
 	//Aca en lugar de printear deberia:
 
 		//1) agregarlos a la lista de entrenadoresEnDeadlock
