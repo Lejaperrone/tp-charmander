@@ -24,8 +24,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 	char quantum;
 	log_info(archivoLog, "Arranco objetivo %s en mapa %s con mov %d", objetivo->nombre, mapa->nombre, *movimiento);
 
-	while(objetivo->logrado==0 && recv(serverMapa, &quantum, 1, 0)){
-		if(quantum=='Q'){ //aca deberia esperar al siguiente quantum.
+	while(objetivo->logrado==0 && recv(serverMapa, &quantum, 1, 0) && quantum=='Q'){ //aca deberia esperar al siguiente quantum.
 		log_info(archivoLog, "Obtuve un turno");
 		if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){ //Obtengo ubicacion de pokenest
 			//Creo el mensaje
@@ -103,19 +102,20 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			log_info(archivoLog,"Envie el mensaje %s",mensaje);
 
 			char conf;
-			if (recv(serverMapa, &conf, 1,  0) == 1 && conf=='C'){
+			if (recv(serverMapa, &conf, 1,  0) == 1){
+				if (conf=='C'){
 				objetivo->logrado = 1;
+				log_info(archivoLog,"Fin del objetivo");
 			}
+				if (conf=='K'){
+							objetivo->logrado = 0;
+							printf("Muerte por deadlock\n");
+				}
 
-			log_info(archivoLog,"Fin del objetivo");
 		}
 
-	}else{
-		if (quantum=='K'){
-			printf("Muerte por deadlock\n");
-		}
 	}
-	}
+}
 }
 
 void procesarMapa(t_mapa* mapa){

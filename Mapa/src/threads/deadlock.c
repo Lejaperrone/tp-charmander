@@ -168,7 +168,7 @@ void batallaPokemon(){
 			}
 		}
 		log_info(archivoLog,"El entrenador %c sera elegido como victima", unE->simbolo);
-		//informarMuerteAlEntrenador(unE);
+		informarMuerteAlEntrenador(unE);
 		list_remove(entrenadoresBloqueados,find_index_trainer_on_blocked(unE));
 		BorrarItem(elementosUI,unE->simbolo);
 		nivel_gui_dibujar(elementosUI,mapa->nombre);
