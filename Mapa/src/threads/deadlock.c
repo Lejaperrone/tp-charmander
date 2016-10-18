@@ -55,15 +55,15 @@ char* nombreDelPokeMasFuerte(t_entrenador* unE){
 
 int nivelDelPokeMasFuerte(t_entrenador* unE){
 	int cantPokemonsQuePosee=list_size(unE->pokemons);
-		int numPoke;
-		t_pokemon_custom* pokeMasFuerte=(t_pokemon_custom*)list_get(unE->pokemons,0);
-		for (numPoke=0;numPoke<cantPokemonsQuePosee;numPoke++){
-			t_pokemon_custom* pokeDePrueba=(t_pokemon_custom*)list_get(unE->pokemons,numPoke);
-			if (pokeDePrueba->nivel>pokeMasFuerte->nivel){
-				pokeMasFuerte=pokeDePrueba;
-			}
+	int numPoke;
+	t_pokemon_custom* pokeMasFuerte=(t_pokemon_custom*)list_get(unE->pokemons,0);
+	for (numPoke=0;numPoke<cantPokemonsQuePosee;numPoke++){
+		t_pokemon_custom* pokeDePrueba=(t_pokemon_custom*)list_get(unE->pokemons,numPoke);
+		if (pokeDePrueba->nivel>pokeMasFuerte->nivel){
+			pokeMasFuerte=pokeDePrueba;
 		}
-		return pokeMasFuerte->nivel;
+	}
+	return pokeMasFuerte->nivel;
 }
 bool hayEntrenadoresEnDeadlock(){
 	return (list_size(entrenadoresEnDeadlock)>1);
@@ -88,7 +88,7 @@ t_entrenador* buscarDuenioDe(t_pokemon_custom* unP){
 	for(numEntrenador=0;numEntrenador<cantEntrenadoresInterbloqueados;numEntrenador++){
 		t_entrenador* unE=(t_entrenador*)list_get(entrenadoresEnDeadlock,numEntrenador);
 		if (entrenadorTieneA(unE,unP)){
-		entrenadorDuenio=unE;
+			entrenadorDuenio=unE;
 		}
 	}
 	return entrenadorDuenio;
@@ -130,7 +130,7 @@ void resolverNecesidades(t_entrenador* unE){
 	int i;
 	for (i=0;i<totalBloqueados;i++){
 		t_entrenador* unE=(t_entrenador*)list_get(entrenadoresBloqueados,i);*/
-		list_add(garbageCollectorEntrenadores, unE);
+	list_add(garbageCollectorEntrenadores, unE);
 
 }
 void informarMuerteAlEntrenador (t_entrenador* unE){
@@ -141,40 +141,40 @@ void informarMuerteAlEntrenador (t_entrenador* unE){
 
 void batallaPokemon(){
 	if (batallaActivada()){
-	if (hayEntrenadoresEnDeadlock()){
-		  t_pkmn_factory* pokemon_factory = create_pkmn_factory();
-		int cantEntrenadoresEnDeadlock=list_size(entrenadoresBloqueados);
-		int numBatalla;
-		t_entrenador* unE=(t_entrenador*)list_get(entrenadoresBloqueados,0);
+		if (hayEntrenadoresEnDeadlock()){
+			t_pkmn_factory* pokemon_factory = create_pkmn_factory();
+			int cantEntrenadoresEnDeadlock=list_size(entrenadoresBloqueados);
+			int numBatalla;
+			t_entrenador* unE=(t_entrenador*)list_get(entrenadoresBloqueados,0);
 
-		for (numBatalla=1;numBatalla<cantEntrenadoresEnDeadlock;numBatalla++){
-			log_info(archivoLog,"Deadlock - Habra %d batallas pokemon",cantEntrenadoresEnDeadlock-1);
-			log_info(archivoLog,"Entrenador a pelear: %c",unE->simbolo);
-			t_entrenador* otroE=(t_entrenador*)list_get(entrenadoresBloqueados,numBatalla);
-			log_info(archivoLog,"Deadlock - Entrendor a pelear con %c es: %c",unE->simbolo,otroE->simbolo);
-			//Convierto los pokemons a t_pokemon
-			t_pokemon * poke1 = create_pokemon(pokemon_factory, nombreDelPokeMasFuerte(unE), nivelDelPokeMasFuerte(unE));
-			vNivelBatalla[0]=poke1->level;
-			t_pokemon * poke2 = create_pokemon(pokemon_factory, nombreDelPokeMasFuerte(otroE), nivelDelPokeMasFuerte(otroE));
-			vNivelBatalla[1]=poke2->level;
-			//Batalla propiamente dicha
-			  t_pokemon* unPoke=pkmn_battle(poke1,poke2);
-			log_info(archivoLog,"Se ha llevado a cabo la batalla pokemon");
-			if (unPoke->level==vNivelBatalla[0]){
-				log_info(archivoLog,"El entrenador que perdio es %c",unE->simbolo);
-			}else{
-				unE=otroE;
-				log_info(archivoLog,"El entrenador que perdio es %c", otroE->simbolo);
+			for (numBatalla=1;numBatalla<cantEntrenadoresEnDeadlock;numBatalla++){
+				log_info(archivoLog,"Deadlock - Habra %d batallas pokemon",cantEntrenadoresEnDeadlock-1);
+				log_info(archivoLog,"Entrenador a pelear: %c",unE->simbolo);
+				t_entrenador* otroE=(t_entrenador*)list_get(entrenadoresBloqueados,numBatalla);
+				log_info(archivoLog,"Deadlock - Entrendor a pelear con %c es: %c",unE->simbolo,otroE->simbolo);
+				//Convierto los pokemons a t_pokemon
+				t_pokemon * poke1 = create_pokemon(pokemon_factory, nombreDelPokeMasFuerte(unE), nivelDelPokeMasFuerte(unE));
+				vNivelBatalla[0]=poke1->level;
+				t_pokemon * poke2 = create_pokemon(pokemon_factory, nombreDelPokeMasFuerte(otroE), nivelDelPokeMasFuerte(otroE));
+				vNivelBatalla[1]=poke2->level;
+				//Batalla propiamente dicha
+				t_pokemon* unPoke=pkmn_battle(poke1,poke2);
+				log_info(archivoLog,"Se ha llevado a cabo la batalla pokemon");
+				if (unPoke->level==vNivelBatalla[0]){
+					log_info(archivoLog,"El entrenador que perdio es %c",unE->simbolo);
+				}else{
+					unE=otroE;
+					log_info(archivoLog,"El entrenador que perdio es %c", otroE->simbolo);
+				}
 			}
+			log_info(archivoLog,"El entrenador %c sera elegido como victima", unE->simbolo);
+			informarMuerteAlEntrenador(unE);
+			list_remove(entrenadoresBloqueados,find_index_trainer_on_blocked(unE));
+			BorrarItem(elementosUI,unE->simbolo);
+			nivel_gui_dibujar(elementosUI,mapa->nombre);
+			devolverPokemons(unE);
+			resolverNecesidades(unE);
 		}
-		log_info(archivoLog,"El entrenador %c sera elegido como victima", unE->simbolo);
-		informarMuerteAlEntrenador(unE);
-		list_remove(entrenadoresBloqueados,find_index_trainer_on_blocked(unE));
-		BorrarItem(elementosUI,unE->simbolo);
-		nivel_gui_dibujar(elementosUI,mapa->nombre);
-		devolverPokemons(unE);
-		resolverNecesidades(unE);
-	}
 	}else{
 		log_info(archivoLog,"No esta la batalla Pokemon activada");
 	}
@@ -198,29 +198,29 @@ void liberarMemoriaMatrices(){
 	pthread_mutex_unlock(&mutexEntrBQ);
 	int iteracion;
 
-		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
-			int* punteroDeMaximos = mMaximos[iteracion];
-			free(punteroDeMaximos);
-		}
+	for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+		int* punteroDeMaximos = mMaximos[iteracion];
+		free(punteroDeMaximos);
+	}
 
-		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
-			int* punteroDeAsignacion = mAsignacion[iteracion];
-			free(punteroDeAsignacion);
-		}
-		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
-					int* punteroDeNecesidad = mNecesidad[iteracion];
-					free(punteroDeNecesidad);
-				}
+	for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+		int* punteroDeAsignacion = mAsignacion[iteracion];
+		free(punteroDeAsignacion);
+	}
+	for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+		int* punteroDeNecesidad = mNecesidad[iteracion];
+		free(punteroDeNecesidad);
+	}
 
-		free(vPokeDisponibles);
+	free(vPokeDisponibles);
 }
 void* deadlock(void* arg){
 	while (1){
-	sleep(2);
+		sleep(2);
 
-	if (list_size(entrenadoresBloqueados)>1){
-		pthread_mutex_lock(&mutexEntrBQ);
-		log_info(archivoLog,"Deadlock - Creo lista de entrenadores bloqueados");
+		if (list_size(entrenadoresBloqueados)>1){
+			pthread_mutex_lock(&mutexEntrBQ);
+			log_info(archivoLog,"Deadlock - Creo lista de entrenadores bloqueados");
 			entrenadoresEnDeadlock = list_create();
 			log_info(archivoLog,"Deadlock - Creo matrices y vectores");
 			llenarMatricesYVectores();
@@ -228,24 +228,24 @@ void* deadlock(void* arg){
 			algoritmoDeDeteccion();
 			batallaPokemon();
 			liberarMemoriaMatrices();
-	}else{
+		}else{
 
 
-	}
+		}
 	}
 	return arg;
 }
 
 int _contarCantDePokemonsDelEntrenadorParaEstaColumna(t_entrenador* entrenador, char* identificadorPokenest){
-		int cantDeEstePokemon = 0;
-		if (!list_is_empty(entrenador->pokemons)){
-			cantDeEstePokemon = tiene_estos_pokemons(entrenador->pokemons,identificadorPokenest);
-			if(strcmp(&(entrenador->pokenestBloqueante->identificador),identificadorPokenest) == 0){
-				cantDeEstePokemon++;
-			}
+	int cantDeEstePokemon = 0;
+	if (!list_is_empty(entrenador->pokemons)){
+		cantDeEstePokemon = tiene_estos_pokemons(entrenador->pokemons,identificadorPokenest);
+		if(strcmp(&(entrenador->pokenestBloqueante->identificador),identificadorPokenest) == 0){
+			cantDeEstePokemon++;
 		}
-		return cantDeEstePokemon;
 	}
+	return cantDeEstePokemon;
+}
 void llenarMatricesYVectores(){
 
 
@@ -262,21 +262,21 @@ void llenarMatricesYVectores(){
 	//Alocacion de memoria para matriz de maximos
 	mMaximos = (int**)malloc(cantDeEntrenadores*sizeof(int*));
 
-		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
-			mMaximos[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
-		}
+	for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+		mMaximos[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
+	}
 
 
 	mAsignacion = (int**)malloc(cantDeEntrenadores*sizeof(int*));
 
-		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
-			mAsignacion[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
-		}
-		//Alocacion de memoria para matriz de necesidad
+	for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+		mAsignacion[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
+	}
+	//Alocacion de memoria para matriz de necesidad
 	mNecesidad=(int**)malloc(cantDeEntrenadores*sizeof(int*));
-		for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
-					mNecesidad[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
-				}
+	for(iteracion=0; iteracion<cantDeEntrenadores; iteracion++){
+		mNecesidad[iteracion] = (int*)malloc(cantDeRecursosDePokemons*sizeof(int));
+	}
 
 
 	//-------------------------LLENADO DE LAS MATRICES-----------------------------------
@@ -285,8 +285,8 @@ void llenarMatricesYVectores(){
 	for(i=0;i<cantDeEntrenadores;i++){
 		t_entrenador* entrenador = (t_entrenador*)list_get(entrenadoresBloqueados, i);
 		for(j=0;j<cantDeRecursosDePokemons;j++){
-				char* idPokenest = (char*)list_get(listaDeIdentificadoresDePokenests,j);
-				mMaximos[i][j] = _contarCantDePokemonsDelEntrenadorParaEstaColumna(entrenador, idPokenest);
+			char* idPokenest = (char*)list_get(listaDeIdentificadoresDePokenests,j);
+			mMaximos[i][j] = _contarCantDePokemonsDelEntrenadorParaEstaColumna(entrenador, idPokenest);
 		}
 	}
 
@@ -294,9 +294,9 @@ void llenarMatricesYVectores(){
 	for(i=0;i<cantDeEntrenadores;i++){
 
 		t_entrenador* entrenador = list_get(entrenadoresBloqueados, i);
-		  for(j=0;j<cantDeRecursosDePokemons;j++){
-			  char* idPokenest = (char*)list_get(listaDeIdentificadoresDePokenests,j);
-			  	  mAsignacion[i][j]=tiene_estos_pokemons(entrenador->pokemons,idPokenest);
+		for(j=0;j<cantDeRecursosDePokemons;j++){
+			char* idPokenest = (char*)list_get(listaDeIdentificadoresDePokenests,j);
+			mAsignacion[i][j]=tiene_estos_pokemons(entrenador->pokemons,idPokenest);
 
 		}
 	}

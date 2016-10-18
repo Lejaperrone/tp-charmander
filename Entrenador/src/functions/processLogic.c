@@ -18,9 +18,61 @@
 #include "positions.h"
 #include "processLogic.h"
 
+void resetearObjetivos(t_objetivo* objetivo){
+	objetivo->logrado = 0;
+	objetivo->ubicacion.x = -1;
+	objetivo->ubicacion.y = -1;
+}
 
+void destroyerDeObjetivo(t_objetivo* objetivo){
+	free(objetivo);
+}
+void destroyerHojaDeViaje(t_mapa* mapa){
+	list_destroy_and_destroy_elements(mapa->objetivos, (void*)destroyerDeObjetivo);
+	free(mapa);
+}
 
-void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa){
+int accionesSegunLasVidasDisponibles(){
+	char letraParaReinicio;
+	bool letraMalPuestaOPrimeraVez = true;
+
+	while(letraMalPuestaOPrimeraVez){
+		if (entrenador->vidas >= 1){
+			letraMalPuestaOPrimeraVez = false;
+			entrenador->vidas--;
+			log_info(archivoLog, "Resto una vida del entrenador.");
+			return 0;
+		}else{
+			printf("Se realizaron %d reintentos.\n", entrenador->reintentos);
+			printf("¿Desea reiniciar el juego? Ingrese Y o N: ");
+			fflush(stdin);
+			scanf(" %c", &letraParaReinicio);
+			if(letraParaReinicio == 'Y' || letraParaReinicio == 'y'){
+				letraMalPuestaOPrimeraVez = false;
+				log_info(archivoLog, "Se presiono la tecla Y en la pregunta de volver a jugar.");
+				entrenador->reintentos++;
+				//borrar medallas
+
+			}
+			else if(letraParaReinicio =='N' || letraParaReinicio == 'n'){
+				letraMalPuestaOPrimeraVez = false;
+				log_info(archivoLog, "Se presiono la tecla N en la pregunta de volver a jugar.");
+				printf("\nHasta la vista, baby.\n");
+				printf("------------------------------------------------------------\n");
+
+				//liberar memoria del entrenador con sus estructuras
+				exit(0);
+			}
+			else{
+				printf("Escribiste otra letra. Vamos de vuelta.\n");
+				printf("------------------------------------------------------------\n");
+			}
+		}
+	}
+	return 1;
+}
+
+int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa){
 	char quantum;
 	log_info(archivoLog, "Arranco objetivo %s en mapa %s con mov %d", objetivo->nombre, mapa->nombre, *movimiento);
 
@@ -28,31 +80,31 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 		log_info(archivoLog, "Obtuve un turno");
 		if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){ //Obtengo ubicacion de pokenest
 			//Creo el mensaje
-				char* mensaje = string_new();
-				string_append(&mensaje, "U");
-				string_append(&mensaje, objetivo->nombre);
-				log_info(archivoLog,"el mensaje que voy a enviar es: %s",mensaje);
+			char* mensaje = string_new();
+			string_append(&mensaje, "U");
+			string_append(&mensaje, objetivo->nombre);
+			log_info(archivoLog,"el mensaje que voy a enviar es: %s",mensaje);
 
 			//Envio el mensaje
-				int resp = send(serverMapa, mensaje, 2, 0);
-				if(resp <0){
-					log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
-					exit(EXIT_FAILURE);
-				}
-				log_info(archivoLog,"Envie el mensaje %s",mensaje);
+			int resp = send(serverMapa, mensaje, 2, 0);
+			if(resp <0){
+				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
+				exit(EXIT_FAILURE);
+			}
+			log_info(archivoLog,"Envie el mensaje %s",mensaje);
 
 			//Espero la respuesta
-				char pos[5];
-				if (recv(serverMapa, pos, 5,  0) == 5){
-					objetivo->ubicacion.x = atoi(string_substring(pos, 0, 2));
-					objetivo->ubicacion.y = atoi(string_substring(pos, 2, 2));
-				}
-				log_info(archivoLog,"Obtuve posicion x:%d, y: %d.", objetivo->ubicacion.x, objetivo->ubicacion.y);
+			char pos[5];
+			if (recv(serverMapa, pos, 5,  0) == 5){
+				objetivo->ubicacion.x = atoi(string_substring(pos, 0, 2));
+				objetivo->ubicacion.y = atoi(string_substring(pos, 2, 2));
+			}
+			log_info(archivoLog,"Obtuve posicion x:%d, y: %d.", objetivo->ubicacion.x, objetivo->ubicacion.y);
 		}else if((*movimiento = siguienteMovimiento(mapa->miPosicion, objetivo, *movimiento))){ //Me muevo
 
 			//Creo el mensaje
-				char mensaje[2];
-				mensaje[0] = 'M';
+			char mensaje[2];
+			mensaje[0] = 'M';
 
 			switch(*movimiento){
 			case 1:
@@ -81,10 +133,10 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 
 			//Envio el mensaje
 			int resp = send(serverMapa, &mensaje, 2, 0);
-				if(resp == -1){
-					log_info(archivoLog,"No pude enviar el mensaje: %c%c",mensaje[0],mensaje[1]);
-					exit(EXIT_FAILURE);
-				}
+			if(resp == -1){
+				log_info(archivoLog,"No pude enviar el mensaje: %c%c",mensaje[0],mensaje[1]);
+				exit(EXIT_FAILURE);
+			}
 
 		}else{
 			//Creo el mensaje
@@ -93,7 +145,7 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			string_append(&mensaje, objetivo->nombre);
 			log_info(archivoLog,"el mensaje que voy a enviar es: %s",mensaje);
 
-		//Envio el mensaje
+			//Envio el mensaje
 			int resp = send(serverMapa, mensaje, 2, 0);
 			if(resp <0){
 				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
@@ -104,47 +156,56 @@ void procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int s
 			char conf;
 			if (recv(serverMapa, &conf, 1,  0) == 1){
 				if (conf=='C'){
-				objetivo->logrado = 1;
-				log_info(archivoLog,"Fin del objetivo");
-			}
-				if (conf=='K'){
-							objetivo->logrado = 0;
-							printf("Muerte por deadlock\n");
+					objetivo->logrado = 1;
+					log_info(archivoLog,"Fin del objetivo");
 				}
+				if (conf=='K'){
+					objetivo->logrado = 0;
+					printf("\n------------------------------------------------------------\n");
+					printf("Motivo de muerte: Muerte por deadlock.\n");
+
+
+				}
+				return 1;
+			}
+
 
 		}
 
 	}
-}
+	return 0;
 }
 
-void procesarMapa(t_mapa* mapa){
+int procesarMapa(t_mapa* mapa){
 	int serverMapa;
 	//Defino el socket con el que se va a manejar el entrenador durante todo el transcurso del mapa
 
 	//Me conecto al mapa
-		log_info(archivoLog,"Conectandose al mapa %s...", mapa->nombre);
-		create_socketClient(&serverMapa, mapa->ip, mapa->puerto);
-		log_info(archivoLog,"Conectado al mapa %s.", mapa->nombre);
+	log_info(archivoLog,"Conectandose al mapa %s...", mapa->nombre);
+	create_socketClient(&serverMapa, mapa->ip, mapa->puerto);
+	log_info(archivoLog,"Conectado al mapa %s.", mapa->nombre);
 
 	//Le paso mi simbolo al  mapa
-		log_info(archivoLog,"Me identifico con el mapa como: %c", entrenador->simbolo);
-		int resp = send(serverMapa, &(entrenador->simbolo), 1, 0);
-		if(resp == -1){
-			log_info(archivoLog,"No me pude identificar con el mapa");
-			exit(EXIT_FAILURE);
-		}
+	log_info(archivoLog,"Me identifico con el mapa como: %c", entrenador->simbolo);
+	int resp = send(serverMapa, &(entrenador->simbolo), 1, 0);
+	if(resp == -1){
+		log_info(archivoLog,"No me pude identificar con el mapa");
+		exit(EXIT_FAILURE);
+	}
 
 
 	//Recorro los objetivos  y los proceso
-		int j;
-		int movimiento = 0;
-		for(j=0; j<list_size(mapa->objetivos); j++){
-			t_objetivo* objetivo = (t_objetivo *)list_get(mapa->objetivos, j);
-			log_info(archivoLog, "Proceso objetivo %s", objetivo->nombre);
-			procesarObjetivo(mapa, objetivo, &movimiento, serverMapa);
-
+	int j;
+	int movimiento = 0;
+	for(j=0; j<list_size(mapa->objetivos); j++){
+		t_objetivo* objetivo = (t_objetivo *)list_get(mapa->objetivos, j);
+		log_info(archivoLog, "Proceso objetivo %s", objetivo->nombre);
+		procesarObjetivo(mapa, objetivo, &movimiento, serverMapa);
+		if(objetivo->logrado == 0){
+			return 1;
 		}
+	}
 
-		close(serverMapa);
+	close(serverMapa);
+	return 0;
 }
