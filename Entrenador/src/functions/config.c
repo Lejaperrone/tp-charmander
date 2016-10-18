@@ -20,6 +20,7 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 		entrenador->simbolo = *config_get_string_value(config, "simbolo");
 		entrenador->vidas = config_get_int_value(config, "vidas");
 		entrenador->reintentos = config_get_int_value(config, "reintentos");
+		entrenador->vecesQueMurio=0;
 
 	char**p = config_get_array_value(config, "hojaDeViaje");
 	entrenador->hojaDeViaje = list_create();

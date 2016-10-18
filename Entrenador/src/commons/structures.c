@@ -33,6 +33,7 @@ typedef struct t_entrenador_structs{
 	int reintentos;
 	t_list* hojaDeViaje;
 	time_t tiempoTotal;
+	int vecesQueMurio;
 }t_entrenador;
 
 
