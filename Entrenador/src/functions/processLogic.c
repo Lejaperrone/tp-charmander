@@ -61,6 +61,7 @@ int accionesSegunLasVidasDisponibles(){
 			log_info(archivoLog, "Resto una vida del entrenador.");
 			return 0;
 		}else{
+			entrenador->vecesQueMurio++;
 			printf("Se realizaron %d reintentos.\n", entrenador->reintentos);
 			printf("¿Desea reiniciar el juego? Ingrese Y o N: ");
 			fflush(stdin);
@@ -205,7 +206,6 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 int procesarMapa(t_mapa* mapa){
 	int serverMapa;
 	//Defino el socket con el que se va a manejar el entrenador durante todo el transcurso del mapa
-
 	//Me conecto al mapa
 	log_info(archivoLog,"Conectandose al mapa %s...", mapa->nombre);
 	create_socketClient(&serverMapa, mapa->ip, mapa->puerto);
@@ -245,6 +245,7 @@ int procesarMapa(t_mapa* mapa){
 	}
 	printf("El entrenador ha estado bloqueado en total %ld segundos\n",sumaTiemposBloqueos);
 	printf("El tiempo total recorrido del mapa %s fue de: %ld segundos\n",mapa->nombre,entrenador->tiempoTotal);
+	printf("El entrenador murio %d veces durante la hazania\n",entrenador->vecesQueMurio);
 	close(serverMapa);
 	return 0;
 }
