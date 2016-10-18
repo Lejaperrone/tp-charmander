@@ -187,7 +187,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 				}
 				if (conf=='K'){
 					objetivo->logrado = 0;
-					printf("\n------------------------------------------------------------\n");
+					printf("\n-------------------------------------------------------------------\n");
 					printf("Motivo de muerte: Muerte por deadlock.\n");
 
 
@@ -236,15 +236,18 @@ int procesarMapa(t_mapa* mapa){
 	time_t sumaTiemposBloqueos=0;
 	time(&tiempoActual);
 	entrenador->tiempoTotal=tiempoActual-entrenador->tiempoTotal;
+	printf("\n-------------------------------------------------------------------\n");
+	printf("\tTE HAS CONVERTIDO EN UN MAESTRO POKEMON!\n");
 	for (j=0;j<list_size(mapa->objetivos);j++){
 		t_objetivo* o=(t_objetivo*)list_get(mapa->objetivos,j);
 
 		sumaTiemposBloqueos+=o->tiempoBloqueado;
-	printf("El entenador %c estuvo bloqueado %ld segundos en la pokenest %c\n",
-						entrenador->simbolo, o->tiempoBloqueado,o->nombre[0]);
+		printf("El entenador %c estuvo bloqueado %ld segundos en la pokenest %c\n",
+		entrenador->simbolo, o->tiempoBloqueado,o->nombre[0]);
 	}
 	printf("El entrenador ha estado bloqueado en total %ld segundos\n",sumaTiemposBloqueos);
 	printf("El tiempo total recorrido del mapa %s fue de: %ld segundos\n",mapa->nombre,entrenador->tiempoTotal);
+	printf("-------------------------------------------------------------------\n");
 	close(serverMapa);
 	return 0;
 }
