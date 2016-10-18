@@ -17,12 +17,30 @@
 #include "../socketLib.h"
 #include "positions.h"
 #include "processLogic.h"
+#include <time.h>
 
 void resetearObjetivos(t_objetivo* objetivo){
 	objetivo->logrado = 0;
 	objetivo->ubicacion.x = -1;
 	objetivo->ubicacion.y = -1;
 }
+/*
+t_objetivo* find_pokenest_by_trainer_id (t_entrenador* unE){
+				int mapas=list_size(unE->hojaDeViaje);
+				int i,j;
+				t_objetivo* objetivo;
+				for (i=0;i<mapas;i++){
+					t_mapa* unM=(t_mapa*)list_get(unE->hojaDeViaje,i);
+					for (j=0;j<list_size(unM->objetivos);j++){
+					t_objetivo* unO=(t_objetivo*)list_get(unM->objetivos,j);
+						if (*unO->nombre==unE->pokenestBloq){
+							objetivo=unO;
+						}
+					}
+					}
+				return objetivo;
+			}
+*/
 
 void destroyerDeObjetivo(t_objetivo* objetivo){
 	free(objetivo);
@@ -153,10 +171,18 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 			}
 			log_info(archivoLog,"Envie el mensaje %s",mensaje);
 
+			time(&objetivo->tiempoBloqueado);
+
+			time_t tiempoActualBloqueo;
+
+
 			char conf;
 			if (recv(serverMapa, &conf, 1,  0) == 1){
 				if (conf=='C'){
 					objetivo->logrado = 1;
+					time(&tiempoActualBloqueo);
+					objetivo->tiempoBloqueado=tiempoActualBloqueo-objetivo->tiempoBloqueado;
+
 					log_info(archivoLog,"Fin del objetivo");
 				}
 				if (conf=='K'){
@@ -197,6 +223,7 @@ int procesarMapa(t_mapa* mapa){
 	//Recorro los objetivos  y los proceso
 	int j;
 	int movimiento = 0;
+	time(&entrenador->tiempoTotal);
 	for(j=0; j<list_size(mapa->objetivos); j++){
 		t_objetivo* objetivo = (t_objetivo *)list_get(mapa->objetivos, j);
 		log_info(archivoLog, "Proceso objetivo %s", objetivo->nombre);
@@ -205,7 +232,19 @@ int procesarMapa(t_mapa* mapa){
 			return 1;
 		}
 	}
+	time_t tiempoActual;
+	time_t sumaTiemposBloqueos=0;
+	time(&tiempoActual);
+	entrenador->tiempoTotal=tiempoActual-entrenador->tiempoTotal;
+	for (j=0;j<list_size(mapa->objetivos);j++){
+		t_objetivo* o=(t_objetivo*)list_get(mapa->objetivos,j);
 
+		sumaTiemposBloqueos+=o->tiempoBloqueado;
+	printf("El entenador %c estuvo bloqueado %ld segundos en la pokenest %c\n",
+						entrenador->simbolo, o->tiempoBloqueado,o->nombre[0]);
+	}
+	printf("El entrenador ha estado bloqueado en total %ld segundos\n",sumaTiemposBloqueos);
+	printf("El tiempo total recorrido del mapa %s fue de: %ld segundos\n",mapa->nombre,entrenador->tiempoTotal);
 	close(serverMapa);
 	return 0;
 }

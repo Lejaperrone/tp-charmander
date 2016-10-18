@@ -15,6 +15,7 @@ typedef struct t_objetivo_structs{
 	char* nombre;
 	t_coordenadas ubicacion;
 	int logrado;
+	time_t tiempoBloqueado;
 }t_objetivo;
 
 typedef struct t_mapa_structs{
@@ -31,6 +32,7 @@ typedef struct t_entrenador_structs{
 	int vidas;
 	int reintentos;
 	t_list* hojaDeViaje;
+	time_t tiempoTotal;
 }t_entrenador;
 
 
