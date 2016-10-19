@@ -176,7 +176,7 @@ void batallaPokemon(){
 			resolverNecesidades(unE);
 		}
 	}else{
-		log_info(archivoLog,"No esta la batalla Pokemon activada");
+		log_info(archivoLog,"No esta activada la batalla Pokemon.");
 	}
 }
 
