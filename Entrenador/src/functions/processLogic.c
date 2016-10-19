@@ -59,6 +59,7 @@ int accionesSegunLasVidasDisponibles(){
 			letraMalPuestaOPrimeraVez = false;
 			entrenador->vidas--;
 			log_info(archivoLog, "Resto una vida del entrenador.");
+			entrenador->vecesQueMurio++;
 			return 0;
 		}else{
 			entrenador->vecesQueMurio++;
