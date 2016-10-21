@@ -10,7 +10,7 @@
 #ifndef FUNCTIONS_PROCESSLOGIC_H_
 #define FUNCTIONS_PROCESSLOGIC_H_
 
-	int procesarMapa(t_mapa* mapa);
+	int procesarMapa(t_mapa* mapa, time_t* tiempoBloqueo);
 	int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa);
 	int accionesSegunLasVidasDisponibles();
 	void resetearObjetivos(t_objetivo* objetivo);

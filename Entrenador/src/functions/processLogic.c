@@ -204,7 +204,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 	return 0;
 }
 
-int procesarMapa(t_mapa* mapa){
+int procesarMapa(t_mapa* mapa, time_t* tiempoBloqueo){
 	int serverMapa;
 	//Defino el socket con el que se va a manejar el entrenador durante todo el transcurso del mapa
 	//Me conecto al mapa
@@ -217,39 +217,35 @@ int procesarMapa(t_mapa* mapa){
 	int resp = send(serverMapa, &(entrenador->simbolo), 1, 0);
 	if(resp == -1){
 		log_info(archivoLog,"No me pude identificar con el mapa");
-		exit(EXIT_FAILURE);
+		return 2;
 	}
 
 
 	//Recorro los objetivos  y los proceso
 	int j;
 	int movimiento = 0;
-	time(&entrenador->tiempoTotal);
+	//time(&entrenador->tiempoTotal);
 	for(j=0; j<list_size(mapa->objetivos); j++){
 		t_objetivo* objetivo = (t_objetivo *)list_get(mapa->objetivos, j);
+		time_t tiempoInicialObjetivo,tiempoFinalObjetivo, tiempoPostObj;
+		time(&tiempoInicialObjetivo);
 		log_info(archivoLog, "Proceso objetivo %s", objetivo->nombre);
 		procesarObjetivo(mapa, objetivo, &movimiento, serverMapa);
 		if(objetivo->logrado == 0){
 			return 1;
 		}
+		if (objetivo->logrado==1){
+			time(&tiempoPostObj);
+			tiempoFinalObjetivo=tiempoPostObj-tiempoInicialObjetivo;
+			if (dictionary_has_key(entrenador->tiempoTotalPokenests,objetivo->nombre)){
+				time_t t=(time_t)dictionary_get(entrenador->tiempoTotalPokenests, objetivo->nombre);
+				dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)(tiempoFinalObjetivo+t));
+			}else{
+			dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)tiempoFinalObjetivo);
+			}
+		}
 	}
-	time_t tiempoActual;
-	time_t sumaTiemposBloqueos=0;
-	time(&tiempoActual);
-	entrenador->tiempoTotal=tiempoActual-entrenador->tiempoTotal;
-	printf("\n-------------------------------------------------------------------\n");
-	printf("\tTE HAS CONVERTIDO EN UN MAESTRO POKEMON!\n");
-	for (j=0;j<list_size(mapa->objetivos);j++){
-		t_objetivo* o=(t_objetivo*)list_get(mapa->objetivos,j);
 
-		sumaTiemposBloqueos+=o->tiempoBloqueado;
-		printf("El entenador %c estuvo bloqueado %ld segundos en la pokenest %c\n",
-		entrenador->simbolo, o->tiempoBloqueado,o->nombre[0]);
-	}
-	printf("El entrenador ha estado bloqueado en total %ld segundos.\n",sumaTiemposBloqueos);
-	printf("El tiempo total recorrido del mapa %s fue de: %ld segundos.\n",mapa->nombre,entrenador->tiempoTotal);
-	printf("El entrenador murio %d veces durante la hazania.\n",entrenador->vecesQueMurio);
-	printf("-------------------------------------------------------------------\n");
 	close(serverMapa);
 	return 0;
 }

@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <commons/collections/list.h>
-
+#include <commons/collections/dictionary.h>
 #ifndef COMMONS_STRUCTURES_C
 #define COMMONS_STRUCTURES_C
 
@@ -26,6 +26,7 @@ typedef struct t_mapa_structs{
 	t_coordenadas miPosicion;
 }t_mapa;
 
+
 typedef struct t_entrenador_structs{
 	char* nombre;
 	char simbolo;
@@ -34,6 +35,8 @@ typedef struct t_entrenador_structs{
 	t_list* hojaDeViaje;
 	time_t tiempoTotal;
 	int vecesQueMurio;
+	t_dictionary* tiempoTotalPokenests;
+	time_t tiempoTotalAventura;
 }t_entrenador;
 
 
