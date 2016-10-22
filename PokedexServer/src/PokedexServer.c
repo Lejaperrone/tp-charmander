@@ -11,9 +11,16 @@
 #include <arpa/inet.h>
 #include <commons/collections/list.h>
 #include "osada/osada.h"
+#include <pthread.h>
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 #define PUERTO "7666"
+pthread_attr_t attr;
+pthread_t thread;
+
+void solicitud(){
+
+}
 
 int main(){
 	//Osada
@@ -82,6 +89,10 @@ int main(){
 								// tenemos datos de algún cliente
 								if (nbytes != 0){
 									printf("%s",package);
+									pthread_attr_init(&attr);
+									pthread_attr_getdetachstate(&attr,PTHREAD_CREATE_DETACHED);
+									pthread_create(&thread,&attr,&solicitud,NULL);
+									pthread_attr_destroy(&attr);
 								}
 							}
 						}
