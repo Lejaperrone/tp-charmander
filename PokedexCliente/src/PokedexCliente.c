@@ -77,6 +77,19 @@ static struct fuse_operations bb_oper = {
 		.readdir = fuse_readdir,
 		//.open = fuse_open,
 		//.read = fuse_read,
+	    //.init = fuse_init,
+	    //.rmdir = fuse_rmdir,
+	    //.unlink = fuse_unlink,
+	    //.mkdir = fuse_mkdir,
+	    //.rename = fuse_rename,
+		//.write = fuse_write,
+		//.access = fuse_access,
+		//.readlink	= fuse_readlink,
+		//.mknod = fuse_mknod,
+		//.link = fuse_link,
+		//.chmod = fuse_chmod,
+		//.chown = fuse_chown,
+		//.statfs = fuse_statfs,
 };
 
 /*
