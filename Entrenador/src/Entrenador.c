@@ -18,15 +18,6 @@
 #include "functions/processLogic.h"
 #include <time.h>
 
-void imprimirTiempos(char* key,int tiempo ){
-	printf("El tiempo de bloqueo en la Pokenest %s es %d\n", key,tiempo);
-}
-
-void mostrarTiemposBloqueosPorPokenest(){
-	dictionary_iterator(entrenador->tiempoTotalPokenests,(void*)imprimirTiempos);
-
-
-}
 
 void sigusr1_handler(int signum){
 	log_info(archivoLog,"Recibo senial SIGUSR1, agrego una vida.");
@@ -39,6 +30,7 @@ void sigterm_handler(int signum){
 	entrenador->vidas--;
 	log_info(archivoLog,"Tengo %d vidas.", entrenador->vidas);
 }
+time_t sumaTiemposBloqueos;
 
 int main(int argc, char *argv[]){
 
@@ -77,9 +69,8 @@ int main(int argc, char *argv[]){
 
 	//Arranco a recorrer los mapas
 	int i, j, valorDeRetornoMapa, valorDeRetornoAccionesSegunVidas;
-	time_t* sumaTiemposBloqueos=malloc(sizeof(time_t));
-	*sumaTiemposBloqueos=0;
-
+	sumaTiemposBloqueos=0;
+	time(&(entrenador->tiempoTotal));
 	for(i=0; i<list_size(entrenador->hojaDeViaje); i++){
 		//Recupero el mapa al que conectarme
 		t_mapa* mapa = (t_mapa*)list_get(entrenador->hojaDeViaje, i);
@@ -87,7 +78,8 @@ int main(int argc, char *argv[]){
 		mapa->miPosicion.x = 1;
 		mapa->miPosicion.y = 1;
 		//Tomo el tiempo en que empiezo el mapa
-		time(&(entrenador->tiempoTotal));
+
+		//printf("El tiempo al inicio vale: %ld \n",entrenador->tiempoTotal);
 		valorDeRetornoMapa = procesarMapa(mapa, sumaTiemposBloqueos);
 		log_info(archivoLog,"Procese el mapa %s",mapa->nombre);
 		if(valorDeRetornoMapa == 1){
@@ -109,18 +101,33 @@ int main(int argc, char *argv[]){
 		}
 		if (i>=0){
 		time_t tiempoActual;
-		log_info(archivoLog,"Tomo tiempo actual");
+		//log_info(archivoLog,"Tomo tiempo actual");
 			time(&tiempoActual);
-			log_info(archivoLog,"El tiempo actual es %ld",tiempoActual);
+			//log_info(archivoLog,"El tiempo actual es %ld",(long)tiempoActual);
 			entrenador->tiempoTotal=tiempoActual-entrenador->tiempoTotal;
-			log_info(archivoLog,"El tiempo que guarde en entrenador es %ld",entrenador->tiempoTotal);
+			log_info(archivoLog,"El tiempo que guarde en entrenador es %ld",(long)entrenador->tiempoTotal);
 		}
 		if (i==(list_size(entrenador->hojaDeViaje)-1)){
 			printf("\n-------------------------------------------------------------------\n");
 			printf("\tTE HAS CONVERTIDO EN UN MAESTRO POKEMON!\n");
-			mostrarTiemposBloqueosPorPokenest();
-			printf("El entrenador ha estado bloqueado en total %ld segundos.\n",*sumaTiemposBloqueos);
-				//printf("El tiempo total recorrido del mapa %s fue de: %ld segundos.\n",mapa->nombre,entrenador->tiempoTotal);
+		/*	void sumarTiemposDeBloqueos(char* key,time_t tiempo ){
+				//printf("El tiempo de bloqueo en la Pokenest %s es %ld\n", key,tiempo);
+				//printf("EL entrenador recorrido %d pokenests\n",dictionary_size(entrenador->tiempoTotalPokenests));
+				sumaTiemposBloqueos+=tiempo;
+			}
+*/
+			/*void calcularTiempototalDeBloqueoPorPokenest(){
+				 dictionary_iterator(entrenador->tiempoTotalPokenests,(void*)sumarTiemposDeBloqueos);
+
+
+			}*/
+			time_t ultimoMomentoEnElMapa;
+			//printf("El tiempo total vale: %ld",entrenador->tiempoTotal);
+			//entrenador->tiempoTotal=time(&ultimoMomentoEnElMapa)-entrenador->tiempoTotal;
+			//printf("El ultimo momento en el mapa vale: %ld\n", ultimoMomentoEnElMapa);
+			//calcularTiempototalDeBloqueoPorPokenest();
+			printf("El entrenador ha estado bloqueado en total %ld segundos.\n",sumaTiemposBloqueos);
+			printf("El tiempo total recorrido del mapa %s fue de: %ld segundos.\n",mapa->nombre,entrenador->tiempoTotal);
 				printf("El entrenador murio %d veces durante la hazania.\n",entrenador->vecesQueMurio);
 				printf("-------------------------------------------------------------------\n");
 			}
@@ -133,7 +140,6 @@ int main(int argc, char *argv[]){
 	free(archivoLog);
 	return 0;
 }
-
 
 
 

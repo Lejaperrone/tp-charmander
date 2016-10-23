@@ -18,6 +18,7 @@
 #include "positions.h"
 #include "processLogic.h"
 #include <time.h>
+extern time_t sumaTiemposBloqueos;
 
 void resetearObjetivos(t_objetivo* objetivo){
 	objetivo->logrado = 0;
@@ -174,6 +175,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 			log_info(archivoLog,"Envie el mensaje %s",mensaje);
 
 			time(&objetivo->tiempoBloqueado);
+			printf("Obtengo el tiempo cuando pido el Pokemon %ld\n",objetivo->tiempoBloqueado);
 
 			time_t tiempoActualBloqueo;
 
@@ -183,16 +185,33 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 				if (conf=='C'){
 					objetivo->logrado = 1;
 					time(&tiempoActualBloqueo);
-					objetivo->tiempoBloqueado=tiempoActualBloqueo-objetivo->tiempoBloqueado;
-
+					sumaTiemposBloqueos+=(tiempoActualBloqueo-objetivo->tiempoBloqueado);
+					printf("Suma de tiembpos bloqueados vale %ld\n",sumaTiemposBloqueos);
+					//printf("Tomo el tiempo cuando caputro al Pokemon %ld\n",(long)tiempoActualBloqueo);
+					//printf("Me llevo conseguir a %s, %ld segundos\n",objetivo->nombre,(long)objetivo->tiempoBloqueado);
 					log_info(archivoLog,"Fin del objetivo");
+
+								/*if (dictionary_has_key(entrenador->tiempoTotalPokenests,objetivo->nombre)){
+									time_t t=(time_t)dictionary_get(entrenador->tiempoTotalPokenests, objetivo->nombre);
+									dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)(objetivo->tiempoBloqueado+t));
+								}else{
+								dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)objetivo->tiempoBloqueado);
+								}*/
+
 				}
 				if (conf=='K'){
 					objetivo->logrado = 0;
+					time(&tiempoActualBloqueo);
 					printf("\n-------------------------------------------------------------------\n");
 					printf("Motivo de muerte: Muerte por deadlock.\n");
-
-
+					/*if (dictionary_has_key(entrenador->tiempoTotalPokenests,objetivo->nombre)){
+														time_t t=(time_t)dictionary_get(entrenador->tiempoTotalPokenests, objetivo->nombre);
+														dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)(objetivo->tiempoBloqueado+t));
+													}else{
+													dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)objetivo->tiempoBloqueado);
+													}*/
+					sumaTiemposBloqueos+=(tiempoActualBloqueo-objetivo->tiempoBloqueado);
+					printf("Suma de tiempos bloqueados vale %ld\n",sumaTiemposBloqueos);
 				}
 				return 1;
 			}
@@ -204,7 +223,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 	return 0;
 }
 
-int procesarMapa(t_mapa* mapa, time_t* tiempoBloqueo){
+int procesarMapa(t_mapa* mapa, float tiempoBloqueo){
 	int serverMapa;
 	//Defino el socket con el que se va a manejar el entrenador durante todo el transcurso del mapa
 	//Me conecto al mapa
@@ -234,16 +253,7 @@ int procesarMapa(t_mapa* mapa, time_t* tiempoBloqueo){
 		if(objetivo->logrado == 0){
 			return 1;
 		}
-		if (objetivo->logrado==1){
-			time(&tiempoPostObj);
-			tiempoFinalObjetivo=tiempoPostObj-tiempoInicialObjetivo;
-			if (dictionary_has_key(entrenador->tiempoTotalPokenests,objetivo->nombre)){
-				time_t t=(time_t)dictionary_get(entrenador->tiempoTotalPokenests, objetivo->nombre);
-				dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)(tiempoFinalObjetivo+t));
-			}else{
-			dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)tiempoFinalObjetivo);
-			}
-		}
+
 	}
 
 	close(serverMapa);
