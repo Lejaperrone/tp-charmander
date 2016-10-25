@@ -35,7 +35,6 @@ typedef struct t_entrenador_structs{
 	t_list* hojaDeViaje;
 	time_t tiempoTotal;
 	int vecesQueMurio;
-	t_dictionary* tiempoTotalPokenests;
 	time_t tiempoTotalAventura;
 }t_entrenador;
 

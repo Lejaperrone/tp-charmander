@@ -23,7 +23,7 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 		entrenador->reintentos = config_get_int_value(config, "reintentos");
 		entrenador->vecesQueMurio=0;
 		time(&(entrenador->tiempoTotalAventura));
-		entrenador->tiempoTotalPokenests=dictionary_create();
+
 
 	char**p = config_get_array_value(config, "hojaDeViaje");
 	entrenador->hojaDeViaje = list_create();

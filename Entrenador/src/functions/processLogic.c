@@ -175,7 +175,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 			log_info(archivoLog,"Envie el mensaje %s",mensaje);
 
 			time(&objetivo->tiempoBloqueado);
-			printf("Obtengo el tiempo cuando pido el Pokemon %ld\n",objetivo->tiempoBloqueado);
+			//printf("Obtengo el tiempo cuando pido el Pokemon %ld\n",objetivo->tiempoBloqueado);
 
 			time_t tiempoActualBloqueo;
 
@@ -186,9 +186,9 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 					objetivo->logrado = 1;
 					time(&tiempoActualBloqueo);
 					sumaTiemposBloqueos+=(tiempoActualBloqueo-objetivo->tiempoBloqueado);
-					printf("Suma de tiembpos bloqueados vale %ld\n",sumaTiemposBloqueos);
-					//printf("Tomo el tiempo cuando caputro al Pokemon %ld\n",(long)tiempoActualBloqueo);
-					//printf("Me llevo conseguir a %s, %ld segundos\n",objetivo->nombre,(long)objetivo->tiempoBloqueado);
+					//printf("Suma de tiembpos bloqueados vale %ld\n",sumaTiemposBloqueos);
+					//printf("Tomo el tiempo cuando capturo al Pokemon %ld\n",(long)tiempoActualBloqueo);
+					//printf("Me llevo conseguir a %s, %ld segundos\n",objetivo->nombre,tiempoActualBloqueo-objetivo->tiempoBloqueado);
 					log_info(archivoLog,"Fin del objetivo");
 
 								/*if (dictionary_has_key(entrenador->tiempoTotalPokenests,objetivo->nombre)){
@@ -211,7 +211,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 													dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)objetivo->tiempoBloqueado);
 													}*/
 					sumaTiemposBloqueos+=(tiempoActualBloqueo-objetivo->tiempoBloqueado);
-					printf("Suma de tiempos bloqueados vale %ld\n",sumaTiemposBloqueos);
+					//printf("Suma de tiempos bloqueados vale %ld\n",sumaTiemposBloqueos);
 				}
 				return 1;
 			}

@@ -14,7 +14,6 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <sys/stat.h>
-
 #include "../commons/structures.h"
 
 t_pokemon_custom* createPokemon(char* pathPokemons, char* name){
@@ -84,6 +83,8 @@ t_pokenest* createPokeNest(char* pathPokenest, char* name){
 
 void leerConfiguracionMetadataMapa(t_mapa* mapa, char* name, char* pokedexPath){
 	char* path = string_new();
+	//Pido espacio en osada_bin para guardar el metadata de un mapa
+
 	string_append(&path, pokedexPath);
 	string_append(&path, "/Mapas/");
 	string_append(&path, name);

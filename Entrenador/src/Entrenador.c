@@ -105,7 +105,7 @@ int main(int argc, char *argv[]){
 			time(&tiempoActual);
 			//log_info(archivoLog,"El tiempo actual es %ld",(long)tiempoActual);
 			entrenador->tiempoTotal=tiempoActual-entrenador->tiempoTotal;
-			log_info(archivoLog,"El tiempo que guarde en entrenador es %ld",(long)entrenador->tiempoTotal);
+			//log_info(archivoLog,"El tiempo que guarde en entrenador es %ld",(long)entrenador->tiempoTotal);
 		}
 		if (i==(list_size(entrenador->hojaDeViaje)-1)){
 			printf("\n-------------------------------------------------------------------\n");
@@ -121,7 +121,7 @@ int main(int argc, char *argv[]){
 
 
 			}*/
-			time_t ultimoMomentoEnElMapa;
+
 			//printf("El tiempo total vale: %ld",entrenador->tiempoTotal);
 			//entrenador->tiempoTotal=time(&ultimoMomentoEnElMapa)-entrenador->tiempoTotal;
 			//printf("El ultimo momento en el mapa vale: %ld\n", ultimoMomentoEnElMapa);
@@ -135,7 +135,7 @@ int main(int argc, char *argv[]){
 	}
 
 
-	dictionary_destroy(entrenador->tiempoTotalPokenests);
+	//dictionary_destroy(entrenador->tiempoTotalPokenests);
 	free(entrenador);
 	free(archivoLog);
 	return 0;
