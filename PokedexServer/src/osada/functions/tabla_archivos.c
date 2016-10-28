@@ -43,6 +43,7 @@ u_int16_t osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
 	return -1;
 }
 
+//agrega a la lista de directorios los directorios de esa path
 void osada_TA_obtenerDirectorios(u_int16_t parent, t_list* directorio){
 	int i;
 	for(i=0;i<1024;i++){

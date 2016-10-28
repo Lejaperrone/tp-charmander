@@ -76,7 +76,7 @@ static struct fuse_operations bb_oper = {
 		.getattr = fuse_getattr,
 		.readdir = fuse_readdir,
 		//.open = fuse_open,
-		//.read = fuse_read,
+		.read = fuse_read,
 	    //.init = fuse_init,
 	    //.rmdir = fuse_rmdir,
 	    //.unlink = fuse_unlink,
@@ -92,7 +92,7 @@ static struct fuse_operations bb_oper = {
 		//.statfs = fuse_statfs,
 };
 
-/*
+
 static int fuse_readdir(const char *path, struct stat *stbuf) {
 	// Todo Realizar el send de la peticion
 	return 0;
@@ -105,7 +105,7 @@ static int fuse_read(const char *path, struct stat *stbuf) {
 	// Todo Realizar el send de la peticion
 	return 0;
 }
-*/
+
 
 int main(int argc, char *argv[]){
 

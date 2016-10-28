@@ -17,14 +17,39 @@
 #define PUERTO "7666"
 pthread_attr_t attr;
 pthread_t thread;
+typedef struct solicitud{
+	int socket_pokedexCliente;
+	char nombreArch_Or_File[17];
+}t_solicitud;
+t_solicitud* solicitud;
+t_list* solicitudes;
 
-void solicitud(){
+void procesar_solicitud(){
+	while (1){
+		t_solicitud* s=(t_solicitud*)list_get(solicitudes,0);
+		char turno='T';
+		//Le digo a esa solicitud que es su turno
+		send(s->socket_pokedexCliente,&turno,1,0);
+		//Recibo la accion que quiere ejecutar
+		char accion;
+		recv(s->socket_pokedexCliente,&accion,1,0);
+		//Chequeo que quiere hacer
+		switch (accion){
+		case 'L':
+			recv(s->socket_pokedexCliente,s->nombreArch_Or_File,PACKAGESIZE,0);
+			int indice=osada_TA_buscarRegistroPorNombre(s->nombreArch_Or_File,osada_drive.directorio->parent_directory);
+
+		}
+	}
 
 }
 
 int main(){
 	//Osada
 		osada_init("../../osada.bin");
+		pthread_create(&thread,&attr,&procesar_solicitud,NULL);
+		solicitudes=list_create();
+	//Creo lista de solicitudes
 
 	//Inicializo socket para escuchar
 		struct sockaddr_in addr;
@@ -90,8 +115,9 @@ int main(){
 								if (nbytes != 0){
 									printf("%s",package);
 									pthread_attr_init(&attr);
-									pthread_attr_getdetachstate(&attr,PTHREAD_CREATE_DETACHED);
-									pthread_create(&thread,&attr,&solicitud,NULL);
+									pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);
+									solicitud=(t_solicitud*)malloc(sizeof(t_solicitud));
+									list_add(solicitudes,solicitud);
 									pthread_attr_destroy(&attr);
 								}
 							}
