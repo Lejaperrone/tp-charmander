@@ -77,13 +77,28 @@ void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
 	attr->state = osada_drive.directorio[indice].state;
 }
 
-void osada_TA_borrarArchivo(char* nombre, u_int16_t parent){
+int osada_TA_borrarArchivo(char* nombre, u_int16_t parent){
 	int i;
+	int subindiceParaBitmap;
+	bool hayMasBloques=true;
+	int pudeBorrar=0;
 	for(i=0;i<2048;i++){
 	if(compare(i, nombre) && osada_drive.directorio[i].parent_directory == parent){
-		remove(nombre); //funciona como remove (const char *__filename)
+		if(remove(nombre)==0){
+			pudeBorrar=1;
+			subindiceParaBitmap=osada_drive.directorio[i].first_block;
+			; //funciona como remove (const char *__filename)
+		}else{
+			perror("Error borrando archivo");
+		}
 	}
 	}
+	while (hayMasBloques){
+	actualizarBitmap(subindiceParaBitmap);
+	actualizarTablaDeAsignaciones(&subindiceParaBitmap, &hayMasBloques);
+	}
+
+	return pudeBorrar;
 }
 
 
