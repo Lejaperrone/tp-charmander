@@ -75,3 +75,32 @@ void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
 	attr->file_size = osada_drive.directorio[indice].file_size;
 	attr->state = osada_drive.directorio[indice].state;
 }
+
+void osada_TA_borrarArchivo(char* nombre, u_int16_t parent){
+	int i;
+	for(i=0;i<2048;i++){
+	if(compare(i, nombre) && osada_drive.directorio[i].parent_directory == parent){
+		remove(nombre); //funciona como remove (const char *__filename)
+	}
+	}
+}
+
+
+void osada_TA_borrarDirectorio(u_int16_t parent, t_list* directorio){
+	int i;
+		for(i=0;i<2048;i++){
+			if(osada_drive.directorio[i].parent_directory == parent && osada_drive.directorio[i].state!=0){
+				remove(directorio); // no estoy seguro si puede aplicarse el remove al directorio o solo se lo hace a archivos
+			}
+			}
+}
+
+
+void osada_TA_renombrarArchivo(char* nombre, u_int16_t parent,char* nuevoNombre){
+	int i;
+	for(i=0;i<2048;i++){
+	if(compare(i, nombre) && osada_drive.directorio[i].parent_directory == parent){
+		rename(nombre, nuevoNombre); //funciona como rename (const char *__old, const char *__new)
+	}
+	}
+}
