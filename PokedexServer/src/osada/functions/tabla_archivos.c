@@ -34,7 +34,7 @@ int compare(int indice, char* test2){
 
 u_int16_t osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
 	int i;
-	for(i=0;i<1024;i++){
+	for(i=0;i<2048;i++){
 		if(compare(i, nombre) && osada_drive.directorio[i].parent_directory == parent){
 			return i;
 		}
@@ -45,7 +45,7 @@ u_int16_t osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
 
 void osada_TA_obtenerDirectorios(u_int16_t parent, t_list* directorio){
 	int i;
-	for(i=0;i<1024;i++){
+	for(i=0;i<2048;i++){
 		if(osada_drive.directorio[i].parent_directory == parent && osada_drive.directorio[i].state!=0){
 			list_add(directorio, osada_drive.directorio[i].fname);
 		}
