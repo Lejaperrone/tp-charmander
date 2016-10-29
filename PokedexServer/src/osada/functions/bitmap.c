@@ -7,5 +7,6 @@
 
 
 void actualizarBitmap_porBaja (int subindice){
-	//osada_drive.bitmap
+	bitarray_clean_bit(osada_drive.bitmap,subindice);
 }
+
