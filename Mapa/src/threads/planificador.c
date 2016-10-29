@@ -178,38 +178,69 @@ int calcularDistanciaEntrenadorObjetivo(t_entrenador* entrenador){
 	}
 }
 t_entrenador* obtenerProximoEntrenadorCercano(){
-	return NULL;
+	t_entrenador* entrenador = NULL;
+
+	//Busco entrenadores que no se la ubicacion del objetivo
+		bool _entrenador_objetivo_desconocido(t_entrenador* entrenador){
+			return (entrenador->ubicacionObjetivo.x==-1 || entrenador->ubicacionObjetivo.y==-1);
+		}
+		entrenador = list_remove_by_condition(entrenadoresListos, (void*)_entrenador_objetivo_desconocido);
+		if(entrenador != NULL){
+			entrenador->planificador.quantum = -2;
+		}
+	//Busco el enternador que este mas cerca al objetivo.
+		if(entrenador == NULL){
+			if(list_size(entrenadoresListos)>0){
+				entrenador = list_remove(entrenadoresListos, 0);
+				entrenador->planificador.quantum = -1;
+			}
+		}
+
+	return entrenador;
 }
 
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAnterior){
 	if(entrenadorAnterior != NULL){
+		if(entrenadorAnterior->planificador.quantum == -2){
+			entrenadorAnterior->planificador.quantum = 0;
+		}
+
 		if(list_size(entrenadoresListos)>0){
 			t_entrenador* otroEntrenador = list_get(entrenadoresListos, list_size(entrenadoresListos)-1);
-
-			if(otroEntrenador->simbolo==entrenadorAnterior->simbolo && entrenadorAnterior->planificador.quantum>0){
+			if(entrenadorAnterior->planificador.quantum == -1 && otroEntrenador->simbolo == entrenadorAnterior->simbolo){
 				list_remove(entrenadoresListos, list_size(entrenadoresListos)-1);
-
-				entrenadorAnterior->planificador.quantum--;
 				return entrenadorAnterior;
 			}else{
-				entrenadorAnterior->planificador.quantum=0;
-				log_info(archivoLog, "Planficador - El entrenador %c va al final de la cola de Listos", entrenadorAnterior->simbolo);
+				if(entrenadorAnterior->planificador.quantum == -1){
+					entrenadorAnterior->planificador.quantum =  0;
+				}
 
-				if(list_size(entrenadoresListos)>0){
-					t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
-					proximoEntrenador->planificador.quantum = mapa->quantum-1;
+				if(otroEntrenador->simbolo==entrenadorAnterior->simbolo && entrenadorAnterior->planificador.quantum>0){
+					list_remove(entrenadoresListos, list_size(entrenadoresListos)-1);
 
-					log_info(archivoLog, "Planficador - Planifico al entrenador %c", proximoEntrenador->simbolo);
-					logColasEntrenadores();
-					return proximoEntrenador;
+					entrenadorAnterior->planificador.quantum--;
+					return entrenadorAnterior;
 				}else{
-					return NULL;
+					entrenadorAnterior->planificador.quantum=0;
+					log_info(archivoLog, "Planficador - El entrenador %c va al final de la cola de Listos", entrenadorAnterior->simbolo);
+
+					if(list_size(entrenadoresListos)>0){
+						t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
+						proximoEntrenador->planificador.quantum = mapa->quantum-1;
+
+						log_info(archivoLog, "Planficador - Planifico al entrenador %c", proximoEntrenador->simbolo);
+						logColasEntrenadores();
+						return proximoEntrenador;
+					}else{
+						return NULL;
+					}
 				}
 			}
 		}else{
 			entrenadorAnterior->planificador.quantum=0;
 			return NULL;
 		}
+
 	}else{
 		if(list_size(entrenadoresListos)>0){
 			t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
@@ -228,6 +259,7 @@ t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenador
 				if(entrenadorAnterior->planificador.quantum>0){
 					return obtenerSiguienteEntrenadorPlanificadoRR(entrenadorAnterior);
 				}else if(entrenadorAnterior->planificador.quantum == -1){
+					list_remove(entrenadoresListos, list_size(entrenadoresListos)-1);
 					return entrenadorAnterior;
 				}else if(entrenadorAnterior->planificador.quantum == -2){
 					entrenadorAnterior->planificador.quantum = 0;

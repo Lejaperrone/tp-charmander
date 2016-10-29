@@ -25,24 +25,6 @@ void resetearObjetivos(t_objetivo* objetivo){
 	objetivo->ubicacion.x = -1;
 	objetivo->ubicacion.y = -1;
 }
-/*
-t_objetivo* find_pokenest_by_trainer_id (t_entrenador* unE){
-				int mapas=list_size(unE->hojaDeViaje);
-				int i,j;
-				t_objetivo* objetivo;
-				for (i=0;i<mapas;i++){
-					t_mapa* unM=(t_mapa*)list_get(unE->hojaDeViaje,i);
-					for (j=0;j<list_size(unM->objetivos);j++){
-					t_objetivo* unO=(t_objetivo*)list_get(unM->objetivos,j);
-						if (*unO->nombre==unE->pokenestBloq){
-							objetivo=unO;
-						}
-					}
-					}
-				return objetivo;
-			}
-*/
-
 void destroyerDeObjetivo(t_objetivo* objetivo){
 	free(objetivo);
 }
@@ -246,7 +228,7 @@ int procesarMapa(t_mapa* mapa, float tiempoBloqueo){
 	//time(&entrenador->tiempoTotal);
 	for(j=0; j<list_size(mapa->objetivos); j++){
 		t_objetivo* objetivo = (t_objetivo *)list_get(mapa->objetivos, j);
-		time_t tiempoInicialObjetivo,tiempoFinalObjetivo, tiempoPostObj;
+		time_t tiempoInicialObjetivo;
 		time(&tiempoInicialObjetivo);
 		log_info(archivoLog, "Proceso objetivo %s", objetivo->nombre);
 		procesarObjetivo(mapa, objetivo, &movimiento, serverMapa);
