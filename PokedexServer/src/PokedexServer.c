@@ -17,48 +17,23 @@
 #define PUERTO "7666"
 pthread_attr_t attr;
 pthread_t thread;
-typedef struct solicitud{
-	int socket_pokedexCliente;
-	char nombreArch_Or_File[17];
-}t_solicitud;
-t_solicitud* solicitud;
-t_list* solicitudes;
 
-void procesar_solicitud(){
-	while (1){
-		t_solicitud* s=(t_solicitud*)list_get(solicitudes,0);
-		char turno='T';
-		//Le digo a esa solicitud que es su turno
-		send(s->socket_pokedexCliente,&turno,1,0);
-		//Recibo la accion que quiere ejecutar
-		char accion;
-		recv(s->socket_pokedexCliente,&accion,1,0);
-		//Chequeo que quiere hacer
-		switch (accion){
-		case 'L':
-			recv(s->socket_pokedexCliente,s->nombreArch_Or_File,PACKAGESIZE,0);
-			int indice=osada_TA_buscarRegistroPorNombre(s->nombreArch_Or_File,osada_drive.directorio->parent_directory);
-
-		}
-	}
+void solicitud(){
 
 }
 
 int main(){
 	printf("Inicio osada");
 	//Osada
-		osada_init("../../osada.bin");
-		//pthread_create(&thread,&attr,&procesar_solicitud,NULL);
-		solicitudes=list_create();
-	//Creo lista de solicitudes
-		printf("Se levanto OSADA");
+		osada_init("/home/utnso/git/tp-2016-2c-Chamba/osada.bin");
+
 	//Inicializo socket para escuchar
 		struct sockaddr_in addr;
 		socklen_t addrlen = sizeof(addr);
 
 		int listeningSocket;
 		create_serverSocket(&listeningSocket, PUERTO);
-		printf("Se crea el socket servidor");
+
 	//Inicializo el select
 		fd_set master;		// conjunto maestro de descriptores de fichero
 		fd_set read_fds;	// conjunto temporal de descriptores de fichero para select()
@@ -75,7 +50,6 @@ int main(){
 
 	//Me mantengo en el bucle para asi poder procesar cambios en los sockets
 		while(1) {
-			printf("Entro al while de los sockets");
 			//Copio los sockets y me fijo si alguno tiene cambios, si no hay itinero de vuelta
 				read_fds = master; // cópialo
 				if (select(fdmax+1, &read_fds, NULL, NULL, NULL) == -1) {
@@ -116,11 +90,7 @@ int main(){
 								// tenemos datos de algún cliente
 								if (nbytes != 0){
 									printf("%s",package);
-									/*pthread_attr_init(&attr);
-									pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);
-									solicitud=(t_solicitud*)malloc(sizeof(t_solicitud));
-									list_add(solicitudes,solicitud);
-									pthread_attr_destroy(&attr);*/
+
 								}
 							}
 						}
@@ -135,5 +105,3 @@ int main(){
 	return 0;
 
 }
-
-
