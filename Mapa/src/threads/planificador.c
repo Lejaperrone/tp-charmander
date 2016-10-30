@@ -416,7 +416,7 @@ void* planificador(void* arg){
 				atenderEntrenador(entrenador);
 			}
 		}
-		sleep(1);
+		usleep(mapa->retardo * 1000);
 	}
 
 	return arg;
