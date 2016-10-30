@@ -21,6 +21,8 @@
 #include "../commons/structures.h"
 #include "../functions/collections_list_extension.h"
 #include "../functions/recursos.h"
+#include "../functions/signals.h"
+
 extern pthread_mutex_t mutexEntrBQ;
 
 int recvWithGarbageCollector(int socket, char* package, int cantBytes, t_entrenador* entrenador){
@@ -396,6 +398,8 @@ void* planificador(void* arg){
 	char Q = 'Q';
 	t_entrenador* entrenador = NULL;
 	while(1){
+		verificarSenialesRecibidas();
+
 		if(!strcmp(mapa->algoritmo, "RR")){
 			entrenador = obtenerSiguienteEntrenadorPlanificadoRR(entrenador);
 		}else{

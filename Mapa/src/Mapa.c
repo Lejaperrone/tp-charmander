@@ -105,6 +105,7 @@ int main(int argc, char *argv[]){
 
 	//Registro signal handler
 		log_info(archivoLog,"Registro handler de seniales");
+		recvSIGUSR2 = 0;
 		signal(SIGUSR2, sigusr2_handler); //signal-number 12
 
 	//Inicializo el select

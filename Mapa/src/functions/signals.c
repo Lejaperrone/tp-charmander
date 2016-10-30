@@ -13,5 +13,13 @@
 
 void sigusr2_handler(int signum){
 	log_info(archivoLog,"Recibo senial SIGUSR2, releo metadata.");
-	leerConfiguracionMetadataMapa(mapa, name, pokedexPath);
+	recvSIGUSR2 = 1;
+
+}
+
+void verificarSenialesRecibidas(){
+	if(recvSIGUSR2==1){
+		recvSIGUSR2 = 0;
+		leerConfiguracionMetadataMapa(mapa, name, pokedexPath);
+	}
 }

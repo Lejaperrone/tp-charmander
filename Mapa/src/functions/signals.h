@@ -14,5 +14,6 @@
 #define FUNCTIONS_SIGNALS_H_
 
 void sigusr2_handler(int signum);
+void verificarSenialesRecibidas();
 
 #endif /* FUNCTIONS_SIGNALS_H_ */

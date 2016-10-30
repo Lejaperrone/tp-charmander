@@ -27,16 +27,16 @@
 	}t_pokenest;
 
 	typedef struct{
-			char* nombre;
-			int tiempoChequeoDeadlock;
-			int batalla;
-			char* algoritmo;
-			int quantum;
-			int retardo;
-			char* ip;
-			char* puerto;
-			t_list* pokeNests;
-		}t_mapa;
+		char* nombre;
+		int tiempoChequeoDeadlock;
+		int batalla;
+		char* algoritmo;
+		int quantum;
+		int retardo;
+		char* ip;
+		char* puerto;
+		t_list* pokeNests;
+	}t_mapa;
 
 	typedef struct{
 		int quantum;
@@ -48,7 +48,6 @@
 		int socket;
 		t_coordenadas ubicacion;
 		t_list* pokemons;
-		t_pokemon_custom* ultimoPokeSolicitado;
 		t_pokenest* pokenestBloqueante;
 		t_planificador_entrenador planificador;
 	}t_entrenador;
@@ -69,25 +68,5 @@
 	t_list* listaDeIdentificadoresDePokenests;
 
 	int rows, cols;
-
-	typedef struct pokemonsDisponibles{
-		char idPokenest;
-		int cantidad;
-	}t_pokemonsDisponibles;
-
-	typedef struct pokemonsCapturados{
-		char idPokemon;
-		int cantidad;
-	}t_pokemon_transac;
-
-	typedef struct pokemonsAsignados{
-	char idEntrenador;
-	t_pokemon_transac pokemonsCapturados;
-	}t_poke_asignados;
-
-	typedef struct pokemonsSolicitados{
-		char idEntrenador;
-		t_pokemon_transac pokemonsSolicitados;
-	}t_poke_solicitados;
-
+	int recvSIGUSR2;
 #endif /* COMMONS_STRUCTURES_H_ */
