@@ -171,8 +171,8 @@ int main(int argc, char *argv[]){
 								entrenador->pokemons = list_create();
 								entrenador->ubicacion.x = 1;
 								entrenador->ubicacion.y = 1;
-								entrenador->ubicacionObjetivo.x = -1;
-								entrenador->ubicacionObjetivo.y = -1;
+								entrenador->planificador.ubicacionObjetivo.x = -1;
+								entrenador->planificador.ubicacionObjetivo.y = -1;
 								pthread_mutex_lock(&mutexEntrRD);
 								list_add(entrenadoresPreparados, entrenador);
 								pthread_mutex_unlock(&mutexEntrRD);

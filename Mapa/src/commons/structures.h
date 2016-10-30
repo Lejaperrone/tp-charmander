@@ -40,13 +40,13 @@
 
 	typedef struct{
 		int quantum;
+		t_coordenadas ubicacionObjetivo;
 	}t_planificador_entrenador;
 
 	typedef struct{
 		char simbolo;
 		int socket;
 		t_coordenadas ubicacion;
-		t_coordenadas ubicacionObjetivo;
 		t_list* pokemons;
 		t_pokemon_custom* ultimoPokeSolicitado;
 		t_pokenest* pokenestBloqueante;

@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <commons/string.h>
 #include <tad_items.h>
 #include <curses.h>
@@ -101,8 +102,8 @@ void procesarEntrenadoresBloqueados(){
 
 			char* C = "C";
 			if(sendWithGarbageCollector(entrenador->socket, C, 1, entrenador)){
-				entrenador->ubicacionObjetivo.x=-1;
-				entrenador->ubicacionObjetivo.y=-1;
+				entrenador->planificador.ubicacionObjetivo.x=-1;
+				entrenador->planificador.ubicacionObjetivo.y=-1;
 				log_trace(archivoLog, "Planificador - envie confirmacion");
 				return 1;
 			}else{
@@ -161,13 +162,13 @@ void procesarEntrenadoresGarbageCollector(){
 }
 
 int calcularDistanciaEntrenadorObjetivo(t_entrenador* entrenador){
-	if(entrenador->ubicacionObjetivo.x!=-1 && entrenador->ubicacionObjetivo.y!=-1){
-		int distanciaX = entrenador->ubicacionObjetivo.x - entrenador->ubicacion.x;
+	if(entrenador->planificador.ubicacionObjetivo.x!=-1 && entrenador->planificador.ubicacionObjetivo.y!=-1){
+		int distanciaX = entrenador->planificador.ubicacionObjetivo.x - entrenador->ubicacion.x;
 		if(distanciaX <0){
 			distanciaX = distanciaX * -1;
 		}
 
-		int distanciaY = entrenador->ubicacionObjetivo.y - entrenador->ubicacion.y;
+		int distanciaY = entrenador->planificador.ubicacionObjetivo.y - entrenador->ubicacion.y;
 		if(distanciaY <0){
 			distanciaY = distanciaY * -1;
 		}
@@ -179,10 +180,11 @@ int calcularDistanciaEntrenadorObjetivo(t_entrenador* entrenador){
 }
 t_entrenador* obtenerProximoEntrenadorCercano(){
 	t_entrenador* entrenador = NULL;
+	int distanciaMin = INT_MAX;
 
 	//Busco entrenadores que no se la ubicacion del objetivo
 		bool _entrenador_objetivo_desconocido(t_entrenador* entrenador){
-			return (entrenador->ubicacionObjetivo.x==-1 || entrenador->ubicacionObjetivo.y==-1);
+			return (entrenador->planificador.ubicacionObjetivo.x==-1 || entrenador->planificador.ubicacionObjetivo.y==-1);
 		}
 		entrenador = list_remove_by_condition(entrenadoresListos, (void*)_entrenador_objetivo_desconocido);
 		if(entrenador != NULL){
@@ -191,8 +193,21 @@ t_entrenador* obtenerProximoEntrenadorCercano(){
 	//Busco el enternador que este mas cerca al objetivo.
 		if(entrenador == NULL){
 			if(list_size(entrenadoresListos)>0){
-				entrenador = list_remove(entrenadoresListos, 0);
-				entrenador->planificador.quantum = -1;
+				void _entrenador_objetivo_distancia(t_entrenador* entrenador){
+					int distanciaObj = calcularDistanciaEntrenadorObjetivo(entrenador);
+					if(distanciaMin>distanciaObj){
+						distanciaMin = distanciaObj;
+					}
+				}
+				list_iterate(entrenadoresListos, (void*)_entrenador_objetivo_distancia);
+
+				bool _entrenador_objetivo_min(t_entrenador* entrenador){
+					return (calcularDistanciaEntrenadorObjetivo(entrenador) == distanciaMin);
+				}
+				entrenador = list_remove_by_condition(entrenadoresListos, (void*)_entrenador_objetivo_min);
+				if(entrenador != NULL){
+					entrenador->planificador.quantum = -1;
+				}
 			}
 		}
 
@@ -253,28 +268,38 @@ t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAn
 }
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenadorAnterior){
 	if(entrenadorAnterior != NULL){
+		log_trace(archivoLog, "Planificador - SRDF - Entrenador anterior no es null");
 		if(list_size(entrenadoresListos)>0){
+			log_trace(archivoLog, "Planificador - SRDF - Tengo entrenadores listos");
 			t_entrenador* otroEntrenador = list_get(entrenadoresListos, list_size(entrenadoresListos)-1);
 			if(otroEntrenador->simbolo == entrenadorAnterior->simbolo){
+				log_trace(archivoLog, "Planificador - SRDF - Entrenador anterior y ultimo listo coinciden");
 				if(entrenadorAnterior->planificador.quantum>0){
+					log_trace(archivoLog, "Planificador - SRDF - entrenador  anterior le queda quantum");
 					return obtenerSiguienteEntrenadorPlanificadoRR(entrenadorAnterior);
 				}else if(entrenadorAnterior->planificador.quantum == -1){
+					log_trace(archivoLog, "Planificador - SRDF - Quantum -1");
 					list_remove(entrenadoresListos, list_size(entrenadoresListos)-1);
 					return entrenadorAnterior;
 				}else if(entrenadorAnterior->planificador.quantum == -2){
+					log_trace(archivoLog, "Planificador - SRDF - Quantum -2");
 					entrenadorAnterior->planificador.quantum = 0;
 					return obtenerProximoEntrenadorCercano();
 				}else{
+					log_trace(archivoLog, "Planificador - SRDF - Otro quantum, error");
 					return obtenerProximoEntrenadorCercano();
 				}
 			}else{
+				log_trace(archivoLog, "Planificador - SRDF - Entrenador  anterior  no  coincide con  ultimo listo");
 				entrenadorAnterior->planificador.quantum=0;
 				return obtenerProximoEntrenadorCercano();
 			}
 		}else{
+			log_trace(archivoLog, "Planificador - SRDF - No hay entrenadores listos");
 			return NULL;
 		}
 	}else{
+		log_trace(archivoLog, "Planificador - SRDF - Entrenador anterior es null");
 		return obtenerProximoEntrenadorCercano();
 	}
 }
@@ -298,6 +323,8 @@ void atenderEntrenadorUbicacionPokenest(t_entrenador* entrenador){
 		pos[2]=posy[0];
 		pos[3]=posy[1];
 		if(sendWithGarbageCollector(entrenador->socket, pos,5,entrenador)){
+			entrenador->planificador.ubicacionObjetivo.x = pokenestObjetivo->ubicacion.x;
+			entrenador->planificador.ubicacionObjetivo.y = pokenestObjetivo->ubicacion.y;
 			log_trace(archivoLog, "Planificador - Posicion enviada %d, %d", pokenestObjetivo->ubicacion.x, pokenestObjetivo->ubicacion.y);
 			list_add(entrenadoresListos, entrenador);
 		}
