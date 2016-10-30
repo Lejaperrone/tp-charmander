@@ -18,7 +18,7 @@
 #include "mapp.h"
 #include <commons/bitarray.h>
 #include <sys/stat.h>
-
+#include "functions/tabla_asignaciones.h"
 int osada_init(char* path){
 	initOsada (path);
 	return 1;
@@ -32,7 +32,7 @@ int osada_removeDir(char* path){
 		bool* hayMasBloques=true;
 		//El while existe porque no se si un directorio puede ocupar mas de un bloque
 		while(hayMasBloques){
-		actualizarBitmap_porBaja(parent);
+		bitarray_clean_bit(osada_drive.bitmap,parent);
 		actualizarTablaDeAsignaciones_porBaja(&parent,&hayMasBloques);
 		}
 		rmdir(path);
@@ -44,7 +44,7 @@ int osada_removeDir(char* path){
 
 int osada_removeFile(char* path){
 	u_int16_t parent=osada_TA_obtenerUltimoHijoFromPath(path);
-	osada_TA_borrarArchivo(path,parent);
+	 osada_TA_borrarArchivo(path,parent);
 }
 int osada_readdir(char* path, t_list* directorios){
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
@@ -57,12 +57,12 @@ int osada_readdir(char* path, t_list* directorios){
 
 }
 
-int osada_createFile(){
+/*int osada_createFile(char* path, char* nombreArchivo){
 
 }
 int osada_listarArchivos(char* path){
 
-}
+}*/
 
 int osada_getattr(char* path, file_attr* attrs){
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
@@ -114,7 +114,7 @@ int hayBloquesLibres(t_list* listaDeBloques, int bloquesNecesarios){
 	int i;
 	while(noMeAlcanzan){
 			int posicionEnBitmap=0;
-			if(bitarray_test_bit(posicionEnBitmap)){
+			if(bitarray_test_bit(osada_drive.bitmap,posicionEnBitmap)){
 				if (posicionEnBitmap>=tam){
 					//perror("No hay bloques libres en el bitmap");
 					//el for se hace por si no me alcanzan los bloques, los libero
@@ -156,7 +156,7 @@ int osada_createDir(char* path, char* name){
 		for (numeroDeBloque=0;numeroDeBloque<list_size(listaDeBloques);numeroDeBloque++){
 			bitarray_set_bit(osada_drive.bitmap,(int)list_get(listaDeBloques,numeroDeBloque));
 		}
-
+		return 1;
 	}else{
 		if (hayBloquesLibres(listaDeBloques, 64)==28){
 			perror("No se pudo crear la carpeta porque no hay bloques libres");
