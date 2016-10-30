@@ -105,6 +105,7 @@ int main(int argc, char *argv[]){
 
 	//Registro signal handler
 		log_info(archivoLog,"Registro handler de seniales");
+		recvSIGUSR2 = 0;
 		signal(SIGUSR2, sigusr2_handler); //signal-number 12
 
 	//Inicializo el select
@@ -171,8 +172,8 @@ int main(int argc, char *argv[]){
 								entrenador->pokemons = list_create();
 								entrenador->ubicacion.x = 1;
 								entrenador->ubicacion.y = 1;
-								entrenador->ubicacionObjetivo.x = -1;
-								entrenador->ubicacionObjetivo.y = -1;
+								entrenador->planificador.ubicacionObjetivo.x = -1;
+								entrenador->planificador.ubicacionObjetivo.y = -1;
 								pthread_mutex_lock(&mutexEntrRD);
 								list_add(entrenadoresPreparados, entrenador);
 								pthread_mutex_unlock(&mutexEntrRD);
