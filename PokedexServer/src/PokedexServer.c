@@ -45,19 +45,20 @@ void procesar_solicitud(){
 }
 
 int main(){
+	printf("Inicio osada");
 	//Osada
 		osada_init("../../osada.bin");
-		pthread_create(&thread,&attr,&procesar_solicitud,NULL);
+		//pthread_create(&thread,&attr,&procesar_solicitud,NULL);
 		solicitudes=list_create();
 	//Creo lista de solicitudes
-
+		printf("Se levanto OSADA");
 	//Inicializo socket para escuchar
 		struct sockaddr_in addr;
 		socklen_t addrlen = sizeof(addr);
 
 		int listeningSocket;
 		create_serverSocket(&listeningSocket, PUERTO);
-
+		printf("Se crea el socket servidor");
 	//Inicializo el select
 		fd_set master;		// conjunto maestro de descriptores de fichero
 		fd_set read_fds;	// conjunto temporal de descriptores de fichero para select()
@@ -74,6 +75,7 @@ int main(){
 
 	//Me mantengo en el bucle para asi poder procesar cambios en los sockets
 		while(1) {
+			printf("Entro al while de los sockets");
 			//Copio los sockets y me fijo si alguno tiene cambios, si no hay itinero de vuelta
 				read_fds = master; // cópialo
 				if (select(fdmax+1, &read_fds, NULL, NULL, NULL) == -1) {
@@ -114,11 +116,11 @@ int main(){
 								// tenemos datos de algún cliente
 								if (nbytes != 0){
 									printf("%s",package);
-									pthread_attr_init(&attr);
+									/*pthread_attr_init(&attr);
 									pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);
 									solicitud=(t_solicitud*)malloc(sizeof(t_solicitud));
 									list_add(solicitudes,solicitud);
-									pthread_attr_destroy(&attr);
+									pthread_attr_destroy(&attr);*/
 								}
 							}
 						}

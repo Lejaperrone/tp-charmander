@@ -15,6 +15,7 @@
 #include "../commons/osada.h"
 #include <errno.h>
 #include "../functions/tabla_asignaciones.h"
+#include <time.h>
 
 int compare(int indice, char* test2){
 	int i;
@@ -61,10 +62,13 @@ void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,t_list* listaDeBloques){
 	int i;
 	for (i=0;i<2048;i++){
 		if(osada_drive.directorio[i].state==0){
+			time_t timer;
 			osada_drive.directorio[i].file_size=4096;
 			osada_drive.directorio[i].first_block=(int)list_get(listaDeBloques,0);
-			strcpy(osada_drive.directorio[i].fname,nombre);
-			osada_drive.directorio[i].lastmod=temporal_get_string_time();
+			strcpy((char*)osada_drive.directorio[i].fname,nombre);
+			osada_drive.directorio[i].lastmod=time(&timer);
+
+
 			// no sabemos si el directorio padre de un directorio nuevo es 0xFFFF u otro
 			osada_drive.directorio[i].parent_directory=0xFFFF;
 			osada_drive.directorio[i].state=2;
@@ -107,7 +111,7 @@ int osada_TA_borrarArchivo(char* nombre, u_int16_t parent){
 	if(compare(i, nombre) && osada_drive.directorio[i].parent_directory == parent){
 		if(remove(nombre)==0){
 			pudeBorrar=1;
-			osada_TA_setearAttr(i, attr);
+			//osada_TA_setearAttr(i, attr);
 			subindiceParaBitmap=osada_drive.directorio[i].first_block;
 			actualizarTablaDeAsignaciones_porBaja(&subindiceParaBitmap,&hayMasBloques);
 		}else{
@@ -116,7 +120,7 @@ int osada_TA_borrarArchivo(char* nombre, u_int16_t parent){
 	}
 	}
 	while (hayMasBloques){
-	actualizarBitmap_porBaja(subindiceParaBitmap);
+	bitarray_clean_bit(osada_drive.bitmap,subindiceParaBitmap);
 	actualizarTablaDeAsignaciones_porBaja(&subindiceParaBitmap, &hayMasBloques);
 	}
 
