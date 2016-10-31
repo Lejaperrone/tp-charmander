@@ -89,13 +89,13 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 	//Voy a FB y avanzo 2 dentro de Tasignaciones
 	int bloqueArranque=avanzarBloquesParaLeer(bloque,desplazamientoHastaElBloque);
 	//RDO=ofsset-(RxBSIZE)=cuando llegue al bloque solicitado hago *data (en declarations.h) y me muevo (se sumo) RDO
-	double byteComienzoLectura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
+	int byteComienzoLectura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
 	while (bloqueArranque!=0xFFFFFFFF){
 		//como acceso a byte numero N si es un array?
-		//memcpy(buf,osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoLectura],OSADA_BLOCK_SIZE-byteComienzoLectura);
+		memcpy(buf,osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoLectura],OSADA_BLOCK_SIZE-byteComienzoLectura);
 		bloqueArranque=osada_drive.asignaciones[bloque];
 		byteComienzoLectura=0;
-	}
+	}//
 
 }
 
