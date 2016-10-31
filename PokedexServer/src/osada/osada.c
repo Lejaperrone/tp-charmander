@@ -43,6 +43,7 @@ int osada_removeDir(char* path){
 int osada_removeFile(char* path){
 	u_int16_t parent=osada_TA_obtenerUltimoHijoFromPath(path);
 	 osada_TA_borrarArchivo(parent);
+	 return 1;
 }
 int osada_readdir(char* path, t_list* directorios){
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
@@ -102,10 +103,11 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 		bloqueArranque=osada_drive.asignaciones[bloque];
 		byteComienzoLectura=0;
 	}
+	return strlen(buf);
 	}else{
 		return -ENOMEM;
 	}
-	return strlen(buf);
+
 
 }
 

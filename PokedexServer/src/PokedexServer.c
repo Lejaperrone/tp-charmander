@@ -23,7 +23,7 @@ void solicitud(){
 }
 
 int main(){
-	printf("Inicio osada");
+	printf("Inicio osada\n");
 	//Osada
 		osada_init("/home/utnso/git/tp-2016-2c-Chamba/osada.bin");
 
