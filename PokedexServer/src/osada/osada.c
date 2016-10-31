@@ -18,6 +18,7 @@
 #include "mapp.h"
 #include <commons/bitarray.h>
 #include <sys/stat.h>
+#include <math.h>
 #include "functions/tabla_asignaciones.h"
 int osada_init(char* path){
 	initOsada (path);
@@ -25,26 +26,23 @@ int osada_init(char* path){
 }
 
 int osada_removeDir(char* path){
+	int pudeBorrar=1;
 	t_list* directoriosQueComponenElActual=list_create();
 	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path);
 	osada_TA_obtenerDirectorios(parent, directoriosQueComponenElActual);
 	if (list_is_empty(directoriosQueComponenElActual)){
-		bool* hayMasBloques=true;
-		//El while existe porque no se si un directorio puede ocupar mas de un bloque
-		while(hayMasBloques){
-		bitarray_clean_bit(osada_drive.bitmap,parent);
-		actualizarTablaDeAsignaciones_porBaja(&parent,&hayMasBloques);
-		}
-		rmdir(path);
+		osada_TA_borrarDirectorio(parent);
 	}else{
 		perror("NO se pudo remover el directorio porque no esta vacio");
+		pudeBorrar=0;
 	}
 	list_destroy(directoriosQueComponenElActual);
+	return pudeBorrar;
 }
 
 int osada_removeFile(char* path){
 	u_int16_t parent=osada_TA_obtenerUltimoHijoFromPath(path);
-	 osada_TA_borrarArchivo(path,parent);
+	 osada_TA_borrarArchivo(parent);
 }
 int osada_readdir(char* path, t_list* directorios){
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
@@ -53,8 +51,6 @@ int osada_readdir(char* path, t_list* directorios){
 		osada_TA_obtenerDirectorios(parent, directorios);
 	//Return
 		return 1;
-
-
 }
 
 /*int osada_createFile(char* path, char* nombreArchivo){
@@ -86,14 +82,21 @@ int osada_getattr(char* path, file_attr* attrs){
 //offset es desde donde tengo que leer
 int osada_read(char *path, char *buf, size_t size, off_t offset){
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
-	if (indice >=0){
-		u_int16_t directorio =osada_TA_buscarRegistroPorNombre(path,indice);
+	//con el indice voy a TA y busco el FB
+	int bloque=osada_drive.directorio[indice].first_block;
+	//offset/TAMBLQ= R ,rrdondearlo para arriba y restarle 1-->2
+	double desplazamientoHastaElBloque=ceil(offset/OSADA_BLOCK_SIZE);
+	//Voy a FB y avanzo 2 dentro de Tasignaciones
+	int bloqueArranque=avanzarBloquesParaLeer(bloque,desplazamientoHastaElBloque);
+	//RDO=ofsset-(RxBSIZE)=cuando llegue al bloque solicitado hago *data (en declarations.h) y me muevo (se sumo) RDO
+	double byteComienzoLectura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
+	while (bloqueArranque!=0xFFFFFFFF){
+		//como acceso a byte numero N si es un array?
+		//memcpy(buf,osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoLectura],OSADA_BLOCK_SIZE-byteComienzoLectura);
+		bloqueArranque=osada_drive.asignaciones[bloque];
+		byteComienzoLectura=0;
 	}
-	if(strcmp(path, "/") != 0){
-		return 1;
-	}else{
-		return -ENOENT;
-	}
+
 }
 
 int osada_open(char* path){
@@ -138,30 +141,7 @@ int hayBloquesLibres(t_list* listaDeBloques, int bloquesNecesarios){
 }
 
 int osada_createDir(char* path, char* name){
-	//Creamos lista de los bloques que vamos a necesitar
-	t_list* listaDeBloques=list_create();
-	int numeroDeBloque;
-	if(hayBloquesLibres(listaDeBloques, 64)){
-		char* nombre=string_new();
-		string_append(&nombre,path);
-		string_append(&nombre,name);
-		//S_IROTH | S_IWOTH son modos de lectura y escritura para todos los usuarios
-		if (mkdir(nombre,(S_IROTH | S_IWOTH))==-1){
-			perror("No se pudo crear la carpeta");
-			return -ENOENT;
-		}
-		darDeAltaDirectorioEnTablaDeArchivos(nombre, listaDeBloques);
-		modificarBloquesAsignadosATablaDeAsignaciones(listaDeBloques);
-		//queremos que lo ponga en 1
-		for (numeroDeBloque=0;numeroDeBloque<list_size(listaDeBloques);numeroDeBloque++){
-			bitarray_set_bit(osada_drive.bitmap,(int)list_get(listaDeBloques,numeroDeBloque));
-		}
-		return 1;
-	}else{
-		if (hayBloquesLibres(listaDeBloques, 64)==28){
-			perror("No se pudo crear la carpeta porque no hay bloques libres");
-			return -ENOSPC;
-		}
-	}
-
+	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
+//aca hay que obtener el hijo del ultimo path/ parametro es el path
+		darDeAltaDirectorioEnTablaDeArchivos(name, subindice);
 }

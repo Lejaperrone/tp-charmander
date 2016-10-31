@@ -13,17 +13,24 @@
 #include "../commons/osada.h"
 #include <errno.h>
 
-int existeProximoBloque(int* subindice,bool* hayMasBloques){
+int avanzarBloquesParaLeer (int bloqueInicial,int desplazamientoLimite){
+	int i;
+	int bloqueInicioLectura;
+	for (i=0;i<desplazamientoLimite;i++){
+		bloqueInicioLectura=osada_drive.asignaciones[bloqueInicial];
+		bloqueInicial=bloqueInicioLectura;
+	}
+	return bloqueInicioLectura;
+}
+int existeProximoBloque(int* subindice){
 	return (osada_drive.asignaciones[*subindice]>=0);
 }
-void actualizarTablaDeAsignaciones_porBaja(int* subindice, bool* hayMasBloques){
-	if (existeProximoBloque(subindice,hayMasBloques)){
+void obtenerProximoBloque(int* subindice){
+	if (existeProximoBloque(subindice)){
 		*subindice=osada_drive.asignaciones[*subindice];
 	}else{
-		osada_drive.asignaciones[*subindice]=-1;
-		*hayMasBloques=false;
+		*subindice=0xFFFFFFFF;
 	}
-
 }
 void modificarBloquesAsignadosATablaDeAsignaciones(t_list* bloques){
 	int i;

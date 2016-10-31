@@ -11,7 +11,7 @@
 
 
 
-void actualizarTablaDeAsignaciones_porBaja(int* subindice, bool* hayMasBloques);
+void obtenerProximoBloque(int* subindice);
 void modificarBloquesAsignadosATablaDeAsignaciones(t_list* bloques);
 int existeProximoBloque(int* subindice,bool* hayMasBloques);
 #endif /* OSADA_FUNCTIONS_TABLA_ASIGNACIONES_H_ */

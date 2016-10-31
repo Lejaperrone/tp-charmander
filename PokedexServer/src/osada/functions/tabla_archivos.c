@@ -58,18 +58,19 @@ void osada_TA_obtenerDirectorios(u_int16_t parent, t_list* directorio){
 
 	return;
 }
-void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,t_list* listaDeBloques){
+void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 	int i;
+	int yaLoGuarde=0;
 	for (i=0;i<2048;i++){
-		if(osada_drive.directorio[i].state==0){
+		if(yaLoGuarde==0 && osada_drive.directorio[i].state==0){
+			yaLoGuarde=1;
 			time_t timer;
-			osada_drive.directorio[i].file_size=4096;
-			osada_drive.directorio[i].first_block=(int)list_get(listaDeBloques,0);
+			osada_drive.directorio[i].file_size=0;
+			osada_drive.directorio[i].first_block=NULL;
 			strcpy((char*)osada_drive.directorio[i].fname,nombre);
 			osada_drive.directorio[i].lastmod=time(&timer);
-
-
 			// no sabemos si el directorio padre de un directorio nuevo es 0xFFFF u otro
+			//parent directory es el subindice del ultimo hijo
 			osada_drive.directorio[i].parent_directory=0xFFFF;
 			osada_drive.directorio[i].state=2;
 		}
@@ -102,43 +103,21 @@ void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
 }
 
 
-int osada_TA_borrarArchivo(char* nombre, u_int16_t parent){
-	int i;
-	int subindiceParaBitmap;
-	bool hayMasBloques=true;
-	int pudeBorrar=0;
-	for(i=0;i<2048;i++){
-	if(compare(i, nombre) && osada_drive.directorio[i].parent_directory == parent){
-		if(remove(nombre)==0){
-			pudeBorrar=1;
-			//osada_TA_setearAttr(i, attr);
-			subindiceParaBitmap=osada_drive.directorio[i].first_block;
-			actualizarTablaDeAsignaciones_porBaja(&subindiceParaBitmap,&hayMasBloques);
-		}else{
-			perror("Error borrando archivo");
-		}
+int osada_TA_borrarArchivo(u_int16_t parent){
+	int subindice;
+	u_int16_t fin = 0xFFFFFFFF;
+	subindice=osada_drive.directorio[parent].first_block;
+	while (subindice!=fin){
+		bitarray_clean_bit(osada_drive.bitmap,subindice);
+		obtenerProximoBloque(&subindice);
 	}
-	}
-	while (hayMasBloques){
-	bitarray_clean_bit(osada_drive.bitmap,subindiceParaBitmap);
-	actualizarTablaDeAsignaciones_porBaja(&subindiceParaBitmap, &hayMasBloques);
-	}
-
-	return pudeBorrar;
-}
-
-void borrarSubdirectoriosYArchivos(t_list*directorio){
+	return 1;
 
 }
 
-void osada_TA_borrarDirectorio(u_int16_t parent, t_list* directorio){
-	int i;
-		for(i=0;i<2048;i++){
-			if(osada_drive.directorio[i].parent_directory == parent && osada_drive.directorio[i].state!=0){
-				borrarSubdirectoriosYArchivos(directorio);
-				rmdir(directorio); // no estoy seguro si puede aplicarse el remove al directorio o solo se lo hace a archivos
-			}
-			}
+
+void osada_TA_borrarDirectorio(u_int16_t parent){
+	osada_drive.directorio[parent].state=0;
 }
 
 
