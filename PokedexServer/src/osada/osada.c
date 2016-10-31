@@ -80,8 +80,14 @@ int osada_getattr(char* path, file_attr* attrs){
 //Buf viene vacio y se llena con la info que hay en la path
 //size es cuantos bytes del archivo hay que leer
 //offset es desde donde tengo que leer
+
+bool superaTamanioArchivo (int indice, off_t offset, size_t size){
+	return size>(osada_drive.directorio[indice].file_size-offset);
+}
+
 int osada_read(char *path, char *buf, size_t size, off_t offset){
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
+	if (!superaTamanioArchivo(indice,offset,size)){
 	//con el indice voy a TA y busco el FB
 	int bloque=osada_drive.directorio[indice].first_block;
 	//offset/TAMBLQ= R ,rrdondearlo para arriba y restarle 1-->2
@@ -95,6 +101,9 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 		memcpy(buf,osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoLectura],OSADA_BLOCK_SIZE-byteComienzoLectura);
 		bloqueArranque=osada_drive.asignaciones[bloque];
 		byteComienzoLectura=0;
+	}
+	}else{
+		return -ENOMEM;
 	}
 	return strlen(buf);
 
