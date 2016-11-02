@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
 		}
 
 		while(0){
-			create_socketClient(&pokedexCliente, IP, PUERTO);
+			create_socketClient(&pokedexServer, IP, PUERTO);
 			printf("Conectado al servidor\n");
 			log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
 
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]){
 			log_info(archivoLog, "Levanto fuse\n");
 		}
 
-		close(pokedexCliente);
+		close(pokedexServer);
 		return 0;
 }
 

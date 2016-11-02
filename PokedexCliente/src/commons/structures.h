@@ -14,7 +14,7 @@
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
 
-int pokedexCliente; //Renombar a socket
+int pokedexServer; //Renombar a socket
 t_log* archivoLog;
 char* puntoPontaje;
 

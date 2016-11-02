@@ -27,9 +27,9 @@ int chamba_getattr (const char* path, struct stat* stbuf, struct fuse_file_info 
 	string_append(&mensaje, "GETAT");
 	string_append(&mensaje, path);
 
-	if(send(pokedexCliente, &mensaje, sizeof(mensaje), 0)){
+	if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
 	char * resp;
-	recv(pokedexCliente, &resp, 1024, 0);
+	recv(pokedexServer, &resp, 1024, 0);
 	}
 	memset(stbuf, 0, sizeof(struct stat));
 
@@ -56,9 +56,9 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 		string_append(&mensaje, "READD");
 		string_append(&mensaje, path);
 
-		if(send(pokedexCliente, &mensaje, sizeof(mensaje), 0)){
+		if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
 				char * resp;
-				recv(pokedexCliente, &resp, 1024, 0);
+				recv(pokedexServer, &resp, 1024, 0);
 	   }
 
 	   if (strcmp(path, "/") != 0)
