@@ -4,24 +4,71 @@
  *  Created on: 1/11/2016
  *      Author: utnso
  */
-#include <fuse.h>
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <netdb.h>
 #include <unistd.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <dirent.h>
+#include <stdbool.h>
+#include <tad_items.h>
+#include <commons/log.h>
+#include <commons/string.h>
+#include <stddef.h>
+#include <fuse.h>
 #include <errno.h>
-#include <sys/time.h>
+#include <fcntl.h>
+#include "../commons/structures.h"
 
 int chamba_getattr (const char* path, struct stat* stbuf, struct fuse_file_info *fi){
-	//TODO
-	return 0;
+	int res = 0;
+	char * mensaje = string_new();
+	string_append(&mensaje, "GETATTR");
+	string_append(&mensaje, path);
+
+	if(send(pokedexCliente, &mensaje, sizeof(mensaje), 0)){
+	char * resp;
+	recv(pokedexCliente, &resp, 1024, 0);
+	}
+	memset(stbuf, 0, sizeof(struct stat));
+
+	//Si path es igual a "/" nos estan pidiendo los atributos del punto de montaje
+	if (strcmp(path, "/") == 0) {
+		stbuf->st_mode = S_IFDIR | 0755;
+		stbuf->st_nlink = 2;
+	} else if (strcmp(path, "Default file path") == 0) {
+		stbuf->st_mode = S_IFREG | 0444;
+		stbuf->st_nlink = 1;
+		stbuf->st_size = strlen("Default file name");
+	} else {
+		res = -ENOENT;
+	}
+	 return 0;
 }
 
+
 static int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
-	//TODO
-	return 0;
+		(void) offset;
+		(void) fi;
+
+		char * mensaje = string_new();
+		string_append(&mensaje, "READDIR");
+		string_append(&mensaje, path);
+
+		if(send(pokedexCliente, &mensaje, sizeof(mensaje), 0)){
+				char * resp;
+				recv(pokedexCliente, &resp, 1024, 0);
+	   }
+
+	   if (strcmp(path, "/") != 0)
+	   return -ENOENT;
+
+	   filler(buf, ".", NULL, 0);
+	   filler(buf, "..", NULL, 0);
+	   filler(buf, "Default File Name", NULL, 0);
+
+	   return 0;
 }
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
@@ -83,6 +130,8 @@ int chamba_fallocate (const char * path, int amount, off_t sizeh, off_t sizef,  
 	//TODO
 	return 0;
 }
+
+
 
 /*int main(int argc, char *argv[]){
         umask(0);
