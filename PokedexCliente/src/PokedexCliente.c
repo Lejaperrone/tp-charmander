@@ -19,19 +19,6 @@
 
 #include "socketLib.h"
 
-static struct fuse_operations bb_oper = {
-		.getattr = chamba_getattr,
-		.readdir = chamba_readdir,
-		.open = chamba_open,
-		.read = chamba_read,
-	    .rmdir = chamba_rmdir,
-	    .unlink = chamba_unlink,
-	    .mkdir = chamba_mkdir,
-	    .rename = chamba_rename,
-		.write = chamba_write,
-		.statfs = chamba_statfs,
-};
-
 int main(int argc, char *argv[]){
 
 	// Creo archivo log
@@ -66,7 +53,7 @@ int main(int argc, char *argv[]){
 			printf("Conectado al servidor\n");
 			log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
 
-			fuse_main(args.argc, args.argv, &bb_oper, NULL);
+			fuse_main(args.argc, args.argv, &chamba_oper, NULL);
 			log_info(archivoLog, "Levanto fuse\n");
 		}
 
