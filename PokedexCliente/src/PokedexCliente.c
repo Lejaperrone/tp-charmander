@@ -15,8 +15,10 @@
 #include <fcntl.h>
 #include "functions/log.h"
 #include "commons/structures.h"
+#include "functions/fuse.h"
 
 #include "socketLib.h"
+
 
 static int fuse_getattr(const char *path, struct stat *stbuf) {
 		int res = 0;
@@ -106,7 +108,6 @@ static int fuse_read(const char *path, struct stat *stbuf) {
 	return 0;
 }
 
-
 int main(int argc, char *argv[]){
 
 	// Creo archivo log
@@ -136,14 +137,16 @@ int main(int argc, char *argv[]){
 			return EXIT_FAILURE;
 		}
 
-		create_socketClient(&pokedexCliente, IP, PUERTO);
-		printf("Conectado al servidor\n");
-		log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
+		while(0){
+			create_socketClient(&pokedexServer, IP, PUERTO);
+			printf("Conectado al servidor\n");
+			log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
 
-		fuse_main(args.argc, args.argv, &bb_oper, NULL);
-		log_info(archivoLog, "Levanto fuse\n");
+			fuse_main(args.argc, args.argv, &chamba_oper, NULL);
+			log_info(archivoLog, "Levanto fuse\n");
+		}
 
-		close(pokedexCliente);
+		close(pokedexServer);
 		return 0;
 }
 

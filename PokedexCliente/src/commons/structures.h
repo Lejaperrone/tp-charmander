@@ -13,11 +13,8 @@
 #define PUERTO "7666" //Deberia estar por variable de entorno
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
-// Variables de entorno
-	//char *PUERTO;
-	//char *IP;
 
-int pokedexCliente;
+int pokedexServer; //Renombar a socket
 t_log* archivoLog;
 char* puntoPontaje;
 
