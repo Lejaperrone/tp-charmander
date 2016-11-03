@@ -34,13 +34,13 @@ int chamba_getattr (const char* path, struct stat* stbuf, struct fuse_file_info 
 	int res = 0;
 	char* mensaje = armarMensajeBasico("GETAT", path);
 
-//	char * mensaje = string_new();
-//	string_append(&mensaje, "GETAT");
-//	string_append(&mensaje, path);
+	//	char * mensaje = string_new();
+	//	string_append(&mensaje, "GETAT");
+	//	string_append(&mensaje, path);
 
 	if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
-	char* resp;
-	recv(pokedexServer, &resp, 1024, 0);
+		char* resp;
+		recv(pokedexServer, &resp, 1024, 0);
 	}
 	memset(stbuf, 0, sizeof(struct stat));
 
@@ -55,34 +55,33 @@ int chamba_getattr (const char* path, struct stat* stbuf, struct fuse_file_info 
 	} else {
 		res = -ENOENT;
 	}
-	 return 0;
+	return 0;
 }
 
 
 int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
-		(void) offset;
-		(void) fi;
+	(void) offset;
+	(void) fi;
 
-		char* mensaje = armarMensajeBasico("READD", path);
-		//falta agregarle el offset y algo mas al mensaje?
+	char* mensaje = armarMensajeBasico("READD", path);
+	string_append(&mensaje, string_itoa(offset));
+	//		char * mensaje = string_new();
+	//		string_append(&mensaje, "READD");
+	//		string_append(&mensaje, path);
 
-//		char * mensaje = string_new();
-//		string_append(&mensaje, "READD");
-//		string_append(&mensaje, path);
+	if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
+		char* resp;
+		recv(pokedexServer, &resp, 1024, 0);
+	}
 
-		if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
-			char* resp;
-			recv(pokedexServer, &resp, 1024, 0);
-	   }
+	if (strcmp(path, "/") != 0)
+		return -ENOENT;
 
-	   if (strcmp(path, "/") != 0)
-	   return -ENOENT;
+	filler(buf, ".", NULL, 0);
+	filler(buf, "..", NULL, 0);
+	filler(buf, "Default File Name", NULL, 0);
 
-	   filler(buf, ".", NULL, 0);
-	   filler(buf, "..", NULL, 0);
-	   filler(buf, "Default File Name", NULL, 0);
-
-	   return 0;
+	return 0;
 }
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
@@ -95,6 +94,7 @@ int chamba_open (const char * path, struct fuse_file_info * fi){
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 
 	char* mensaje = armarMensajeBasico("READF", path);
+	string_append(&mensaje, string_itoa(offset));
 	//falta agregarle el buffer, size y offset al mensaje?
 
 	return 0;
@@ -111,7 +111,7 @@ int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 int chamba_truncate (const char * path, off_t offset){
 
 	char* mensaje = armarMensajeBasico("TRUNC", path);
-	//falta agregarle el offset
+	string_append(&mensaje, string_itoa(offset));
 
 	return 0;
 }
@@ -149,6 +149,7 @@ int chamba_rmdir (const char * path){
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 
 	char* mensaje = armarMensajeBasico("WRITE", path);
+	string_append(&mensaje, string_itoa(offset));
 	//falta agregarle mas cosas al mensaje que vamos a mandar
 
 	return 0;
