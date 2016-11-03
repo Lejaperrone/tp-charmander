@@ -37,7 +37,7 @@ void modificarBloquesAsignadosATablaDeAsignaciones(t_list* bloques){
 	for (i=0;i<list_size(bloques);i++){
 		if (i==list_size(bloques)){
 			//4294967295
-			osada_drive.asignaciones[4294967295];
+			osada_drive.asignaciones[0xFFFFFFFF];
 		}else{
 			osada_drive.asignaciones[(int)list_get(bloques,i)]=(int)list_get(bloques,i+1);
 		}

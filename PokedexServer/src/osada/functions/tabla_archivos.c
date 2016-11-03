@@ -75,6 +75,7 @@ void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 			osada_drive.directorio[i].state=2;
 		}
 	}
+
 }
 int osada_TA_obtenerUltimoHijoFromPath(char* path){
 	char ** dirc = string_split(path, "/");

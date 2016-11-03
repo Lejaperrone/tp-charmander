@@ -87,6 +87,7 @@ bool superaTamanioArchivo (int indice, off_t offset, size_t size){
 }
 
 int osada_read(char *path, char *buf, size_t size, off_t offset){
+
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
 	if (!superaTamanioArchivo(indice,offset,size)){
 	//con el indice voy a TA y busco el FB
@@ -108,6 +109,10 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 		return -ENOMEM;
 	}
 
+
+}
+
+int osada_write(char* path){
 
 }
 
