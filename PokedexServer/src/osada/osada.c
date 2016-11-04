@@ -17,6 +17,7 @@
 #include "osada.h"
 #include "mapp.h"
 #include <commons/bitarray.h>
+#include <commons/string.h>
 #include <sys/stat.h>
 #include <math.h>
 #include "functions/tabla_asignaciones.h"
@@ -85,7 +86,45 @@ int osada_getattr(char* path, file_attr* attrs){
 bool superaTamanioArchivo (int indice, off_t offset, size_t size){
 	return size>(osada_drive.directorio[indice].file_size-offset);
 }
+bool elBufferTieneDatosParaEscribir(char* buf){
+return strlen(buf)>0;
+}
+void actualizarBuffer(char* buffer, char* bufUp, int bytesEscritos){
+	int tamanioBufferOriginal=strlen(buffer);
+	int i;
+	int j=0;
+	for (i=bytesEscritos;i<tamanioBufferOriginal;i++){
+		bufUp[j]=buffer[i];
+		j++;
+	}
+}
 
+int actualizarBytesEscritos (int acum, int bytes){
+	return acum+=bytes;
+}
+int osada_write(char* path,char* buf, size_t size, off_t offset){
+	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
+	int bytesEscritos=0;
+	if (!superaTamanioArchivo(indice,offset,size)){
+		int bloque=osada_drive.directorio[indice].first_block;
+		double desplazamientoHastaElBloque=ceil(offset/OSADA_BLOCK_SIZE);
+		int bloqueArranque=avanzarBloquesParaEscribir(bloque,desplazamientoHastaElBloque);
+		int byteComienzoEscritura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
+		char* bufUpdated=string_new();
+		strcpy(bufUpdated,buf);
+		while (elBufferTieneDatosParaEscribir(bufUpdated)){
+				bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
+				memcpy(osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoEscritura],buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+				actualizarBuffer(buf,bufUpdated,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+				actualizarBytesEscritos(bytesEscritos,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+				byteComienzoEscritura=0;
+				bloqueArranque=avanzarBloquesParaEscribir(bloqueArranque,1);
+		}
+	}else{
+		bytesEscritos=-ENOMEM;
+	}
+	return bytesEscritos;
+}
 int osada_read(char *path, char *buf, size_t size, off_t offset){
 
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
@@ -112,9 +151,6 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 
 }
 
-int osada_write(char* path){
-
-}
 
 int osada_open(char* path){
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo

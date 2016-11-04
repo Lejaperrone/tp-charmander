@@ -26,9 +26,9 @@ static int fuse_getattr(const char *path, struct stat *stbuf) {
 		string_append(&mensaje, "GETATTR");
 		string_append(&mensaje, path);
 
-		if(send(pokedexCliente, &mensaje, sizeof(mensaje), 0)){
+		if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
 		char * resp;
-		recv(pokedexCliente, &resp, 1024, 0);
+		recv(pokedexServer, &resp, 1024, 0);
 	}
 		memset(stbuf, 0, sizeof(struct stat));
 
@@ -54,9 +54,9 @@ static int fuse_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off
 		string_append(&mensaje, "READDIR");
 		string_append(&mensaje, path);
 
-		if(send(pokedexCliente, &mensaje, sizeof(mensaje), 0)){
+		if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
 		char * resp;
-		recv(pokedexCliente, &resp, 1024, 0);
+		recv(pokedexServer, &resp, 1024, 0);
 		}
 
 		if (strcmp(path, "/") != 0)

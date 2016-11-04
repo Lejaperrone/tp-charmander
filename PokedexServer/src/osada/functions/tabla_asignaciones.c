@@ -22,6 +22,18 @@ int avanzarBloquesParaLeer (int bloqueInicial,int desplazamientoLimite){
 	}
 	return bloqueInicioLectura;
 }
+int avanzarBloquesParaEscribir (int bloqueInicial,int desplazamientoLimite){
+	int i;
+	int bloqueInicioEscritura;
+	for (i=0;i<desplazamientoLimite;i++){
+		bloqueInicioEscritura=osada_drive.asignaciones[bloqueInicial];
+		bloqueInicial=bloqueInicioEscritura;
+	}
+	return bloqueInicioEscritura;
+}
+
+
+
 int existeProximoBloque(int* subindice){
 	return (osada_drive.asignaciones[*subindice]>=0);
 }
@@ -37,7 +49,7 @@ void modificarBloquesAsignadosATablaDeAsignaciones(t_list* bloques){
 	for (i=0;i<list_size(bloques);i++){
 		if (i==list_size(bloques)){
 			//4294967295
-			osada_drive.asignaciones[0xFFFFFFFF];
+			osada_drive.asignaciones[i-1]=0xFFFFFFFF;
 		}else{
 			osada_drive.asignaciones[(int)list_get(bloques,i)]=(int)list_get(bloques,i+1);
 		}
