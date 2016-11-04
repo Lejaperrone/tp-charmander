@@ -198,3 +198,35 @@ int osada_createDir(char* path, char* name){
 //aca hay que obtener el hijo del ultimo path/ parametro es el path
 		darDeAltaDirectorioEnTablaDeArchivos(name, subindice);
 }
+int renombrarArchivo (int subindice, char* newFileName){
+	int resultado;
+	if (osada_drive.directorio[subindice].state==1){
+		if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
+				resultado= 1;
+			}else{
+				resultado= 0;
+			}
+	}else{
+		if (osada_drive.directorio[subindice].state==0){
+			resultado=ENOENT;
+		}
+		if (osada_drive.directorio[subindice].state==2){
+			resultado=EISDIR;
+		}
+	}
+	return resultado;
+
+}
+int osada_rename(char* path, char* nuevaPath){
+	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
+	char** pathSplitteada=string_new();
+	pathSplitteada=string_split(nuevaPath,"/");
+	char* nombre=string_new();
+	nombre=pathSplitteada[strlen(*pathSplitteada)-2];
+	if (renombrarArchivo(subindice,nombre)==1){
+		return 1;
+	}else{
+		return -ENOMEM;
+	}
+
+}
