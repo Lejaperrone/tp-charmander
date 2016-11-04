@@ -198,35 +198,53 @@ int osada_createDir(char* path, char* name){
 //aca hay que obtener el hijo del ultimo path/ parametro es el path
 		darDeAltaDirectorioEnTablaDeArchivos(name, subindice);
 }
+
+bool esUnArchivo(int subindice){
+	return osada_drive.directorio[subindice].state==1;
+}
+bool estaBorrado(int subindice){
+	return osada_drive.directorio[subindice].state==0;
+}
+bool esUnDirectorio(int subindice){
+	return osada_drive.directorio[subindice].state==2;
+}
+
 int renombrarArchivo (int subindice, char* newFileName){
 	int resultado;
-	if (osada_drive.directorio[subindice].state==1){
+	if (esUnArchivo(subindice)){
 		if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
 				resultado= 1;
 			}else{
 				resultado= 0;
 			}
 	}else{
-		if (osada_drive.directorio[subindice].state==0){
+		if (estaBorrado(subindice)){
 			resultado=ENOENT;
 		}
-		if (osada_drive.directorio[subindice].state==2){
+		if (esUnDirectorio(subindice)){
 			resultado=EISDIR;
 		}
 	}
 	return resultado;
 
 }
+char* getFileNameFromPath(char* path, char** pathSplitteada, char* nombre){
+		pathSplitteada=string_split(path,"/");
+		nombre=pathSplitteada[strlen(*pathSplitteada)-2];
+		return nombre;
+}
 int osada_rename(char* path, char* nuevaPath){
+	int resultado;
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
-	char** pathSplitteada=string_new();
-	pathSplitteada=string_split(nuevaPath,"/");
 	char* nombre=string_new();
-	nombre=pathSplitteada[strlen(*pathSplitteada)-2];
+	char** pathSplitteada=(char**)malloc(sizeof(char*));
+	getFileNameFromPath(nuevaPath,pathSplitteada, nombre);
 	if (renombrarArchivo(subindice,nombre)==1){
-		return 1;
+		resultado= 1;
 	}else{
-		return -ENOMEM;
+		resultado=ENOMEM;
 	}
-
+	free(pathSplitteada);
+	free(nombre);
+	return resultado;
 }
