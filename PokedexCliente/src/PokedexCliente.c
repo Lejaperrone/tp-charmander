@@ -48,14 +48,13 @@ int main(int argc, char *argv[]){
 			return EXIT_FAILURE;
 		}
 
-		while(0){
-			create_socketClient(&pokedexServer, IP, PUERTO);
-			printf("Conectado al servidor\n");
-			log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
 
-			fuse_main(args.argc, args.argv, &chamba_oper, NULL);
-			log_info(archivoLog, "Levanto fuse\n");
-		}
+		create_socketClient(&pokedexServer, IP, PUERTO);
+		printf("Conectado al servidor\n");
+		log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
+
+		fuse_main(args.argc, args.argv, &chamba_oper, NULL);
+		log_info(archivoLog, "Levanto fuse\n");
 
 		close(pokedexServer);
 		return 0;
