@@ -20,55 +20,6 @@
 #include "socketLib.h"
 
 
-//static int fuse_getattr(const char *path, struct stat *stbuf) {
-//		int res = 0;
-//		char * mensaje = string_new();
-//		string_append(&mensaje, "GETATTR");
-//		string_append(&mensaje, path);
-//
-//		if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
-//		char * resp;
-//		recv(pokedexServer, &resp, 1024, 0);
-//	}
-//		memset(stbuf, 0, sizeof(struct stat));
-//
-//	//Si path es igual a "/" nos estan pidiendo los atributos del punto de montaje
-//		if (strcmp(path, "/") == 0) {
-//			stbuf->st_mode = S_IFDIR | 0755;
-//			stbuf->st_nlink = 2;
-//	} 	else if (strcmp(path, "Default file path") == 0) {
-//			stbuf->st_mode = S_IFREG | 0444;
-//			stbuf->st_nlink = 1;
-//			stbuf->st_size = strlen("Default file name");
-//	} 	else {
-//			res = -ENOENT;
-//	}
-//		return res;
-//}
-//
-//static int fuse_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
-//		(void) offset;
-//		(void) fi;
-//
-//		char * mensaje = string_new();
-//		string_append(&mensaje, "READDIR");
-//		string_append(&mensaje, path);
-//
-//		if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
-//		char * resp;
-//		recv(pokedexServer, &resp, 1024, 0);
-//		}
-//
-//		if (strcmp(path, "/") != 0)
-//		return -ENOENT;
-//
-//		filler(buf, ".", NULL, 0);
-//		filler(buf, "..", NULL, 0);
-//		filler(buf, "Default File Name", NULL, 0);
-//
-//		return 0;
-//}
-
 /*
  * Esta es la estructura principal de FUSE con la cual nosotros le decimos a
  * biblioteca que funciones tiene que invocar segun que se le pida a FUSE.
