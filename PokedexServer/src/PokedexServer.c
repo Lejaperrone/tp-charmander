@@ -24,8 +24,11 @@ void solicitud(){
 
 void identificarFuncionRecibida(char* package){
 
+	char* path = string_new();
+
 	if(string_starts_with(package, "GETAT")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+		string_append(&path, string_substring_from(package, 5));
+		//invocar a la funcion correspondiente de osada
 	}
 	if(string_starts_with(package, "READD")){
 		//conseguir el path e invocar la funcion correspondiente de osada
