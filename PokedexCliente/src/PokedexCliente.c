@@ -20,54 +20,54 @@
 #include "socketLib.h"
 
 
-static int fuse_getattr(const char *path, struct stat *stbuf) {
-		int res = 0;
-		char * mensaje = string_new();
-		string_append(&mensaje, "GETATTR");
-		string_append(&mensaje, path);
-
-		if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
-		char * resp;
-		recv(pokedexServer, &resp, 1024, 0);
-	}
-		memset(stbuf, 0, sizeof(struct stat));
-
-	//Si path es igual a "/" nos estan pidiendo los atributos del punto de montaje
-		if (strcmp(path, "/") == 0) {
-			stbuf->st_mode = S_IFDIR | 0755;
-			stbuf->st_nlink = 2;
-	} 	else if (strcmp(path, "Default file path") == 0) {
-			stbuf->st_mode = S_IFREG | 0444;
-			stbuf->st_nlink = 1;
-			stbuf->st_size = strlen("Default file name");
-	} 	else {
-			res = -ENOENT;
-	}
-		return res;
-}
-
-static int fuse_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
-		(void) offset;
-		(void) fi;
-
-		char * mensaje = string_new();
-		string_append(&mensaje, "READDIR");
-		string_append(&mensaje, path);
-
-		if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
-		char * resp;
-		recv(pokedexServer, &resp, 1024, 0);
-		}
-
-		if (strcmp(path, "/") != 0)
-		return -ENOENT;
-
-		filler(buf, ".", NULL, 0);
-		filler(buf, "..", NULL, 0);
-		filler(buf, "Default File Name", NULL, 0);
-
-		return 0;
-}
+//static int fuse_getattr(const char *path, struct stat *stbuf) {
+//		int res = 0;
+//		char * mensaje = string_new();
+//		string_append(&mensaje, "GETATTR");
+//		string_append(&mensaje, path);
+//
+//		if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
+//		char * resp;
+//		recv(pokedexServer, &resp, 1024, 0);
+//	}
+//		memset(stbuf, 0, sizeof(struct stat));
+//
+//	//Si path es igual a "/" nos estan pidiendo los atributos del punto de montaje
+//		if (strcmp(path, "/") == 0) {
+//			stbuf->st_mode = S_IFDIR | 0755;
+//			stbuf->st_nlink = 2;
+//	} 	else if (strcmp(path, "Default file path") == 0) {
+//			stbuf->st_mode = S_IFREG | 0444;
+//			stbuf->st_nlink = 1;
+//			stbuf->st_size = strlen("Default file name");
+//	} 	else {
+//			res = -ENOENT;
+//	}
+//		return res;
+//}
+//
+//static int fuse_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
+//		(void) offset;
+//		(void) fi;
+//
+//		char * mensaje = string_new();
+//		string_append(&mensaje, "READDIR");
+//		string_append(&mensaje, path);
+//
+//		if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
+//		char * resp;
+//		recv(pokedexServer, &resp, 1024, 0);
+//		}
+//
+//		if (strcmp(path, "/") != 0)
+//		return -ENOENT;
+//
+//		filler(buf, ".", NULL, 0);
+//		filler(buf, "..", NULL, 0);
+//		filler(buf, "Default File Name", NULL, 0);
+//
+//		return 0;
+//}
 
 /*
  * Esta es la estructura principal de FUSE con la cual nosotros le decimos a
@@ -75,23 +75,24 @@ static int fuse_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off
  * Como se observa la estructura contiene punteros a funciones.
  */
 static struct fuse_operations bb_oper = {
-		.getattr = fuse_getattr,
-		.readdir = fuse_readdir,
-		//.open = fuse_open,
-		//.read = fuse_read,
-	    //.init = fuse_init,
-	    //.rmdir = fuse_rmdir,
-	    //.unlink = fuse_unlink,
-	   //.mkdir = fuse_mkdir,
-	    //.rename = fuse_rename,
-		//.write = fuse_write,
-		//.access = fuse_access,
-		//.readlink	= fuse_readlink,
-		//.mknod = fuse_mknod,
-		//.link = fuse_link,
-		//.chmod = fuse_chmod,
-		//.chown = fuse_chown,
-		//.statfs = fuse_statfs,
+		.getattr = chamba_getattr,
+		.readdir = chamba_readdir,
+		.open = chamba_open,
+		.create = chamba_create,
+		.read = chamba_read,
+	    //.init = chamba_init,
+	    .rmdir = chamba_rmdir,
+	    .unlink = chamba_unlink,
+		.mkdir = chamba_mkdir,
+	    .rename = chamba_rename,
+		.write = chamba_write,
+		//.access = chamba_access,
+		//.readlink	= chamba_readlink,
+		//.mknod = chamba_mknod,
+		//.link = chamba_link,
+		//.chmod = chamba_chmod,
+		//.chown = chamba_chown,
+		.statfs = chamba_statfs,
 };
 
 /*
