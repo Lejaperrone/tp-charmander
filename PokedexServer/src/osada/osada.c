@@ -9,7 +9,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <errno.h>
-
+#include <time.h>
 #include <commons/collections/list.h>
 #include "commons/declarations.h"
 #include "functions/tabla_archivos.h"
@@ -206,17 +206,27 @@ int i,lugarLibre;
 bool hayPosicionDisponibleEnTablaDeArchivos (int pos){
 	return osada_drive.directorio->state==0;
 }
+
+void directoryContainingFile(char** pathVectorizado, char* directoryName){
+	int i, ult=strlen(*pathVectorizado);
+	for (i=0;i<ult-2;i++){
+		string_append(&directoryName,pathVectorizado[i]);
+	}
+
+}
 void generarNuevoArchivoEnTablaDeArchivos(char* path){
 	time_t timer;
 	char* fileName=string_new();
+	char* directoryName=string_new();
 	char** fileSplitteado=string_split(path,"/");
-	fileName=strcpy(fileName,*fileSplitteado[strlen(fileSplitteado)-2]);
+	directoryContainingFile(fileSplitteado, directoryName);
+	fileName=strcpy(fileName,fileSplitteado[strlen(*fileSplitteado)-2]);
 	int bloqueInicioArchivo=buscarLugarLibrePara(path);
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].file_size=0;
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].first_block=bloqueInicioArchivo;
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod=time(&timer);
-	strcpy(osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].fname,fileName);
-	//osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=obtenerProximoBloque()
+	strcpy((char*)osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].fname,fileName);
+	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=osada_TA_obtenerUltimoHijoFromPath(directoryName);
 }
 int osada_createFile(char* path, mode_t mode){
 	if (buscarLugarLibrePara(path)>=0){
