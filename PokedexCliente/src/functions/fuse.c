@@ -35,15 +35,12 @@ void conectarConServidorYRecibirRespuesta(int pokedexServer, char* mensaje, char
 int chamba_getattr(const char* path, struct stat* stbuf, struct fuse_file_info *fi){
 	int res = 0;
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("GETAT", (char*)path, &mensaje);
 
-	int nbytesEnvioFuncion = send(pokedexServer, "GETATTR", sizeof("GETATTR"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			recv(pokedexServer, &respuestaServer, 1, 0);
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
+
 
 	memset(stbuf, 0, sizeof(struct stat));
 
@@ -66,21 +63,13 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 	(void) offset;
 	(void) fi;
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("READD", (char*)path, &mensaje);
+	string_append(&mensaje, string_itoa(offset));
 
-	int nbytesEnvioFuncion = send(pokedexServer, "READDIR", sizeof("READDIR"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			char* stringOffset = string_new();
-			string_append(&stringOffset, string_itoa(offset));
-			int nbytesEnvioOffset = send(pokedexServer, stringOffset, sizeof(stringOffset), 0);
-			if(nbytesEnvioOffset>0){
-				recv(pokedexServer, &respuestaServer, 1, 0);
-			}
-		}
-	}
 
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	if (strcmp(path, "/") != 0)
 		return -ENOENT;
@@ -94,239 +83,145 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("OPENF", (char*)path, &mensaje);
 
-	int nbytesEnvioFuncion = send(pokedexServer, "OPEN", sizeof("OPEN"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			recv(pokedexServer, &respuestaServer, 1, 0);
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("READF", (char*)path, &mensaje);
+	string_append(&mensaje, string_itoa(size));
+	string_append(&mensaje, string_itoa(offset));
+	//falta agregarle el buffer?
 
-	int nbytesEnvioFuncion = send(pokedexServer, "READ", sizeof("READ"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			int nbytesEnvioBuffer= send(pokedexServer, buffer, sizeof(buffer), 0);
-			if(nbytesEnvioBuffer>0){
-				char* stringSize = string_new();
-				string_append(&stringSize, string_itoa(size));
-				int nbytesEnvioSize= send(pokedexServer, stringSize, sizeof(stringSize), 0);
-				if(nbytesEnvioSize>0){
-					char* stringOffset = string_new();
-					string_append(&stringOffset, string_itoa(offset));
-					int nbytesEnvioOffset = send(pokedexServer, stringOffset, sizeof(stringOffset), 0);
-					if(nbytesEnvioOffset>0){
-						recv(pokedexServer, &respuestaServer, 1, 0);
-					}
-				}
-			}
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("CREAT", (char*)path, &mensaje);
+	string_append(&mensaje, string_itoa(mode));
 
-	int nbytesEnvioFuncion = send(pokedexServer, "CREATE", sizeof("CREATE"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			char* stringMode = string_new();
-			string_append(&stringMode, string_itoa(mode));
-			int nbytesEnvioMode = send(pokedexServer, stringMode, sizeof(stringMode), 0);
-			if(nbytesEnvioMode>0){
-				recv(pokedexServer, &respuestaServer, 1, 0);
-			}
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_truncate (const char * path, off_t offset){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("TRUNC", (char*)path, &mensaje);
+	string_append(&mensaje, string_itoa(offset));
 
-	int nbytesEnvioFuncion = send(pokedexServer, "TRUNCATE", sizeof("TRUNCATE"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			char* stringOffset = string_new();
-			string_append(&stringOffset, string_itoa(offset));
-			int nbytesEnvioOffset = send(pokedexServer, stringOffset, sizeof(stringOffset), 0);
-			if(nbytesEnvioOffset>0){
-				recv(pokedexServer, &respuestaServer, 1, 0);
-			}
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_mkdir (const char * path, mode_t modo){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("MKDIR", (char*)path, &mensaje);
 
-	int nbytesEnvioFuncion = send(pokedexServer, "MKDIR", sizeof("MKDIR"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			char* stringMode = string_new();
-			string_append(&stringMode, string_itoa(modo));
-			int nbytesEnvioMode = send(pokedexServer, stringMode, sizeof(stringMode), 0);
-			if(nbytesEnvioMode>0){
-				recv(pokedexServer, &respuestaServer, 1, 0);
-			}
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_rename (const char * path, const char * newPath){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("RENAM", (char*)path, &mensaje);
+	string_append(&mensaje, (char*)newPath);
 
-	int nbytesEnvioFuncion = send(pokedexServer, "RENAME", sizeof("RENAME"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			int nbytesEnvioNuevoPath = send(pokedexServer, newPath, sizeof(newPath), 0);
-			if(nbytesEnvioNuevoPath>0){
-				recv(pokedexServer, &respuestaServer, 1, 0);
-			}
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_unlink (const char * path){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("ULINK", (char*)path, &mensaje);
 
-	int nbytesEnvioFuncion = send(pokedexServer, "UNLINK", sizeof("UNLINK"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			recv(pokedexServer, &respuestaServer, 1, 0);
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_rmdir (const char * path){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("RMDIR", (char*)path, &mensaje);
 
-	int nbytesEnvioFuncion = send(pokedexServer, "RMDIR", sizeof("RMDIR"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			recv(pokedexServer, &respuestaServer, 1, 0);
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("WRITE", (char*)path, &mensaje);
+	string_append(&mensaje, string_itoa(size));
+	string_append(&mensaje, string_itoa(offset));
+	//falta agregarle mas cosas?
 
-	int nbytesEnvioFuncion = send(pokedexServer, "WRITE", sizeof("WRITE"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			int nbytesEnvioBuffer= send(pokedexServer, buffer, sizeof(buffer), 0);
-			if(nbytesEnvioBuffer>0){
-				char* stringSize = string_new();
-				string_append(&stringSize, string_itoa(size));
-				int nbytesEnvioSize= send(pokedexServer, stringSize, sizeof(stringSize), 0);
-				if(nbytesEnvioSize>0){
-					char* stringOffset = string_new();
-					string_append(&stringOffset, string_itoa(offset));
-					int nbytesEnvioOffset = send(pokedexServer, stringOffset, sizeof(stringOffset), 0);
-					if(nbytesEnvioOffset>0){
-						recv(pokedexServer, &respuestaServer, 1, 0);
-					}
-				}
-			}
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_statfs (const char * path, struct statvfs * stats){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("STATF", (char*)path, &mensaje);
+	//faltaria agregarle la estructura de stats?
 
-	int nbytesEnvioFuncion = send(pokedexServer, "STATFS", sizeof("STATFS"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			recv(pokedexServer, &respuestaServer, 1, 0);
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_release (const char * path, struct fuse_file_info * fi){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("RLEAS", (char*)path, &mensaje);
 
-	int nbytesEnvioFuncion = send(pokedexServer, "RELEASE", sizeof("RELEASE"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			recv(pokedexServer, &respuestaServer, 1, 0);
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
 
 int chamba_fallocate (const char * path, int amount, off_t sizeh, off_t sizef,  struct fuse_file_info * fi){
 
-	char respuestaServer;
+	char* mensaje = string_new();
+	armarMensajeBasico("FALOC", (char*)path, &mensaje);
+	string_append(&mensaje, string_itoa(amount));
+	string_append(&mensaje, string_itoa(sizeh));
+	string_append(&mensaje, string_itoa(sizef));
 
-	int nbytesEnvioFuncion = send(pokedexServer, "FALLOCATE", sizeof("FALLOCATE"), 0);
-	if(nbytesEnvioFuncion>0){
-		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
-		if(nbytesEnvioPath>0){
-			char* stringAmount = string_new();
-			string_append(&stringAmount, string_itoa(amount));
-			int nbytesEnvioAmount= send(pokedexServer, stringAmount, sizeof(stringAmount), 0);
-			if(nbytesEnvioAmount>0){
-				char* stringSizeH = string_new();
-				string_append(&stringSizeH, string_itoa(sizeh));
-				int nbytesEnvioSizeH= send(pokedexServer, stringSizeH, sizeof(stringSizeH), 0);
-				if(nbytesEnvioSizeH>0){
-					char* stringSizeF = string_new();
-					string_append(&stringSizeF, string_itoa(sizef));
-					int nbytesEnvioSizeF = send(pokedexServer, stringSizeF, sizeof(stringSizeF), 0);
-					if(nbytesEnvioSizeF>0){
-						recv(pokedexServer, &respuestaServer, 1, 0);
-					}
-				}
-			}
-		}
-	}
+	char* respuesta = string_new();
+	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
 }
