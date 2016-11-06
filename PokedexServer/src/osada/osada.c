@@ -216,7 +216,7 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path){
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].first_block=bloqueInicioArchivo;
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod=time(&timer);
 	strcpy(osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].fname,fileName);
-	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=obtenerProximoBloque()
+	//osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=obtenerProximoBloque()
 }
 int osada_createFile(char* path, mode_t mode){
 	if (buscarLugarLibrePara(path)>=0){
