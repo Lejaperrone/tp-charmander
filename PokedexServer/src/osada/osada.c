@@ -193,6 +193,39 @@ int hayBloquesLibres(t_list* listaDeBloques, int bloquesNecesarios){
 	return 1;
 }
 
+int buscarLugarLibrePara(char* path){
+int i,lugarLibre;
+	for (i=0;i<osada_drive.bitmap->size;i++){
+		if (!bitarray_test_bit(osada_drive.bitmap,i)){
+			lugarLibre=i;
+			i=osada_drive.bitmap->size;
+		}
+	}
+	return lugarLibre;
+}
+bool hayPosicionDisponibleEnTablaDeArchivos (int pos){
+	return osada_drive.directorio->state==0;
+}
+void generarNuevoArchivoEnTablaDeArchivos(char* path){
+	time_t timer;
+	char* fileName=string_new();
+	char** fileSplitteado=string_split(path,"/");
+	fileName=strcpy(fileName,*fileSplitteado[strlen(fileSplitteado)-2]);
+	int bloqueInicioArchivo=buscarLugarLibrePara(path);
+	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].file_size=0;
+	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].first_block=bloqueInicioArchivo;
+	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod=time(&timer);
+	strcpy(osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].fname,fileName);
+	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=obtenerProximoBloque()
+}
+int osada_createFile(char* path, mode_t mode){
+	if (buscarLugarLibrePara(path)>=0){
+		int posicionEnBitmap=buscarLugarLibrePara(path);
+		if (hayPosicionDisponibleEnTablaDeArchivos(posicionEnBitmap)){
+			generarNuevoArchivoEnTablaDeArchivos(path);
+		}
+	}
+}
 int osada_createDir(char* path, char* name){
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
 //aca hay que obtener el hijo del ultimo path/ parametro es el path
