@@ -10,6 +10,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <commons/collections/list.h>
+#include <commons/string.h>
 #include "osada/osada.h"
 #include <pthread.h>
 
@@ -22,53 +23,87 @@ void solicitud(){
 
 }
 
+void devolverResultadoAlCliente(int resultadoDeOsada){
+
+}
 void identificarFuncionRecibida(char* package){
 
+	int resultadoOsada;
+	char* nombreFuncion = string_new();
 	char* path = string_new();
+	//splitear package, asignar funcion y path, lo demas se asigna dentro de los if
 
-	if(string_starts_with(package, "GETAT")){
-		string_append(&path, string_substring_from(package, 5));
-		//invocar a la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "GETAT")){
+		//invocar la funcion correspondiente de osada
 	}
-	if(string_starts_with(package, "READD")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "READD")){
+		//invocar la funcion correspondiente de osada
 	}
-	if(string_starts_with(package, "OPENF")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "OPENF")){
+		resultadoOsada = osada_open(path);
 	}
-	if(string_starts_with(package, "READF")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "READF")){
+		//Asignar datos reales del package spliteado
+		char* buffer = string_new();
+		size_t size = 0;
+		off_t offset =0;
+
+		resultadoOsada = osada_read(path, buffer, size, offset);
 	}
-	if(string_starts_with(package, "CREAT")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "CREAT")){
+		//Asignar el mode del package spliteado
+		mode_t mode = 0;
+
+		resultadoOsada = (int)osada_createFile(path, mode);
 	}
-	if(string_starts_with(package, "TRUNC")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
+		//Asignar offset del package spliteado
+		//off_t offset;
+
+		//invocar la funcion correspondiente de osada
 	}
-	if(string_starts_with(package, "MKDIR")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "MKDIR")){
+		//Asignar modo del package spliteado
+		//mode_t modo;
+
+		//invocar la funcion correspondiente de osada
 	}
-	if(string_starts_with(package, "RENAM")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "RENAM")){
+		char* newPath = string_new();
+
+		resultadoOsada = osada_rename(path, newPath);
 	}
-	if(string_starts_with(package, "ULINK")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "ULINK")){
+		resultadoOsada = osada_removeFile(path);
 	}
-	if(string_starts_with(package, "RMDIR")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "RMDIR")){
+		resultadoOsada = osada_removeDir(path);
 	}
-	if(string_starts_with(package, "WRITE")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "WRITE")){
+		//Asignar datos del package spliteado
+		char* buffer = string_new();
+		size_t size = 0;
+		off_t offset = 0;
+
+		resultadoOsada = osada_write(path, buffer, size, offset);
+
 	}
-	if(string_starts_with(package, "STATF")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "STATF")){
+		//invocar la funcion correspondiente de osada
 	}
-	if(string_starts_with(package, "RLEAS")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "RLEAS")){
+		//invocar la funcion correspondiente de osada
 	}
-	if(string_starts_with(package, "FALOC")){
-		//conseguir el path e invocar la funcion correspondiente de osada
+	if(string_equals_ignore_case(nombreFuncion, "FALOC")){
+		//Asignar datos del package spliteado
+//		int amount;
+//		off_t sizeh;
+//		off_t sizef;
+
+		//invocar la funcion correspondiente de osada
 	}
+
+	devolverResultadoAlCliente(resultadoOsada);
 }
 
 int main(){

@@ -19,6 +19,13 @@ int osada_init(char* path);
 int osada_readdir(char* path, t_list* directorios);
 int osada_getattr(char* path, file_attr* attrs);
 int osada_read(char *path, char *buf, size_t size, off_t offset);
+int osada_write(char* path,char* buf, size_t size, off_t offset);
 int osada_open(char* path);
+int osada_removeDir(char* path);
+int osada_removeFile(char* path);
+int osada_createFile(char* path, mode_t mode);
+int osada_createDir(char* path, char* name);
+int osada_rename(char* path, char* nuevaPath);
+
 
 #endif /* OSADA_OSADA_H_ */
