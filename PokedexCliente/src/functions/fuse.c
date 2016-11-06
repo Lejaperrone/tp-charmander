@@ -305,7 +305,7 @@ int chamba_fallocate (const char * path, int amount, off_t sizeh, off_t sizef,  
 
 	char respuestaServer;
 
-	int nbytesEnvioFuncion = send(pokedexServer, "WRITE", sizeof("WRITE"), 0);
+	int nbytesEnvioFuncion = send(pokedexServer, "FALLOCATE", sizeof("FALLOCATE"), 0);
 	if(nbytesEnvioFuncion>0){
 		int nbytesEnvioPath = send(pokedexServer, path, sizeof(path), 0);
 		if(nbytesEnvioPath>0){
