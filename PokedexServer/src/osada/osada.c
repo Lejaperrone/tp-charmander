@@ -262,19 +262,32 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path){
 	printf("OSADA - TABLA DE ARCHIVOS: La fecha de modificacion es %d\n",osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod);
 	strcpy((char*)osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].fname,fileName);
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=osada_TA_obtenerUltimoHijoFromPath(directoryName);
+	free(fecha);
+	free(fileName);
+	free(directoryName);
+	free(*fileSplitteado);
+	free(fileSplitteado);
 }
 int osada_createFile(char* path, mode_t mode){
+	int resultado;
 	if (buscarLugarLibrePara(path)>=0){
+		printf("OSADA - BITMAP: Hay lugar libre para crear archivo\n");
 		int posicionEnBitmap=buscarLugarLibrePara(path);
 		if (hayPosicionDisponibleEnTablaDeArchivos(posicionEnBitmap)){
+			printf("OSADA - TABLA DE ARCHIVOS: El archivo %s ocupara la posicion %d\n",path,posicionEnBitmap);
 			generarNuevoArchivoEnTablaDeArchivos(path);
+			resultado=1;
 		}
+	}else{
+		resultado=0;
 	}
+	return resultado;
 }
 int osada_createDir(char* path, char* name){
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
 //aca hay que obtener el hijo del ultimo path/ parametro es el path
 		darDeAltaDirectorioEnTablaDeArchivos(name, subindice);
+		return 1;
 }
 
 bool esUnArchivo(int subindice){
@@ -317,7 +330,9 @@ int osada_rename(char* path, char* nuevaPath){
 	char* nombre=string_new();
 	char** pathSplitteada=(char**)malloc(sizeof(char*));
 	getFileNameFromPath(nuevaPath,pathSplitteada, nombre);
+	printf("OSADA - Renombrando archivo: El nombre del archivo original es: %s\n",nombre);
 	if (renombrarArchivo(subindice,nombre)==1){
+		printf("OSADA - Renombrando archivo: Se ha renombrado el archivo correctamente\n");
 		resultado= 1;
 	}else{
 		resultado=ENOMEM;
