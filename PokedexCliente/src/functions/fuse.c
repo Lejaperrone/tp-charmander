@@ -23,6 +23,7 @@
 
 void armarMensajeBasico(char* nombreFuncion, char* path, char** mensaje){
 	string_append(mensaje, nombreFuncion);
+	string_append(mensaje, ",");
 	string_append(mensaje, path);
 }
 
@@ -65,6 +66,7 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 
 	char* mensaje = string_new();
 	armarMensajeBasico("READD", (char*)path, &mensaje);
+	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(offset));
 
 
@@ -96,9 +98,12 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 
 	char* mensaje = string_new();
 	armarMensajeBasico("READF", (char*)path, &mensaje);
+	string_append(&mensaje, ",");
+	string_append(&mensaje, buffer);
+	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(size));
+	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(offset));
-	//falta agregarle el buffer?
 
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
@@ -110,6 +115,7 @@ int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 
 	char* mensaje = string_new();
 	armarMensajeBasico("CREAT", (char*)path, &mensaje);
+	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(mode));
 
 	char* respuesta = string_new();
@@ -122,6 +128,7 @@ int chamba_truncate (const char * path, off_t offset){
 
 	char* mensaje = string_new();
 	armarMensajeBasico("TRUNC", (char*)path, &mensaje);
+	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(offset));
 
 	char* respuesta = string_new();
@@ -134,6 +141,8 @@ int chamba_mkdir (const char * path, mode_t modo){
 
 	char* mensaje = string_new();
 	armarMensajeBasico("MKDIR", (char*)path, &mensaje);
+	string_append(&mensaje, ",");
+	string_append(&mensaje, string_itoa(modo));
 
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
@@ -145,6 +154,7 @@ int chamba_rename (const char * path, const char * newPath){
 
 	char* mensaje = string_new();
 	armarMensajeBasico("RENAM", (char*)path, &mensaje);
+	string_append(&mensaje, ",");
 	string_append(&mensaje, (char*)newPath);
 
 	char* respuesta = string_new();
@@ -179,9 +189,12 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 
 	char* mensaje = string_new();
 	armarMensajeBasico("WRITE", (char*)path, &mensaje);
+	string_append(&mensaje, ",");
+	string_append(&mensaje, buffer);
+	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(size));
+	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(offset));
-	//falta agregarle mas cosas?
 
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
@@ -216,8 +229,11 @@ int chamba_fallocate (const char * path, int amount, off_t sizeh, off_t sizef,  
 
 	char* mensaje = string_new();
 	armarMensajeBasico("FALOC", (char*)path, &mensaje);
+	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(amount));
+	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(sizeh));
+	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(sizef));
 
 	char* respuesta = string_new();
