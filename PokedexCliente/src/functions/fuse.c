@@ -190,7 +190,7 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 	char* mensaje = string_new();
 	armarMensajeBasico("WRITE", (char*)path, &mensaje);
 	string_append(&mensaje, ",");
-	string_append(&mensaje, buffer);
+	string_append(&mensaje, (char*)buffer);
 	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(size));
 	string_append(&mensaje, ",");

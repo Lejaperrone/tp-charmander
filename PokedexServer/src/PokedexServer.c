@@ -25,6 +25,13 @@ void solicitud(){
 
 void devolverResultadoAlCliente(int resultadoDeOsada){
 
+	//	char* resultado = string_new();
+	//	string_append(&resultado, string_itoa(resultadoDeOsada));
+	//	int nbytesEnvio = send(pokedexCliente, resultado, 1, 0);
+
+	//	if(nbytesEnvio <0){
+	//		//No se pudo enviar el mensaje
+	//	}
 }
 void identificarFuncionRecibida(char* package){
 
@@ -96,9 +103,9 @@ void identificarFuncionRecibida(char* package){
 	}
 	if(string_equals_ignore_case(nombreFuncion, "FALOC")){
 		//Asignar datos del package spliteado
-//		int amount;
-//		off_t sizeh;
-//		off_t sizef;
+		//		int amount;
+		//		off_t sizeh;
+		//		off_t sizef;
 
 		//invocar la funcion correspondiente de osada
 	}

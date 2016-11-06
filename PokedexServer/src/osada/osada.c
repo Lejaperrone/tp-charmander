@@ -49,23 +49,23 @@ int osada_removeDir(char* path){
 
 int osada_removeFile(char* path){
 	u_int16_t parent=osada_TA_obtenerUltimoHijoFromPath(path);
-	 osada_TA_borrarArchivo(parent);
-	 printf("OSADA - TABLA DE ARCHIVOS: Pude borrar el archivo %s. Ocupaba el bloque %d\n", path, parent);
-	 return 1;
+	osada_TA_borrarArchivo(parent);
+	printf("OSADA - TABLA DE ARCHIVOS: Pude borrar el archivo %s. Ocupaba el bloque %d\n", path, parent);
+	return 1;
 }
 int osada_readdir(char* path, t_list* directorios){
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
-		u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path);
+	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path);
 	//Obtengo los directorios
-		osada_TA_obtenerDirectorios(parent, directorios);
-		printf("OSADA - TABLA DE ARCHIVOS: Los directorios que contiene %s son: \n",path);
-		int i;
-		for (i=0;i<list_size(directorios);i++){
-			osada_file* d = (osada_file*)list_get(directorios,i);
-			printf("%s\n",d->fname);
-		}
+	osada_TA_obtenerDirectorios(parent, directorios);
+	printf("OSADA - TABLA DE ARCHIVOS: Los directorios que contiene %s son: \n",path);
+	int i;
+	for (i=0;i<list_size(directorios);i++){
+		osada_file* d = (osada_file*)list_get(directorios,i);
+		printf("%s\n",d->fname);
+	}
 	//Return
-		return 1;
+	return 1;
 }
 
 /*int osada_createFile(char* path, char* nombreArchivo){
@@ -100,7 +100,7 @@ bool superaTamanioArchivo (int indice, off_t offset, size_t size){
 	return size>(osada_drive.directorio[indice].file_size-offset);
 }
 bool elBufferTieneDatosParaEscribir(char* buf){
-return strlen(buf)>0;
+	return strlen(buf)>0;
 }
 void actualizarBuffer(char* buffer, char* bufUp, int bytesEscritos){
 	int tamanioBufferOriginal=strlen(buffer);
@@ -130,16 +130,16 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 		strcpy(bufUpdated,buf);
 		while (elBufferTieneDatosParaEscribir(bufUpdated)){
 			printf("El contenido del buffer es %s\n",bufUpdated);
-				bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
-				printf("OSADA - BITMAP: Marco al bloque %d como ocupado\n",bloqueArranque);
-				memcpy(osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoEscritura],buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
-				printf("OSADA - DATOS: Los datos que voy a escribir son: %s\n",bufUpdated);
-				actualizarBuffer(buf,bufUpdated,OSADA_BLOCK_SIZE-byteComienzoEscritura);
-				actualizarBytesEscritos(bytesEscritos,OSADA_BLOCK_SIZE-byteComienzoEscritura);
-				printf("OSADA - DATOS: Se han escrito %d bytes\n",bytesEscritos);
-				byteComienzoEscritura=0;
-				bloqueArranque=avanzarBloquesParaEscribir(bloqueArranque,1);
-				printf("OSADA - TABLA DE ARCHIVOS: Avanzo al bloque %d\n",bloqueArranque);
+			bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
+			printf("OSADA - BITMAP: Marco al bloque %d como ocupado\n",bloqueArranque);
+			memcpy(osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoEscritura],buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+			printf("OSADA - DATOS: Los datos que voy a escribir son: %s\n",bufUpdated);
+			actualizarBuffer(buf,bufUpdated,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+			actualizarBytesEscritos(bytesEscritos,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+			printf("OSADA - DATOS: Se han escrito %d bytes\n",bytesEscritos);
+			byteComienzoEscritura=0;
+			bloqueArranque=avanzarBloquesParaEscribir(bloqueArranque,1);
+			printf("OSADA - TABLA DE ARCHIVOS: Avanzo al bloque %d\n",bloqueArranque);
 		}
 	}else{
 		bytesEscritos=-ENOMEM;
@@ -150,28 +150,28 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
 	if (!superaTamanioArchivo(indice,offset,size)){
-	//con el indice voy a TA y busco el FB
-	int bloque=osada_drive.directorio[indice].first_block;
-	printf("OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n", path, bloque);
-	//offset/TAMBLQ= R ,rrdondearlo para arriba y restarle 1-->2
-	double desplazamientoHastaElBloque=ceil(offset/OSADA_BLOCK_SIZE);
-	printf("OSADA - TABLA DE ASIGNACIONES: Tengo que desplazarme %d bloques\n",desplazamientoHastaElBloque);
-	//Voy a FB y avanzo 2 dentro de Tasignaciones
-	int bloqueArranque=avanzarBloquesParaLeer(bloque,desplazamientoHastaElBloque);
-	printf("OSADA - TABLA DE ASIGNACIONES: Comienzo a leer desde el bloque %d\n",bloqueArranque);
-	//RDO=ofsset-(RxBSIZE)=cuando llegue al bloque solicitado hago *data (en declarations.h) y me muevo (se sumo) RDO
-	int byteComienzoLectura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
-	printf("Empiezo a leer desde el byte %d\n",byteComienzoLectura);
-	while (bloqueArranque!=0xFFFFFFFF){
-		//falta chequear inicio
-		memcpy(buf,osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoLectura],OSADA_BLOCK_SIZE-byteComienzoLectura);
-		printf("OSADA - DATOS: Se leyo esta informacion: %s\n",buf);
-		bloqueArranque=osada_drive.asignaciones[bloque];
-		printf("OSADA - TABLA DE ASIGNACIONES: El bloque siguiente es: %d\n",bloqueArranque);
-		byteComienzoLectura=0;
-	}
-	printf("OSADA - DATOS: Se han leido %d bytes\n", strlen(buf));
-	return strlen(buf);
+		//con el indice voy a TA y busco el FB
+		int bloque=osada_drive.directorio[indice].first_block;
+		printf("OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n", path, bloque);
+		//offset/TAMBLQ= R ,rrdondearlo para arriba y restarle 1-->2
+		double desplazamientoHastaElBloque=ceil(offset/OSADA_BLOCK_SIZE);
+		printf("OSADA - TABLA DE ASIGNACIONES: Tengo que desplazarme %d bloques\n",desplazamientoHastaElBloque);
+		//Voy a FB y avanzo 2 dentro de Tasignaciones
+		int bloqueArranque=avanzarBloquesParaLeer(bloque,desplazamientoHastaElBloque);
+		printf("OSADA - TABLA DE ASIGNACIONES: Comienzo a leer desde el bloque %d\n",bloqueArranque);
+		//RDO=ofsset-(RxBSIZE)=cuando llegue al bloque solicitado hago *data (en declarations.h) y me muevo (se sumo) RDO
+		int byteComienzoLectura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
+		printf("Empiezo a leer desde el byte %d\n",byteComienzoLectura);
+		while (bloqueArranque!=0xFFFFFFFF){
+			//falta chequear inicio
+			memcpy(buf,osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoLectura],OSADA_BLOCK_SIZE-byteComienzoLectura);
+			printf("OSADA - DATOS: Se leyo esta informacion: %s\n",buf);
+			bloqueArranque=osada_drive.asignaciones[bloque];
+			printf("OSADA - TABLA DE ASIGNACIONES: El bloque siguiente es: %d\n",bloqueArranque);
+			byteComienzoLectura=0;
+		}
+		printf("OSADA - DATOS: Se han leido %d bytes\n", strlen(buf));
+		return strlen(buf);
 	}else{
 		return -ENOMEM;
 	}
@@ -182,14 +182,14 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 
 int osada_open(char* path){
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
-		u_int16_t child = osada_TA_obtenerUltimoHijoFromPath(path);
-		if(child>=0){
-			printf("OSADA - TABLA DE ARCHIVOS: La funcion open encontro que el bloque ocupado por %s es %d\n",
-					path,child);
-			if(osada_drive.directorio[child].state ==2){
-				return -EACCES;
-			}
+	u_int16_t child = osada_TA_obtenerUltimoHijoFromPath(path);
+	if(child>=0){
+		printf("OSADA - TABLA DE ARCHIVOS: La funcion open encontro que el bloque ocupado por %s es %d\n",
+				path,child);
+		if(osada_drive.directorio[child].state ==2){
+			return -EACCES;
 		}
+	}
 
 	return -ENOENT;
 }
@@ -198,32 +198,32 @@ int hayBloquesLibres(t_list* listaDeBloques, int bloquesNecesarios){
 	int tam=bitarray_get_max_bit(osada_drive.bitmap);
 	int i;
 	while(noMeAlcanzan){
-			int posicionEnBitmap=0;
-			if(bitarray_test_bit(osada_drive.bitmap,posicionEnBitmap)){
-				if (posicionEnBitmap>=tam){
-					//perror("No hay bloques libres en el bitmap");
-					//el for se hace por si no me alcanzan los bloques, los libero
-					for (i=0;i<list_size(listaDeBloques);i++){
-						bitarray_clean_bit(osada_drive.bitmap,(int)list_get(listaDeBloques,i));
-					}
-					return -ENOSPC;
-				}else{
-				posicionEnBitmap++;
+		int posicionEnBitmap=0;
+		if(bitarray_test_bit(osada_drive.bitmap,posicionEnBitmap)){
+			if (posicionEnBitmap>=tam){
+				//perror("No hay bloques libres en el bitmap");
+				//el for se hace por si no me alcanzan los bloques, los libero
+				for (i=0;i<list_size(listaDeBloques);i++){
+					bitarray_clean_bit(osada_drive.bitmap,(int)list_get(listaDeBloques,i));
 				}
+				return -ENOSPC;
 			}else{
-				list_add(listaDeBloques,(void*)posicionEnBitmap);
-				bitarray_set_bit(osada_drive.bitmap,posicionEnBitmap);
-				if(list_size(listaDeBloques)==bloquesNecesarios){
-				noMeAlcanzan=false;
-				}
-
+				posicionEnBitmap++;
 			}
+		}else{
+			list_add(listaDeBloques,(void*)posicionEnBitmap);
+			bitarray_set_bit(osada_drive.bitmap,posicionEnBitmap);
+			if(list_size(listaDeBloques)==bloquesNecesarios){
+				noMeAlcanzan=false;
+			}
+
 		}
+	}
 	return 1;
 }
 
 int buscarLugarLibrePara(char* path){
-int i,lugarLibre;
+	int i,lugarLibre;
 	for (i=0;i<osada_drive.bitmap->size;i++){
 		if (!bitarray_test_bit(osada_drive.bitmap,i)){
 			lugarLibre=i;
@@ -245,8 +245,8 @@ void directoryContainingFile(char** pathVectorizado, char* directoryName){
 }
 void generarNuevoArchivoEnTablaDeArchivos(char* path){
 	time_t timer=time(0);
-	 struct tm *tlocal = localtime(&timer);
-	 char* fecha=string_new();
+	struct tm *tlocal = localtime(&timer);
+	char* fecha=string_new();
 	char* fileName=string_new();
 	char* directoryName=string_new();
 	char** fileSplitteado=string_split(path,"/");
@@ -285,9 +285,9 @@ int osada_createFile(char* path, mode_t mode){
 }
 int osada_createDir(char* path, char* name){
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
-//aca hay que obtener el hijo del ultimo path/ parametro es el path
-		darDeAltaDirectorioEnTablaDeArchivos(name, subindice);
-		return 1;
+	//aca hay que obtener el hijo del ultimo path/ parametro es el path
+	darDeAltaDirectorioEnTablaDeArchivos(name, subindice);
+	return 1;
 }
 
 bool esUnArchivo(int subindice){
@@ -304,10 +304,10 @@ int renombrarArchivo (int subindice, char* newFileName){
 	int resultado;
 	if (esUnArchivo(subindice)){
 		if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
-				resultado= 1;
-			}else{
-				resultado= 0;
-			}
+			resultado= 1;
+		}else{
+			resultado= 0;
+		}
 	}else{
 		if (estaBorrado(subindice)){
 			resultado=ENOENT;
@@ -320,9 +320,9 @@ int renombrarArchivo (int subindice, char* newFileName){
 
 }
 char* getFileNameFromPath(char* path, char** pathSplitteada, char* nombre){
-		pathSplitteada=string_split(path,"/");
-		nombre=pathSplitteada[strlen(*pathSplitteada)-2];
-		return nombre;
+	pathSplitteada=string_split(path,"/");
+	nombre=pathSplitteada[strlen(*pathSplitteada)-2];
+	return nombre;
 }
 int osada_rename(char* path, char* nuevaPath){
 	int resultado;
