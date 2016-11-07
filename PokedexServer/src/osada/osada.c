@@ -222,7 +222,7 @@ int osada_open(char* path){
 	return 1;
 }*/
 
-int buscarLugarLibrePara(char* path){
+int buscarLugarLibreEnBitmap(){
 	int i,lugarLibre;
 	for (i=0;i<osada_drive.bitmap->size;i++){
 		if (!bitarray_test_bit(osada_drive.bitmap,i)){
@@ -234,7 +234,7 @@ int buscarLugarLibrePara(char* path){
 }
 
 bool hayPosicionDisponibleEnTablaDeArchivos (int pos){
-	return osada_drive.directorio->state==0;
+	return osada_drive.directorio[pos].state==0;
 }
 
 void directoryContainingFile(char** pathVectorizado, char* directoryName){
@@ -254,7 +254,7 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path){
 	directoryContainingFile(fileSplitteado, directoryName);
 	fileName=strcpy(fileName,fileSplitteado[strlen(*fileSplitteado)-2]);
 	printf("OSADA - Generacion nuevo archivo: El nombre del archivo es: %s\n",fileName);
-	int bloqueInicioArchivo=buscarLugarLibrePara(path);
+	int bloqueInicioArchivo=buscarLugarLibreEnBitmap();
 	printf("OSADA - BITMAP: El primer bloque libre es: %d\n",bloqueInicioArchivo);
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].file_size=0;
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].first_block=bloqueInicioArchivo;
@@ -271,9 +271,9 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path){
 }
 int osada_createFile(char* path, mode_t mode){
 	int resultado;
-	if (buscarLugarLibrePara(path)>=0){
+	if (buscarLugarLibreEnBitmap()>=0){
 		printf("OSADA - BITMAP: Hay lugar libre para crear archivo\n");
-		int posicionEnBitmap=buscarLugarLibrePara(path);
+		int posicionEnBitmap=buscarLugarLibreEnBitmap();
 		if (hayPosicionDisponibleEnTablaDeArchivos(posicionEnBitmap)){
 			printf("OSADA - TABLA DE ARCHIVOS: El archivo %s ocupara la posicion %d\n",path,posicionEnBitmap);
 			generarNuevoArchivoEnTablaDeArchivos(path);
@@ -379,8 +379,25 @@ void liberarEspacio (int sub,int bq_to_free){
 		 bloqueDesdeDondeEmpiezoALiberar=osada_drive.asignaciones[bloqueDesdeDondeEmpiezoALiberar];
 	 }
 }
-int ocuparEspacio (int sub, int bq_to_set){
-
+int irAlUltimoBloqueDeLaTablaDeAsignaciones (int primerBloque){
+	int indice=primerBloque;
+	int ult;
+	while (indice!=0xFFFFFF){
+		ult=indice;
+		indice=osada_drive.asignaciones[indice];
+	}
+	return ult;
+}
+void ocuparEspacio (int sub, int bq_to_set){
+	int ultimoBloque=irAlUltimoBloqueDeLaTablaDeAsignaciones(sub);
+	int i;
+	if (hayBloquesDesocupadosEnElBitmap(bq_to_set)){
+	for (i=0;i<bq_to_set;i++){
+		int bloqueAOcupar=buscarLugarLibreEnBitmap();
+		bitarray_set_bit(osada_drive.bitmap,bloqueAOcupar);
+		osada_drive.asignaciones[ultimoBloque]=bloqueAOcupar;
+	}
+}
 }
 int osada_truncate(char* path, off_t offset){
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
