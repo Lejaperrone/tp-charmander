@@ -345,32 +345,57 @@ int osada_rename(char* path, char* nuevaPath){
 int hayBloquesDesocupadosEnElBitmap (int n){
 	int i,bloquesNecesarios;
 	int resultado=0;
-	for (i=0;i<bitarray_get_max_bit();i++){
+	for (i=0;i<bitarray_get_max_bit(osada_drive.bitmap);i++){
 		if(bloquesNecesarios==n){
 			resultado=1;
 		}else{
-			if (!bitarray_test_bit(i)){
+			if (!bitarray_test_bit(osada_drive.bitmap,i)){
 			bloquesNecesarios++;
 			}
 		}
 	}
 	return resultado;
 }
+int calcularBloquesQueOcupa (int indice){
+	int bloques=0;
+	while (indice!=0xFFFFFF){
+		bloques++;
+		indice=osada_drive.asignaciones[indice];
+	}
+	return bloques;
+}
+void liberarEspacio (int sub,int bq_to_free){
+	 int tamanioEnBloquesOriginal=calcularBloquesQueOcupa(sub);
+	 int bloquesQueMeMovi=0;
+	 int bloqueDesdeDondeEmpiezoALiberar;
+	 int i;
+	 while (tamanioEnBloquesOriginal-bq_to_free>bloquesQueMeMovi){
+		 bloqueDesdeDondeEmpiezoALiberar=osada_drive.asignaciones[sub];
+		 bloquesQueMeMovi++;
+	 }
+	 for (i=bloquesQueMeMovi;i<tamanioEnBloquesOriginal;i++){
+		 bitarray_clean_bit(osada_drive.bitmap,osada_drive.asignaciones[bloqueDesdeDondeEmpiezoALiberar]);
+		 osada_drive.directorio[i].state=0;
+		 bloqueDesdeDondeEmpiezoALiberar=osada_drive.asignaciones[bloqueDesdeDondeEmpiezoALiberar];
+	 }
+}
+int ocuparEspacio (int sub, int bq_to_set){
+
+}
 int osada_truncate(char* path, off_t offset){
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
 	int resultado=0;
-	int bloquesNecesarios;
+	int bloquesTruncate;
 	if (osada_drive.directorio[subindice].file_size>offset){
-		bloquesNecesarios=ceil((osada_drive.directorio[subindice].file_size-offset)/OSADA_BLOCK_SIZE);
-		liberarEspacio(subindice,bloquesNecesarios);
+		bloquesTruncate=ceil((osada_drive.directorio[subindice].file_size-offset)/OSADA_BLOCK_SIZE);
+		liberarEspacio(subindice,bloquesTruncate);
 		resultado=1;
-		printf("OSADA - Truncate: Se han liberado %d bytes\n",osada_drive.directorio[subindice].file_size-offset);
+		printf("OSADA - Truncate: Se han liberado %d bytes\n",(int)osada_drive.directorio[subindice].file_size-(int)offset);
 	}else{
-		bloquesNecesarios=ceil((offset-osada_drive.directorio[subindice].file_size)/OSADA_BLOCK_SIZE);
-		agregarBloquesAListaDeBloques(bloquesNecesarios);
-			if (hayBloquesDesocupadosEnElBitmap()){
+		bloquesTruncate=ceil((offset-osada_drive.directorio[subindice].file_size)/OSADA_BLOCK_SIZE);
+			if (hayBloquesDesocupadosEnElBitmap(bloquesTruncate)){
 				ocuparEspacio(subindice,offset-osada_drive.directorio[subindice].file_size);
-				printf("OSADA - Truncate: Se han ocupado %d bytes\n",offset-osada_drive.directorio[subindice].file_size);
+				printf("OSADA - Truncate: Se han ocupado %d bytes\n",(int)offset-(int)osada_drive.directorio[subindice].file_size);
 			}else{
 				return -ENOMEM;
 			}
