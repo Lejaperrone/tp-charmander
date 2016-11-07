@@ -123,7 +123,7 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 		printf("OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n",path, bloque);
 		double desplazamientoHastaElBloque=ceil(offset/OSADA_BLOCK_SIZE);
 		int bloqueArranque=avanzarBloquesParaEscribir(bloque,desplazamientoHastaElBloque);
-		printf("OSADA - TABLA DE ASIGNACIONES: Desde el bloque %d me desplace hasta el %f, me movi %f bloques.\n",bloque,bloqueArranque,desplazamientoHastaElBloque);;
+		printf("OSADA - TABLA DE ASIGNACIONES: Desde el bloque %d me desplace hasta el %d, me movi %f bloques.\n",bloque,bloqueArranque,desplazamientoHastaElBloque);;
 		int byteComienzoEscritura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
 		printf("OSADA - DATOS: Empiezo a leer desde el byte: %d\n",byteComienzoEscritura);
 		char* bufUpdated=string_new();
@@ -155,7 +155,7 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 		printf("OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n", path, bloque);
 		//offset/TAMBLQ= R ,rrdondearlo para arriba y restarle 1-->2
 		double desplazamientoHastaElBloque=ceil(offset/OSADA_BLOCK_SIZE);
-		printf("OSADA - TABLA DE ASIGNACIONES: Tengo que desplazarme %d bloques\n",desplazamientoHastaElBloque);
+		printf("OSADA - TABLA DE ASIGNACIONES: Tengo que desplazarme %f bloques\n",desplazamientoHastaElBloque);
 		//Voy a FB y avanzo 2 dentro de Tasignaciones
 		int bloqueArranque=avanzarBloquesParaLeer(bloque,desplazamientoHastaElBloque);
 		printf("OSADA - TABLA DE ASIGNACIONES: Comienzo a leer desde el bloque %d\n",bloqueArranque);
@@ -418,4 +418,7 @@ int osada_truncate(char* path, off_t offset){
 			}
 	}
 	return resultado;
+}
+void statfs(){
+
 }
