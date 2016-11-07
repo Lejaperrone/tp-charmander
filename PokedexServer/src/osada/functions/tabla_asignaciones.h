@@ -8,7 +8,9 @@
 #ifndef OSADA_FUNCTIONS_TABLA_ASIGNACIONES_H_
 #define OSADA_FUNCTIONS_TABLA_ASIGNACIONES_H_
 
-
+#define bool int
+#define true 1
+#define false 0
 
 
 void obtenerProximoBloque(int* subindice);

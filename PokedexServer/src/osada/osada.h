@@ -26,6 +26,7 @@ int osada_removeFile(char* path);
 int osada_createFile(char* path, mode_t mode);
 int osada_createDir(char* path, char* name);
 int osada_rename(char* path, char* nuevaPath);
+int hayBloquesDesocupadosEnElBitmap (int n);
 
 
 #endif /* OSADA_OSADA_H_ */

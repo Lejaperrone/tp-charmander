@@ -193,7 +193,7 @@ int osada_open(char* path){
 
 	return -ENOENT;
 }
-int hayBloquesLibres(t_list* listaDeBloques, int bloquesNecesarios){
+/*int hayBloquesLibres(t_list* listaDeBloques, int bloquesNecesarios){
 	bool noMeAlcanzan=true;
 	int tam=bitarray_get_max_bit(osada_drive.bitmap);
 	int i;
@@ -220,7 +220,7 @@ int hayBloquesLibres(t_list* listaDeBloques, int bloquesNecesarios){
 		}
 	}
 	return 1;
-}
+}*/
 
 int buscarLugarLibrePara(char* path){
 	int i,lugarLibre;
@@ -232,6 +232,7 @@ int buscarLugarLibrePara(char* path){
 	}
 	return lugarLibre;
 }
+
 bool hayPosicionDisponibleEnTablaDeArchivos (int pos){
 	return osada_drive.directorio->state==0;
 }
@@ -339,5 +340,40 @@ int osada_rename(char* path, char* nuevaPath){
 	}
 	free(pathSplitteada);
 	free(nombre);
+	return resultado;
+}
+int hayBloquesDesocupadosEnElBitmap (int n){
+	int i,bloquesNecesarios;
+	int resultado=0;
+	for (i=0;i<bitarray_get_max_bit();i++){
+		if(bloquesNecesarios==n){
+			resultado=1;
+		}else{
+			if (!bitarray_test_bit(i)){
+			bloquesNecesarios++;
+			}
+		}
+	}
+	return resultado;
+}
+int osada_truncate(char* path, off_t offset){
+	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
+	int resultado=0;
+	int bloquesNecesarios;
+	if (osada_drive.directorio[subindice].file_size>offset){
+		bloquesNecesarios=ceil((osada_drive.directorio[subindice].file_size-offset)/OSADA_BLOCK_SIZE);
+		liberarEspacio(subindice,bloquesNecesarios);
+		resultado=1;
+		printf("OSADA - Truncate: Se han liberado %d bytes\n",osada_drive.directorio[subindice].file_size-offset);
+	}else{
+		bloquesNecesarios=ceil((offset-osada_drive.directorio[subindice].file_size)/OSADA_BLOCK_SIZE);
+		agregarBloquesAListaDeBloques(bloquesNecesarios);
+			if (hayBloquesDesocupadosEnElBitmap()){
+				ocuparEspacio(subindice,offset-osada_drive.directorio[subindice].file_size);
+				printf("OSADA - Truncate: Se han ocupado %d bytes\n",offset-osada_drive.directorio[subindice].file_size);
+			}else{
+				return -ENOMEM;
+			}
+	}
 	return resultado;
 }
