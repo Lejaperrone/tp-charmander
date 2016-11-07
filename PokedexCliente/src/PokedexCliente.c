@@ -94,10 +94,8 @@ int main(int argc, char *argv[]){
 		printf("Conectado al servidor\n");
 		log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
 
-		fuse_main(args.argc, args.argv, &chamba_oper, NULL);
 		log_info(archivoLog, "Levanto fuse\n");
+		return fuse_main(args.argc, args.argv, &chamba_oper, NULL);
 
-		close(pokedexServer);
-		return 0;
 }
 
