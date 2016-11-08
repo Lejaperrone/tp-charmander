@@ -64,11 +64,14 @@ void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 	for (i=0;i<2048;i++){
 		if(yaLoGuarde==0 && osada_drive.directorio[i].state==0){
 			yaLoGuarde=1;
-			time_t timer;
+			char* fecha=string_new();
+			time_t timer=time(0);
+			struct tm *tlocal = localtime(&timer);
 			osada_drive.directorio[i].file_size=0;
-			osada_drive.directorio[i].first_block=NULL;
+			//osada_drive.directorio[i].first_block=NULL;
 			strcpy((char*)osada_drive.directorio[i].fname,nombre);
-			osada_drive.directorio[i].lastmod=time(&timer);
+			strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
+			osada_drive.directorio[i].lastmod=atoi(fecha);
 			// no sabemos si el directorio padre de un directorio nuevo es 0xFFFF u otro
 			//parent directory es el subindice del ultimo hijo
 			osada_drive.directorio[i].parent_directory=0xFFFF;
@@ -106,7 +109,7 @@ void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
 
 int osada_TA_borrarArchivo(u_int16_t parent){
 	int subindice;
-	u_int16_t fin = 0xFFFFFFFF;
+	u_int16_t fin = 0xFFFF;
 	subindice=osada_drive.directorio[parent].first_block;
 	while (subindice!=fin){
 		bitarray_clean_bit(osada_drive.bitmap,subindice);
