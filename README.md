@@ -17,8 +17,8 @@ TENER EN CUENTA CUAL ES EL PRIMER MAPA DE CADA ENTRENADOR YA QUE SINO ESTA LEVAN
 2. Abrir una consola para server y otra para cliente
 3. En una consola posicionarse en  "tp-2016-2c-Chamba/PokedexServer/Debug" y ejecutar ./PokedexServer
 4. En la otra consola posicionarse en "tp-2016-2c-Chamba/PokedexCliente/Debug" y tener lo siguiente en cuenta:
-   A) Dentro de ese directorio tienen que tener creada una carpeta vacia que se llame "tmp" (va a ser el punto de montaje)
-   B) Escribir los siguientes comandos para setear el puerto e ip por variable de entorno
+   A. Dentro de ese directorio tienen que tener creada una carpeta vacia que se llame "tmp" (va a ser el punto de montaje)
+   B. Escribir los siguientes comandos para setear el puerto e ip por variable de entorno
       PUERTO=7666
       IP_SERVER=127.0.0.1
       export PUERTO
