@@ -8,7 +8,7 @@
 #ifndef OSADA_FUNCTIONS_TABLA_ASIGNACIONES_H_
 #define OSADA_FUNCTIONS_TABLA_ASIGNACIONES_H_
 
-#define bool int
+#include <stdbool.h>
 #define true 1
 #define false 0
 
