@@ -20,46 +20,6 @@
 #include "socketLib.h"
 
 
-/*
- * Esta es la estructura principal de FUSE con la cual nosotros le decimos a
- * biblioteca que funciones tiene que invocar segun que se le pida a FUSE.
- * Como se observa la estructura contiene punteros a funciones.
- */
-static struct fuse_operations bb_oper = {
-		.getattr = chamba_getattr,
-		.readdir = chamba_readdir,
-		.open = chamba_open,
-		.create = chamba_create,
-		.read = chamba_read,
-	    //.init = chamba_init,
-	    .rmdir = chamba_rmdir,
-	    .unlink = chamba_unlink,
-		.mkdir = chamba_mkdir,
-	    .rename = chamba_rename,
-		.write = chamba_write,
-		//.access = chamba_access,
-		//.readlink	= chamba_readlink,
-		//.mknod = chamba_mknod,
-		//.link = chamba_link,
-		//.chmod = chamba_chmod,
-		//.chown = chamba_chown,
-		.statfs = chamba_statfs,
-};
-
-/*
-static int fuse_readdir(const char *path, struct stat *stbuf) {
-	// Todo Realizar el send de la peticion
-	return 0;
-}*/
-static int fuse_open(const char *path, struct stat *stbuf) {
-	// Todo Realizar el send de la peticion
-	return 0;
-}
-static int fuse_read(const char *path, struct stat *stbuf) {
-	// Todo Realizar el send de la peticion
-	return 0;
-}
-
 int main(int argc, char *argv[]){
 
 	// Creo archivo log
