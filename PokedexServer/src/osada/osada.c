@@ -143,22 +143,22 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 		char* bufUpdated=string_new();
 		strcpy(bufUpdated,buf);
 		int bloquesQueNecesitoEscribir=ceil((strlen(buf)*sizeof(char))/OSADA_BLOCK_SIZE);
-		if (hayBloquesDesocupadosEnElBitmap(bloquesQueNecesitoEscribir)){
-		while (elBufferTieneDatosParaEscribir(bufUpdated)){
-			printf("El contenido del buffer es %s\n",bufUpdated);
-			bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
-			printf("OSADA - BITMAP: Marco al bloque %d como ocupado\n",bloqueArranque);
-			memcpy(osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoEscritura],buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
-			printf("OSADA - DATOS: Los datos que voy a escribir son: %s\n",bufUpdated);
-			actualizarBuffer(buf,bufUpdated,OSADA_BLOCK_SIZE-byteComienzoEscritura);
-			actualizarBytesEscritos(bytesEscritos,OSADA_BLOCK_SIZE-byteComienzoEscritura);
-			printf("OSADA - DATOS: Se han escrito %d bytes\n",bytesEscritos);
-			byteComienzoEscritura=0;
-			bloqueArranque=avanzarBloquesParaEscribir(bloqueArranque,1);
-			printf("OSADA - TABLA DE ARCHIVOS: Avanzo al bloque %d\n",bloqueArranque);
-		}
-	}else{
-		bytesEscritos=-ENOMEM;
+			if (hayBloquesDesocupadosEnElBitmap(bloquesQueNecesitoEscribir)){
+				while (elBufferTieneDatosParaEscribir(bufUpdated)){
+					printf("El contenido del buffer es %s\n",bufUpdated);
+					bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
+					printf("OSADA - BITMAP: Marco al bloque %d como ocupado\n",bloqueArranque);
+					memcpy(osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoEscritura],buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+					printf("OSADA - DATOS: Los datos que voy a escribir son: %s\n",bufUpdated);
+					actualizarBuffer(buf,bufUpdated,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+					actualizarBytesEscritos(bytesEscritos,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+					printf("OSADA - DATOS: Se han escrito %d bytes\n",bytesEscritos);
+					byteComienzoEscritura=0;
+					bloqueArranque=avanzarBloquesParaEscribir(bloqueArranque,1);
+					printf("OSADA - TABLA DE ARCHIVOS: Avanzo al bloque %d\n",bloqueArranque);
+			}
+		}else{
+			bytesEscritos=-ENOMEM;
 	}
 	}
 	return bytesEscritos;
