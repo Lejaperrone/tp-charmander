@@ -23,6 +23,10 @@
 #include <../commons/log.h>
 #include "functions/tabla_asignaciones.h"
 
+int bloquesATruncar(int subindice, off_t offset){
+	return ceil((osada_drive.directorio[subindice].file_size-offset)/OSADA_BLOCK_SIZE);
+}
+
 int hayBloquesDesocupadosEnElBitmap (int n){
 	int i,bloquesNecesarios;
 	int resultado=0;
@@ -408,12 +412,12 @@ int osada_truncate(char* path, off_t offset){
 	int resultado=0;
 	int bloquesTruncate;
 	if (osada_drive.directorio[subindice].file_size>offset){
-		bloquesTruncate=ceil((osada_drive.directorio[subindice].file_size-offset)/OSADA_BLOCK_SIZE);
+		bloquesTruncate=bloquesATruncar(subindice,offset);
 		liberarEspacio(subindice,bloquesTruncate);
 		resultado=1;
 		printf("OSADA - Truncate: Se han liberado %d bytes\n",(int)osada_drive.directorio[subindice].file_size-(int)offset);
 	}else{
-		bloquesTruncate=ceil((offset-osada_drive.directorio[subindice].file_size)/OSADA_BLOCK_SIZE);
+		bloquesTruncate=bloquesATruncar(subindice,offset);
 			if (hayBloquesDesocupadosEnElBitmap(bloquesTruncate)){
 				ocuparEspacio(subindice,offset-osada_drive.directorio[subindice].file_size);
 				printf("OSADA - Truncate: Se han ocupado %d bytes\n",(int)offset-(int)osada_drive.directorio[subindice].file_size);
