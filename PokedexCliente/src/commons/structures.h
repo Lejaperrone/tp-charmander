@@ -8,10 +8,10 @@
 #ifndef COMMONS_STRUCTURES_H_
 #define COMMONS_STRUCTURES_H_
 
-
-#define IP "127.0.0.1" //Deberia estar por variable de entorno
-#define PUERTO "7666" //Deberia estar por variable de entorno
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
+
+char *PORT;
+char *IP_SERVER;
 
 
 int pokedexServer; //Renombar a socket

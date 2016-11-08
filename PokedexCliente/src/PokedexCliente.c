@@ -74,9 +74,6 @@ int main(int argc, char *argv[]){
 		puntoPontaje = argv[1]; //tmp
 		log_info(archivoLog,"Punto de montaje: %s", puntoPontaje);
 
-	//IP = getenv("POKEIP");
-	//PUERTO = getenv("POKEPORT");
-
 		struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
 
 	// Limpio la estructura que va a contener los parametros
@@ -89,12 +86,19 @@ int main(int argc, char *argv[]){
 			return EXIT_FAILURE;
 		}
 
+		//getting environment variable for connecting to server
+		IP_SERVER = getenv("IP_SERVER");
+		PORT = getenv("PUERTO");
 
-		create_socketClient(&pokedexServer, IP, PUERTO);
+		printf("Ip Server : %s\n", IP_SERVER);
+		printf("Puerto : %s\n", PORT);
+
+		create_socketClient(&pokedexServer, IP_SERVER, PORT);
 		printf("Conectado al servidor\n");
 		log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
 
 		log_info(archivoLog, "Levanto fuse\n");
+		printf("Fuse montado\n");
 		return fuse_main(args.argc, args.argv, &chamba_oper, NULL);
 
 }
