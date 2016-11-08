@@ -23,7 +23,21 @@
 #include <../commons/log.h>
 #include "functions/tabla_asignaciones.h"
 
-
+int hayBloquesDesocupadosEnElBitmap (int n){
+	int i,bloquesNecesarios;
+	int resultado=0;
+	for (i=0;i<bitarray_get_max_bit(osada_drive.bitmap);i++){
+		if(bloquesNecesarios==n){
+			printf("OSADA - BITMAP: Hay al menos %d bloques desocupados\n",n);
+			resultado=1;
+		}else{
+			if (!bitarray_test_bit(osada_drive.bitmap,i)){
+			bloquesNecesarios++;
+			}
+		}
+	}
+	return resultado;
+}
 
 
 int osada_init(char* path){
@@ -128,6 +142,8 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 		printf("OSADA - DATOS: Empiezo a leer desde el byte: %d\n",byteComienzoEscritura);
 		char* bufUpdated=string_new();
 		strcpy(bufUpdated,buf);
+		int bloquesQueNecesitoEscribir=ceil((strlen(buf)*sizeof(char))/OSADA_BLOCK_SIZE);
+		if (hayBloquesDesocupadosEnElBitmap(bloquesQueNecesitoEscribir)){
 		while (elBufferTieneDatosParaEscribir(bufUpdated)){
 			printf("El contenido del buffer es %s\n",bufUpdated);
 			bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
@@ -143,6 +159,7 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 		}
 	}else{
 		bytesEscritos=-ENOMEM;
+	}
 	}
 	return bytesEscritos;
 }
@@ -342,21 +359,8 @@ int osada_rename(char* path, char* nuevaPath){
 	free(nombre);
 	return resultado;
 }
-int hayBloquesDesocupadosEnElBitmap (int n){
-	int i,bloquesNecesarios;
-	int resultado=0;
-	for (i=0;i<bitarray_get_max_bit(osada_drive.bitmap);i++){
-		if(bloquesNecesarios==n){
-			resultado=1;
-		}else{
-			if (!bitarray_test_bit(osada_drive.bitmap,i)){
-			bloquesNecesarios++;
-			}
-		}
-	}
-	return resultado;
-}
-int calcularBloquesQueOcupa (int indice){
+
+int calcularBloquesQueOcupaDesdeElPrimerBloque (int indice){
 	int bloques=0;
 	while (indice!=0xFFFFFF){
 		bloques++;
@@ -365,7 +369,7 @@ int calcularBloquesQueOcupa (int indice){
 	return bloques;
 }
 void liberarEspacio (int sub,int bq_to_free){
-	 int tamanioEnBloquesOriginal=calcularBloquesQueOcupa(sub);
+	 int tamanioEnBloquesOriginal=calcularBloquesQueOcupaDesdeElPrimerBloque(sub);
 	 int bloquesQueMeMovi=0;
 	 int bloqueDesdeDondeEmpiezoALiberar;
 	 int i;
