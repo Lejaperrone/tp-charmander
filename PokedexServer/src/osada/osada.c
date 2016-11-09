@@ -392,7 +392,7 @@ int irAlUltimoBloqueDeLaTablaDeAsignaciones (int primerBloque){
 	int ult;
 	while (indice!=0xFFFFFF){
 		ult=indice;
-		indice=osada_drive.asignaciones[indice];
+		obtenerProximoBloque(&indice);
 	}
 	return ult;
 }
