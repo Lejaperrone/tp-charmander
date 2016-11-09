@@ -403,7 +403,7 @@ void ocuparEspacio (int sub, int bq_to_set){
 	for (i=0;i<bq_to_set;i++){
 		int bloqueAOcupar=buscarLugarLibreEnBitmap();
 		bitarray_set_bit(osada_drive.bitmap,bloqueAOcupar);
-		osada_drive.asignaciones[ultimoBloque]=bloqueAOcupar;
+		ocuparBloqueSegunElUltimo(ultimoBloque,bloqueAOcupar);
 	}
 }
 }

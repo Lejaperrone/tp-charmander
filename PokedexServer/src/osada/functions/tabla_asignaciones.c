@@ -44,6 +44,10 @@ void obtenerProximoBloque(int* subindice){
 		*subindice=0xFFFFFFFF;
 	}
 }
+
+void ocuparBloqueSegunElUltimo(ultimoBloque,bloqueAOcupar){
+	osada_drive.asignaciones[ultimoBloque]=bloqueAOcupar;
+}
 void modificarBloquesAsignadosATablaDeAsignaciones(t_list* bloques){
 	int i;
 	for (i=0;i<list_size(bloques);i++){
