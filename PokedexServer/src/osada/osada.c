@@ -4,7 +4,7 @@
  *  Created on: 20/9/2016
  *      Author: utnso
  */
-
+#include <sys/statvfs.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -427,6 +427,35 @@ int osada_truncate(char* path, off_t offset){
 	}
 	return resultado;
 }
-void statfs(){
-
+int contarBloquesLibresTotales(){
+	int t=bitarray_get_max_bit(osada_drive.bitmap);
+	int i,tot=0;
+	for (i=0;i<t;i++){
+		if (!bitarray_test_bit(osada_drive.bitmap,i)){
+			tot++;
+		}
+	}
+	return tot;
+}
+int contarOsadaFilesLibres(){
+	int i, tot=0;
+	for (i=0;i<2048;i++){
+		if(estaBorrado(i)){
+			tot++;
+		}
+	}
+	return tot;
+}
+int osada_statfs(const char * path, struct statvfs * stats){
+	stats->f_bavail=contarBloquesLibresTotales();
+	stats->f_bfree=stats->f_bavail;
+	stats->f_blocks=osada_drive.header->fs_blocks;
+	stats->f_bsize=osada_drive.header->fs_blocks;
+	stats->f_favail=contarOsadaFilesLibres();
+	stats->f_ffree=stats->f_favail;
+	stats->f_files=2048;
+	stats->f_namemax=OSADA_FILENAME_LENGTH;
+	stats->f_fsid=(int)osada_drive.header->magic_number;
+	stats->f_frsize=OSADA_BLOCK_SIZE;
+	return 1;
 }
