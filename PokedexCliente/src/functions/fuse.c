@@ -34,7 +34,6 @@ void conectarConServidorYRecibirRespuesta(int pokedexServer, char* mensaje, char
 }
 
 int chamba_getattr(const char* path, struct stat* stbuf, struct fuse_file_info *fi){
-	int res = 0;
 
 	char* mensaje = string_new();
 	armarMensajeBasico("GETAT", (char*)path, &mensaje);
@@ -45,17 +44,7 @@ int chamba_getattr(const char* path, struct stat* stbuf, struct fuse_file_info *
 
 	memset(stbuf, 0, sizeof(struct stat));
 
-	//Si path es igual a "/" nos estan pidiendo los atributos del punto de montaje
-	if (strcmp(path, "/") == 0) {
-		stbuf->st_mode = S_IFDIR | 0755;
-		stbuf->st_nlink = 2;
-	} else if (strcmp(path, "Default file path") == 0) {
-		stbuf->st_mode = S_IFREG | 0444;
-		stbuf->st_nlink = 1;
-		stbuf->st_size = strlen("Default file name");
-	} else {
-		res = -ENOENT;
-	}
+
 	return 0;
 }
 
@@ -73,12 +62,6 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	if (strcmp(path, "/") != 0)
-		return -ENOENT;
-
-	filler(buf, ".", NULL, 0);
-	filler(buf, "..", NULL, 0);
-	filler(buf, "Default File Name", NULL, 0);
 
 	return 0;
 }
