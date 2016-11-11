@@ -46,6 +46,7 @@ void identificarFuncionRecibida(char* package){
 	char* nombreFuncion = string_new();
 	char* path = string_new();
 
+	printf("Llegue a identificarFuncionRecibida");
 	string_append(&nombreFuncion, string_split(package,",")[0]);
 	string_append(&path, string_split(package,",")[1]);
 
@@ -132,7 +133,7 @@ void identificarFuncionRecibida(char* package){
 int main(){
 	printf("Inicio osada\n");
 	//Osada
-	osada_init("/home/utnso/git/tp-2016-2c-Chamba/osada.bin");
+	osada_init("/home/utnso/Escritorio/tp-2016-2c-Chamba/osada.bin");
 
 	//Inicializo socket para escuchar
 	struct sockaddr_in addr;
@@ -196,7 +197,7 @@ int main(){
 					} else {
 						// tenemos datos de algún cliente
 						if (nbytes != 0){
-							identificarFuncionRecibida(package);
+							//identificarFuncionRecibida(package);
 
 						}
 					}
