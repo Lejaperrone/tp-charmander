@@ -305,7 +305,7 @@ int osada_createFile(char* path, mode_t mode){
 	}
 	return resultado;
 }
-int osada_createDir(char* path, char* name){
+int osada_createDir(char* path, char* name, mode_t mode){
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
 	//aca hay que obtener el hijo del ultimo path/ parametro es el path
 	darDeAltaDirectorioEnTablaDeArchivos(name, subindice);

@@ -23,6 +23,13 @@ void solicitud(){
 
 }
 
+char* obtenerNombreDelDirectorio(char* path){
+
+	int tamanio = strlen(*string_split(path,"/"));
+
+	return string_split(path,"/")[tamanio-1];
+}
+
 void devolverResultadoAlCliente(int resultadoDeOsada){
 
 	//	char* resultado = string_new();
@@ -38,45 +45,51 @@ void identificarFuncionRecibida(char* package){
 	int resultadoOsada;
 	char* nombreFuncion = string_new();
 	char* path = string_new();
-	//splitear package, asignar funcion y path, lo demas se asigna dentro de los if
+
+	string_append(&nombreFuncion, string_split(package,",")[0]);
+	string_append(&path, string_split(package,",")[1]);
 
 	if(string_equals_ignore_case(nombreFuncion, "GETAT")){
-		//invocar la funcion correspondiente de osada
+		//invocar la funcion correspondiente de osada des-serializando la estructura
 	}
 	if(string_equals_ignore_case(nombreFuncion, "READD")){
-		//invocar la funcion correspondiente de osada
+		t_list* directorios = list_create();
+
+		resultadoOsada = osada_readdir(path, directorios);
 	}
 	if(string_equals_ignore_case(nombreFuncion, "OPENF")){
 		resultadoOsada = osada_open(path);
 	}
 	if(string_equals_ignore_case(nombreFuncion, "READF")){
-		//Asignar datos reales del package spliteado
 		char* buffer = string_new();
-		size_t size = 0;
-		off_t offset =0;
+		string_append(&buffer, string_split(package,",")[3]);
+
+		size_t size = atoi(string_split(package,",")[4]);
+		off_t offset = atoi(string_split(package,",")[5]);
 
 		resultadoOsada = osada_read(path, buffer, size, offset);
+
 	}
 	if(string_equals_ignore_case(nombreFuncion, "CREAT")){
-		//Asignar el mode del package spliteado
-		mode_t mode = 0;
+
+		mode_t mode = atoi(string_split(package,",")[3]);
 
 		resultadoOsada = (int)osada_createFile(path, mode);
 	}
 	if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
-		//Asignar offset del package spliteado
-		//off_t offset;
 
-		//invocar la funcion correspondiente de osada
+		off_t offset = atoi(string_split(package,",")[3]);
+
+		resultadoOsada = osada_truncate(path, offset);
 	}
 	if(string_equals_ignore_case(nombreFuncion, "MKDIR")){
-		//Asignar modo del package spliteado
-		//mode_t modo;
 
-		//invocar la funcion correspondiente de osada
+		mode_t modo = atoi(string_split(package,",")[3]);
+
+		resultadoOsada = osada_createDir(path, obtenerNombreDelDirectorio(path), modo);
 	}
 	if(string_equals_ignore_case(nombreFuncion, "RENAM")){
-		char* newPath = string_new();
+		char* newPath = string_split(package,",")[3];
 
 		resultadoOsada = osada_rename(path, newPath);
 	}
@@ -87,21 +100,24 @@ void identificarFuncionRecibida(char* package){
 		resultadoOsada = osada_removeDir(path);
 	}
 	if(string_equals_ignore_case(nombreFuncion, "WRITE")){
-		//Asignar datos del package spliteado
 		char* buffer = string_new();
-		size_t size = 0;
-		off_t offset = 0;
+		string_append(&buffer, string_split(package,",")[3]);
+
+		size_t size = atoi(string_split(package,",")[4]);
+		off_t offset = atoi(string_split(package,",")[5]);
 
 		resultadoOsada = osada_write(path, buffer, size, offset);
 
 	}
 	if(string_equals_ignore_case(nombreFuncion, "STATF")){
-		//invocar la funcion correspondiente de osada
+		//invocar la funcion correspondiente de osada habiendo des-serializado la estructura
 	}
 	if(string_equals_ignore_case(nombreFuncion, "RLEAS")){
-		//invocar la funcion correspondiente de osada
+		//Este supuestamente no se hace segun dijo matias
 	}
 	if(string_equals_ignore_case(nombreFuncion, "FALOC")){
+		//Este supuestamente no se hace segun dijo matias
+
 		//Asignar datos del package spliteado
 		//		int amount;
 		//		off_t sizeh;
