@@ -138,6 +138,10 @@ int actualizarBytesEscritos (int acum, int bytes){
 int osada_write(char* path,char* buf, size_t size, off_t offset){
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
 	int bytesEscritos=0;
+	pthread_mutex_lock(&mutexTablaArchivos);
+	pthread_mutex_lock(&mutexTablaAsignaciones);
+	pthread_mutex_lock(&mutexBitmap);
+	pthread_mutex_lock(&mutexDatos);
 	if (!superaTamanioArchivo(indice,offset,size)){
 		int bloque=osada_drive.directorio[indice].first_block;
 		printf("OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n",path, bloque);
@@ -151,7 +155,7 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 		int bloquesQueNecesitoEscribir=ceil((strlen(buf)*sizeof(char))/OSADA_BLOCK_SIZE);
 			if (hayBloquesDesocupadosEnElBitmap(bloquesQueNecesitoEscribir)){
 				while (elBufferTieneDatosParaEscribir(bufUpdated)){
-					printf("El contenido del buffer es %s\n",bufUpdated);
+	 				printf("El contenido del buffer es %s\n",bufUpdated);
 					bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
 					printf("OSADA - BITMAP: Marco al bloque %d como ocupado\n",bloqueArranque);
 					memcpy(osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoEscritura],buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
@@ -166,6 +170,10 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 		}else{
 			bytesEscritos=-ENOMEM;
 	}
+	pthread_mutex_unlock(&mutexTablaArchivos);
+	pthread_mutex_unlock(&mutexTablaAsignaciones);
+	pthread_mutex_unlock(&mutexBitmap);
+	pthread_mutex_unlock(&mutexDatos);
 	}
 	return bytesEscritos;
 }
