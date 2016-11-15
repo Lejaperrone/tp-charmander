@@ -178,7 +178,10 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 	return bytesEscritos;
 }
 int osada_read(char *path, char *buf, size_t size, off_t offset){
-
+		pthread_mutex_lock(&mutexTablaArchivos);
+		pthread_mutex_lock(&mutexTablaAsignaciones);
+		pthread_mutex_lock(&mutexBitmap);
+		pthread_mutex_lock(&mutexDatos);
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
 	if (!superaTamanioArchivo(indice,offset,size)){
 		//con el indice voy a TA y busco el FB
@@ -206,8 +209,10 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 	}else{
 		return -ENOMEM;
 	}
-
-
+	pthread_mutex_unlock(&mutexTablaArchivos);
+		pthread_mutex_unlock(&mutexTablaAsignaciones);
+		pthread_mutex_unlock(&mutexBitmap);
+		pthread_mutex_unlock(&mutexDatos);
 }
 
 
@@ -217,9 +222,11 @@ int osada_open(char* path){
 	if(child>=0){
 		printf("OSADA - TABLA DE ARCHIVOS: La funcion open encontro que el bloque ocupado por %s es %d\n",
 				path,child);
+		pthread_mutex_lock(&mutexTablaArchivos);
 		if(osada_drive.directorio[child].state ==2){
 			return -EACCES;
 		}
+		pthread_mutex_unlock(&mutexTablaArchivos);
 	}
 
 	return -ENOENT;
