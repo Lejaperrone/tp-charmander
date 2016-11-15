@@ -16,6 +16,9 @@
 #include <errno.h>
 #include "../functions/tabla_asignaciones.h"
 #include <time.h>
+#include <pthread.h>
+
+extern pthread_mutex_t mutexTablaArchivos;
 
 int compare(int indice, char* test2){
 	int i;
@@ -49,11 +52,13 @@ u_int16_t osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
 //agrega a la lista de directorios los directorios de esa path
 void osada_TA_obtenerDirectorios(u_int16_t parent, t_list* directorio){
 	int i;
+	pthread_mutex_lock(&mutexTablaArchivos);
 	for(i=0;i<2048;i++){
 		//state=2
 		if(osada_drive.directorio[i].parent_directory == parent && osada_drive.directorio[i].state!=0){
 			list_add(directorio, osada_drive.directorio[i].fname);
 		}
+		pthread_mutex_unlock(&mutexTablaArchivos);
 	}
 
 	return;
@@ -85,6 +90,7 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 	u_int16_t child = 0xFFFF;
 	int i=0;
 	while(dirc[i]!=NULL){
+		pthread_mutex_lock(&mutexTablaArchivos);
 		if(sizeof(dirc[i]) != 0){
 			child = osada_TA_buscarRegistroPorNombre(dirc[i], child);
 			if(child == -1){
@@ -93,7 +99,7 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 		}
 		i++;
 	}
-
+	pthread_mutex_unlock(&mutexTablaArchivos);
 	return child;
 }
 
@@ -116,12 +122,13 @@ int osada_TA_borrarArchivo(u_int16_t parent){
 		obtenerProximoBloque(&subindice);
 	}
 	return 1;
-
 }
 
 
 void osada_TA_borrarDirectorio(u_int16_t parent){
+	pthread_mutex_lock(&mutexTablaArchivos);
 	osada_drive.directorio[parent].state=0;
+	pthread_mutex_unlock(&mutexTablaArchivos);
 }
 
 
