@@ -262,12 +262,14 @@ int osada_open(char* path){
 
 int buscarLugarLibreEnBitmap(){
 	int i,lugarLibre;
+
 	for (i=0;i<osada_drive.bitmap->size;i++){
 		if (!bitarray_test_bit(osada_drive.bitmap,i)){
 			lugarLibre=i;
 			i=osada_drive.bitmap->size;
 		}
 	}
+
 	return lugarLibre;
 }
 
@@ -294,6 +296,7 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path){
 	printf("OSADA - Generacion nuevo archivo: El nombre del archivo es: %s\n",fileName);
 	int bloqueInicioArchivo=buscarLugarLibreEnBitmap();
 	printf("OSADA - BITMAP: El primer bloque libre es: %d\n",bloqueInicioArchivo);
+	pthread_mutex_lock(&mutexTablaArchivos);
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].file_size=0;
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].first_block=bloqueInicioArchivo;
 	strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
@@ -306,9 +309,13 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path){
 	free(directoryName);
 	free(*fileSplitteado);
 	free(fileSplitteado);
+	pthread_mutex_unlock(&mutexTablaArchivos);
 }
 int osada_createFile(char* path, mode_t mode){
 	int resultado;
+	pthread_mutex_lock(&mutexBitmap);
+	pthread_mutex_lock(&mutexTablaArchivos);
+	pthread_mutex_lock(&mutexTablaAsignaciones);
 	if (buscarLugarLibreEnBitmap()>=0){
 		printf("OSADA - BITMAP: Hay lugar libre para crear archivo\n");
 		int posicionEnBitmap=buscarLugarLibreEnBitmap();
@@ -320,6 +327,9 @@ int osada_createFile(char* path, mode_t mode){
 	}else{
 		resultado=0;
 	}
+	pthread_mutex_unlock(&mutexBitmap);
+		pthread_mutex_unlock(&mutexTablaArchivos);
+		pthread_mutex_unlock(&mutexTablaAsignaciones);
 	return resultado;
 }
 int osada_createDir(char* path, char* name, mode_t mode){
