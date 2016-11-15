@@ -133,7 +133,7 @@ void identificarFuncionRecibida(char* package){
 int main(){
 	printf("Inicio osada\n");
 	//Osada
-	osada_init("/home/utnso/Escritorio/tp-2016-2c-Chamba/osada.bin");
+	osada_init("/home/utnso/git/tp-2016-2c-Chamba/osada.bin");
 
 	//Inicializo socket para escuchar
 	struct sockaddr_in addr;
