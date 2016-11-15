@@ -482,6 +482,7 @@ int osada_truncate(char* path, off_t offset){
 	return resultado;
 }
 int contarBloquesLibresTotales(){
+	pthread_mutex_lock(&mutexBitmap);
 	int t=bitarray_get_max_bit(osada_drive.bitmap);
 	int i,tot=0;
 	for (i=0;i<t;i++){
@@ -489,6 +490,7 @@ int contarBloquesLibresTotales(){
 			tot++;
 		}
 	}
+	pthread_mutex_unlock(&mutexBitmap);
 	return tot;
 }
 int contarOsadaFilesLibres(){
@@ -505,7 +507,9 @@ int osada_statfs(const char * path, struct statvfs * stats){
 	stats->f_bfree=stats->f_bavail;
 	stats->f_blocks=osada_drive.header->fs_blocks;
 	stats->f_bsize=osada_drive.header->fs_blocks;
+	pthread_mutex_lock(&mutexTablaArchivos);
 	stats->f_favail=contarOsadaFilesLibres();
+	pthread_mutex_unlock(&mutexTablaArchivos);
 	stats->f_ffree=stats->f_favail;
 	stats->f_files=2048;
 	stats->f_namemax=OSADA_FILENAME_LENGTH;
