@@ -403,26 +403,37 @@ int osada_rename(char* path, char* nuevaPath){
 
 int calcularBloquesQueOcupaDesdeElPrimerBloque (int indice){
 	int bloques=0;
+	pthread_mutex_lock(&mutexTablaAsignaciones);
 	while (indice!=0xFFFFFF){
 		bloques++;
 		indice=osada_drive.asignaciones[indice];
 	}
+	pthread_mutex_unlock(&mutexTablaAsignaciones);
 	return bloques;
 }
 void liberarEspacio (int sub,int bq_to_free){
+
 	 int tamanioEnBloquesOriginal=calcularBloquesQueOcupaDesdeElPrimerBloque(sub);
 	 int bloquesQueMeMovi=0;
 	 int bloqueDesdeDondeEmpiezoALiberar;
 	 int i;
+	 pthread_mutex_lock(&mutexTablaAsignaciones);
 	 while (tamanioEnBloquesOriginal-bq_to_free>bloquesQueMeMovi){
 		 bloqueDesdeDondeEmpiezoALiberar=osada_drive.asignaciones[sub];
 		 bloquesQueMeMovi++;
 	 }
+	 pthread_mutex_unlock(&mutexTablaAsignaciones);
+	 pthread_mutex_lock(&mutexBitmap);
+	 pthread_mutex_lock(&mutexTablaArchivos);
+	 pthread_mutex_lock(&mutexTablaAsignaciones);
 	 for (i=bloquesQueMeMovi;i<tamanioEnBloquesOriginal;i++){
 		 bitarray_clean_bit(osada_drive.bitmap,osada_drive.asignaciones[bloqueDesdeDondeEmpiezoALiberar]);
 		 osada_drive.directorio[i].state=0;
 		 bloqueDesdeDondeEmpiezoALiberar=osada_drive.asignaciones[bloqueDesdeDondeEmpiezoALiberar];
 	 }
+	 pthread_mutex_unlock(&mutexBitmap);
+	 	 pthread_mutex_unlock(&mutexTablaArchivos);
+	 	 pthread_mutex_unlock(&mutexTablaAsignaciones);
 }
 int irAlUltimoBloqueDeLaTablaDeAsignaciones (int primerBloque){
 	int indice=primerBloque;
@@ -436,12 +447,18 @@ int irAlUltimoBloqueDeLaTablaDeAsignaciones (int primerBloque){
 void ocuparEspacio (int sub, int bq_to_set){
 	int ultimoBloque=irAlUltimoBloqueDeLaTablaDeAsignaciones(sub);
 	int i;
+	pthread_mutex_lock(&mutexBitmap);
 	if (hayBloquesDesocupadosEnElBitmap(bq_to_set)){
+		pthread_mutex_lock(&mutexBitmap);
+		pthread_mutex_lock(&mutexTablaAsignaciones);
 	for (i=0;i<bq_to_set;i++){
 		int bloqueAOcupar=buscarLugarLibreEnBitmap();
 		bitarray_set_bit(osada_drive.bitmap,bloqueAOcupar);
 		ocuparBloqueSegunElUltimo(ultimoBloque,bloqueAOcupar);
 	}
+	pthread_mutex_unlock(&mutexTablaAsignaciones);
+	pthread_mutex_unlock(&mutexBitmap);
+	pthread_mutex_lock(&mutexBitmap);
 }
 }
 int osada_truncate(char* path, off_t offset){
