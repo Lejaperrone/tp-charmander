@@ -205,14 +205,20 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 			byteComienzoLectura=0;
 		}
 		printf("OSADA - DATOS: Se han leido %d bytes\n", strlen(buf));
+		pthread_mutex_unlock(&mutexTablaArchivos);
+				pthread_mutex_unlock(&mutexTablaAsignaciones);
+				pthread_mutex_unlock(&mutexBitmap);
+				pthread_mutex_unlock(&mutexDatos);
 		return strlen(buf);
+
 	}else{
+		pthread_mutex_unlock(&mutexTablaArchivos);
+				pthread_mutex_unlock(&mutexTablaAsignaciones);
+				pthread_mutex_unlock(&mutexBitmap);
+				pthread_mutex_unlock(&mutexDatos);
 		return -ENOMEM;
 	}
-	pthread_mutex_unlock(&mutexTablaArchivos);
-		pthread_mutex_unlock(&mutexTablaAsignaciones);
-		pthread_mutex_unlock(&mutexBitmap);
-		pthread_mutex_unlock(&mutexDatos);
+
 }
 
 
@@ -335,7 +341,9 @@ int osada_createFile(char* path, mode_t mode){
 int osada_createDir(char* path, char* name, mode_t mode){
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
 	//aca hay que obtener el hijo del ultimo path/ parametro es el path
+	pthread_mutex_lock(&mutexTablaArchivos);
 	darDeAltaDirectorioEnTablaDeArchivos(name, subindice);
+	pthread_mutex_unlock(&mutexTablaArchivos);
 	return 1;
 }
 
@@ -351,6 +359,7 @@ bool esUnDirectorio(int subindice){
 
 int renombrarArchivo (int subindice, char* newFileName){
 	int resultado;
+	pthread_mutex_lock(&mutexTablaArchivos);
 	if (esUnArchivo(subindice)){
 		if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
 			resultado= 1;
@@ -365,6 +374,7 @@ int renombrarArchivo (int subindice, char* newFileName){
 			resultado=EISDIR;
 		}
 	}
+	pthread_mutex_unlock(&mutexTablaArchivos);
 	return resultado;
 
 }
