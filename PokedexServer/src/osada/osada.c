@@ -94,12 +94,6 @@ int osada_readdir(char* path, t_list* directorios){
 	return 1;
 }
 
-/*int osada_createFile(char* path, char* nombreArchivo){
-
-}
-int osada_listarArchivos(char* path){
-
-}*/
 
 int osada_getattr(char* path, file_attr* attrs){
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);

@@ -105,8 +105,10 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 }
 
 void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
+	pthread_mutex_lock(&mutexTablaArchivos);
 	attr->file_size = osada_drive.directorio[indice].file_size;
 	attr->state = osada_drive.directorio[indice].state;
+	pthread_mutex_unlock(&mutexTablaArchivos);
 }
 void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
 	attr->file_size=0;
