@@ -24,11 +24,9 @@
 #include "functions/tabla_asignaciones.h"
 #include <pthread.h>
 
-pthread_mutex_t mutexTablaArchivos;
-pthread_mutex_t mutexTablaAsignaciones;
-pthread_mutex_t mutexBitmap;
-pthread_mutex_t mutexDatos;
 
+
+pthread_mutex_init();
 int bloquesATruncar(int subindice, off_t offset){
 	return ceil((osada_drive.directorio[subindice].file_size-offset)/OSADA_BLOCK_SIZE);
 }

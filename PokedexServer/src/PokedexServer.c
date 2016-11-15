@@ -18,6 +18,10 @@
 #define PUERTO "7666"
 pthread_attr_t attr;
 pthread_t thread;
+pthread_mutex_t mutexTablaArchivos;
+pthread_mutex_t mutexTablaAsignaciones;
+pthread_mutex_t mutexBitmap;
+pthread_mutex_t mutexDatos;
 
 void solicitud(){
 
@@ -134,6 +138,12 @@ int main(){
 	printf("Inicio osada\n");
 	//Osada
 	osada_init("/home/utnso/git/tp-2016-2c-Chamba/osada.bin");
+	printf("Inicializo semaforos para el bitmap\n");
+	pthread_mutex_init(&mutexBitmap,NULL);
+	printf("Inicializo semaforos para la tabla de archivos\n");
+	pthread_mutex_init(&mutexTablaArchivos,NULL);
+	printf("Inicializo semaforos para la tabla de asignaciones\n");
+	pthread_mutex_init(&mutexTablaAsignaciones,NULL);
 
 	//Inicializo socket para escuchar
 	struct sockaddr_in addr;
