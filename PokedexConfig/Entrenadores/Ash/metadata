@@ -1,8 +1,7 @@
-nombre=Red
-simbolo=#
-hojaDeViaje=[PuebloPaleta,CiudadVerde,CiudadPlateada]
-obj[PuebloPaleta]=[B,G]
-obj[CiudadVerde]=[C,Z,C]
-obj[CiudadPlateada]=[P,M,P,M,S]
-vidas=5
-reintentos=0
+nombre=Ash
+simbolo=&
+hojaDeViaje=[Gris,Azul,Roja]
+obj[Gris]=[P,B,G]
+obj[Azul]=[C]
+obj[Roja]=[C]
+vidas=10

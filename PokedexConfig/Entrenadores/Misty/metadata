@@ -1,8 +1,5 @@
 nombre=Misty
-simbolo=€
-hojaDeViaje=[CiudadPlateada,CiudadVerde]
-obj[PuebloPaleta]=[P,B]
-obj[CiudadVerde]=[Z]
-obj[CiudadPlateada]=[B,P]
+simbolo=!
+hojaDeViaje=[Gris]
+obj[Gris]=[M,G]
 vidas=1
-reintentos=0
