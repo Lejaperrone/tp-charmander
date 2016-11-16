@@ -15,13 +15,13 @@
 #include <pthread.h>
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
-#define PUERTO "7666"
 pthread_attr_t attr;
 pthread_t thread;
 pthread_mutex_t mutexTablaArchivos;
 pthread_mutex_t mutexTablaAsignaciones;
 pthread_mutex_t mutexBitmap;
 pthread_mutex_t mutexDatos;
+char *PORT;
 
 void solicitud(){
 
@@ -149,8 +149,10 @@ int main(){
 	struct sockaddr_in addr;
 	socklen_t addrlen = sizeof(addr);
 
+
+	PORT = getenv("PUERTO");
 	int listeningSocket;
-	create_serverSocket(&listeningSocket, PUERTO);
+	create_serverSocket(&listeningSocket, PORT);
 
 	//Inicializo el select
 	fd_set master;		// conjunto maestro de descriptores de fichero
