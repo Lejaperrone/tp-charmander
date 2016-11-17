@@ -13,6 +13,7 @@
 #include <commons/string.h>
 #include "osada/osada.h"
 #include <pthread.h>
+#include <stdint.h>
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 pthread_attr_t attr;
@@ -196,19 +197,23 @@ int main(){
 					}
 				} else {
 					//Si es un socket existente
-					if ((nbytes = recv(i, (void*)package, PACKAGESIZE, 0)) <= 0) {
+					if ((nbytes = recv(i, (void*)package, sizeof(uint32_t), 0)) <= 0) {
 						//Si la conexion se cerro
 						if (nbytes == 0) {
 							printf("selectserver: socket %d hung up\n", i);
 						} else {
 							perror("recv");
 						}
+						pthread_attr_destroy(&attr);
 						close(i);
 						FD_CLR(i, &master); // eliminar del conjunto maestro
 
 					} else {
 						// tenemos datos de algún cliente
 						if (nbytes != 0){
+							pthread_attr_init(&attr);
+							pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);
+							pthread_create(&thread, &attr,&identificarFuncionRecibida,NULL);
 							//identificarFuncionRecibida(package);
 
 						}
