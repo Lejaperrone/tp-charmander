@@ -28,7 +28,9 @@ void armarMensajeBasico(char* nombreFuncion, char* path, char** mensaje){
 }
 
 void conectarConServidorYRecibirRespuesta(int pokedexServer, char* mensaje, char** respuesta){
-	if(send(pokedexServer, &mensaje, sizeof(mensaje), 0)){
+	int tamanioMensaje=strlen(mensaje);
+	if(send(pokedexServer, &tamanioMensaje, sizeof(tamanioMensaje), 0)){
+		send(pokedexServer, &mensaje, tamanioMensaje, 0);
 		recv(pokedexServer, respuesta, 1024, 0);
 	}
 }
