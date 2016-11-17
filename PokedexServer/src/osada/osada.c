@@ -502,7 +502,7 @@ int contarOsadaFilesLibres(){
 	}
 	return tot;
 }
-int osada_statfs(const char * path, struct statvfs * stats){
+int osada_statfs(const char * path, struct statvfs* stats){
 	stats->f_bavail=contarBloquesLibresTotales();
 	stats->f_bfree=stats->f_bavail;
 	stats->f_blocks=osada_drive.header->fs_blocks;
@@ -516,4 +516,7 @@ int osada_statfs(const char * path, struct statvfs * stats){
 	stats->f_fsid=(int)osada_drive.header->magic_number;
 	stats->f_frsize=OSADA_BLOCK_SIZE;
 	return 1;
+}
+int osada_fallocate(const char* path, int amount, off_t sizeh, off_t sizef){
+
 }

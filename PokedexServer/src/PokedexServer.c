@@ -23,7 +23,77 @@ pthread_mutex_t mutexTablaAsignaciones;
 pthread_mutex_t mutexBitmap;
 pthread_mutex_t mutexDatos;
 char *PORT;
+struct hilo{
+		char* package;
+		int socket;
+};
+struct hilo* h;
+struct getAttr{
+	unsigned long int primerP;
+	}typedef t_getAttr;
+t_getAttr* getAttr;
 
+struct readFile{
+	__SIZE_TYPE__ size;
+	__off_t  offset;
+}typedef t_readFile;
+t_readFile* readFile;
+
+struct createFile{
+	__mode_t modo;
+}typedef t_createFile;
+t_createFile* createFile;
+
+struct truncateFile{
+	off_t offset;
+}typedef t_truncateFile;
+t_truncateFile* truncateFile;
+
+struct makeDir{
+	mode_t mode;
+}typedef t_makeDir;
+t_makeDir* makeDir;
+
+struct write{
+	size_t size;
+	off_t offset;
+}typedef t_write;
+t_write* swrite;
+
+struct statvfs{
+	    unsigned long int f_bsize;
+	    unsigned long int f_frsize;
+	#ifndef __USE_FILE_OFFSET64
+	    __fsblkcnt_t f_blocks;
+	    __fsblkcnt_t f_bfree;
+	    __fsblkcnt_t f_bavail;
+	    __fsfilcnt_t f_files;
+	    __fsfilcnt_t f_ffree;
+	    __fsfilcnt_t f_favail;
+	#else
+	    __fsblkcnt64_t f_blocks;
+	    __fsblkcnt64_t f_bfree;
+	    __fsblkcnt64_t f_bavail;
+	    __fsfilcnt64_t f_files;
+	    __fsfilcnt64_t f_ffree;
+	    __fsfilcnt64_t f_favail;
+	#endif
+	    unsigned long int f_fsid;
+	#ifdef _STATVFSBUF_F_UNUSED
+	    int __f_unused;
+	#endif
+	    unsigned long int f_flag;
+	    unsigned long int f_namemax;
+	    int __f_spare[6];
+}typedef t_statfs;
+t_statfs* statfs;
+
+struct falloc{
+	int amoun;
+	off_t sizeh;
+	off_t sizef;
+}typedef t_falloc;
+t_falloc* sfalloc;
 void solicitud(){
 
 }
@@ -35,8 +105,10 @@ char* obtenerNombreDelDirectorio(char* path){
 	return string_split(path,"/")[tamanio-1];
 }
 
-void devolverResultadoAlCliente(int resultadoDeOsada){
-
+void devolverResultadoAlCliente(int resultadoDeOsada,int socketCliente){
+	if(send(socketCliente,&resultadoDeOsada,sizeof(int),0)>=1){
+		printf("Se envia correctamente el resultado al cliente\n");
+	}
 	//	char* resultado = string_new();
 	//	string_append(&resultado, string_itoa(resultadoDeOsada));
 	//	int nbytesEnvio = send(pokedexCliente, resultado, 1, 0);
@@ -45,94 +117,117 @@ void devolverResultadoAlCliente(int resultadoDeOsada){
 	//		//No se pudo enviar el mensaje
 	//	}
 }
-void identificarFuncionRecibida(char* package){
+void recibirNombreDeLaFuncion(int socketCliente, char* nombreFuncion){
+	recv(socketCliente,nombreFuncion,5*sizeof(char),0);
+}
+void recibirParametrosDeGetAttr(int socketCliente,char* path, struct getAttr* getAttr){
+				recv(socketCliente,path,sizeof(path),0);
+				recv(socketCliente,&(getAttr->primerP),sizeof(getAttr->primerP),0);
+				//falta el recv del state
+}
+void recibirParametrosDeReadDir(int socketCliente,char* path){
+	recv(socketCliente,path,sizeof(path),0);
+}
 
-	int resultadoOsada;
+void* identificarFuncionRecibida(void* arg){
+
+	int resultadoOsada, datosLeidos=0;
 	char* nombreFuncion = string_new();
 	char* path = string_new();
+	//El primer mensaje que recibi fue la cantidad de datos que voy a recibir despues
+	while(datosLeidos<strlen(h->package)){
+	//Recibo el nombre de la funcion
+		recibirNombreDeLaFuncion(h->socket,nombreFuncion);
+		printf("Identifico de que funcion se trata, es: %s",nombreFuncion);
+				/*string_append(&nombreFuncion, string_split(package,",")[0]);
+				string_append(&path, string_split(package,",")[1]);*/
 
-	printf("Llegue a identificarFuncionRecibida");
-	string_append(&nombreFuncion, string_split(package,",")[0]);
-	string_append(&path, string_split(package,",")[1]);
+		if(string_equals_ignore_case(nombreFuncion, "GETAT")){
+			recibirParametrosDeGetAttr(h->socket,path,getAttr);
+			//invocar la funcion correspondiente de osada des-serializando la estructura
+			resultadoOsada=osada_getattr(path,(file_attr*)getAttr);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "READD")){
+				recibirParametrosDeReadDir(h->socket,path);
+				t_list* directorios=list_create();
+				resultadoOsada = osada_readdir(path, directorios);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "OPENF")){
+				resultadoOsada = osada_open(path);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "READF")){
+				char* buffer = string_new();
+				recv(h->socket,buffer,sizeof(buffer),0);
+				recv(h->socket,&(readFile->size),sizeof(readFile->size),0);
+				recv(h->socket,&(readFile->offset),sizeof(readFile->offset),0);
+				resultadoOsada = osada_read(path, buffer, readFile->size, readFile->offset);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "CREAT")){
+				recv(h->socket,&(createFile->modo),sizeof(createFile->modo),0);
+				resultadoOsada = (int)osada_createFile(path, createFile->modo);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
+				recv(h->socket,&(truncateFile->offset),sizeof(truncateFile->offset),0);
+				resultadoOsada = osada_truncate(path, truncateFile->offset);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "MKDIR")){
+				recv(h->socket,&(makeDir->mode),sizeof(makeDir->mode),0);
+				resultadoOsada = osada_createDir(path, obtenerNombreDelDirectorio(path), makeDir->mode);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "RENAM")){
+				char* nombreNuevo=string_new();
+				recv(h->socket,nombreNuevo,sizeof(nombreNuevo),0);
+				resultadoOsada = osada_rename(path, nombreNuevo);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "ULINK")){
+				resultadoOsada = osada_removeFile(path);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "RMDIR")){
+				resultadoOsada = osada_removeDir(path);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "WRITE")){
+				char* buffer = string_new();
+				recv(h->socket,buffer,sizeof(buffer),0);
+				recv(h->socket,&(swrite->size),sizeof(swrite->size),0);
+				recv(h->socket,&(swrite->offset),sizeof(swrite->size),0);
+				resultadoOsada = osada_write(path, buffer, swrite->size, swrite->offset);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "STATF")){
+				recv(h->socket,&(statfs->__f_spare),sizeof(statfs->__f_spare),0);
+				recv(h->socket,&(statfs->f_bavail),sizeof(statfs->f_bavail),0);
+				recv(h->socket,&(statfs->f_bfree),sizeof(statfs->f_bfree),0);
+				recv(h->socket,&(statfs->f_blocks),sizeof(statfs->f_blocks),0);
+				recv(h->socket,&(statfs->f_bsize),sizeof(statfs->f_bsize),0);
+				recv(h->socket,&(statfs->f_favail),sizeof(statfs->f_favail),0);
+				recv(h->socket,&(statfs->f_ffree),sizeof(statfs->f_ffree),0);
+				recv(h->socket,&(statfs->f_files),sizeof(statfs->f_files),0);
+				recv(h->socket,&(statfs->f_flag),sizeof(statfs->f_flag),0);
+				recv(h->socket,&(statfs->f_frsize),sizeof(statfs->f_frsize),0);
+				recv(h->socket,&(statfs->f_fsid),sizeof(statfs->f_fsid),0);
+				recv(h->socket,&(statfs->f_namemax),sizeof(statfs->f_namemax),0);
+				resultadoOsada=osada_statfs(path,statfs);
+			}
+			if(string_equals_ignore_case(nombreFuncion, "RLEAS")){
+				//Este supuestamente no se hace segun dijo matias
+			}
+			if(string_equals_ignore_case(nombreFuncion, "FALOC")){
+				//Este supuestamente no se hace segun dijo matias
 
-	if(string_equals_ignore_case(nombreFuncion, "GETAT")){
-		//invocar la funcion correspondiente de osada des-serializando la estructura
+				//Asignar datos del package spliteado
+				//		int amount;
+				//		off_t sizeh;
+				//		off_t sizef;
+
+				//invocar la funcion correspondiente de osada
+				recv(h->socket,&(sfalloc->amoun),sizeof(sfalloc->amoun),0);
+				recv(h->socket,&(sfalloc->sizeh),sizeof(sfalloc->sizeh),0);
+				recv(h->socket,&(sfalloc->sizef),sizeof(sfalloc->sizef),0);
+				resultadoOsada=osada_fallocate(path,sfalloc->amoun,sfalloc->sizeh,sfalloc->sizef);
+			}
 	}
-	if(string_equals_ignore_case(nombreFuncion, "READD")){
-		t_list* directorios = list_create();
 
-		resultadoOsada = osada_readdir(path, directorios);
-	}
-	if(string_equals_ignore_case(nombreFuncion, "OPENF")){
-		resultadoOsada = osada_open(path);
-	}
-	if(string_equals_ignore_case(nombreFuncion, "READF")){
-		char* buffer = string_new();
-		string_append(&buffer, string_split(package,",")[3]);
-
-		size_t size = atoi(string_split(package,",")[4]);
-		off_t offset = atoi(string_split(package,",")[5]);
-
-		resultadoOsada = osada_read(path, buffer, size, offset);
-
-	}
-	if(string_equals_ignore_case(nombreFuncion, "CREAT")){
-
-		mode_t mode = atoi(string_split(package,",")[3]);
-
-		resultadoOsada = (int)osada_createFile(path, mode);
-	}
-	if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
-
-		off_t offset = atoi(string_split(package,",")[3]);
-
-		resultadoOsada = osada_truncate(path, offset);
-	}
-	if(string_equals_ignore_case(nombreFuncion, "MKDIR")){
-
-		mode_t modo = atoi(string_split(package,",")[3]);
-
-		resultadoOsada = osada_createDir(path, obtenerNombreDelDirectorio(path), modo);
-	}
-	if(string_equals_ignore_case(nombreFuncion, "RENAM")){
-		char* newPath = string_split(package,",")[3];
-
-		resultadoOsada = osada_rename(path, newPath);
-	}
-	if(string_equals_ignore_case(nombreFuncion, "ULINK")){
-		resultadoOsada = osada_removeFile(path);
-	}
-	if(string_equals_ignore_case(nombreFuncion, "RMDIR")){
-		resultadoOsada = osada_removeDir(path);
-	}
-	if(string_equals_ignore_case(nombreFuncion, "WRITE")){
-		char* buffer = string_new();
-		string_append(&buffer, string_split(package,",")[3]);
-
-		size_t size = atoi(string_split(package,",")[4]);
-		off_t offset = atoi(string_split(package,",")[5]);
-
-		resultadoOsada = osada_write(path, buffer, size, offset);
-
-	}
-	if(string_equals_ignore_case(nombreFuncion, "STATF")){
-		//invocar la funcion correspondiente de osada habiendo des-serializado la estructura
-	}
-	if(string_equals_ignore_case(nombreFuncion, "RLEAS")){
-		//Este supuestamente no se hace segun dijo matias
-	}
-	if(string_equals_ignore_case(nombreFuncion, "FALOC")){
-		//Este supuestamente no se hace segun dijo matias
-
-		//Asignar datos del package spliteado
-		//		int amount;
-		//		off_t sizeh;
-		//		off_t sizef;
-
-		//invocar la funcion correspondiente de osada
-	}
-
-	devolverResultadoAlCliente(resultadoOsada);
+	devolverResultadoAlCliente(resultadoOsada,h->socket);
+	return arg;
 }
 
 int main(){
@@ -145,7 +240,8 @@ int main(){
 	pthread_mutex_init(&mutexTablaArchivos,NULL);
 	printf("Inicializo semaforos para la tabla de asignaciones\n");
 	pthread_mutex_init(&mutexTablaAsignaciones,NULL);
-
+	pthread_attr_init(&attr);
+	pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);
 	//Inicializo socket para escuchar
 	struct sockaddr_in addr;
 	socklen_t addrlen = sizeof(addr);
@@ -211,9 +307,9 @@ int main(){
 					} else {
 						// tenemos datos de algún cliente
 						if (nbytes != 0){
-							pthread_attr_init(&attr);
-							pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);
-							pthread_create(&thread, &attr,&identificarFuncionRecibida,NULL);
+							h->package=package;
+							h->socket=i;
+							//pthread_create(&thread, &attr,identificarFuncionRecibida,NULL);
 							//identificarFuncionRecibida(package);
 
 						}
