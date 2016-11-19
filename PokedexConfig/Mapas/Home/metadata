@@ -2,4 +2,4 @@ TiempoChequeoDeadlock=50000
 Batalla=1
 algoritmo=SRDF
 quantum=3
-retardo=3000
+retardo=2000
