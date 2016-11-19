@@ -11,6 +11,7 @@
 #include <arpa/inet.h>
 #include <commons/collections/list.h>
 #include <commons/string.h>
+#include <commons/log.h>
 #include "osada/osada.h"
 #include <pthread.h>
 #include <stdint.h>
@@ -229,9 +230,26 @@ void* identificarFuncionRecibida(void* arg){
 	devolverResultadoAlCliente(resultadoOsada,h->socket);
 	return arg;
 }
+t_log* crearArchivoLogPokedexServer() {
 
+	remove("logPokedexServer");
+
+	t_log* logs = log_create("logPokedexServer", "MapaLog", 0, LOG_LEVEL_TRACE);
+
+	if (logs == NULL) {
+		puts("No se pudo generar el archivo de logueo.\n");
+		return NULL;
+	};
+
+
+	log_info(logs, "ARCHIVO DE LOGUEO INICIALIZADO");
+
+	return logs;
+}
+t_log* logPokedexServer;
 int main(){
-	printf("Inicio osada\n");
+	logPokedexServer=crearArchivoLogPokedexServer();
+	log_info(logPokedexServer,"Inicio OSADA");
 	//Osada
 	osada_init("/home/utnso/git/tp-2016-2c-Chamba/osada.bin");
 	printf("Inicializo semaforos para el bitmap\n");
@@ -309,7 +327,7 @@ int main(){
 						if (nbytes != 0){
 							h->package=package;
 							h->socket=i;
-							//pthread_create(&thread, &attr,identificarFuncionRecibida,NULL);
+							pthread_create(&thread, &attr,identificarFuncionRecibida,NULL);
 							//identificarFuncionRecibida(package);
 
 						}
