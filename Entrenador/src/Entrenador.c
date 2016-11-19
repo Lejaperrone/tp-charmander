@@ -33,7 +33,7 @@ void sigterm_handler(int signum){
 time_t sumaTiemposBloqueos;
 
 int main(int argc, char *argv[]){
-
+	printf("Paso -1");
 	if(argc != 3){
 		printf("El entrenador no tiene los parametros correctamente seteados.\n");
 		return 1;
@@ -41,13 +41,8 @@ int main(int argc, char *argv[]){
 	char* name = argv[1]; //Red
 	char* pokedexPath = argv[2]; //../../PokedexConfig
 
-
 	//char* name = "Red";
 	//char* pokedexPath = "/home/utnso/projects/tp-2016-2c-Chamba/PokedexConfig";
-
-	/*char* name = "Red";
-	char* pokedexPath = "/home/utnso/projects/tp-2016-2c-Chamba/PokedexConfig";*/
-
 
 	//Pido memoria para guardar el entrenador y leo la configuracion
 	entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
@@ -128,7 +123,7 @@ int main(int argc, char *argv[]){
 			//calcularTiempototalDeBloqueoPorPokenest();
 			printf("El entrenador ha estado bloqueado en total %ld segundos.\n",sumaTiemposBloqueos);
 			printf("El tiempo total recorrido del mapa %s fue de: %ld segundos.\n",mapa->nombre,entrenador->tiempoTotal);
-				printf("El entrenador murio %d veces durante la hazania.\n",entrenador->vecesQueMurio);
+				printf("El entrenador murio %d veces durante la hazania.\n",entrenador->muertes);
 				printf("-------------------------------------------------------------------\n");
 			}
 

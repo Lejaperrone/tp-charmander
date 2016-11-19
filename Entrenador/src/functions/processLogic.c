@@ -42,10 +42,10 @@ int accionesSegunLasVidasDisponibles(){
 			letraMalPuestaOPrimeraVez = false;
 			entrenador->vidas--;
 			log_info(archivoLog, "Resto una vida del entrenador.");
-			entrenador->vecesQueMurio++;
+			entrenador->muertes++;
 			return 0;
 		}else{
-			entrenador->vecesQueMurio++;
+			entrenador->muertes++;
 			printf("Se realizaron %d reintentos.\n", entrenador->reintentos);
 			printf("¿Desea reiniciar el juego? Ingrese Y o N: ");
 			fflush(stdin);

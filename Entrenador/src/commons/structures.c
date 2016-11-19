@@ -24,6 +24,7 @@ typedef struct t_mapa_structs{
 	char* puerto;
 	char* ip;
 	t_coordenadas miPosicion;
+	int terminado;
 }t_mapa;
 
 
@@ -34,7 +35,7 @@ typedef struct t_entrenador_structs{
 	int reintentos;
 	t_list* hojaDeViaje;
 	time_t tiempoTotal;
-	int vecesQueMurio;
+	int muertes;
 	time_t tiempoTotalAventura;
 }t_entrenador;
 

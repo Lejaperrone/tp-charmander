@@ -21,7 +21,7 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 		entrenador->simbolo = *config_get_string_value(config, "simbolo");
 		entrenador->vidas = config_get_int_value(config, "vidas");
 		entrenador->reintentos = config_get_int_value(config, "reintentos");
-		entrenador->vecesQueMurio=0;
+		entrenador->muertes=0;
 		time(&(entrenador->tiempoTotalAventura));
 
 
@@ -33,6 +33,7 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 			t_mapa* mapa = malloc(sizeof(t_mapa));
 		//Copio el nombre del mapa
 			mapa->nombre = *p;
+			mapa->terminado =0;
 		//Obtengo los objetivos del mapa
 			char * key = string_new();
 			string_append(&key, "obj[");
