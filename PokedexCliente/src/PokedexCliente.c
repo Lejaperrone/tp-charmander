@@ -59,7 +59,8 @@ int main(int argc, char *argv[]){
 
 		log_info(archivoLog, "Levanto fuse\n");
 		printf("Fuse montado\n");
-		return fuse_main(args.argc, args.argv, &chamba_oper, NULL);
+		printf("%d",fuse_main(args.argc, args.argv, &chamba_oper, NULL));
+		return 1;
 
 }
 

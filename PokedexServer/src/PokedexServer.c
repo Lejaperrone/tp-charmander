@@ -234,7 +234,7 @@ t_log* crearArchivoLogPokedexServer() {
 
 	remove("logPokedexServer");
 
-	t_log* logs = log_create("logPokedexServer", "MapaLog", 0, LOG_LEVEL_TRACE);
+	t_log* logs = log_create("logPokedexServer", "PokedexServidoLog", 0, LOG_LEVEL_TRACE);
 
 	if (logs == NULL) {
 		puts("No se pudo generar el archivo de logueo.\n");
@@ -252,14 +252,15 @@ int main(){
 	log_info(logPokedexServer,"Inicio OSADA");
 	//Osada
 	osada_init("/home/utnso/git/tp-2016-2c-Chamba/osada.bin");
-	printf("Inicializo semaforos para el bitmap\n");
+	log_info(logPokedexServer,"Inicializo semaforos para el bitmap\n");
 	pthread_mutex_init(&mutexBitmap,NULL);
-	printf("Inicializo semaforos para la tabla de archivos\n");
+	log_info(logPokedexServer,"Inicializo semaforos para la tabla de archivos\n");
 	pthread_mutex_init(&mutexTablaArchivos,NULL);
-	printf("Inicializo semaforos para la tabla de asignaciones\n");
+	log_info(logPokedexServer,"Inicializo semaforos para la tabla de asignaciones\n");
 	pthread_mutex_init(&mutexTablaAsignaciones,NULL);
 	pthread_attr_init(&attr);
 	pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);
+	log_info(logPokedexServer,"Inicio hilos detached");
 	//Inicializo socket para escuchar
 	struct sockaddr_in addr;
 	socklen_t addrlen = sizeof(addr);
@@ -268,6 +269,7 @@ int main(){
 	PORT = getenv("PUERTO");
 	int listeningSocket;
 	create_serverSocket(&listeningSocket, PORT);
+	log_info(logPokedexServer,"Puerto por variable de entorno OK");
 
 	//Inicializo el select
 	fd_set master;		// conjunto maestro de descriptores de fichero
@@ -319,15 +321,19 @@ int main(){
 							perror("recv");
 						}
 						pthread_attr_destroy(&attr);
+						free(h);
 						close(i);
 						FD_CLR(i, &master); // eliminar del conjunto maestro
 
 					} else {
 						// tenemos datos de algún cliente
 						if (nbytes != 0){
+							h=(struct hilo*)malloc(sizeof(struct hilo));
 							h->package=package;
 							h->socket=i;
+							log_info(logPokedexServer,"Mando a %d a un hilo a parte", h->socket);
 							pthread_create(&thread, &attr,identificarFuncionRecibida,NULL);
+
 							//identificarFuncionRecibida(package);
 
 						}
