@@ -6,18 +6,21 @@
 C_SRCS += \
 ../src/functions/config.c \
 ../src/functions/log.c \
+../src/functions/nextItem.c \
 ../src/functions/positions.c \
 ../src/functions/processLogic.c 
 
 OBJS += \
 ./src/functions/config.o \
 ./src/functions/log.o \
+./src/functions/nextItem.o \
 ./src/functions/positions.o \
 ./src/functions/processLogic.o 
 
 C_DEPS += \
 ./src/functions/config.d \
 ./src/functions/log.d \
+./src/functions/nextItem.d \
 ./src/functions/positions.d \
 ./src/functions/processLogic.d 
 

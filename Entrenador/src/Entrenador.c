@@ -17,6 +17,7 @@
 #include "functions/positions.h"
 #include "functions/processLogic.h"
 #include <time.h>
+#include "functions/nextItem.h"
 
 
 void sigusr1_handler(int signum){

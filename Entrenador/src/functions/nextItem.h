@@ -17,12 +17,12 @@
 #include <commons/log.h>
 #include <signal.h>
 #include <commons/collections/dictionary.h>
-#include "commons/structures.c"
-#include "commons/constants.h"
-#include "functions/log.h"
-#include "functions/config.h"
-#include "functions/positions.h"
-#include "functions/processLogic.h"
+#include "../commons/structures.c"
+#include "../commons/constants.h"
+#include "log.h"
+#include "config.h"
+#include "positions.h"
+#include "processLogic.h"
 #include <time.h>
 
 #ifndef FUNCTIONS_NEXTITEM_H_
