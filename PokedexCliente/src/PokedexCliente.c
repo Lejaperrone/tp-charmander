@@ -19,7 +19,6 @@
 
 #include "socketLib.h"
 
-
 int main(int argc, char *argv[]){
 
 	// Creo archivo log

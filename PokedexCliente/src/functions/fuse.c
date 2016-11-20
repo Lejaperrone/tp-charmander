@@ -35,7 +35,8 @@ void conectarConServidorYRecibirRespuesta(int pokedexServer, char* mensaje, char
 	}
 }
 
-int chamba_getattr(const char* path, struct stat* stbuf, struct fuse_file_info *fi){
+int chamba_getattr(const char* path, struct stat* stbuf){
+	int res = 0;
 
 	char* mensaje = string_new();
 	armarMensajeBasico("GETAT", (char*)path, &mensaje);
@@ -46,6 +47,17 @@ int chamba_getattr(const char* path, struct stat* stbuf, struct fuse_file_info *
 
 	memset(stbuf, 0, sizeof(struct stat));
 
+	if (strcmp(path, "/") == 0) {
+			stbuf->st_mode = S_IFDIR | 0755;
+			stbuf->st_nlink = 2;
+		} else if (strcmp(path, "/") == 0) {
+			stbuf->st_mode = S_IFREG | 0444;
+			stbuf->st_nlink = 1;
+			stbuf->st_size = strlen("Hola mundo");
+		} else {
+			res = -ENOENT;
+		}
+		return res;
 
 	return 0;
 }
