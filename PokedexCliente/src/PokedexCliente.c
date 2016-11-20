@@ -23,44 +23,24 @@
 int main(int argc, char *argv[]){
 
 	// Creo archivo log
-		archivoLog = crearArchivoLog();
+	archivoLog = crearArchivoLog();
 
-	//Recivo parametros por linea de comandos
-		if(argc != 2){
-			log_info(archivoLog,"El pokedexCliente no tiene los parametros correctamente seteados.");
-			printf("Agregue un punto de montaje.\n");
-			return 1;
-		}
-		puntoPontaje = argv[1]; //tmp
-		log_info(archivoLog,"Punto de montaje: %s", puntoPontaje);
+	//Agarro puerto e IP por variables de entorno e imprimo por consola
+	IP_SERVER = getenv("IP_SERVER");
+	PORT = getenv("PUERTO");
+	printf("Ip Server : %s\n", IP_SERVER);
+	printf("Puerto : %s\n", PORT);
 
-		struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
+	//Creo el socket
+	create_socketClient(&pokedexServer, IP_SERVER, PORT);
+	printf("Conectado al servidor\n");
+	log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
 
-	// Limpio la estructura que va a contener los parametros
-		memset(&runtime_options, 0, sizeof(struct t_runtime_options));
+	//Levanto fuse
+	log_info(archivoLog, "Levanto fuse\n");
+	return fuse_main(argc, argv, &chamba_oper, NULL);
 
-	// Esta funcion de FUSE lee los parametros recibidos y los intepreta
-		if (fuse_opt_parse(&args, &runtime_options, fuse_options, NULL) == -1){
-		/** error parsing options */
-			perror("Invalid arguments!");
-			return EXIT_FAILURE;
-		}
-
-		//getting environment variable for connecting to server
-		IP_SERVER = getenv("IP_SERVER");
-		PORT = getenv("PUERTO");
-
-		printf("Ip Server : %s\n", IP_SERVER);
-		printf("Puerto : %s\n", PORT);
-
-		create_socketClient(&pokedexServer, IP_SERVER, PORT);
-		printf("Conectado al servidor\n");
-		log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
-
-		log_info(archivoLog, "Levanto fuse\n");
-		printf("Fuse montado\n");
-		printf("%d",fuse_main(args.argc, args.argv, &chamba_oper, NULL));
-		return 1;
+	return EXIT_SUCCESS;
 
 }
 
