@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <commons/collections/list.h>
 #include <commons/collections/dictionary.h>
-#ifndef COMMONS_STRUCTURES_C
-#define COMMONS_STRUCTURES_C
+#ifndef COMMONS_STRUCTURES
+#define COMMONS_STRUCTURES
 
 typedef struct t_coordenadas_structs{
 	int x;

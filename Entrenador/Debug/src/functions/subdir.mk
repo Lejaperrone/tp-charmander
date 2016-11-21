@@ -8,21 +8,27 @@ C_SRCS += \
 ../src/functions/log.c \
 ../src/functions/nextItem.c \
 ../src/functions/positions.c \
-../src/functions/processLogic.c 
+../src/functions/processLogic.c \
+../src/functions/reset.c \
+../src/functions/signals.c 
 
 OBJS += \
 ./src/functions/config.o \
 ./src/functions/log.o \
 ./src/functions/nextItem.o \
 ./src/functions/positions.o \
-./src/functions/processLogic.o 
+./src/functions/processLogic.o \
+./src/functions/reset.o \
+./src/functions/signals.o 
 
 C_DEPS += \
 ./src/functions/config.d \
 ./src/functions/log.d \
 ./src/functions/nextItem.d \
 ./src/functions/positions.d \
-./src/functions/processLogic.d 
+./src/functions/processLogic.d \
+./src/functions/reset.d \
+./src/functions/signals.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

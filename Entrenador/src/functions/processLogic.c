@@ -207,13 +207,8 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 
 int procesarMapa(t_mapa* mapa, float tiempoBloqueo){
 	int serverMapa;
-	//Defino el socket con el que se va a manejar el entrenador durante todo el transcurso del mapa
-	//Me conecto al mapa
-	log_info(archivoLog,"Conectandose al mapa %s...", mapa->nombre);
 	create_socketClient(&serverMapa, mapa->ip, mapa->puerto);
-	log_info(archivoLog,"Conectado al mapa %s.", mapa->nombre);
 
-	//Le paso mi simbolo al  mapa
 	log_info(archivoLog,"Me identifico con el mapa como: %c", entrenador->simbolo);
 	int resp = send(serverMapa, &(entrenador->simbolo), 1, 0);
 	if(resp == -1){

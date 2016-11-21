@@ -6,6 +6,7 @@
  */
 
 #include <commons/log.h>
+#include "structures.c"
 
 #ifndef COMMONS_CONSTANTS_H_
 #define COMMONS_CONSTANTS_H_
@@ -19,5 +20,7 @@
 
 t_log* archivoLog;
 t_entrenador* entrenador;
+char* name;
+char* pokedexPath;
 
 #endif /* COMMONS_CONSTANTS_H_ */
