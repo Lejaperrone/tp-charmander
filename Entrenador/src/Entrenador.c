@@ -21,20 +21,16 @@
 #include "functions/reset.h"
 #include "commons/structures.c"
 
-
-
-time_t sumaTiemposBloqueos;
-
 int main(int argc, char *argv[]){
-	if(argc != 3){
+	/*if(argc != 3){
 		printf("El entrenador no tiene los parametros correctamente seteados.\n");
 		return 1;
 	}
 	name = argv[1]; //Red
-	pokedexPath = argv[2]; //../../PokedexConfig
+	pokedexPath = argv[2]; //../../PokedexConfig*/
 
-	//name = "Red";
-	//pokedexPath = "/home/utnso/projects/tp-2016-2c-Chamba/PokedexConfig";
+	name = "Red";
+	pokedexPath = "/home/utnso/projects/tp-2016-2c-Chamba/PokedexConfig";
 
 	//Aloco memoria para el entrenador
 	entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
@@ -56,23 +52,28 @@ int main(int argc, char *argv[]){
 	log_info(archivoLog, "Entrenador inicia ejecucion PID: %d\n", getpid());
 
 	t_mapa* mapa = getNextMap();
-	int status;
+	char resp = ' ';
 	while(mapa != NULL){
 		if(entrenador->vidas>0){
 			reiniciarMapa(mapa);
-			status = procesarMapa(mapa, sumaTiemposBloqueos);
-
-			if(mapa->terminado == 0){
-				entrenador->vidas--;
+			if(procesarMapa(mapa)){
+				if(mapa->terminado == 0){
+					entrenador->vidas--;
+					printf("Perdio una vida\n");
+				}else{
+					mapa = getNextMap();
+				}
 			}else{
-				mapa = getNextMap();
+				printf("No fue posible conectarse al mapa %s, desea reintentar? (Y/N)", mapa->nombre);
+				scanf("%c",&resp);
+				if(resp=='N' || resp=='n'){
+					mapa = NULL;
+				}
 			}
-
 		}else{
 			printf("Te quedaste sin vidas, Desea reiniciar el juego? (Y/N)");
-			char* resp;
-			scanf("%c",resp);
-			if(resp[0]=='Y' || resp[0]=='y'){
+			scanf("%c",&resp);
+			if(resp=='Y' || resp=='y'){
 				entrenador->vidas=1;
 				list_iterate(entrenador->hojaDeViaje, (void*)reiniciarMapa);
 				mapa = getNextMap();
@@ -82,16 +83,20 @@ int main(int argc, char *argv[]){
 		}
 	}
 
-	if(getNextMap() != NULL){
+	if(getNextMap() == NULL){
+		//Calculo tiempo total de aventura
 		time_t tiempoActual;
 		time(&tiempoActual);
-		entrenador->tiempoTotal=tiempoActual-entrenador->tiempoTotal;
-		printf("\n-------------------------------------------------------------------\n");
-		printf("\tTE HAS CONVERTIDO EN UN MAESTRO POKEMON!\n");
-		printf("El entrenador ha estado bloqueado en total %ld segundos.\n",sumaTiemposBloqueos);
-		printf("El tiempo total recorrido del mapa %s fue de: %ld segundos.\n",mapa->nombre,entrenador->tiempoTotal);
-		printf("El entrenador murio %d veces durante la hazania.\n",entrenador->muertes);
-		printf("-------------------------------------------------------------------\n");
+		entrenador->tiempoTotalAventura = tiempoActual - entrenador->tiempoTotalAventura;
+
+		//Reporte final
+		printf("Felicitaciones, te has convertido en un MAESTRO POKEMON.\n");
+		printf("Duracion de la aventura: %d segundos\n", entrenador->tiempoTotalAventura);
+		printf("Tiempo transcurrido bloqueado: %d segundos\n", entrenador->tiempoBloqueado);
+		printf("Cantidad de  muertes: %d\n", entrenador->muertes);
+		printf("Cantidad de veces en deadlock %d\n", entrenador->deadlocks);
+	}else{
+		printf("Esta vez no lograste convertirte en MAESTRO POKEMON.\nMejor suerte la proxima\n");
 	}
 
 	free(entrenador);

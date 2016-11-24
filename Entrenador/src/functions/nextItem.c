@@ -38,7 +38,7 @@ t_objetivo* getNextObjective(t_mapa* mapa){
 		return (objetivo->logrado == 0);
 	}
 
-	return list_find(entrenador->hojaDeViaje, (void*)_objectiveNotFinish);
+	return list_find(mapa->objetivos, (void*)_objectiveNotFinish);
 }
 
 

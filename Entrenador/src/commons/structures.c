@@ -34,9 +34,10 @@ typedef struct t_entrenador_structs{
 	int vidas;
 	int reintentos;
 	t_list* hojaDeViaje;
-	time_t tiempoTotal;
 	int muertes;
+	int deadlocks;
 	time_t tiempoTotalAventura;
+	time_t tiempoBloqueado;
 }t_entrenador;
 
 

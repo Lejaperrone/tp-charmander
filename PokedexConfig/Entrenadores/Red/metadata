@@ -1,9 +1,7 @@
 nombre=Red
 simbolo=@
-hojaDeViaje=[PuebloPaleta,Roja,Verde,Azul]
+hojaDeViaje=[PuebloPaleta,Azul]
 obj[PuebloPaleta]=[B,G,P]
-obj[Roja]=[H,P,L,C]
-obj[Verde]=[P,B,G,R]
 obj[Azul]=[C,Z]
 vidas=1
 reintentos=0

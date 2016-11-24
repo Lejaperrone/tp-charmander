@@ -18,68 +18,11 @@
 #include "positions.h"
 #include "processLogic.h"
 #include <time.h>
-extern time_t sumaTiemposBloqueos;
-
-void resetearObjetivos(t_objetivo* objetivo){
-	objetivo->logrado = 0;
-	objetivo->ubicacion.x = -1;
-	objetivo->ubicacion.y = -1;
-}
-void destroyerDeObjetivo(t_objetivo* objetivo){
-	free(objetivo);
-}
-void destroyerHojaDeViaje(t_mapa* mapa){
-	list_destroy_and_destroy_elements(mapa->objetivos, (void*)destroyerDeObjetivo);
-	free(mapa);
-}
-
-int accionesSegunLasVidasDisponibles(){
-	char letraParaReinicio;
-	bool letraMalPuestaOPrimeraVez = true;
-
-	while(letraMalPuestaOPrimeraVez){
-		if (entrenador->vidas >= 1){
-			letraMalPuestaOPrimeraVez = false;
-			entrenador->vidas--;
-			log_info(archivoLog, "Resto una vida del entrenador.");
-			entrenador->muertes++;
-			return 0;
-		}else{
-			entrenador->muertes++;
-			printf("Se realizaron %d reintentos.\n", entrenador->reintentos);
-			printf("¿Desea reiniciar el juego? Ingrese Y o N: ");
-			fflush(stdin);
-			scanf(" %c", &letraParaReinicio);
-			if(letraParaReinicio == 'Y' || letraParaReinicio == 'y'){
-				letraMalPuestaOPrimeraVez = false;
-				log_info(archivoLog, "Se presiono la tecla Y en la pregunta de volver a jugar.");
-				entrenador->reintentos++;
-				//borrar medallas
-
-			}
-			else if(letraParaReinicio =='N' || letraParaReinicio == 'n'){
-				letraMalPuestaOPrimeraVez = false;
-				log_info(archivoLog, "Se presiono la tecla N en la pregunta de volver a jugar.");
-				printf("\nHasta la vista, baby.\n");
-				printf("------------------------------------------------------------\n");
-
-				//liberar memoria del entrenador con sus estructuras
-				exit(0);
-			}
-			else{
-				printf("Escribiste otra letra. Vamos de vuelta.\n");
-				printf("------------------------------------------------------------\n");
-			}
-		}
-	}
-	return 1;
-}
 
 int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa){
-	char quantum;
-	log_info(archivoLog, "Arranco objetivo %s en mapa %s con mov %d", objetivo->nombre, mapa->nombre, *movimiento);
+	char turno;
 
-	while(objetivo->logrado==0 && recv(serverMapa, &quantum, 1, 0) && quantum=='Q'){ //aca deberia esperar al siguiente quantum.
+	while(objetivo->logrado==0 && recv(serverMapa, &turno, 1, 0) && turno=='Q'){ //aca deberia esperar al siguiente quantum.
 		log_info(archivoLog, "Obtuve un turno");
 		if(objetivo->ubicacion.x==-1 || objetivo->ubicacion.y==-1){ //Obtengo ubicacion de pokenest
 			//Creo el mensaje
@@ -156,44 +99,30 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 			}
 			log_info(archivoLog,"Envie el mensaje %s",mensaje);
 
-			time(&objetivo->tiempoBloqueado);
-			//printf("Obtengo el tiempo cuando pido el Pokemon %ld\n",objetivo->tiempoBloqueado);
-
-			time_t tiempoActualBloqueo;
-
+			time_t tiempoInicialBloqueo;
+			time(&tiempoInicialBloqueo);
 
 			char conf;
 			if (recv(serverMapa, &conf, 1,  0) == 1){
+				sleep(1);
+				time_t tiempoFinalBloqueo;
+				time(&tiempoFinalBloqueo);
+				entrenador->tiempoBloqueado += tiempoFinalBloqueo - tiempoInicialBloqueo;
+
 				if (conf=='C'){
+					printf("Capture el objetivo\n");
 					objetivo->logrado = 1;
-					time(&tiempoActualBloqueo);
-					sumaTiemposBloqueos+=(tiempoActualBloqueo-objetivo->tiempoBloqueado);
-					//printf("Suma de tiembpos bloqueados vale %ld\n",sumaTiemposBloqueos);
-					//printf("Tomo el tiempo cuando capturo al Pokemon %ld\n",(long)tiempoActualBloqueo);
-					//printf("Me llevo conseguir a %s, %ld segundos\n",objetivo->nombre,tiempoActualBloqueo-objetivo->tiempoBloqueado);
-					log_info(archivoLog,"Fin del objetivo");
+				}else if (conf=='K'){
+					entrenador->deadlocks++;
+					if (recv(serverMapa, &conf, 1,  0) == 1 && conf=='C'){
+						objetivo->logrado = 1;
+					}else{
+						entrenador->muertes++;
+						printf("Muerte por deadlock");
+						objetivo->logrado = 0;
+						return 0;
+					}
 
-								/*if (dictionary_has_key(entrenador->tiempoTotalPokenests,objetivo->nombre)){
-									time_t t=(time_t)dictionary_get(entrenador->tiempoTotalPokenests, objetivo->nombre);
-									dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)(objetivo->tiempoBloqueado+t));
-								}else{
-								dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)objetivo->tiempoBloqueado);
-								}*/
-
-				}
-				if (conf=='K'){
-					objetivo->logrado = 0;
-					time(&tiempoActualBloqueo);
-					printf("\n-------------------------------------------------------------------\n");
-					printf("Motivo de muerte: Muerte por deadlock.\n");
-					/*if (dictionary_has_key(entrenador->tiempoTotalPokenests,objetivo->nombre)){
-														time_t t=(time_t)dictionary_get(entrenador->tiempoTotalPokenests, objetivo->nombre);
-														dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)(objetivo->tiempoBloqueado+t));
-													}else{
-													dictionary_put(entrenador->tiempoTotalPokenests,objetivo->nombre,(void*)objetivo->tiempoBloqueado);
-													}*/
-					sumaTiemposBloqueos+=(tiempoActualBloqueo-objetivo->tiempoBloqueado);
-					//printf("Suma de tiempos bloqueados vale %ld\n",sumaTiemposBloqueos);
 				}
 				return 1;
 			}
@@ -205,15 +134,16 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 	return 0;
 }
 
-int procesarMapa(t_mapa* mapa, float tiempoBloqueo){
+int procesarMapa(t_mapa* mapa){
 	int serverMapa;
 	create_socketClient(&serverMapa, mapa->ip, mapa->puerto);
 
-	log_info(archivoLog,"Me identifico con el mapa como: %c", entrenador->simbolo);
+	log_info(archivoLog,"Me identifico con el mapa %s", mapa->nombre);
 	int resp = send(serverMapa, &(entrenador->simbolo), 1, 0);
 	if(resp == -1){
 		log_info(archivoLog,"No me pude identificar con el mapa");
-		return 2;
+		close(serverMapa);
+		return 0;
 	}
 
 
@@ -223,16 +153,23 @@ int procesarMapa(t_mapa* mapa, float tiempoBloqueo){
 	//time(&entrenador->tiempoTotal);
 	for(j=0; j<list_size(mapa->objetivos); j++){
 		t_objetivo* objetivo = (t_objetivo *)list_get(mapa->objetivos, j);
-		time_t tiempoInicialObjetivo;
-		time(&tiempoInicialObjetivo);
 		log_info(archivoLog, "Proceso objetivo %s", objetivo->nombre);
 		procesarObjetivo(mapa, objetivo, &movimiento, serverMapa);
 		if(objetivo->logrado == 0){
+			close(serverMapa);
 			return 1;
 		}
 
 	}
 
+
+	t_objetivo* obj = getNextObjective(mapa);
+	if(obj == NULL){
+		mapa->terminado=1;
+	}else{
+		printf("Objetivo fallido %c\n", obj->nombre[0]);
+	}
+
 	close(serverMapa);
-	return 0;
+	return 1;
 }

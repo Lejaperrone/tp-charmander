@@ -1,0 +1,188 @@
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): CONFIGUtrenadores,&RACION DEL METADATA
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Nombre: Red
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Simbolo: @
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Vidas: 1
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Reintentos: 0
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Mapa: PuebloPaleta
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: B
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: G
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: P
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Mapa: Roja
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: H
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: P
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: L
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: C
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Mapa: Verde
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: P
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: B
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: G
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: R
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Mapa: Azul
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: C
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Objetivo: Z
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Entrenador inicia ejecucion PID: 4715
+
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Me identifico con el mapa PuebloPaleta
+[INFO] 23:30:36:642 EntrenadorLog/(4715:4715): Proceso objetivo B
+[INFO] 23:30:37:325 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:37:325 EntrenadorLog/(4715:4715): el mensaje que voy a enviar es: UB
+[INFO] 23:30:37:325 EntrenadorLog/(4715:4715): Envie el mensaje UB
+[INFO] 23:30:37:325 EntrenadorLog/(4715:4715): Obtuve posicion x:12, y: 17.
+[INFO] 23:30:37:827 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:37:827 EntrenadorLog/(4715:4715): Me muevo hacia 2 1
+[INFO] 23:30:37:827 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:38:329 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:38:329 EntrenadorLog/(4715:4715): Me muevo hacia 2 2
+[INFO] 23:30:38:329 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:38:830 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:38:830 EntrenadorLog/(4715:4715): Me muevo hacia 3 2
+[INFO] 23:30:38:830 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:39:331 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:39:331 EntrenadorLog/(4715:4715): Me muevo hacia 3 3
+[INFO] 23:30:39:332 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:39:833 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:39:833 EntrenadorLog/(4715:4715): Me muevo hacia 4 3
+[INFO] 23:30:39:833 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:40:334 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:40:334 EntrenadorLog/(4715:4715): Me muevo hacia 4 4
+[INFO] 23:30:40:334 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:40:836 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:40:836 EntrenadorLog/(4715:4715): Me muevo hacia 5 4
+[INFO] 23:30:40:836 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:41:337 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:41:338 EntrenadorLog/(4715:4715): Me muevo hacia 5 5
+[INFO] 23:30:41:338 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:41:840 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:41:840 EntrenadorLog/(4715:4715): Me muevo hacia 6 5
+[INFO] 23:30:41:840 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:42:341 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:42:341 EntrenadorLog/(4715:4715): Me muevo hacia 6 6
+[INFO] 23:30:42:341 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:42:842 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:42:842 EntrenadorLog/(4715:4715): Me muevo hacia 7 6
+[INFO] 23:30:42:842 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:43:343 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:43:343 EntrenadorLog/(4715:4715): Me muevo hacia 7 7
+[INFO] 23:30:43:343 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:43:845 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:43:845 EntrenadorLog/(4715:4715): Me muevo hacia 8 7
+[INFO] 23:30:43:845 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:44:347 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:44:347 EntrenadorLog/(4715:4715): Me muevo hacia 8 8
+[INFO] 23:30:44:347 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:44:849 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:44:849 EntrenadorLog/(4715:4715): Me muevo hacia 9 8
+[INFO] 23:30:44:849 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:45:350 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:45:350 EntrenadorLog/(4715:4715): Me muevo hacia 9 9
+[INFO] 23:30:45:350 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:45:851 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:45:851 EntrenadorLog/(4715:4715): Me muevo hacia 10 9
+[INFO] 23:30:45:851 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:46:353 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:46:353 EntrenadorLog/(4715:4715): Me muevo hacia 10 10
+[INFO] 23:30:46:353 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:46:854 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:46:854 EntrenadorLog/(4715:4715): Me muevo hacia 11 10
+[INFO] 23:30:46:854 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:47:356 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:47:356 EntrenadorLog/(4715:4715): Me muevo hacia 11 11
+[INFO] 23:30:47:356 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:47:858 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:47:858 EntrenadorLog/(4715:4715): Me muevo hacia 12 11
+[INFO] 23:30:47:858 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:30:48:359 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:48:359 EntrenadorLog/(4715:4715): Me muevo hacia 12 12
+[INFO] 23:30:48:359 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:48:860 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:48:860 EntrenadorLog/(4715:4715): Me muevo hacia 12 13
+[INFO] 23:30:48:860 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:49:362 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:49:362 EntrenadorLog/(4715:4715): Me muevo hacia 12 14
+[INFO] 23:30:49:362 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:49:863 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:49:863 EntrenadorLog/(4715:4715): Me muevo hacia 12 15
+[INFO] 23:30:49:863 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:50:364 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:50:364 EntrenadorLog/(4715:4715): Me muevo hacia 12 16
+[INFO] 23:30:50:364 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:50:865 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:50:865 EntrenadorLog/(4715:4715): Me muevo hacia 12 17
+[INFO] 23:30:50:865 EntrenadorLog/(4715:4715): Envio el mensaje: M2
+[INFO] 23:30:51:367 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:51:367 EntrenadorLog/(4715:4715): el mensaje que voy a enviar es: FB
+[INFO] 23:30:51:367 EntrenadorLog/(4715:4715): Envie el mensaje FB
+[INFO] 23:30:52:869 EntrenadorLog/(4715:4715): Proceso objetivo G
+[INFO] 23:30:52:869 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:52:869 EntrenadorLog/(4715:4715): el mensaje que voy a enviar es: UG
+[INFO] 23:30:52:869 EntrenadorLog/(4715:4715): Envie el mensaje UG
+[INFO] 23:30:52:870 EntrenadorLog/(4715:4715): Obtuve posicion x:5, y: 13.
+[INFO] 23:30:53:370 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:53:370 EntrenadorLog/(4715:4715): Me muevo hacia 11 17
+[INFO] 23:30:53:370 EntrenadorLog/(4715:4715): Envio el mensaje: M1
+[INFO] 23:30:53:871 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:53:871 EntrenadorLog/(4715:4715): Me muevo hacia 11 16
+[INFO] 23:30:53:871 EntrenadorLog/(4715:4715): Envio el mensaje: M4
+[INFO] 23:30:54:373 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:54:373 EntrenadorLog/(4715:4715): Me muevo hacia 10 16
+[INFO] 23:30:54:373 EntrenadorLog/(4715:4715): Envio el mensaje: M1
+[INFO] 23:30:54:874 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:54:874 EntrenadorLog/(4715:4715): Me muevo hacia 10 15
+[INFO] 23:30:54:874 EntrenadorLog/(4715:4715): Envio el mensaje: M4
+[INFO] 23:30:55:376 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:55:376 EntrenadorLog/(4715:4715): Me muevo hacia 9 15
+[INFO] 23:30:55:376 EntrenadorLog/(4715:4715): Envio el mensaje: M1
+[INFO] 23:30:55:877 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:55:877 EntrenadorLog/(4715:4715): Me muevo hacia 9 14
+[INFO] 23:30:55:877 EntrenadorLog/(4715:4715): Envio el mensaje: M4
+[INFO] 23:30:56:379 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:56:379 EntrenadorLog/(4715:4715): Me muevo hacia 8 14
+[INFO] 23:30:56:379 EntrenadorLog/(4715:4715): Envio el mensaje: M1
+[INFO] 23:30:56:880 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:56:880 EntrenadorLog/(4715:4715): Me muevo hacia 8 13
+[INFO] 23:30:56:880 EntrenadorLog/(4715:4715): Envio el mensaje: M4
+[INFO] 23:30:57:381 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:57:381 EntrenadorLog/(4715:4715): Me muevo hacia 7 13
+[INFO] 23:30:57:382 EntrenadorLog/(4715:4715): Envio el mensaje: M1
+[INFO] 23:30:57:882 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:57:882 EntrenadorLog/(4715:4715): Me muevo hacia 6 13
+[INFO] 23:30:57:882 EntrenadorLog/(4715:4715): Envio el mensaje: M1
+[INFO] 23:30:58:383 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:58:383 EntrenadorLog/(4715:4715): Me muevo hacia 5 13
+[INFO] 23:30:58:384 EntrenadorLog/(4715:4715): Envio el mensaje: M1
+[INFO] 23:30:58:885 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:30:58:885 EntrenadorLog/(4715:4715): el mensaje que voy a enviar es: FG
+[INFO] 23:30:58:885 EntrenadorLog/(4715:4715): Envie el mensaje FG
+[INFO] 23:31:00:387 EntrenadorLog/(4715:4715): Proceso objetivo P
+[INFO] 23:31:00:387 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:31:00:387 EntrenadorLog/(4715:4715): el mensaje que voy a enviar es: UP
+[INFO] 23:31:00:387 EntrenadorLog/(4715:4715): Envie el mensaje UP
+[INFO] 23:31:00:387 EntrenadorLog/(4715:4715): Obtuve posicion x:10, y: 10.
+[INFO] 23:31:00:888 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:31:00:888 EntrenadorLog/(4715:4715): Me muevo hacia 6 13
+[INFO] 23:31:00:888 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:31:01:390 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:31:01:390 EntrenadorLog/(4715:4715): Me muevo hacia 6 12
+[INFO] 23:31:01:390 EntrenadorLog/(4715:4715): Envio el mensaje: M4
+[INFO] 23:31:01:892 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:31:01:892 EntrenadorLog/(4715:4715): Me muevo hacia 7 12
+[INFO] 23:31:01:892 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:31:02:394 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:31:02:394 EntrenadorLog/(4715:4715): Me muevo hacia 7 11
+[INFO] 23:31:02:394 EntrenadorLog/(4715:4715): Envio el mensaje: M4
+[INFO] 23:31:02:895 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:31:02:895 EntrenadorLog/(4715:4715): Me muevo hacia 8 11
+[INFO] 23:31:02:895 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:31:03:397 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:31:03:397 EntrenadorLog/(4715:4715): Me muevo hacia 8 10
+[INFO] 23:31:03:397 EntrenadorLog/(4715:4715): Envio el mensaje: M4
+[INFO] 23:31:03:898 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:31:03:898 EntrenadorLog/(4715:4715): Me muevo hacia 9 10
+[INFO] 23:31:03:898 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:31:04:400 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:31:04:400 EntrenadorLog/(4715:4715): Me muevo hacia 10 10
+[INFO] 23:31:04:400 EntrenadorLog/(4715:4715): Envio el mensaje: M3
+[INFO] 23:31:04:901 EntrenadorLog/(4715:4715): Obtuve un turno
+[INFO] 23:31:04:901 EntrenadorLog/(4715:4715): el mensaje que voy a enviar es: FP
+[INFO] 23:31:04:901 EntrenadorLog/(4715:4715): Envie el mensaje FP
