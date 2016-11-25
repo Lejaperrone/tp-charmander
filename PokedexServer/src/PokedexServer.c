@@ -15,6 +15,7 @@
 #include "osada/osada.h"
 #include <pthread.h>
 #include <stdint.h>
+#include <pthread.h>
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 pthread_attr_t attr;
