@@ -1,7 +1,6 @@
 nombre=Gary
 simbolo=#
-hojaDeViaje=[Gris,Home,Roja]
-obj[Gris]=[B,P,G]
-obj[Home]=[C,Z]
-obj[Roja]=[C,Z]
+hojaDeViaje=[PuebloPaleta,Viridian]
+obj[PuebloPaleta]=[G,B,P]
+obj[Viridian]=[C,Z]
 vidas=1

@@ -5,6 +5,7 @@
  *      Author: utnso
  */
 
+#include <sys/types.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -111,7 +112,17 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 
 				if (conf=='C'){
 					printf("Capture el objetivo\n");
-					objetivo->logrado = 1;
+					char* size = malloc(sizeof(char)*11);
+					;
+
+					if (recv(serverMapa, size, 11,  0) == 11){
+						int size_int = atoi(size);
+						char* path = malloc(sizeof(char)*size_int);
+						if (recv(serverMapa, path, size_int,  0) == size_int){
+							printf("%s\n", path);
+							objetivo->logrado = 1;
+						}
+					}
 				}else if (conf=='K'){
 					entrenador->deadlocks++;
 					if (recv(serverMapa, &conf, 1,  0) == 1 && conf=='C'){

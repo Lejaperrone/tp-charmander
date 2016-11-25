@@ -103,17 +103,23 @@ void procesarEntrenadoresBloqueados(){
 			restarRecurso(elementosUI,entrenador->pokenestBloqueante->identificador);
 
 			char* C = "C";
+			char* sizePath=malloc(sizeof(char)*11);
+			sprintf(sizePath,"%i",string_length(pokemon->path));
 			if(sendWithGarbageCollector(entrenador->socket, C, 1, entrenador)){
-				entrenador->planificador.ubicacionObjetivo.x=-1;
-				entrenador->planificador.ubicacionObjetivo.y=-1;
-				log_trace(archivoLog, "Planificador - envie confirmacion");
-				return 1;
-			}else{
-				pokemon->disponible = 1;
-				pokemon->duenio = ' ';
-				sumarRecurso(elementosUI,pokemon->identificadorPokenest);
-				return 2;
+				if(sendWithGarbageCollector(entrenador->socket, sizePath, 11, entrenador)){
+					if(sendWithGarbageCollector(entrenador->socket, pokemon->path, string_length(pokemon->path), entrenador)){
+						entrenador->planificador.ubicacionObjetivo.x=-1;
+						entrenador->planificador.ubicacionObjetivo.y=-1;
+						log_trace(archivoLog, "Planificador - envie confirmacion");
+						return 1;
+					}
+				}
 			}
+
+			pokemon->disponible = 1;
+			pokemon->duenio = ' ';
+			sumarRecurso(elementosUI,pokemon->identificadorPokenest);
+			return 2;
 		}else{
 			return 0;
 		}

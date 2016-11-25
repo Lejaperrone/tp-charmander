@@ -22,15 +22,15 @@
 #include "commons/structures.c"
 
 int main(int argc, char *argv[]){
-	/*if(argc != 3){
+	if(argc != 3){
 		printf("El entrenador no tiene los parametros correctamente seteados.\n");
 		return 1;
 	}
 	name = argv[1]; //Red
-	pokedexPath = argv[2]; //../../PokedexConfig*/
+	pokedexPath = argv[2]; //../../PokedexConfig
 
-	name = "Red";
-	pokedexPath = "/home/utnso/projects/tp-2016-2c-Chamba/PokedexConfig";
+	//name = "Ash";
+	//pokedexPath = "/home/utnso/projects/tp-2016-2c-Chamba/PokedexConfig";
 
 	//Aloco memoria para el entrenador
 	entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
