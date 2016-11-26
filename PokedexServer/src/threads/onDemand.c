@@ -30,6 +30,7 @@
 #include <errno.h>
 
 void* procesarPeticiones(t_hilo* h){
+	printf("Se conecto %d\n", h->id);
 	char* nombreFuncion=string_new();
 	int result=-ENOENT;
 

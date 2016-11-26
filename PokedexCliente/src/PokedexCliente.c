@@ -29,9 +29,16 @@ int main(int argc, char *argv[]){
 	PORT = getenv("PUERTO");
 	printf("Ip Server : %s\n", IP_SERVER);
 	printf("Puerto : %s\n", PORT);
+	printf("PID: %d\n", getpid());
 
 	//Creo el socket
 	create_socketClient(&pokedexServer, IP_SERVER, PORT);
+
+	//Identificacion
+	char* sizePID=malloc(sizeof(char)*11);
+	sprintf(sizePID,"%i",getpid());
+	send(pokedexServer, sizePID, 11, 0);
+
 	printf("Conectado al servidor\n");
 	log_info(archivoLog, "POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully\n");
 

@@ -126,7 +126,9 @@ int main(){
 								h->socket = i;
 								h->id=atoi(pidS);
 
-								printf("Se conecto: %d\n", h->id);
+								FD_CLR(i, &master);// eliminar del conjunto maestro
+
+								printf("Se intento conectar: %d\n", h->id);
 
 								pthread_create(&thread, NULL,(void*)procesarPeticiones,h);
 							}

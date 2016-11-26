@@ -61,8 +61,13 @@ void recibirBufferCompleto (struct stat* stbuf){
 	recv(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
 	log_info(archivoLog,"FUSE: Recibo el primer parametro de stbuf");
 }
+
 int chamba_getattr(const char* path, struct stat* stbuf){
-	int res = 0;
+	sendBasicInfo("GETAT", path);
+	return -ENOENT;
+
+
+	/*int res = 0;
 
 	//char* mensaje = string_new();
 	//armarMensajeBasico("GETAT", (char*)path, &mensaje);
@@ -89,12 +94,15 @@ int chamba_getattr(const char* path, struct stat* stbuf){
 		}
 		return res;
 
-	return 0;
+	return 0;*/
 }
 
 
 int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
-	(void) offset;
+	sendBasicInfo("READD", path);
+	return -ENOENT;
+
+	/*(void) offset;
 	(void) fi;
 
 	char* mensaje = string_new();
@@ -107,23 +115,29 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 
-	return 0;
+	return 0;*/
 }
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
+	sendBasicInfo("OPENF", path);
+	return -ENOENT;
 
-	char* mensaje = string_new();
+
+	/*char* mensaje = string_new();
 	armarMensajeBasico("OPENF", (char*)path, &mensaje);
 
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	return 0;
+	return 0;*/
 }
 
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 
-	char* mensaje = string_new();
+	sendBasicInfo("READF", path);
+	return -ENOENT;
+
+	/*char* mensaje = string_new();
 	armarMensajeBasico("READF", (char*)path, &mensaje);
 	string_append(&mensaje, ",");
 	string_append(&mensaje, buffer);
@@ -135,12 +149,15 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	return 0;
+	return 0;*/
 }
 
 int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 
-	char* mensaje = string_new();
+	sendBasicInfo("CREAT", path);
+	return -ENOENT;
+
+	/*char* mensaje = string_new();
 	armarMensajeBasico("CREAT", (char*)path, &mensaje);
 	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(mode));
@@ -148,12 +165,15 @@ int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	return 0;
+	return 0;*/
 }
 
 int chamba_truncate (const char * path, off_t offset){
 
-	char* mensaje = string_new();
+	sendBasicInfo("TRUNC", path);
+	return -ENOENT;
+
+	/*char* mensaje = string_new();
 	armarMensajeBasico("TRUNC", (char*)path, &mensaje);
 	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(offset));
@@ -161,12 +181,13 @@ int chamba_truncate (const char * path, off_t offset){
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	return 0;
+	return 0;*/
 }
 
 int chamba_mkdir (const char * path, mode_t modo){
-
-	char* mensaje = string_new();
+	sendBasicInfo("MKDIR", path);
+	return -ENOENT;
+	/*char* mensaje = string_new();
 	armarMensajeBasico("MKDIR", (char*)path, &mensaje);
 	string_append(&mensaje, ",");
 	string_append(&mensaje, string_itoa(modo));
@@ -174,12 +195,15 @@ int chamba_mkdir (const char * path, mode_t modo){
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	return 0;
+	return 0;*/
 }
 
 int chamba_rename (const char * path, const char * newPath){
 
-	char* mensaje = string_new();
+	sendBasicInfo("RENAM", path);
+	return -ENOENT;
+
+	/*char* mensaje = string_new();
 	armarMensajeBasico("RENAM", (char*)path, &mensaje);
 	string_append(&mensaje, ",");
 	string_append(&mensaje, (char*)newPath);
@@ -187,34 +211,43 @@ int chamba_rename (const char * path, const char * newPath){
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	return 0;
+	return 0;*/
 }
 
 int chamba_unlink (const char * path){
 
-	char* mensaje = string_new();
+	sendBasicInfo("ULINK", path);
+	return -ENOENT;
+
+	/*char* mensaje = string_new();
 	armarMensajeBasico("ULINK", (char*)path, &mensaje);
 
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	return 0;
+	return 0;*/
 }
 
 int chamba_rmdir (const char * path){
 
-	char* mensaje = string_new();
+	sendBasicInfo("RMDIR", path);
+	return -ENOENT;
+
+	/*char* mensaje = string_new();
 	armarMensajeBasico("RMDIR", (char*)path, &mensaje);
 
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	return 0;
+	return 0;*/
 }
 
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 
-	char* mensaje = string_new();
+	sendBasicInfo("WRITE", path);
+	return -ENOENT;
+
+	/*char* mensaje = string_new();
 	armarMensajeBasico("WRITE", (char*)path, &mensaje);
 	string_append(&mensaje, ",");
 	string_append(&mensaje, (char*)buffer);
@@ -226,10 +259,13 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 	char* respuesta = string_new();
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	return 0;
+	return 0;*/
 }
 
 int chamba_statfs (const char * path, struct statvfs * stats){
+
+	sendBasicInfo("STATF", path);
+	return -ENOENT;
 
 	char* mensaje = string_new();
 	armarMensajeBasico("STATF", (char*)path, &mensaje);
@@ -241,32 +277,14 @@ int chamba_statfs (const char * path, struct statvfs * stats){
 	return 0;
 }
 
-int chamba_release (const char * path, struct fuse_file_info * fi){
+void sendBasicInfo(char* function, char* path){
+	send(pokedexServer, function, 5,0);
 
-	char* mensaje = string_new();
-	armarMensajeBasico("RLEAS", (char*)path, &mensaje);
+	char* sizePath=malloc(sizeof(char)*11);
+	sprintf(sizePath,"%i",string_length(path));
+	send(pokedexServer, sizePath, 11, 0);
 
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-	return 0;
-}
-
-int chamba_fallocate (const char * path, int amount, off_t sizeh, off_t sizef,  struct fuse_file_info * fi){
-
-	char* mensaje = string_new();
-	armarMensajeBasico("FALOC", (char*)path, &mensaje);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(amount));
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(sizeh));
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(sizef));
-
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-	return 0;
+	send(pokedexServer, path, string_length(path), 0);
 }
 
 

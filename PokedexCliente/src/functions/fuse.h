@@ -32,8 +32,6 @@ int chamba_unlink (const char * path);
 int chamba_rmdir (const char * path);
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi);
 int chamba_statfs (const char * path, struct statvfs * stats);
-int chamba_release (const char * path, struct fuse_file_info * fi);
-int chamba_fallocate (const char * path, int amount, off_t sizeh, off_t sizef,  struct fuse_file_info * fi);
 
 static struct fuse_operations chamba_oper = {
 	.getattr        = chamba_getattr, //obtiene lo atributos de un path
@@ -47,9 +45,7 @@ static struct fuse_operations chamba_oper = {
 	.unlink         = chamba_unlink, //elimina un archivo
 	.rmdir          = chamba_rmdir, //elimina un directorio
 	.write          = chamba_write, //escribe
-	.statfs         = chamba_statfs, //estadisticas del filesystem, espacio disponible, etc.
-	.release        = chamba_release, //es el cerrado del archivo - close()
-	.fallocate		= chamba_fallocate //aloca espacio para un archivo abierto
+	.statfs         = chamba_statfs //estadisticas del filesystem, espacio disponible, etc.
 };
 
 #endif /* FUNCTIONS_FUSE_H_ */
