@@ -164,7 +164,7 @@ void* identificarFuncionRecibida(int* socket){
 	//El primer mensaje que recibi fue la cantidad de datos que voy a recibir despues
 	//Recibo el nombre de la funcion
 		while(recibirNombreDeLaFuncion(*socket,nombreFuncion)){
-			printf("Identifico de que funcion se trata, es: %s",nombreFuncion);
+			printf("La funcion identificada es: %s\n",nombreFuncion);
 					/*string_append(&nombreFuncion, string_split(package,",")[0]);
 					string_append(&path, string_split(package,",")[1]);*/
 
@@ -337,10 +337,10 @@ int main(){
 					if ((newfd = accept(listeningSocket, (struct sockaddr*)&addr, &addrlen)) == -1){
 						perror("accept");
 					} else {
-						printf("Llego hasta aca\n");
 						int* newSocket = malloc(sizeof(int));
 						*newSocket = i;
 						pthread_create(&thread, NULL,(void*)identificarFuncionRecibida,newSocket);
+						log_info(logPokedexServer,"Mando a %d a un hilo a parte", *newSocket);
 //						FD_SET(newfd, &master); // Añado el nuevo socket al  select
 //						//Actualizo la cantidad
 //						if (newfd > fdmax) {
@@ -373,7 +373,7 @@ int main(){
 							h->package=package;
 							h->socket=i;
 
-							log_info(logPokedexServer,"Mando a %d a un hilo a parte", h->socket);
+
 
 
 							//identificarFuncionRecibida(package);
