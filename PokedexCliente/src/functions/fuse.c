@@ -35,8 +35,12 @@ void conectarConServidorYRecibirRespuesta(int pokedexServer, char* mensaje, char
 	}
 }
 void enviarNombreDeLaFuncion(char* nom){
-	send(pokedexServer,nom,5*sizeof(char),0);
+	if (send(pokedexServer,nom,5*sizeof(char),0) >0){
 	log_info(archivoLog,"FUSE: Envie %s al servidor",nom);
+	}
+	else{
+		log_info(archivoLog, "FUSE: No se pudo enviar el nombre de la funcion");
+	}
 }
 
 void enviarTamanioDelPath(const char* path){
@@ -51,11 +55,11 @@ void enviarPath(const char* path){
 }
 void enviarBuffer(struct stat* stbuf){
 	send(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
-	log_info(archivoLog,"FUSE: Envie el primer paraemtro de stbuf");
+	log_info(archivoLog,"FUSE: Envie el primer parametro de stbuf");
 }
 void recibirBufferCompleto (struct stat* stbuf){
 	recv(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
-	log_info(archivoLog,"FUSE: Recibo el primer paraemtro de stbuf");
+	log_info(archivoLog,"FUSE: Recibo el primer parametro de stbuf");
 }
 int chamba_getattr(const char* path, struct stat* stbuf){
 	int res = 0;
