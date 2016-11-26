@@ -132,7 +132,9 @@ void recibirParametrosDeReadDir(int socketCliente,char* path){
 	recv(socketCliente,path,sizeof(path),0);
 }
 void recibirTamanioDelPath(int socketCliente, size_t* tamanio){
-	recv(socketCliente,tamanio,sizeof(size_t),0);
+	char* size=(char*)malloc(11*sizeof(char));
+	recv(socketCliente,size,11,0);
+	*tamanio=atoi(size);
 	log_info(logPokedexServer,"PokedexServer: Recibo el tamanio del path: %d",*tamanio);
 }
 void recibirPath(int socketCliente,char** path, int tamanioPath){

@@ -38,8 +38,11 @@ void enviarNombreDeLaFuncion(char* nom){
 	send(pokedexServer,nom,5*sizeof(char),0);
 	log_info(archivoLog,"FUSE: Envie %s al servidor",nom);
 }
+
 void enviarTamanioDelPath(const char* path){
-	send(pokedexServer,(void*)strlen(path),sizeof(size_t),0);
+	char* sizePath=malloc(sizeof(char)*11);
+	sprintf(sizePath,"%i",string_length((char*)path));
+	send(pokedexServer,sizePath,11,0);
 	log_info(archivoLog,"FUSE: Envie %d al servidor",strlen(path));
 }
 void enviarPath(const char* path){
