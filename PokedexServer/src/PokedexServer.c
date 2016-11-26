@@ -106,7 +106,7 @@ int main(){
 					}
 				} else {
 					//Si es un socket existente
-					if ((nbytes = recv(i, package, 5*sizeof(char), 0)) <= 0) {
+					if ((nbytes = recv(i, package, 11*sizeof(char), 0)) <= 0) {
 						//Si la conexion se cerro
 						if (nbytes == 0) {
 							printf("selectserver: socket %d hung up\n", i);
@@ -120,18 +120,15 @@ int main(){
 						// tenemos datos de algún cliente
 
 						if (nbytes != 0){
-							char* pidS = malloc(sizeof(char)*11);
-							if(recv(i,pidS,11,0)>0){
-								t_hilo *h=malloc(sizeof(t_hilo));
-								h->socket = i;
-								h->id=atoi(pidS);
+							t_hilo *h=malloc(sizeof(t_hilo));
+							h->socket = i;
+							h->id=atoi(package);
 
-								FD_CLR(i, &master);// eliminar del conjunto maestro
+							FD_CLR(i, &master);// eliminar del conjunto maestro
 
-								printf("Se intento conectar: %d\n", h->id);
+							printf("Se intento conectar: %d\n", h->id);
 
-								pthread_create(&thread, NULL,(void*)procesarPeticiones,h);
-							}
+							pthread_create(&thread, NULL,(void*)procesarPeticiones,h);
 						}
 					}
 				}

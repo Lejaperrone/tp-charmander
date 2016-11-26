@@ -35,10 +35,10 @@ void* procesarPeticiones(t_hilo* h){
 	int result=-ENOENT;
 
 	while(recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
-		char* path=string_new();
-		size_t tamanioPath;
+		int tamanioPath;
 		recibirTamanioDelPath(h->socket,&tamanioPath);
-		recibirPath(h->socket,&path,tamanioPath);
+		char* path=malloc(sizeof(char)*tamanioPath);
+		recibirPath(h->socket,path,tamanioPath);
 
 		printf("Funcion: %s\nPath:%s\n", nombreFuncion, path);
 
@@ -69,7 +69,7 @@ void* procesarPeticiones(t_hilo* h){
 			//result=proce_statfs(*socket);
 		}
 
-		devolverResultadoAlCliente(result,h->socket);
+		//devolverResultadoAlCliente(result,h->socket);
 	}
 
 	return NULL;

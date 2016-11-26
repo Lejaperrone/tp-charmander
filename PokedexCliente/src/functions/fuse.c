@@ -21,6 +21,16 @@
 #include <fcntl.h>
 #include "../commons/structures.h"
 
+void sendBasicInfo(char* function, const char* path){
+	send(pokedexServer, function, 5,0);
+
+	char* sizePath=malloc(sizeof(char)*11);
+	sprintf(sizePath,"%i",string_length(path));
+	send(pokedexServer, sizePath, 11, 0);
+
+	send(pokedexServer, path, string_length(path), 0);
+}
+
 void armarMensajeBasico(char* nombreFuncion, char* path, char** mensaje){
 	string_append(mensaje, nombreFuncion);
 	string_append(mensaje, ",");
@@ -62,7 +72,7 @@ void recibirBufferCompleto (struct stat* stbuf){
 	log_info(archivoLog,"FUSE: Recibo el primer parametro de stbuf");
 }
 
-int chamba_getattr(const char* path, struct stat* stbuf){
+int chamba_getattr(char* path, struct stat* stbuf){
 	sendBasicInfo("GETAT", path);
 	return -ENOENT;
 
@@ -99,7 +109,8 @@ int chamba_getattr(const char* path, struct stat* stbuf){
 
 
 int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
-	sendBasicInfo("READD", path);
+
+	sendBasicInfo("READD", strdup(path));
 	return -ENOENT;
 
 	/*(void) offset;
@@ -119,7 +130,7 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 }
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
-	sendBasicInfo("OPENF", path);
+	sendBasicInfo("OPENF", strdup(path));
 	return -ENOENT;
 
 
@@ -134,7 +145,7 @@ int chamba_open (const char * path, struct fuse_file_info * fi){
 
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 
-	sendBasicInfo("READF", path);
+	sendBasicInfo("READF", strdup(path));
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -154,7 +165,7 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 
 int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 
-	sendBasicInfo("CREAT", path);
+	sendBasicInfo("CREAT", strdup(path));
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -170,7 +181,7 @@ int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 
 int chamba_truncate (const char * path, off_t offset){
 
-	sendBasicInfo("TRUNC", path);
+	sendBasicInfo("TRUNC", strdup(path));
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -185,7 +196,7 @@ int chamba_truncate (const char * path, off_t offset){
 }
 
 int chamba_mkdir (const char * path, mode_t modo){
-	sendBasicInfo("MKDIR", path);
+	sendBasicInfo("MKDIR", strdup(path));
 	return -ENOENT;
 	/*char* mensaje = string_new();
 	armarMensajeBasico("MKDIR", (char*)path, &mensaje);
@@ -200,7 +211,7 @@ int chamba_mkdir (const char * path, mode_t modo){
 
 int chamba_rename (const char * path, const char * newPath){
 
-	sendBasicInfo("RENAM", path);
+	sendBasicInfo("RENAM", strdup(path));
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -216,7 +227,7 @@ int chamba_rename (const char * path, const char * newPath){
 
 int chamba_unlink (const char * path){
 
-	sendBasicInfo("ULINK", path);
+	sendBasicInfo("ULINK", strdup(path));
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -230,7 +241,7 @@ int chamba_unlink (const char * path){
 
 int chamba_rmdir (const char * path){
 
-	sendBasicInfo("RMDIR", path);
+	sendBasicInfo("RMDIR", strdup(path));
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -244,7 +255,7 @@ int chamba_rmdir (const char * path){
 
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 
-	sendBasicInfo("WRITE", path);
+	sendBasicInfo("WRITE", strdup(path));
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -264,7 +275,7 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 
 int chamba_statfs (const char * path, struct statvfs * stats){
 
-	sendBasicInfo("STATF", path);
+	sendBasicInfo("STATF", strdup(path));
 	return -ENOENT;
 
 	char* mensaje = string_new();
@@ -275,16 +286,6 @@ int chamba_statfs (const char * path, struct statvfs * stats){
 	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 	return 0;
-}
-
-void sendBasicInfo(char* function, char* path){
-	send(pokedexServer, function, 5,0);
-
-	char* sizePath=malloc(sizeof(char)*11);
-	sprintf(sizePath,"%i",string_length(path));
-	send(pokedexServer, sizePath, 11, 0);
-
-	send(pokedexServer, path, string_length(path), 0);
 }
 
 

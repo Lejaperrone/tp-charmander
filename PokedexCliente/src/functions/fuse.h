@@ -18,6 +18,7 @@
 #ifndef FUNCTIONS_FUSE_H_
 #define FUNCTIONS_FUSE_H_
 
+void sendBasicInfo(char* function, char* path);
 void armarMensajeBasico(char* nombreFuncion, char* path, char** mensaje);
 void conectarConServidorYRecibirRespuesta(int pokedexServer, char* mensaje, char** respuesta);
 int chamba_getattr (const char* path, struct stat* stbuf);
