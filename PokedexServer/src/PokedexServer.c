@@ -17,6 +17,8 @@
 #include <stdint.h>
 #include <pthread.h>
 
+t_log* logPokedexServer;
+
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 pthread_attr_t attr;
 pthread_t thread;
@@ -25,9 +27,11 @@ pthread_mutex_t mutexTablaAsignaciones;
 pthread_mutex_t mutexBitmap;
 pthread_mutex_t mutexDatos;
 char *PORT;
+
 struct hilo{
 		char* package;
 		int socket;
+		int noEsMiPrimeraVez;
 };
 struct hilo* h;
 struct getAttr{
@@ -119,37 +123,51 @@ void devolverResultadoAlCliente(int resultadoDeOsada,int socketCliente){
 	//		//No se pudo enviar el mensaje
 	//	}
 }
-void recibirNombreDeLaFuncion(int socketCliente, char* nombreFuncion){
-	recv(socketCliente,nombreFuncion,5*sizeof(char),0);
+void recibirNombreDeLaFuncion(int socketCliente, char** nombreFuncion){
+	recv(socketCliente,*nombreFuncion,5*sizeof(char),0);
+	log_info(logPokedexServer,"PokedexServer: Recibo %s", *nombreFuncion);
 }
-void recibirParametrosDeGetAttr(int socketCliente,char* path, struct getAttr* getAttr){
-				recv(socketCliente,path,sizeof(path),0);
-				recv(socketCliente,&(getAttr->primerP),sizeof(getAttr->primerP),0);
-				//falta el recv del state
-}
+
 void recibirParametrosDeReadDir(int socketCliente,char* path){
 	recv(socketCliente,path,sizeof(path),0);
 }
-
+void recibirTamanioDelPath(int socketCliente, size_t* tamanio){
+	recv(socketCliente,tamanio,sizeof(size_t),0);
+	log_info(logPokedexServer,"PokedexServer: Recibo el tamanio del path: %d",*tamanio);
+}
+void recibirPath(int socketCliente,char** path, int tamanioPath){
+	recv(socketCliente,*path,tamanioPath,0);
+	log_info(logPokedexServer,"PokedexServer: Recibo el path %s",*path);
+}
+void recibirBuffer(int socketCliente){
+	recv(socketCliente,&(getAttr->primerP),sizeof(getAttr->primerP),0);
+}
+void enviarBufferLleno(int socketCliente){
+	send(socketCliente,&(getAttr->primerP),sizeof(getAttr->primerP),0);
+	log_info(logPokedexServer,"PokedexServer: Envio buffer lleno");
+}
 void* identificarFuncionRecibida(void* arg){
+	char* nombreFuncion=string_new();
+	char* path=string_new();
+	int resultadoOsada;
+	size_t tamanioPath;
 
-	int resultadoOsada, datosLeidos=0;
-	char* nombreFuncion = string_new();
-	char* path = string_new();
 	//El primer mensaje que recibi fue la cantidad de datos que voy a recibir despues
-	while(datosLeidos<strlen(h->package)){
 	//Recibo el nombre de la funcion
-		recibirNombreDeLaFuncion(h->socket,nombreFuncion);
+		recibirNombreDeLaFuncion(h->socket,&nombreFuncion);
 		printf("Identifico de que funcion se trata, es: %s",nombreFuncion);
 				/*string_append(&nombreFuncion, string_split(package,",")[0]);
 				string_append(&path, string_split(package,",")[1]);*/
 
 		if(string_equals_ignore_case(nombreFuncion, "GETAT")){
-			recibirParametrosDeGetAttr(h->socket,path,getAttr);
+			recibirTamanioDelPath(h->socket,&tamanioPath);
+			recibirPath(h->socket,&path,tamanioPath);
+			recibirBuffer(h->socket);
 			//invocar la funcion correspondiente de osada des-serializando la estructura
 			resultadoOsada=osada_getattr(path,(file_attr*)getAttr);
+			enviarBufferLleno(h->socket);
 			}
-			if(string_equals_ignore_case(nombreFuncion, "READD")){
+			/*if(string_equals_ignore_case(nombreFuncion, "READD")){
 				recibirParametrosDeReadDir(h->socket,path);
 				t_list* directorios=list_create();
 				resultadoOsada = osada_readdir(path, directorios);
@@ -225,8 +243,8 @@ void* identificarFuncionRecibida(void* arg){
 				recv(h->socket,&(sfalloc->sizeh),sizeof(sfalloc->sizeh),0);
 				recv(h->socket,&(sfalloc->sizef),sizeof(sfalloc->sizef),0);
 				resultadoOsada=osada_fallocate(path,sfalloc->amoun,sfalloc->sizeh,sfalloc->sizef);
-			}
-	}
+			}*/
+
 
 	devolverResultadoAlCliente(resultadoOsada,h->socket);
 	return arg;
@@ -247,7 +265,7 @@ t_log* crearArchivoLogPokedexServer() {
 
 	return logs;
 }
-t_log* logPokedexServer;
+
 int main(){
 	logPokedexServer=crearArchivoLogPokedexServer();
 	log_info(logPokedexServer,"Inicio OSADA");
@@ -310,11 +328,12 @@ int main(){
 						if (newfd > fdmax) {
 							fdmax = newfd;
 						}
+
 						printf("selectserver: new connection from %s on ""socket %d\n", inet_ntoa(addr.sin_addr),newfd);
 					}
 				} else {
 					//Si es un socket existente
-					if ((nbytes = recv(i, (void*)package, sizeof(uint32_t), 0)) <= 0) {
+					if ((nbytes = recv(i, package, 5*sizeof(char), 0)) <= 0) {
 						//Si la conexion se cerro
 						if (nbytes == 0) {
 							printf("selectserver: socket %d hung up\n", i);
@@ -328,10 +347,13 @@ int main(){
 
 					} else {
 						// tenemos datos de algún cliente
+
 						if (nbytes != 0){
+
 							h=(struct hilo*)malloc(sizeof(struct hilo));
 							h->package=package;
 							h->socket=i;
+
 							log_info(logPokedexServer,"Mando a %d a un hilo a parte", h->socket);
 							pthread_create(&thread, &attr,identificarFuncionRecibida,NULL);
 

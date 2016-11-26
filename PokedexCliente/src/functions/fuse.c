@@ -34,15 +34,38 @@ void conectarConServidorYRecibirRespuesta(int pokedexServer, char* mensaje, char
 		recv(pokedexServer, respuesta, 1024, 0);
 	}
 }
-
+void enviarNombreDeLaFuncion(char* nom){
+	send(pokedexServer,nom,5*sizeof(char),0);
+	log_info(archivoLog,"FUSE: Envie %s al servidor",nom);
+}
+void enviarTamanioDelPath(const char* path){
+	send(pokedexServer,(void*)strlen(path),sizeof(size_t),0);
+	log_info(archivoLog,"FUSE: Envie %d al servidor",strlen(path));
+}
+void enviarPath(const char* path){
+	send(pokedexServer,path,strlen(path),0);
+	log_info(archivoLog,"FUSE: Envie %s al servidor",path);
+}
+void enviarBuffer(struct stat* stbuf){
+	send(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
+	log_info(archivoLog,"FUSE: Envie el primer paraemtro de stbuf");
+}
+void recibirBufferCompleto (struct stat* stbuf){
+	recv(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
+	log_info(archivoLog,"FUSE: Recibo el primer paraemtro de stbuf");
+}
 int chamba_getattr(const char* path, struct stat* stbuf){
 	int res = 0;
 
-	char* mensaje = string_new();
-	armarMensajeBasico("GETAT", (char*)path, &mensaje);
-
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
+	//char* mensaje = string_new();
+	//armarMensajeBasico("GETAT", (char*)path, &mensaje);
+	enviarNombreDeLaFuncion("GETAT");
+	//char* respuesta = string_new();
+	enviarTamanioDelPath(path);
+	enviarPath(path);
+	enviarBuffer(stbuf);
+	recibirBufferCompleto(stbuf);
+	//conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
 
 	memset(stbuf, 0, sizeof(struct stat));
