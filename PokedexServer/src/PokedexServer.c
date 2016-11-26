@@ -123,9 +123,16 @@ void devolverResultadoAlCliente(int resultadoDeOsada,int socketCliente){
 	//		//No se pudo enviar el mensaje
 	//	}
 }
-void recibirNombreDeLaFuncion(int socketCliente, char** nombreFuncion){
-	recv(socketCliente,*nombreFuncion,5*sizeof(char),0);
-	log_info(logPokedexServer,"PokedexServer: Recibo %s", *nombreFuncion);
+int recibirNombreDeLaFuncion(int socketCliente, char* nombreFuncion){
+
+	if(recv(socketCliente, nombreFuncion,5*sizeof(char),0)>=0){
+		log_info(logPokedexServer,"PokedexServer: Recibo %s", *nombreFuncion);
+		return 1;
+	}else{
+		log_info(logPokedexServer,"PokedexServer: Se cerro la conexion");
+		return 0;
+	}
+
 }
 
 void recibirParametrosDeReadDir(int socketCliente,char* path){
@@ -148,7 +155,7 @@ void enviarBufferLleno(int socketCliente){
 	send(socketCliente,&(getAttr->primerP),sizeof(getAttr->primerP),0);
 	log_info(logPokedexServer,"PokedexServer: Envio buffer lleno");
 }
-void* identificarFuncionRecibida(void* arg){
+void* identificarFuncionRecibida(int* socket){
 	char* nombreFuncion=string_new();
 	char* path=string_new();
 	int resultadoOsada;
@@ -156,100 +163,105 @@ void* identificarFuncionRecibida(void* arg){
 
 	//El primer mensaje que recibi fue la cantidad de datos que voy a recibir despues
 	//Recibo el nombre de la funcion
-		recibirNombreDeLaFuncion(h->socket,&nombreFuncion);
-		printf("Identifico de que funcion se trata, es: %s",nombreFuncion);
-				/*string_append(&nombreFuncion, string_split(package,",")[0]);
-				string_append(&path, string_split(package,",")[1]);*/
+		while(recibirNombreDeLaFuncion(*socket,nombreFuncion)){
+			printf("Identifico de que funcion se trata, es: %s",nombreFuncion);
+					/*string_append(&nombreFuncion, string_split(package,",")[0]);
+					string_append(&path, string_split(package,",")[1]);*/
 
-		if(string_equals_ignore_case(nombreFuncion, "GETAT")){
-			recibirTamanioDelPath(h->socket,&tamanioPath);
-			recibirPath(h->socket,&path,tamanioPath);
-			recibirBuffer(h->socket);
-			//invocar la funcion correspondiente de osada des-serializando la estructura
-			resultadoOsada=osada_getattr(path,(file_attr*)getAttr);
-			enviarBufferLleno(h->socket);
-			}
-			/*if(string_equals_ignore_case(nombreFuncion, "READD")){
-				recibirParametrosDeReadDir(h->socket,path);
-				t_list* directorios=list_create();
-				resultadoOsada = osada_readdir(path, directorios);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "OPENF")){
-				resultadoOsada = osada_open(path);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "READF")){
-				char* buffer = string_new();
-				recv(h->socket,buffer,sizeof(buffer),0);
-				recv(h->socket,&(readFile->size),sizeof(readFile->size),0);
-				recv(h->socket,&(readFile->offset),sizeof(readFile->offset),0);
-				resultadoOsada = osada_read(path, buffer, readFile->size, readFile->offset);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "CREAT")){
-				recv(h->socket,&(createFile->modo),sizeof(createFile->modo),0);
-				resultadoOsada = (int)osada_createFile(path, createFile->modo);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
-				recv(h->socket,&(truncateFile->offset),sizeof(truncateFile->offset),0);
-				resultadoOsada = osada_truncate(path, truncateFile->offset);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "MKDIR")){
-				recv(h->socket,&(makeDir->mode),sizeof(makeDir->mode),0);
-				resultadoOsada = osada_createDir(path, obtenerNombreDelDirectorio(path), makeDir->mode);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "RENAM")){
-				char* nombreNuevo=string_new();
-				recv(h->socket,nombreNuevo,sizeof(nombreNuevo),0);
-				resultadoOsada = osada_rename(path, nombreNuevo);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "ULINK")){
-				resultadoOsada = osada_removeFile(path);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "RMDIR")){
-				resultadoOsada = osada_removeDir(path);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "WRITE")){
-				char* buffer = string_new();
-				recv(h->socket,buffer,sizeof(buffer),0);
-				recv(h->socket,&(swrite->size),sizeof(swrite->size),0);
-				recv(h->socket,&(swrite->offset),sizeof(swrite->size),0);
-				resultadoOsada = osada_write(path, buffer, swrite->size, swrite->offset);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "STATF")){
-				recv(h->socket,&(statfs->__f_spare),sizeof(statfs->__f_spare),0);
-				recv(h->socket,&(statfs->f_bavail),sizeof(statfs->f_bavail),0);
-				recv(h->socket,&(statfs->f_bfree),sizeof(statfs->f_bfree),0);
-				recv(h->socket,&(statfs->f_blocks),sizeof(statfs->f_blocks),0);
-				recv(h->socket,&(statfs->f_bsize),sizeof(statfs->f_bsize),0);
-				recv(h->socket,&(statfs->f_favail),sizeof(statfs->f_favail),0);
-				recv(h->socket,&(statfs->f_ffree),sizeof(statfs->f_ffree),0);
-				recv(h->socket,&(statfs->f_files),sizeof(statfs->f_files),0);
-				recv(h->socket,&(statfs->f_flag),sizeof(statfs->f_flag),0);
-				recv(h->socket,&(statfs->f_frsize),sizeof(statfs->f_frsize),0);
-				recv(h->socket,&(statfs->f_fsid),sizeof(statfs->f_fsid),0);
-				recv(h->socket,&(statfs->f_namemax),sizeof(statfs->f_namemax),0);
-				resultadoOsada=osada_statfs(path,statfs);
-			}
-			if(string_equals_ignore_case(nombreFuncion, "RLEAS")){
-				//Este supuestamente no se hace segun dijo matias
-			}
-			if(string_equals_ignore_case(nombreFuncion, "FALOC")){
-				//Este supuestamente no se hace segun dijo matias
+			if(string_equals_ignore_case(nombreFuncion, "GETAT")){
+				recibirTamanioDelPath(*socket,&tamanioPath);
+				recibirPath(*socket,&path,tamanioPath);
+				recibirBuffer(*socket);
+				//invocar la funcion correspondiente de osada des-serializando la estructura
+				resultadoOsada=osada_getattr(path,(file_attr*)getAttr);
+				enviarBufferLleno(*socket);
+				}
+				/*if(string_equals_ignore_case(nombreFuncion, "READD")){
+					recibirParametrosDeReadDir(h->socket,path);
+					t_list* directorios=list_create();
+					resultadoOsada = osada_readdir(path, directorios);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "OPENF")){
+					resultadoOsada = osada_open(path);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "READF")){
+					char* buffer = string_new();
+					recv(h->socket,buffer,sizeof(buffer),0);
+					recv(h->socket,&(readFile->size),sizeof(readFile->size),0);
+					recv(h->socket,&(readFile->offset),sizeof(readFile->offset),0);
+					resultadoOsada = osada_read(path, buffer, readFile->size, readFile->offset);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "CREAT")){
+					recv(h->socket,&(createFile->modo),sizeof(createFile->modo),0);
+					resultadoOsada = (int)osada_createFile(path, createFile->modo);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
+					recv(h->socket,&(truncateFile->offset),sizeof(truncateFile->offset),0);
+					resultadoOsada = osada_truncate(path, truncateFile->offset);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "MKDIR")){
+					recv(h->socket,&(makeDir->mode),sizeof(makeDir->mode),0);
+					resultadoOsada = osada_createDir(path, obtenerNombreDelDirectorio(path), makeDir->mode);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "RENAM")){
+					char* nombreNuevo=string_new();
+					recv(h->socket,nombreNuevo,sizeof(nombreNuevo),0);
+					resultadoOsada = osada_rename(path, nombreNuevo);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "ULINK")){
+					resultadoOsada = osada_removeFile(path);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "RMDIR")){
+					resultadoOsada = osada_removeDir(path);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "WRITE")){
+					char* buffer = string_new();
+					recv(h->socket,buffer,sizeof(buffer),0);
+					recv(h->socket,&(swrite->size),sizeof(swrite->size),0);
+					recv(h->socket,&(swrite->offset),sizeof(swrite->size),0);
+					resultadoOsada = osada_write(path, buffer, swrite->size, swrite->offset);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "STATF")){
+					recv(h->socket,&(statfs->__f_spare),sizeof(statfs->__f_spare),0);
+					recv(h->socket,&(statfs->f_bavail),sizeof(statfs->f_bavail),0);
+					recv(h->socket,&(statfs->f_bfree),sizeof(statfs->f_bfree),0);
+					recv(h->socket,&(statfs->f_blocks),sizeof(statfs->f_blocks),0);
+					recv(h->socket,&(statfs->f_bsize),sizeof(statfs->f_bsize),0);
+					recv(h->socket,&(statfs->f_favail),sizeof(statfs->f_favail),0);
+					recv(h->socket,&(statfs->f_ffree),sizeof(statfs->f_ffree),0);
+					recv(h->socket,&(statfs->f_files),sizeof(statfs->f_files),0);
+					recv(h->socket,&(statfs->f_flag),sizeof(statfs->f_flag),0);
+					recv(h->socket,&(statfs->f_frsize),sizeof(statfs->f_frsize),0);
+					recv(h->socket,&(statfs->f_fsid),sizeof(statfs->f_fsid),0);
+					recv(h->socket,&(statfs->f_namemax),sizeof(statfs->f_namemax),0);
+					resultadoOsada=osada_statfs(path,statfs);
+				}
+				if(string_equals_ignore_case(nombreFuncion, "RLEAS")){
+					//Este supuestamente no se hace segun dijo matias
+				}
+				if(string_equals_ignore_case(nombreFuncion, "FALOC")){
+					//Este supuestamente no se hace segun dijo matias
 
-				//Asignar datos del package spliteado
-				//		int amount;
-				//		off_t sizeh;
-				//		off_t sizef;
+					//Asignar datos del package spliteado
+					//		int amount;
+					//		off_t sizeh;
+					//		off_t sizef;
 
-				//invocar la funcion correspondiente de osada
-				recv(h->socket,&(sfalloc->amoun),sizeof(sfalloc->amoun),0);
-				recv(h->socket,&(sfalloc->sizeh),sizeof(sfalloc->sizeh),0);
-				recv(h->socket,&(sfalloc->sizef),sizeof(sfalloc->sizef),0);
-				resultadoOsada=osada_fallocate(path,sfalloc->amoun,sfalloc->sizeh,sfalloc->sizef);
-			}*/
+					//invocar la funcion correspondiente de osada
+					recv(h->socket,&(sfalloc->amoun),sizeof(sfalloc->amoun),0);
+					recv(h->socket,&(sfalloc->sizeh),sizeof(sfalloc->sizeh),0);
+					recv(h->socket,&(sfalloc->sizef),sizeof(sfalloc->sizef),0);
+					resultadoOsada=osada_fallocate(path,sfalloc->amoun,sfalloc->sizeh,sfalloc->sizef);
+				}*/
+
+			devolverResultadoAlCliente(resultadoOsada,*socket);
+		}
+
+		//pthread_exit();
+		return NULL;
 
 
-	devolverResultadoAlCliente(resultadoOsada,h->socket);
-	return arg;
+
 }
 t_log* crearArchivoLogPokedexServer() {
 
@@ -325,13 +337,18 @@ int main(){
 					if ((newfd = accept(listeningSocket, (struct sockaddr*)&addr, &addrlen)) == -1){
 						perror("accept");
 					} else {
-						FD_SET(newfd, &master); // Añado el nuevo socket al  select
-						//Actualizo la cantidad
-						if (newfd > fdmax) {
-							fdmax = newfd;
-						}
+						printf("Llego hasta aca\n");
+						int* newSocket = malloc(sizeof(int));
+						*newSocket = i;
+						pthread_create(&thread, NULL,(void*)identificarFuncionRecibida,newSocket);
+//						FD_SET(newfd, &master); // Añado el nuevo socket al  select
+//						//Actualizo la cantidad
+//						if (newfd > fdmax) {
+//							fdmax = newfd;
+//						}
 
-						printf("selectserver: new connection from %s on ""socket %d\n", inet_ntoa(addr.sin_addr),newfd);
+
+						//printf("selectserver: new connection from %s on ""socket %d\n", inet_ntoa(addr.sin_addr),newSocket);
 					}
 				} else {
 					//Si es un socket existente
@@ -357,7 +374,7 @@ int main(){
 							h->socket=i;
 
 							log_info(logPokedexServer,"Mando a %d a un hilo a parte", h->socket);
-							pthread_create(&thread, &attr,identificarFuncionRecibida,NULL);
+
 
 							//identificarFuncionRecibida(package);
 
