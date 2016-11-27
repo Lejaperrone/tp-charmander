@@ -30,7 +30,7 @@ t_pokemon_custom* createPokemon(char* pathPokemons, char* name){
 	//Levanto la configuracion del pokemon
 		t_config* configPokemon = config_create(pathPokemon);
 		pokemon->nivel =config_get_int_value(configPokemon, "Nivel");
-		pokemon->path = pathPokemon;
+		pokemon->path = string_substring(pathPokemon, string_length(pokedexPath), string_length(pathPokemon)-string_length(pokedexPath));
 		pokemon->disponible =1;
 		pokemon->duenio=' ';
 		free(configPokemon);

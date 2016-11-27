@@ -20,6 +20,35 @@
 #include "processLogic.h"
 #include <time.h>
 
+void copiarPokemonFile(char* path){
+	char* pathFrom=string_new();
+	string_append(&pathFrom, pokedexPath);
+	string_append(&pathFrom, path);
+	printf("PathFrom: %s\n", pathFrom);
+
+	char** splited = string_split(path, "/");
+	char* pathTo=string_new();
+	string_append(&pathTo, pokedexPath);
+	string_append(&pathTo, "/Entrenadores/");
+	string_append(&pathTo, name);
+	string_append(&pathTo, "/Dir de Bill/");
+	string_append(&pathTo, splited[4]);
+	printf("PathTo: %s\n", pathTo);
+
+	FILE *from, *to;
+	char ch;
+	if((from = fopen(pathFrom, "rb"))!=NULL) {
+		if((to = fopen(pathTo, "wb+"))!=NULL) {
+			while(!feof(from)) {
+				ch = fgetc(from);
+				if(!feof(from)) fputc(ch, to);
+			}
+		}
+		fclose(to);
+	}
+	fclose(from);
+}
+
 int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa){
 	char turno;
 
@@ -113,20 +142,33 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 				if (conf=='C'){
 					printf("Capture el objetivo\n");
 					char* size = malloc(sizeof(char)*11);
-					;
 
 					if (recv(serverMapa, size, 11,  0) == 11){
 						int size_int = atoi(size);
-						char* path = malloc(sizeof(char)*size_int);
-						if (recv(serverMapa, path, size_int,  0) == size_int){
-							printf("%s\n", path);
+						char* temp = malloc(sizeof(char)*size_int);
+						if (recv(serverMapa, temp, size_int,  0) == size_int){
+							char* path=string_substring(temp,0,size_int);
+							string_append(&path,"\0");
+							copiarPokemonFile(path);
 							objetivo->logrado = 1;
 						}
 					}
 				}else if (conf=='K'){
 					entrenador->deadlocks++;
 					if (recv(serverMapa, &conf, 1,  0) == 1 && conf=='C'){
-						objetivo->logrado = 1;
+						printf("Capture el objetivo\n");
+						char* size = malloc(sizeof(char)*11);
+
+						if (recv(serverMapa, size, 11,  0) == 11){
+							int size_int = atoi(size);
+							char* temp = malloc(sizeof(char)*size_int);
+							if (recv(serverMapa, temp, size_int,  0) == size_int){
+								char* path=string_substring(temp,0,size_int);
+								string_append(&path,"\0");
+								copiarPokemonFile(path);
+								objetivo->logrado = 1;
+							}
+						}
 					}else{
 						entrenador->muertes++;
 						printf("Muerte por deadlock");

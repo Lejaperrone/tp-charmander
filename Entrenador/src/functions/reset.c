@@ -71,10 +71,6 @@ int remove_directory(const char *path)
       closedir(d);
    }
 
-   if (!r){
-      r = rmdir(path);
-   }
-
    return r;
 }
 
