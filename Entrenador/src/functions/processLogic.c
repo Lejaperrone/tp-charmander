@@ -24,7 +24,6 @@ void copiarPokemonFile(char* path){
 	char* pathFrom=string_new();
 	string_append(&pathFrom, pokedexPath);
 	string_append(&pathFrom, path);
-	printf("PathFrom: %s\n", pathFrom);
 
 	char** splited = string_split(path, "/");
 	char* pathTo=string_new();
@@ -33,7 +32,6 @@ void copiarPokemonFile(char* path){
 	string_append(&pathTo, name);
 	string_append(&pathTo, "/Dir de Bill/");
 	string_append(&pathTo, splited[4]);
-	printf("PathTo: %s\n", pathTo);
 
 	FILE *from, *to;
 	char ch;
@@ -48,6 +46,40 @@ void copiarPokemonFile(char* path){
 	}
 	fclose(from);
 }
+void copiarMedalla(t_mapa* mapa){
+	char* pathFrom=string_new();
+	string_append(&pathFrom, pokedexPath);
+	string_append(&pathFrom, "/Mapas/");
+	string_append(&pathFrom, mapa->nombre);
+	string_append(&pathFrom, "/medalla-");
+	string_append(&pathFrom, mapa->nombre);
+	string_append(&pathFrom, ".jpg");
+	printf("Path medalla from: %s\n", pathFrom);
+
+
+	char* pathTo=string_new();
+	string_append(&pathTo, pokedexPath);
+	string_append(&pathTo, "/Entrenadores/");
+	string_append(&pathTo, name);
+	string_append(&pathTo, "/medallas/medalla-");
+	string_append(&pathTo, mapa->nombre);
+	string_append(&pathTo, ".jpg");
+	printf("Path medalla from: %s\n", pathTo);
+
+	FILE *from, *to;
+	char ch;
+	if((from = fopen(pathFrom, "rb"))!=NULL) {
+		if((to = fopen(pathTo, "wb+"))!=NULL) {
+			while(!feof(from)) {
+				ch = fgetc(from);
+				if(!feof(from)) fputc(ch, to);
+			}
+		}
+		fclose(to);
+	}
+	fclose(from);
+}
+
 
 int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa){
 	char turno;
@@ -219,6 +251,7 @@ int procesarMapa(t_mapa* mapa){
 	t_objetivo* obj = getNextObjective(mapa);
 	if(obj == NULL){
 		mapa->terminado=1;
+		copiarMedalla(mapa);
 	}else{
 		printf("Objetivo fallido %c\n", obj->nombre[0]);
 	}
