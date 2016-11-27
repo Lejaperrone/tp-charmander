@@ -30,16 +30,16 @@
 #define FUNCTIONS_PRIMARY_FUNCTIONS_H_
 
 	int proce_getattr(int clientSocket, char* path);
-	int proce_readdir(int clientSocket);
-	int proce_readfile(int clientSocket);
-	int proce_create(int clientSocket);
-	int proce_truncate(int clientSocket);
-	int proce_mkdir(int clientSocket);
-	int proce_rename(int clientSocket);
-	int proce_write(int clientSocket);
-	int proce_statfs(int clientSocket);
-	int proce_removeFile(int clientSocket);
-	int proce_removeDir(int clientSocket);
-	int proce_open(int clientSocket);
+	int proce_readdir(int clientSocket, char* path);
+	int proce_readfile(int clientSocket, char* path);
+	int proce_create(int clientSocket, char* path);
+	int proce_truncate(int clientSocket, char* path);
+	int proce_mkdir(int clientSocket, char* path);
+	int proce_rename(int clientSocket, char* path);
+	int proce_write(int clientSocket, char* path);
+	int proce_statfs(int clientSocket, char* path);
+	int proce_removeFile(int clientSocket, char* path);
+	int proce_removeDir(int clientSocket, char* path);
+	int proce_open(int clientSocket, char* path);
 
 #endif /* FUNCTIONS_PRIMARY_FUNCTIONS_H_ */

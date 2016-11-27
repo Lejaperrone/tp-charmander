@@ -23,12 +23,12 @@
 
 void sendBasicInfo(char* function, const char* path){
 	send(pokedexServer, function, 5,0);
-	log_info(archivoLog,"PokedexCliente: Envio %s",function);
+	log_info(archivoLog,"FUSE - Envio %s",function);
 	char* sizePath=malloc(sizeof(char)*11);
 	sprintf(sizePath,"%i",string_length((char*)path));
 	send(pokedexServer, sizePath, 11, 0);
 	send(pokedexServer, path, string_length((char*)path), 0);
-	log_info(archivoLog,"PokedexCliente: La path es %s",path);
+	log_info(archivoLog,"FUSE - La path es %s",path);
 }
 
 
@@ -37,24 +37,9 @@ void recvBasicInfo(int* resultadoOsada){
 	log_info(archivoLog, "La respuesta recibida (int) desde osada es: ", *resultadoOsada);
 }
 
-void enviarNombreDeLaFuncion(char* nom){
-	if (send(pokedexServer,nom,5*sizeof(char),0) >0){
-	log_info(archivoLog,"FUSE: Envie %s al servidor",nom);
-	}
-	else{
-		log_info(archivoLog, "FUSE: No se pudo enviar el nombre de la funcion");
-	}
-}
-
-void enviarTamanioDelPath(const char* path){
-	char* sizePath=malloc(sizeof(char)*11);
-	sprintf(sizePath,"%i",string_length((char*)path));
-	send(pokedexServer,sizePath,11,0);
-	log_info(archivoLog,"FUSE: Envie %d al servidor",strlen(path));
-}
-void enviarPath(const char* path){
-	send(pokedexServer,path,strlen(path),0);
-	log_info(archivoLog,"FUSE: Envie %s al servidor",path);
+void sendOffset(off_t offset){
+	send(pokedexServer, &offset, sizeof(off_t), 0);
+	log_info(archivoLog, "FUSE - Envio el offset %d", offset);
 }
 void enviarBuffer(struct stat* stbuf){
 	send(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
@@ -67,9 +52,9 @@ void recibirBufferCompleto (struct stat* stbuf){
 
 int chamba_getattr(char* path, struct stat* stbuf){
 	int res = 0;
-	int* resultadoOsada = malloc(sizeof(int));
+	int resultadoOsada;
 	sendBasicInfo("GETAT", path);
-//	recvBasicInfo(resultadoOsada);
+//	recvBasicInfo(&resultadoOsada);
 //
 //	memset(stbuf, 0, sizeof(struct stat));
 //
@@ -106,36 +91,23 @@ int chamba_getattr(char* path, struct stat* stbuf){
 int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
 
 	sendBasicInfo("READD", path);
-	return -ENOENT;
+	int resultadoOsada;
+	recvBasicInfo(&resultadoOsada);
+
+	return resultadoOsada;
 
 	/*(void) offset;
-	(void) fi;
-
-	char* mensaje = string_new();
-	armarMensajeBasico("READD", (char*)path, &mensaje);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(offset));
-
-
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-
-	return 0;*/
+	(void) fi;*/
 }
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
+
 	sendBasicInfo("OPENF", path);
-	return 0;
+	int resultadoOsada;
+	recvBasicInfo(&resultadoOsada);
 
+	return resultadoOsada;
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("OPENF", (char*)path, &mensaje);
-
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-	return 0;*/
 }
 
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
@@ -223,29 +195,19 @@ int chamba_rename (const char * path, const char * newPath){
 int chamba_unlink (const char * path){
 
 	sendBasicInfo("ULINK", path);
-	return -ENOENT;
+	int resultadoOsada;
+	recvBasicInfo(&resultadoOsada);
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("ULINK", (char*)path, &mensaje);
-
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-	return 0;*/
+	return resultadoOsada;
 }
 
 int chamba_rmdir (const char * path){
 
 	sendBasicInfo("RMDIR", path);
-	return -ENOENT;
+	int resultadoOsada;
+	recvBasicInfo(&resultadoOsada);
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("RMDIR", (char*)path, &mensaje);
-
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-	return 0;*/
+	return resultadoOsada;
 }
 
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){

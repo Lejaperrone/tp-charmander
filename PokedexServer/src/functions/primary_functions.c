@@ -55,65 +55,60 @@ int proce_getattr(int clientSocket, char* path){
 	return resultadoOsada;
 }
 
-int proce_readdir(int clientSocket){
-	char* path=string_new();
+int proce_readdir(int clientSocket, char* path){
 
-	recibirParametrosDeReadDir(clientSocket,path);
 	t_list* directorios=list_create();
-	return osada_readdir(path, directorios);
+	int resultadoOsada = 0;
+	resultadoOsada = osada_readdir(path, directorios);
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	return resultadoOsada;
 }
 
-int proce_readfile(int clientSocket){
-	char* path=string_new();
+int proce_readfile(int clientSocket, char* path){
 	char* buffer = string_new();
 	recv(clientSocket,buffer,sizeof(buffer),0);
-	t_readFile* readFile;
+	t_readFile* readFile = malloc(sizeof(t_readFile));
 	recv(clientSocket,&(readFile->size),sizeof(readFile->size),0);
 	recv(clientSocket,&(readFile->offset),sizeof(readFile->offset),0);
 	return osada_read(path, buffer, readFile->size, readFile->offset);
 }
 
-int proce_create(int clientSocket){
-	char* path = string_new();
-	t_createFile* createFile;
+int proce_create(int clientSocket, char* path){
+	t_createFile* createFile = malloc(sizeof(t_createFile));
 	recv(clientSocket,&(createFile->modo),sizeof(createFile->modo),0);
 	return osada_createFile(path, createFile->modo);
 }
 
-int proce_truncate(int clientSocket){
-	char* path = string_new();
-	t_truncateFile* truncateFile;
+int proce_truncate(int clientSocket, char* path){
+	t_truncateFile* truncateFile = malloc(sizeof(t_truncateFile));
 	recv(clientSocket,&(truncateFile->offset),sizeof(truncateFile->offset),0);
 	return osada_truncate(path, truncateFile->offset);
 }
 
-int proce_mkdir(int clientSocket){
-	char* path = string_new();
-	t_makeDir* makeDir;
+int proce_mkdir(int clientSocket, char* path){
+	t_makeDir* makeDir = malloc(sizeof(t_makeDir));
 	recv(clientSocket,&(makeDir->mode),sizeof(makeDir->mode),0);
 	return osada_createDir(path, obtenerNombreDelDirectorio(path), makeDir->mode);
 }
 
-int proce_rename(int clientSocket){
-	char* path = string_new();
+int proce_rename(int clientSocket, char* path){
 	char* nombreNuevo=string_new();
 	recv(clientSocket, nombreNuevo,sizeof(nombreNuevo),0);
 	return osada_rename(path, nombreNuevo);
 }
 
-int proce_write(int clientSocket){
-	char* path = string_new();
+int proce_write(int clientSocket, char* path){
 	char* buffer = string_new();
 	recv(clientSocket,buffer,sizeof(buffer),0);
-	t_write* swrite;
+	t_write* swrite = malloc(sizeof(t_write));
 	recv(clientSocket,&(swrite->size),sizeof(swrite->size),0);
 	recv(clientSocket,&(swrite->offset),sizeof(swrite->size),0);
 	return osada_write(path, buffer, swrite->size, swrite->offset);
 }
 
-int proce_statfs(int clientSocket){
-	char* path = string_new();
-	t_statfs* statfs;
+int proce_statfs(int clientSocket, char* path){
+	t_statfs* statfs = malloc(sizeof(t_statfs));
 	recv(clientSocket,&(statfs->__f_spare),sizeof(statfs->__f_spare),0);
 	recv(clientSocket,&(statfs->f_bavail),sizeof(statfs->f_bavail),0);
 	recv(clientSocket,&(statfs->f_bfree),sizeof(statfs->f_bfree),0);
@@ -129,18 +124,27 @@ int proce_statfs(int clientSocket){
 	return osada_statfs(path,statfs);
 }
 
-int proce_removeFile(int clientSocket){
-	char* path = string_new();
-	return osada_removeFile(path);
+int proce_removeFile(int clientSocket, char* path){
+	int resultadoOsada;
+	resultadoOsada = osada_removeFile(path);
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	return resultadoOsada;
 }
 
-int proce_removeDir(int clientSocket){
-	char* path = string_new();
-	return osada_removeDir(path);
+int proce_removeDir(int clientSocket, char* path){
+	int resultadoOsada;
+	resultadoOsada = osada_removeDir(path);
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	return resultadoOsada;
 }
 
-int proce_open(int clientSocket){
-	char* path = string_new();
-	return osada_open(path);
+int proce_open(int clientSocket, char* path){
+	int resultadoOsada;
+	resultadoOsada = osada_open(path);
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	return resultadoOsada;
 }
 
