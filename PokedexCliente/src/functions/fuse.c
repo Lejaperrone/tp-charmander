@@ -131,7 +131,7 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
 	sendBasicInfo("OPENF", path);
-	return -ENOENT;
+	return 0;
 
 
 	/*char* mensaje = string_new();

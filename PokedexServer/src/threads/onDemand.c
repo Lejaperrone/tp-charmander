@@ -51,7 +51,7 @@ void* procesarPeticiones(t_hilo* h){
 
 
 		if(string_equals_ignore_case(nombreFuncion, "GETAT")){
-			//result=proce_getattr(*socket);
+			//result=proce_getattr(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "READD")){
 			//result = proce_readdir(*socket);
 		}else if(string_equals_ignore_case(nombreFuncion, "OPENF")){

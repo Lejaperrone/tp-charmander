@@ -29,7 +29,7 @@
 #ifndef FUNCTIONS_PRIMARY_FUNCTIONS_H_
 #define FUNCTIONS_PRIMARY_FUNCTIONS_H_
 
-	int proce_getattr(int clientSocket);
+	int proce_getattr(int clientSocket, char* path);
 	int proce_readdir(int clientSocket);
 	int proce_readfile(int clientSocket);
 	int proce_create(int clientSocket);

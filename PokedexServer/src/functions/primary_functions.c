@@ -27,15 +27,9 @@
 #include "../commons/definitions.h"
 #include "auxiliar_functions.h"
 
-int proce_getattr(int clientSocket){
-	char* path=string_new();
-	size_t tamanioPath;
+int proce_getattr(int clientSocket, char* path){
 
-	recibirTamanioDelPath(clientSocket,&tamanioPath);
-	recibirPath(clientSocket,&path,tamanioPath);
 	t_getAttr* getAttr =  malloc(sizeof(t_getAttr));
-	recibirBuffer(clientSocket, getAttr);
-	//invocar la funcion correspondiente de osada des-serializando la estructura
 	int resultadoOsada = osada_getattr(path,(file_attr*)getAttr);
 	enviarBufferLleno(clientSocket, getAttr);
 
