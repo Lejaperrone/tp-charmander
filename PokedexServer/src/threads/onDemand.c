@@ -50,27 +50,27 @@ void* procesarPeticiones(t_hilo* h){
 		if(string_equals_ignore_case(nombreFuncion, "GETAT")){
 			//result=proce_getattr(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "READD")){
-			//result = proce_readdir(*socket);
+			//result = proce_readdir(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "OPENF")){
-			//result = proce_open(*socket);
+			//result = proce_open(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "READF")){
-			//result = proce_readfile(*socket);
+			//result = proce_readfile(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "CREAT")){
-			//result = proce_create(*socket);
+			//result = proce_create(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
-			//result  = proce_truncate(*socket);
+			//result  = proce_truncate(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "MKDIR")){
-			//result = proce_mkdir(*socket);
+			//result = proce_mkdir(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "RENAM")){
-			//result = proce_rename(*socket);
+			//result = proce_rename(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "ULINK")){
-			//result = proce_removeFile(*socket);
+			//result = proce_removeFile(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "RMDIR")){
-			//result = proce_removeDir(*socket);
+			//result = proce_removeDir(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "WRITE")){
-			//result = proce_write(*socket);
+			//result = proce_write(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "STATF")){
-			//result=proce_statfs(*socket);
+			//result=proce_statfs(*socket, path);
 		}
 
 		//devolverResultadoAlCliente(result,h->socket);
