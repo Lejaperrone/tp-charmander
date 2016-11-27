@@ -37,10 +37,12 @@ void* procesarPeticiones(t_hilo* h){
 	while(recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
 		int tamanioPath;
 		recibirTamanioDelPath(h->socket,&tamanioPath);
-		char* path=malloc(sizeof(char)*tamanioPath);
-		recibirPath(h->socket,path,tamanioPath);
-
-		printf("Funcion: %s\nPath:%s\n", nombreFuncion, path);
+		//char* path=malloc(sizeof(char)*tamanioPath);
+		char* path=string_new();
+		recibirPath(h->socket,&path,tamanioPath);
+		log_info(logPokedexServer,"Funcion: %s\n",nombreFuncion);
+		log_info(logPokedexServer,"Path: %s\n",path);
+		//printf("Funcion: %s\nPath:%s\n", nombreFuncion, path);
 
 
 		if(string_equals_ignore_case(nombreFuncion, "GETAT")){

@@ -23,12 +23,12 @@
 
 void sendBasicInfo(char* function, const char* path){
 	send(pokedexServer, function, 5,0);
-
+	log_info(archivoLog,"PokedexCliente: Envio %s",function);
 	char* sizePath=malloc(sizeof(char)*11);
-	sprintf(sizePath,"%i",string_length(path));
+	sprintf(sizePath,"%i",string_length((char*)path));
 	send(pokedexServer, sizePath, 11, 0);
-
-	send(pokedexServer, path, string_length(path), 0);
+	send(pokedexServer, path, string_length((char*)path), 0);
+	log_info(archivoLog,"PokedexCliente: La path es %s",path);
 }
 
 void armarMensajeBasico(char* nombreFuncion, char* path, char** mensaje){
