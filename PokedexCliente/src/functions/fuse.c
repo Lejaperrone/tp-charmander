@@ -110,7 +110,7 @@ int chamba_getattr(char* path, struct stat* stbuf){
 
 int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
 
-	sendBasicInfo("READD", strdup(path));
+	sendBasicInfo("READD", path);
 	return -ENOENT;
 
 	/*(void) offset;
@@ -130,7 +130,7 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 }
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
-	sendBasicInfo("OPENF", strdup(path));
+	sendBasicInfo("OPENF", path);
 	return -ENOENT;
 
 
@@ -145,7 +145,7 @@ int chamba_open (const char * path, struct fuse_file_info * fi){
 
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 
-	sendBasicInfo("READF", strdup(path));
+	sendBasicInfo("READF", path);
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -165,7 +165,7 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 
 int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 
-	sendBasicInfo("CREAT", strdup(path));
+	sendBasicInfo("CREAT", path);
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -181,7 +181,7 @@ int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 
 int chamba_truncate (const char * path, off_t offset){
 
-	sendBasicInfo("TRUNC", strdup(path));
+	sendBasicInfo("TRUNC", path);
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -196,7 +196,7 @@ int chamba_truncate (const char * path, off_t offset){
 }
 
 int chamba_mkdir (const char * path, mode_t modo){
-	sendBasicInfo("MKDIR", strdup(path));
+	sendBasicInfo("MKDIR", path);
 	return -ENOENT;
 	/*char* mensaje = string_new();
 	armarMensajeBasico("MKDIR", (char*)path, &mensaje);
@@ -211,7 +211,7 @@ int chamba_mkdir (const char * path, mode_t modo){
 
 int chamba_rename (const char * path, const char * newPath){
 
-	sendBasicInfo("RENAM", strdup(path));
+	sendBasicInfo("RENAM", path);
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -227,7 +227,7 @@ int chamba_rename (const char * path, const char * newPath){
 
 int chamba_unlink (const char * path){
 
-	sendBasicInfo("ULINK", strdup(path));
+	sendBasicInfo("ULINK", path);
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -241,7 +241,7 @@ int chamba_unlink (const char * path){
 
 int chamba_rmdir (const char * path){
 
-	sendBasicInfo("RMDIR", strdup(path));
+	sendBasicInfo("RMDIR", path);
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -255,7 +255,7 @@ int chamba_rmdir (const char * path){
 
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 
-	sendBasicInfo("WRITE", strdup(path));
+	sendBasicInfo("WRITE", path);
 	return -ENOENT;
 
 	/*char* mensaje = string_new();
@@ -275,7 +275,7 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 
 int chamba_statfs (const char * path, struct statvfs * stats){
 
-	sendBasicInfo("STATF", strdup(path));
+	sendBasicInfo("STATF", path);
 	return -ENOENT;
 
 	char* mensaje = string_new();

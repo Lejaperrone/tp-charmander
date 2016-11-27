@@ -38,7 +38,7 @@ void devolverResultadoAlCliente(int resultadoDeOsada,int socketCliente){
 }
 
 int recibirNombreDeLaFuncion(int socketCliente, char* nombreFuncion){
-	if(recv(socketCliente, nombreFuncion,5*sizeof(char),0)>=0){
+	if(recv(socketCliente, nombreFuncion, 5*sizeof(char),0)>=0){
 		log_info(logPokedexServer,"PokedexServer: Recibo %s", nombreFuncion);
 		return 1;
 	}else{
