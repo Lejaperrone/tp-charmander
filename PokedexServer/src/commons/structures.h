@@ -13,9 +13,7 @@ struct hilo{
 	int socket;
 }typedef t_hilo;
 
-struct getAttr{
-	unsigned long int primerP;
-}typedef t_getAttr;
+
 
 struct readFile{
 	__SIZE_TYPE__ size;

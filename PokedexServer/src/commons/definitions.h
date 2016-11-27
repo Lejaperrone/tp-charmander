@@ -4,7 +4,7 @@
  *  Created on: 26/11/2016
  *      Author: utnso
  */
-
+#include<commons/log.h>
 #ifndef COMMONS_DEFINITIONS_H_
 #define COMMONS_DEFINITIONS_H_
 

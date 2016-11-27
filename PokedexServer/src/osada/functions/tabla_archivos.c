@@ -87,7 +87,8 @@ void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 
 }
 int osada_TA_obtenerUltimoHijoFromPath(char* path){
-	char ** dirc = string_split(path, "/");
+	char** dirc = (char**)malloc(sizeof(char*));
+	dirc = string_split(path, "/");
 	u_int16_t child = 0xFFFF;
 	int i=0;
 	while(dirc[i]!=NULL){
@@ -101,6 +102,7 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 		i++;
 	}
 	pthread_mutex_unlock(&mutexTablaArchivos);
+	free(dirc);
 	return child;
 }
 

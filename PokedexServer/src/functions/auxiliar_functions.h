@@ -14,7 +14,7 @@
 	void recibirParametrosDeReadDir(int socketCliente,char* path);
 	void recibirTamanioDelPath(int socketCliente, int* tamanio);
 	void recibirPath(int socketCliente,char** path, int tamanioPath);
-	void recibirBuffer(int socketCliente, t_getAttr* getAttr);
-	void enviarBufferLleno(int socketCliente, t_getAttr* getAttr);
+	void recibirBuffer(int socketCliente, file_attr* getAttr);
+	void enviarBufferLleno(int socketCliente, file_attr* getAttr);
 
 #endif /* FUNCTIONS_AUXILIAR_FUNCTIONS_H_ */

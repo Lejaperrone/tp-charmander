@@ -12,6 +12,7 @@
 #include <time.h>
 #include <commons/collections/list.h>
 #include "commons/declarations.h"
+#include "../commons/definitions.h"
 #include "functions/tabla_archivos.h"
 #include "commons/osada.h"
 #include "osada.h"
@@ -96,20 +97,27 @@ int osada_readdir(char* path, t_list* directorios){
 
 
 int osada_getattr(char* path, file_attr* attrs){
+	log_info(logPokedexServer, "Se invoca obtenerUltimoHijoFromPath");
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
 
+	printf("OSADA - El indice del ultimo hijo from path es: %d", indice);
 	if(indice>=0){
+
 		//el indice es numero de posicion en la que esta en la tabla de archivos, si indice vale 6, esta en la
 		//posicion 6 de la tabla de achivos
 		osada_TA_obtenerAttr(indice, attrs);
+		printf("OSADA - Se llenaron los attr para el indice >=0");
 		return 1;
-	}else if(strcmp(path,"/")){
+	}else if(strcmp(path,"/") == 0){
+		printf("OSADA - El archivo se trata de un directorio");
 		attrs->file_size = 0;
 		attrs->state = 2;
 		return 1;
 	}else{
+		printf("OSADA - El indice del ultimo hijo from path es negativo. Se devuelve ENOENT.");
 		return -ENOENT;
 	}
+	return 0;
 }
 //Path es la ruta al archivo
 //Buf viene vacio y se llena con la info que hay en la path

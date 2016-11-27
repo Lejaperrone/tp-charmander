@@ -31,19 +31,12 @@ void sendBasicInfo(char* function, const char* path){
 	log_info(archivoLog,"PokedexCliente: La path es %s",path);
 }
 
-void armarMensajeBasico(char* nombreFuncion, char* path, char** mensaje){
-	string_append(mensaje, nombreFuncion);
-	string_append(mensaje, ",");
-	string_append(mensaje, path);
+
+void recvBasicInfo(int* resultadoOsada){
+	recv(pokedexServer,resultadoOsada, sizeof(int), 0);
+	log_info(archivoLog, "La respuesta recibida (int) desde osada es: ", *resultadoOsada);
 }
 
-void conectarConServidorYRecibirRespuesta(int pokedexServer, char* mensaje, char** respuesta){
-	int tamanioMensaje=strlen(mensaje);
-	if(send(pokedexServer, &tamanioMensaje, sizeof(tamanioMensaje), 0)){
-		send(pokedexServer, &mensaje, tamanioMensaje, 0);
-		recv(pokedexServer, respuesta, 1024, 0);
-	}
-}
 void enviarNombreDeLaFuncion(char* nom){
 	if (send(pokedexServer,nom,5*sizeof(char),0) >0){
 	log_info(archivoLog,"FUSE: Envie %s al servidor",nom);
@@ -73,38 +66,40 @@ void recibirBufferCompleto (struct stat* stbuf){
 }
 
 int chamba_getattr(char* path, struct stat* stbuf){
+	int res = 0;
+	int* resultadoOsada = malloc(sizeof(int));
 	sendBasicInfo("GETAT", path);
-	return -ENOENT;
+//	recvBasicInfo(resultadoOsada);
+//
+//	memset(stbuf, 0, sizeof(struct stat));
+//
+//	if (resultadoOsada==1){
+//		recv(pokedexServer, &(stbuf->st_nlink),sizeof(stbuf->st_nlink),0); //Recibo el tipo del archivo reconocido por osada
+//		log_info(archivoLog,"PokedexCliente: El tipo de archivo reconocido por osada_getattr es %d",stbuf->st_nlink);
+//
+//		//Si es un directorio
+//		if ((stbuf->st_nlink)==2){
+//			recv(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
+//			log_info(archivoLog,"PokedexCliente: El peso del archivo (directorio) es %d",stbuf->st_size);
+//			stbuf->st_mode=S_IFDIR | 0755;
+//			stbuf->st_nlink = 2;
+//		}
+//		//Si es un archivo regular
+//		else if (stbuf->st_nlink==1){
+//			recv(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
+//			log_info(archivoLog,"PokedexCliente: El peso del archivo (regular) es %d",stbuf->st_size);
+//			stbuf->st_mode=S_IFREG | 0444;
+//			stbuf->st_nlink = 1;
+//		}
+//		//Si es un archivo DELETED (el tipo es 0)
+//		else{
+//			res=-ENOENT;
+//		}
+//	}
+//
+//	free(resultadoOsada);
+	return res;
 
-
-	/*int res = 0;
-
-	//char* mensaje = string_new();
-	//armarMensajeBasico("GETAT", (char*)path, &mensaje);
-	enviarNombreDeLaFuncion("GETAT");
-	//char* respuesta = string_new();
-	enviarTamanioDelPath(path);
-	enviarPath(path);
-	enviarBuffer(stbuf);
-	recibirBufferCompleto(stbuf);
-	//conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-
-	memset(stbuf, 0, sizeof(struct stat));
-
-	if (strcmp(path, "/") == 0) {
-			stbuf->st_mode = S_IFDIR | 0755;
-			stbuf->st_nlink = 2;
-		} else if (strcmp(path, "/") == 0) {
-			stbuf->st_mode = S_IFREG | 0444;
-			stbuf->st_nlink = 1;
-			stbuf->st_size = strlen("Hola mundo");
-		} else {
-			res = -ENOENT;
-		}
-		return res;
-
-	return 0;*/
 }
 
 

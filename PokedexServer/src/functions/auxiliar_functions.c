@@ -69,11 +69,11 @@ void recibirPath(int socketCliente,char** path, int tamanioPath){
 	log_info(logPokedexServer,"PokedexServer: Recibo el path %s, el tamanio es %d",*path, string_length(*path));
 }
 
-void recibirBuffer(int socketCliente, t_getAttr* getAttr){
-	recv(socketCliente,&(getAttr->primerP),sizeof(getAttr->primerP),0);
+void recibirBuffer(int socketCliente, file_attr* getAttr){
+	recv(socketCliente,&(getAttr->file_size),sizeof(getAttr->file_size),0);
 }
 
-void enviarBufferLleno(int socketCliente, t_getAttr* getAttr){
-	send(socketCliente,&(getAttr->primerP),sizeof(getAttr->primerP),0);
+void enviarBufferLleno(int socketCliente, file_attr* getAttr){
+	send(socketCliente,&(getAttr->file_size),sizeof(getAttr->file_size),0);
 	log_info(logPokedexServer,"PokedexServer: Envio buffer lleno");
 }
