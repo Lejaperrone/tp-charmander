@@ -39,10 +39,10 @@ void devolverResultadoAlCliente(int resultadoDeOsada,int socketCliente){
 
 int recibirNombreDeLaFuncion(int socketCliente, char* nombreFuncion){
 	if(recv(socketCliente, nombreFuncion, 5*sizeof(char),0)>=0){
-		log_info(logPokedexServer,"PokedexServer: Recibo %s", nombreFuncion);
+		log_info(logPokedexServer,"POKEDEXSERVER - Recibo el nombre de la funcion %s", nombreFuncion);
 		return 1;
 	}else{
-		log_info(logPokedexServer,"PokedexServer: Se cerro la conexion");
+		log_info(logPokedexServer,"POKEDEXSERVER - Se cerro la conexion");
 		return 0;
 	}
 
@@ -56,7 +56,7 @@ void recibirTamanioDelPath(int socketCliente, int* tamanio){
 	char* size=(char*)malloc(11*sizeof(char));
 	recv(socketCliente,size,11,0);
 	*tamanio=atoi(size);
-	log_info(logPokedexServer,"PokedexServer: Recibo el tamanio del path: %d",*tamanio);
+	log_info(logPokedexServer,"POKEDEXSERVER - Recibo el tamanio del path: %d",*tamanio);
 }
 
 void recibirPath(int socketCliente,char** path, int tamanioPath){
@@ -73,5 +73,5 @@ void recibirBuffer(int socketCliente, file_attr* getAttr){
 
 void enviarBufferLleno(int socketCliente, file_attr* getAttr){
 	send(socketCliente,&(getAttr->file_size),sizeof(getAttr->file_size),0);
-	log_info(logPokedexServer,"PokedexServer: Envio buffer lleno");
+	log_info(logPokedexServer,"POKEDEXSERVER - Envio buffer lleno");
 }

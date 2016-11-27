@@ -61,6 +61,7 @@ int main(){
 	int listeningSocket;
 	create_serverSocket(&listeningSocket, PORT);
 	log_info(logPokedexServer,"Puerto por variable de entorno OK");
+	log_info(logPokedexServer, "--------------------------------------------------------------");
 
 	//Inicializo el select
 	fd_set master;		// conjunto maestro de descriptores de fichero

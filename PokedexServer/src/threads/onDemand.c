@@ -41,8 +41,7 @@ void* procesarPeticiones(t_hilo* h){
 		//char* path=malloc(sizeof(char)*tamanioPath);
 		char* path=string_new();
 		recibirPath(h->socket,&path,tamanioPath);
-		log_info(logPokedexServer,"Funcion: %s\n",nombreFuncion);
-		log_info(logPokedexServer,"Path: %s\n",path);
+		log_info(logPokedexServer,"POKEDEXSERVER - Path: %s\n",path);
 
 		//printf("Funcion: %s\nPath:%s\nTamanio:%d", nombreFuncion, path, sizeof(path));
 
