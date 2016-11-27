@@ -43,8 +43,6 @@ void* procesarPeticiones(t_hilo* h){
 		recibirPath(h->socket,&path,tamanioPath);
 		log_info(logPokedexServer,"Funcion: %s\n",nombreFuncion);
 		log_info(logPokedexServer,"Path: %s\n",path);
-		//printf("Funcion: %s\nPath:%s\n", nombreFuncion, path);
-		//recibirPath(h->socket,path,tamanioPath);
 
 		//printf("Funcion: %s\nPath:%s\nTamanio:%d", nombreFuncion, path, sizeof(path));
 

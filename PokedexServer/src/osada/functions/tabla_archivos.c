@@ -12,6 +12,7 @@
 #include <commons/string.h>
 #include <commons/temporal.h>
 #include "../commons/declarations.h"
+#include "../../commons/definitions.h"
 #include "../commons/osada.h"
 #include <errno.h>
 #include "../functions/tabla_asignaciones.h"
@@ -24,7 +25,7 @@ extern pthread_mutex_t mutexBitmap;
 int compare(int indice, char* test2){
 	int i;
 	for(i=0; i<OSADA_FILENAME_LENGTH; i++){
-		printf("%c - %c\n", osada_drive.directorio[indice].fname[i], *test2);
+		log_info(logPokedexServer, "%c - %c\n", osada_drive.directorio[indice].fname[i], *test2);
 		if(osada_drive.directorio[indice].fname[i] == '\0' && *test2=='\0'){
 			return 1;
 		}else{
@@ -87,8 +88,7 @@ void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 
 }
 int osada_TA_obtenerUltimoHijoFromPath(char* path){
-	char** dirc = (char**)malloc(sizeof(char*));
-	dirc = string_split(path, "/");
+	char** dirc = string_split(path, "/");
 	u_int16_t child = 0xFFFF;
 	int i=0;
 	while(dirc[i]!=NULL){
@@ -102,7 +102,6 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 		i++;
 	}
 	pthread_mutex_unlock(&mutexTablaArchivos);
-	free(dirc);
 	return child;
 }
 

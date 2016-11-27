@@ -60,13 +60,11 @@ void recibirTamanioDelPath(int socketCliente, int* tamanio){
 }
 
 void recibirPath(int socketCliente,char** path, int tamanioPath){
-	log_info(logPokedexServer,"PokedexServer: el tamanio del path es %d y el path contiene %s",tamanioPath,*path);
 	char* pathPiloto=malloc(sizeof(char)*tamanioPath);
 	recv(socketCliente,pathPiloto,tamanioPath,0);
 	*path=string_substring(pathPiloto,0,tamanioPath);
 	string_append(path,"\0");
 	free(pathPiloto);
-	log_info(logPokedexServer,"PokedexServer: Recibo el path %s, el tamanio es %d",*path, string_length(*path));
 }
 
 void recibirBuffer(int socketCliente, file_attr* getAttr){
