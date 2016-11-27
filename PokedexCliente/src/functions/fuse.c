@@ -37,6 +37,10 @@ void recvBasicInfo(int* resultadoOsada){
 	log_info(archivoLog, "La respuesta recibida (int) desde osada es: ", *resultadoOsada);
 }
 
+void sendOffset(off_t offset){
+	send(pokedexServer, &offset, sizeof(off_t), 0);
+	log_info(archivoLog, "FUSE - Envio el offset %d", offset);
+}
 void enviarBuffer(struct stat* stbuf){
 	send(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
 	log_info(archivoLog,"FUSE: Envie el primer parametro de stbuf");
@@ -87,19 +91,20 @@ int chamba_getattr(char* path, struct stat* stbuf){
 int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
 
 	sendBasicInfo("READD", path);
-	return 0;
+	int resultadoOsada;
+	recvBasicInfo(&resultadoOsada);
+
+	return resultadoOsada;
 
 	/*(void) offset;
-	(void) fi;
-
-	return 0;*/
+	(void) fi;*/
 }
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
-	sendBasicInfo("OPENF", path);
 
+	sendBasicInfo("OPENF", path);
 	int resultadoOsada;
-//	recvBasicInfo(&resultadoOsada);
+	recvBasicInfo(&resultadoOsada);
 
 	return resultadoOsada;
 

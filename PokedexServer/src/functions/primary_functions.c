@@ -57,9 +57,12 @@ int proce_getattr(int clientSocket, char* path){
 
 int proce_readdir(int clientSocket, char* path){
 
-	recibirParametrosDeReadDir(clientSocket,path);
 	t_list* directorios=list_create();
-	return osada_readdir(path, directorios);
+	int resultadoOsada = 0;
+	resultadoOsada = osada_readdir(path, directorios);
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	return resultadoOsada;
 }
 
 int proce_readfile(int clientSocket, char* path){
