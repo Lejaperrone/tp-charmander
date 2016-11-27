@@ -32,7 +32,7 @@
 void* procesarPeticiones(t_hilo* h){
 	printf("Se conecto %d\n", h->id);
 	char* nombreFuncion=string_new();
-	int result=-ENOENT;
+	int result=0;
 
 	while(recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
 		int tamanioPath;

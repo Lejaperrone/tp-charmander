@@ -91,9 +91,11 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 	char** dirc = string_split(path, "/");
 	u_int16_t child = 0xFFFF;
 	int i=0;
+	log_info(logPokedexServer, "OSADA - Se va a recorrer el vector de strings separados del path");
 	while(dirc[i]!=NULL){
 		pthread_mutex_lock(&mutexTablaArchivos);
 		if(sizeof(dirc[i]) != 0){
+			log_info(logPokedexServer, "OSADA - Se va a buscar el registro por nombre");
 			child = osada_TA_buscarRegistroPorNombre(dirc[i], child);
 			if(child == -1){
 				return -ENOENT;
@@ -107,9 +109,12 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 
 void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
 	pthread_mutex_lock(&mutexTablaArchivos);
+	log_info(logPokedexServer, "OSADA - El file_size de la estructura attr que me llega es: %d", attr->file_size);
 	attr->file_size = osada_drive.directorio[indice].file_size;
+	log_info(logPokedexServer, "OSADA - Ahora el file_size de la estructura attr es: %d", attr->file_size);
 	attr->state = osada_drive.directorio[indice].state;
 	pthread_mutex_unlock(&mutexTablaArchivos);
+
 }
 void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
 	attr->file_size=0;
