@@ -55,7 +55,6 @@ void copiarMedalla(t_mapa* mapa){
 	string_append(&pathFrom, "/medalla-");
 	string_append(&pathFrom, mapa->nombre);
 	string_append(&pathFrom, ".jpg");
-	printf("Path medalla from: %s\n", pathFrom);
 
 
 	char* pathTo=string_new();
@@ -65,7 +64,6 @@ void copiarMedalla(t_mapa* mapa){
 	string_append(&pathTo, "/medallas/medalla-");
 	string_append(&pathTo, mapa->nombre);
 	string_append(&pathTo, ".jpg");
-	printf("Path medalla from: %s\n", pathTo);
 
 	FILE *from, *to;
 	char ch;
@@ -81,7 +79,6 @@ void copiarMedalla(t_mapa* mapa){
 	fclose(from);
 }
 
-
 int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa){
 	char turno;
 
@@ -92,7 +89,6 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 			char* mensaje = string_new();
 			string_append(&mensaje, "U");
 			string_append(&mensaje, objetivo->nombre);
-			log_info(archivoLog,"el mensaje que voy a enviar es: %s",mensaje);
 
 			//Envio el mensaje
 			int resp = send(serverMapa, mensaje, 2, 0);
@@ -100,7 +96,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
 				exit(EXIT_FAILURE);
 			}
-			log_info(archivoLog,"Envie el mensaje %s",mensaje);
+			log_info(archivoLog,"Solicite ubicacion de pokenest: %s", objetivo->nombre);
 
 			//Espero la respuesta
 			char pos[5];
@@ -108,7 +104,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 				objetivo->ubicacion.x = atoi(string_substring(pos, 0, 2));
 				objetivo->ubicacion.y = atoi(string_substring(pos, 2, 2));
 			}
-			log_info(archivoLog,"Obtuve posicion x:%d, y: %d.", objetivo->ubicacion.x, objetivo->ubicacion.y);
+			log_info(archivoLog,"La posicion es: %d;%d.", objetivo->ubicacion.x, objetivo->ubicacion.y);
 		}else if((*movimiento = siguienteMovimiento(mapa->miPosicion, objetivo, *movimiento))){ //Me muevo
 
 			//Creo el mensaje
@@ -119,31 +115,27 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 			case 1:
 				mensaje[1] = '1';
 				mapa->miPosicion.x--;
-				log_info(archivoLog,"Me muevo hacia %d %d",mapa->miPosicion.x, mapa->miPosicion.y);
 				break;
 			case 2:
 				mensaje[1] = '2';
 				mapa->miPosicion.y++;
-				log_info(archivoLog,"Me muevo hacia %d %d",mapa->miPosicion.x, mapa->miPosicion.y);
 				break;
 			case 3:
 				mensaje[1] = '3';
 				mapa->miPosicion.x++;
-				log_info(archivoLog,"Me muevo hacia %d %d",mapa->miPosicion.x, mapa->miPosicion.y);
 
 				break;
 			case 4:
 				mensaje[1] = '4';
 				mapa->miPosicion.y--;
-				log_info(archivoLog,"Me muevo hacia %d %d",mapa->miPosicion.x, mapa->miPosicion.y);
 				break;
 			}
-			log_info(archivoLog,"Envio el mensaje: %c%c",mensaje[0],mensaje[1]);
+			log_info(archivoLog,"Me muevo a %d;%d", mapa->miPosicion.x, mapa->miPosicion.y);
 
 			//Envio el mensaje
 			int resp = send(serverMapa, &mensaje, 2, 0);
 			if(resp == -1){
-				log_info(archivoLog,"No pude enviar el mensaje: %c%c",mensaje[0],mensaje[1]);
+				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
 				exit(EXIT_FAILURE);
 			}
 
@@ -152,7 +144,6 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 			char* mensaje = string_new();
 			string_append(&mensaje, "F");
 			string_append(&mensaje, objetivo->nombre);
-			log_info(archivoLog,"el mensaje que voy a enviar es: %s",mensaje);
 
 			//Envio el mensaje
 			int resp = send(serverMapa, mensaje, 2, 0);
@@ -160,7 +151,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
 				exit(EXIT_FAILURE);
 			}
-			log_info(archivoLog,"Envie el mensaje %s",mensaje);
+			log_info(archivoLog,"Solicite captura de: %s", objetivo->nombre);
 
 			time_t tiempoInicialBloqueo;
 			time(&tiempoInicialBloqueo);
@@ -173,7 +164,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 				entrenador->tiempoBloqueado += tiempoFinalBloqueo - tiempoInicialBloqueo;
 
 				if (conf=='C'){
-					printf("Capture el objetivo\n");
+					log_info(archivoLog,"Capturado");
 					char* size = malloc(sizeof(char)*11);
 
 					if (recv(serverMapa, size, 11,  0) == 11){
@@ -184,12 +175,19 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 							string_append(&path,"\0");
 							copiarPokemonFile(path);
 							objetivo->logrado = 1;
+						}else{
+							log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
+							exit(EXIT_FAILURE);
 						}
+					}else{
+						log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
+						exit(EXIT_FAILURE);
 					}
 				}else if (conf=='K'){
+					log_info(archivoLog,"Entre en deadlock");
 					entrenador->deadlocks++;
 					if (recv(serverMapa, &conf, 1,  0) == 1 && conf=='C'){
-						printf("Capture el objetivo\n");
+						log_info(archivoLog,"Capturado");
 						char* size = malloc(sizeof(char)*11);
 
 						if (recv(serverMapa, size, 11,  0) == 11){
@@ -200,17 +198,26 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 								string_append(&path,"\0");
 								copiarPokemonFile(path);
 								objetivo->logrado = 1;
+							}else{
+								log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
+								exit(EXIT_FAILURE);
 							}
+						}else{
+							log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
+							exit(EXIT_FAILURE);
 						}
 					}else{
 						entrenador->muertes++;
-						printf("Muerte por deadlock");
+						printf("Mori por resolucion de deadlock");
 						objetivo->logrado = 0;
 						return 0;
 					}
 
 				}
 				return 1;
+			}else{
+				log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
+				exit(EXIT_FAILURE);
 			}
 
 
@@ -219,7 +226,6 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 	}
 	return 0;
 }
-
 int procesarMapa(t_mapa* mapa){
 	int serverMapa;
 	create_socketClient(&serverMapa, mapa->ip, mapa->puerto);
@@ -239,7 +245,6 @@ int procesarMapa(t_mapa* mapa){
 	//time(&entrenador->tiempoTotal);
 	for(j=0; j<list_size(mapa->objetivos); j++){
 		t_objetivo* objetivo = (t_objetivo *)list_get(mapa->objetivos, j);
-		log_info(archivoLog, "Proceso objetivo %s", objetivo->nombre);
 		procesarObjetivo(mapa, objetivo, &movimiento, serverMapa);
 		if(objetivo->logrado == 0){
 			close(serverMapa);
@@ -248,14 +253,8 @@ int procesarMapa(t_mapa* mapa){
 
 	}
 
-
-	t_objetivo* obj = getNextObjective(mapa);
-	if(obj == NULL){
-		mapa->terminado=1;
-		copiarMedalla(mapa);
-	}else{
-		printf("Objetivo fallido %c\n", obj->nombre[0]);
-	}
+	mapa->terminado=1;
+	copiarMedalla(mapa);
 
 	close(serverMapa);
 	return 1;
