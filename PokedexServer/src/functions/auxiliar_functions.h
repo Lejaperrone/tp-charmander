@@ -13,7 +13,7 @@
 	int recibirNombreDeLaFuncion(int socketCliente, char* nombreFuncion);
 	void recibirParametrosDeReadDir(int socketCliente,char* path);
 	void recibirTamanioDelPath(int socketCliente, int* tamanio);
-	void recibirPath(int socketCliente,char* path, int tamanioPath);
+	void recibirPath(int socketCliente,char** path, int tamanioPath);
 	void recibirBuffer(int socketCliente, t_getAttr* getAttr);
 	void enviarBufferLleno(int socketCliente, t_getAttr* getAttr);
 
