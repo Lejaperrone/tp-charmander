@@ -1,0 +1,6 @@
+nombre=E2
+simbolo={
+hojaDeViaje=[CiudadAzul]
+obj[CiudadAzul]=[P,C]
+vidas=5
+reintentos=0
