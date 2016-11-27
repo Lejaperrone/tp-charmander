@@ -91,8 +91,8 @@ int main(int argc, char *argv[]){
 
 		//Reporte final
 		printf("Felicitaciones, te has convertido en un MAESTRO POKEMON.\n");
-		printf("Duracion de la aventura: %d segundos\n", entrenador->tiempoTotalAventura);
-		printf("Tiempo transcurrido bloqueado: %d segundos\n", entrenador->tiempoBloqueado);
+		printf("Duracion de la aventura: %d segundos\n", (int)entrenador->tiempoTotalAventura);
+		printf("Tiempo transcurrido bloqueado: %d segundos\n", (int)entrenador->tiempoBloqueado);
 		printf("Cantidad de  muertes: %d\n", entrenador->muertes);
 		printf("Cantidad de veces en deadlock %d\n", entrenador->deadlocks);
 	}else{

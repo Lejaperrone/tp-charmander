@@ -19,6 +19,7 @@
 #include "positions.h"
 #include "processLogic.h"
 #include <time.h>
+#include "nextItem.h"
 
 void copiarPokemonFile(char* path){
 	char* pathFrom=string_new();
