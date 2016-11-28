@@ -82,7 +82,7 @@ int main(int argc, char *argv[]){
 			}
 		}else{
 			pthread_mutex_unlock(&mutexMapaVidasReinicio);
-			printf("Te quedaste sin vidas, Desea reiniciar el juego? (Y/N)");
+			printf("Te quedaste sin vidas y reintentaste %d veces.\nDesea reiniciar el juego? (Y/N)\n", entrenador->reintentos);
 			scanf("%c",&resp);
 			if(resp=='Y' || resp=='y'){
 				printf("Reinciaste\n");

@@ -12,6 +12,7 @@
 #include "../commons/structures.c"
 #include "../commons/constants.h"
 #include <commons/log.h>
+#include "reset.h"
 
 void sigusr1_handler(int signum){
 	pthread_mutex_lock(&mutexMapaVidasReinicio);
