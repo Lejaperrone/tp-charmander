@@ -27,23 +27,26 @@ int compare(int indice, char* test2){
 	for(i=0; i<OSADA_FILENAME_LENGTH; i++){
 		log_info(logPokedexServer, "%c - %c\n", osada_drive.directorio[indice].fname[i], *test2);
 		if(osada_drive.directorio[indice].fname[i] == '\0' && *test2=='\0'){
+			log_info(logPokedexServer, "Va a retornar 1");
 			return 1;
 		}else{
 			if(osada_drive.directorio[indice].fname[i] != *test2){
+				log_info(logPokedexServer, "Va a retornar 0");
 				return 0;
 			}
 		}
 
 		test2++;
 	}
-
-	return 1;
+	log_info(logPokedexServer, "Va a retornar 0");
+	return 0;
 }
 
 u_int16_t osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
 	int i;
 	for(i=0;i<2048;i++){
 		if(compare(i, nombre) && osada_drive.directorio[i].parent_directory == parent){
+			log_info(logPokedexServer, "El indice es: %s", i);
 			return i;
 		}
 	}
@@ -93,27 +96,26 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 	int i=0;
 	log_info(logPokedexServer, "OSADA - Se va a recorrer el vector de strings separados del path");
 	while(dirc[i]!=NULL){
-		pthread_mutex_lock(&mutexTablaArchivos);
-		if(sizeof(dirc[i]) != 0){
+		if(string_length(dirc[i]) != 0){
 			log_info(logPokedexServer, "OSADA - Se va a buscar el registro por nombre");
 			child = osada_TA_buscarRegistroPorNombre(dirc[i], child);
 			if(child == -1){
+				log_info(logPokedexServer, "obtenerUltimoHijoFromPath devuelve ENOENT");
 				return -ENOENT;
 			}
 		}
 		i++;
 	}
-	pthread_mutex_unlock(&mutexTablaArchivos);
+
 	return child;
 }
 
 void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
-	pthread_mutex_lock(&mutexTablaArchivos);
+
 	log_info(logPokedexServer, "OSADA - El file_size de la estructura attr que me llega es: %d", attr->file_size);
 	attr->file_size = osada_drive.directorio[indice].file_size;
 	log_info(logPokedexServer, "OSADA - Ahora el file_size de la estructura attr es: %d", attr->file_size);
 	attr->state = osada_drive.directorio[indice].state;
-	pthread_mutex_unlock(&mutexTablaArchivos);
 
 }
 void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
