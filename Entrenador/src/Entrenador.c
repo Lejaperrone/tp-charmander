@@ -20,6 +20,7 @@
 #include "functions/nextItem.h"
 #include "functions/reset.h"
 #include "commons/structures.c"
+#include <pthread.h>
 
 int main(int argc, char *argv[]){
 	if(argc != 3){
@@ -34,6 +35,9 @@ int main(int argc, char *argv[]){
 
 	//Aloco memoria para el entrenador
 	entrenador = (t_entrenador*) malloc(sizeof(t_entrenador));
+
+	//Inicializo mutex
+	pthread_mutex_init(&mutexMapaVidasReinicio,NULL);
 
 	//Leo la configuracion
 	leerConfiguracion(entrenador, name, pokedexPath);
@@ -54,12 +58,16 @@ int main(int argc, char *argv[]){
 	t_mapa* mapa = getNextMap();
 	char resp = ' ';
 	while(mapa != NULL){
+		pthread_mutex_lock(&mutexMapaVidasReinicio);
 		if(entrenador->vidas>0){
+			pthread_mutex_unlock(&mutexMapaVidasReinicio);
 			reiniciarMapa(mapa);
 			if(procesarMapa(mapa)){
 				if(mapa->terminado == 0){
+					pthread_mutex_lock(&mutexMapaVidasReinicio);
 					entrenador->vidas--;
 					printf("Perdio una vida\n");
+					pthread_mutex_unlock(&mutexMapaVidasReinicio);
 				}else{
 					mapa = getNextMap();
 				}
@@ -71,12 +79,15 @@ int main(int argc, char *argv[]){
 				}
 			}
 		}else{
+			pthread_mutex_unlock(&mutexMapaVidasReinicio);
 			printf("Te quedaste sin vidas, Desea reiniciar el juego? (Y/N)");
 			scanf("%c",&resp);
 			if(resp=='Y' || resp=='y'){
+				pthread_mutex_lock(&mutexMapaVidasReinicio);
 				entrenador->vidas=1;
 				list_iterate(entrenador->hojaDeViaje, (void*)reiniciarMapa);
 				mapa = getNextMap();
+				pthread_mutex_unlock(&mutexMapaVidasReinicio);
 			}else{
 				mapa=NULL;
 			}

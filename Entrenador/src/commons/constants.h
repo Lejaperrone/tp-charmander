@@ -7,6 +7,7 @@
 
 #include <commons/log.h>
 #include "structures.c"
+#include <pthread.h>
 
 #ifndef COMMONS_CONSTANTS_H_
 #define COMMONS_CONSTANTS_H_
@@ -22,5 +23,6 @@ t_log* archivoLog;
 t_entrenador* entrenador;
 char* name;
 char* pokedexPath;
+pthread_mutex_t mutexMapaVidasReinicio;
 
 #endif /* COMMONS_CONSTANTS_H_ */

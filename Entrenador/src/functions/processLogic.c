@@ -94,7 +94,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 			int resp = send(serverMapa, mensaje, 2, 0);
 			if(resp <0){
 				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
-				exit(EXIT_FAILURE);
+				return 0;
 			}
 			log_info(archivoLog,"Solicite ubicacion de pokenest: %s", objetivo->nombre);
 
@@ -136,7 +136,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 			int resp = send(serverMapa, &mensaje, 2, 0);
 			if(resp == -1){
 				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
-				exit(EXIT_FAILURE);
+				return 0;
 			}
 
 		}else{
@@ -149,7 +149,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 			int resp = send(serverMapa, mensaje, 2, 0);
 			if(resp <0){
 				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
-				exit(EXIT_FAILURE);
+				return 0;
 			}
 			log_info(archivoLog,"Solicite captura de: %s", objetivo->nombre);
 
@@ -177,11 +177,11 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 							objetivo->logrado = 1;
 						}else{
 							log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
-							exit(EXIT_FAILURE);
+							return 0;
 						}
 					}else{
 						log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
-						exit(EXIT_FAILURE);
+						return 0;
 					}
 				}else if (conf=='K'){
 					log_info(archivoLog,"Entre en deadlock");
@@ -200,11 +200,11 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 								objetivo->logrado = 1;
 							}else{
 								log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
-								exit(EXIT_FAILURE);
+								return 0;
 							}
 						}else{
 							log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
-							exit(EXIT_FAILURE);
+							return 0;
 						}
 					}else{
 						entrenador->muertes++;
@@ -217,7 +217,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 				return 1;
 			}else{
 				log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
-				exit(EXIT_FAILURE);
+				return 0;
 			}
 
 

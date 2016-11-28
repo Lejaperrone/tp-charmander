@@ -14,13 +14,17 @@
 #include <commons/log.h>
 
 void sigusr1_handler(int signum){
+	pthread_mutex_lock(&mutexMapaVidasReinicio);
 	log_info(archivoLog,"Recibo senial SIGUSR1, agrego una vida.");
 	entrenador->vidas++;
 	log_info(archivoLog,"Tengo %d vidas.", entrenador->vidas);
+	pthread_mutex_unlock(&mutexMapaVidasReinicio);
 }
 
 void sigterm_handler(int signum){
+	pthread_mutex_lock(&mutexMapaVidasReinicio);
 	log_info(archivoLog,"Recibo senial SIGTERM, pierdo una vida.");
 	entrenador->vidas--;
 	log_info(archivoLog,"Tengo %d vidas.", entrenador->vidas);
+	pthread_mutex_unlock(&mutexMapaVidasReinicio);
 }
