@@ -37,7 +37,7 @@ int proce_getattr(int clientSocket, char* path){
 	int resultadoOsada = 0;
 	log_info(logPokedexServer, "POKEDEXSERVER - Invoco la funcion osada_getattr con el path: %s", path);
 	resultadoOsada = osada_getattr(path,getAttr);
-	log_info(logPokedexServer, "POKEDEXSERVER - El resultado de osada_getattr es: ", resultadoOsada);
+	log_info(logPokedexServer, "POKEDEXSERVER - El resultado de osada_getattr es: %d", resultadoOsada);
 	send(clientSocket,&resultadoOsada,sizeof(int),0);
 
 	//En base al resultado de osada le mando al servidor el tipo del archivo

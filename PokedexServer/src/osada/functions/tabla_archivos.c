@@ -24,20 +24,28 @@ extern pthread_mutex_t mutexBitmap;
 
 int compare(int indice, char* test2){
 	int i;
-	for(i=0; i<OSADA_FILENAME_LENGTH; i++){
-		log_info(logPokedexServer, "%c - %c\n", osada_drive.directorio[indice].fname[i], *test2);
-		if(osada_drive.directorio[indice].fname[i] == '\0' && *test2=='\0'){
+	log_info(logPokedexServer, "El indice antes de entrar al for del compare es: %d", indice);
+	log_info(logPokedexServer, "El test2 amtes de entrar al for del compare es: %s", test2);
+//	for(i=0; i<OSADA_FILENAME_LENGTH; i++){
+//		log_info(logPokedexServer, "%c - %c\n", osada_drive.directorio[indice].fname[i], *test2);
+		log_info(logPokedexServer, "El fname para el indice %d es %s", indice, osada_drive.directorio[indice].fname);
+		if(strcmp(osada_drive.directorio[indice].fname, test2)==0){
 			log_info(logPokedexServer, "Va a retornar 1");
 			return 1;
-		}else{
-			if(osada_drive.directorio[indice].fname[i] != *test2){
-				log_info(logPokedexServer, "Va a retornar 0");
-				return 0;
-			}
 		}
+//		if(osada_drive.directorio[indice].fname[i] == '\0' && *test2=='\0'){
+//			log_info(logPokedexServer, "Va a retornar 1");
+//			return 1;
+//		}
+//		else{
+//			if(osada_drive.directorio[indice].fname[i] != *test2){
+//				log_info(logPokedexServer, "Va a retornar 0");
+//				return 0;
+//			}
+//		}
 
-		test2++;
-	}
+//		test2++;
+//	}
 	log_info(logPokedexServer, "Va a retornar 0");
 	return 0;
 }
@@ -91,8 +99,10 @@ void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 
 }
 int osada_TA_obtenerUltimoHijoFromPath(char* path){
-	char** dirc = string_split(path, "/");
+	char** dirc = (char**)malloc(sizeof(char*));
 	u_int16_t child = 0xFFFF;
+	if(strcmp(path,"/")!=0){
+	dirc = string_split(path, "/");
 	int i=0;
 	log_info(logPokedexServer, "OSADA - Se va a recorrer el vector de strings separados del path");
 	while(dirc[i]!=NULL){
@@ -108,20 +118,23 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 		i++;
 	}
 
+	}
 	if(child==0xFFFF && path[0]!='/'){
 		return -1;
 	}
 
+	free(dirc);
 	return child;
 }
 
 void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
 
+	if(indice != 65535){
 	log_info(logPokedexServer, "OSADA - El file_size de la estructura attr que me llega es: %d", attr->file_size);
 	attr->file_size = osada_drive.directorio[indice].file_size;
 	log_info(logPokedexServer, "OSADA - Ahora el file_size de la estructura attr es: %d", attr->file_size);
 	attr->state = osada_drive.directorio[indice].state;
-
+	}
 }
 void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
 	attr->file_size=0;
