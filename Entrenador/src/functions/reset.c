@@ -110,5 +110,45 @@ void reiniciarMapa(t_mapa* mapa){
 	remove_directory(pathBill);
 }
 
+void actualizarMetadata(){
+	char* path = string_new();
+	string_append(&path, pokedexPath);
+	string_append(&path, "/Entrenadores/");
+	string_append(&path, name);
+	string_append(&path, "/metadata");
 
+	char* pathTemp = string_new();
+	string_append(&pathTemp, pokedexPath);
+	string_append(&pathTemp, "/Entrenadores/");
+	string_append(&pathTemp, name);
+	string_append(&pathTemp, "/temp_metadata");
+
+
+	FILE * fp;
+	FILE * fptemp;
+	char * line = NULL;
+	size_t len = 0;
+	ssize_t read;
+
+	fp = fopen(path, "rb");
+	fptemp = fopen(pathTemp, "wb+");
+	if (fp != NULL){
+		if (fptemp != NULL){
+			while ((read = getline(&line, &len, fp)) != -1) {
+				if(string_equals_ignore_case(string_substring(line,0,10),"reintentos")){
+					fprintf(fptemp, "reintentos=%i\n", entrenador->reintentos);
+				}else if(string_equals_ignore_case(string_substring(line,0,5),"vidas")){
+					fprintf(fptemp, "vidas=%i\n", entrenador->vidas);
+				}else{
+					fprintf(fptemp, "%s", line);
+				}
+			}
+			fclose(fptemp);
+		}
+		fclose(fp);
+	}
+
+	unlink(path);
+	rename(pathTemp, path);
+}
 

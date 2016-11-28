@@ -14,5 +14,6 @@ int doesFileExist(char* filename);
 int remove_directory(const char *path);
 void reiniciarObjetivo(t_objetivo* objetivo);
 void reiniciarMapa(t_mapa* mapa);
+void actualizarMetadata();
 
 #endif /* FUNCTIONS_RESET_H_ */

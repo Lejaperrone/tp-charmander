@@ -44,6 +44,7 @@ int main(int argc, char *argv[]){
 
 	//Creo el archivo de log
 	archivoLog = crearArchivoLog(entrenador->nombre);
+	printf("PID: %d\n", getpid());
 
 	//Logueo que arranco bien y laconfiguracion del entrenador
 	loguearConfiguracion(archivoLog, entrenador);
@@ -66,6 +67,7 @@ int main(int argc, char *argv[]){
 				if(mapa->terminado == 0){
 					pthread_mutex_lock(&mutexMapaVidasReinicio);
 					entrenador->vidas--;
+					actualizarMetadata();
 					printf("Perdio una vida\n");
 					pthread_mutex_unlock(&mutexMapaVidasReinicio);
 				}else{
@@ -83,13 +85,22 @@ int main(int argc, char *argv[]){
 			printf("Te quedaste sin vidas, Desea reiniciar el juego? (Y/N)");
 			scanf("%c",&resp);
 			if(resp=='Y' || resp=='y'){
+				printf("Reinciaste\n");
 				pthread_mutex_lock(&mutexMapaVidasReinicio);
 				entrenador->vidas=1;
+				entrenador->reintentos++;
 				list_iterate(entrenador->hojaDeViaje, (void*)reiniciarMapa);
 				mapa = getNextMap();
+				if(mapa!=NULL){
+					printf("El mapa proximo es: %s\n", mapa->nombre);
+				}else{
+					printf("No se encontro proximo mapa\n");
+				}
+				actualizarMetadata();
 				pthread_mutex_unlock(&mutexMapaVidasReinicio);
 			}else{
 				mapa=NULL;
+				printf("No reinciaste\n");
 			}
 		}
 	}

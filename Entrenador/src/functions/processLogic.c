@@ -245,6 +245,7 @@ int procesarMapa(t_mapa* mapa){
 	//time(&entrenador->tiempoTotal);
 	for(j=0; j<list_size(mapa->objetivos); j++){
 		t_objetivo* objetivo = (t_objetivo *)list_get(mapa->objetivos, j);
+		objetivo->logrado = 0;
 		procesarObjetivo(mapa, objetivo, &movimiento, serverMapa);
 		if(objetivo->logrado == 0){
 			close(serverMapa);
