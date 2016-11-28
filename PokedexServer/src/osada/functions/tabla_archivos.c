@@ -96,6 +96,7 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 	int i=0;
 	log_info(logPokedexServer, "OSADA - Se va a recorrer el vector de strings separados del path");
 	while(dirc[i]!=NULL){
+		log_info(logPokedexServer, "Entro al while con: %s", dirc[i]);
 		if(string_length(dirc[i]) != 0){
 			log_info(logPokedexServer, "OSADA - Se va a buscar el registro por nombre");
 			child = osada_TA_buscarRegistroPorNombre(dirc[i], child);
@@ -105,6 +106,10 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path){
 			}
 		}
 		i++;
+	}
+
+	if(child==0xFFFF && path[0]!='/'){
+		return -1;
 	}
 
 	return child;

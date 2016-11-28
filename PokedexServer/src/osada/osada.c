@@ -99,7 +99,6 @@ int osada_readdir(char* path, t_list* directorios){
 int osada_getattr(char* path, file_attr* attrs){
 	log_info(logPokedexServer, "OSADA - Se invoca obtenerUltimoHijoFromPath");
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
-
 	log_info(logPokedexServer, "OSADA - El indice del ultimo hijo from path es: %d", indice);
 	if(indice>=0){
 		log_info(logPokedexServer, "OSADA - Invoco la funccion obtenerAttr pasandole el indice: %d", indice);
