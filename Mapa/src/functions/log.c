@@ -47,6 +47,7 @@ void loguearConfiguracion(t_log* archivoLogs, t_mapa* mapa){
 		for(j=0; j<list_size(pokenest->pokemons); j++){
 			t_pokemon_custom* pokemon = (t_pokemon_custom*)list_get(pokenest->pokemons, j);
 			log_info(archivoLogs, "Pokemon path: %s", pokemon->path);
+			log_info(archivoLogs, "Pokemon name: %s", pokemon->nombre);
 			 char** substrings =string_split(pokemon->path, "/");
 			 pokemon->nombre=substrings[6];
 			log_info(archivoLogs, "Pokemon nivel: %d", pokemon->nivel);

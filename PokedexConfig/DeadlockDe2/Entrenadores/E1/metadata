@@ -2,5 +2,5 @@ nombre=E1
 simbolo=%
 hojaDeViaje=[CiudadAzul]
 obj[CiudadAzul]=[C,B]
-vidas=0
-reintentos=12
+vidas=1
+reintentos=17
