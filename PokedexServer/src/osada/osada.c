@@ -60,8 +60,9 @@ int osada_init(char* path){
 
 int osada_removeDir(char* path){
 	int pudeBorrar=1;
+	int resultadoDeBuscarRegistroPorNombre;
 	t_list* directoriosQueComponenElActual=list_create();
-	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path);
+	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	osada_TA_obtenerDirectorios(parent, directoriosQueComponenElActual);
 	if (list_is_empty(directoriosQueComponenElActual)){
 		osada_TA_borrarDirectorio(parent);
@@ -75,14 +76,16 @@ int osada_removeDir(char* path){
 }
 
 int osada_removeFile(char* path){
-	u_int16_t parent=osada_TA_obtenerUltimoHijoFromPath(path);
+	int resultadoDeBuscarRegistroPorNombre;
+	u_int16_t parent=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	osada_TA_borrarArchivo(parent);
 	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Pude borrar el archivo %s. Ocupaba el bloque %d\n", path, parent);
 	return 1;
 }
 int osada_readdir(char* path, t_list* directorios){
+	int resultadoDeBuscarRegistroPorNombre;
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
-	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path);
+	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	//Obtengo los directorios
 	osada_TA_obtenerDirectorios(parent, directorios);
 	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Los directorios que contiene %s son: \n",path);
@@ -97,17 +100,21 @@ int osada_readdir(char* path, t_list* directorios){
 
 
 int osada_getattr(char* path, file_attr* attrs){
+	int resultadoDeBuscarRegistroPorNombre;
 	log_info(logPokedexServer, "OSADA - Se invoca obtenerUltimoHijoFromPath");
-	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
+	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	log_info(logPokedexServer, "OSADA - El indice del ultimo hijo from path es: %d", indice);
 	if(indice>=0){
 		log_info(logPokedexServer, "OSADA - Invoco la funccion obtenerAttr pasandole el indice: %d", indice);
 		//el indice es numero de posicion en la que esta en la tabla de archivos, si indice vale 6, esta en la
 		//posicion 6 de la tabla de achivos
-		osada_TA_obtenerAttr(indice, attrs);
+		if(resultadoDeBuscarRegistroPorNombre>=0){
+		osada_TA_obtenerAttr(indice, attrs, &resultadoDeBuscarRegistroPorNombre);
 		log_info(logPokedexServer, "OSADA - Se llenaron los attr para el indice >=0");
 		return 1;
-	}else if(strcmp(path,"/") == 0){
+		}
+	}
+	if(strcmp(path,"/") == 0){
 		log_info(logPokedexServer, "OSADA - El archivo se trata de un directorio");
 		attrs->file_size = 0;
 		attrs->state = 2;
@@ -143,7 +150,8 @@ int actualizarBytesEscritos (int acum, int bytes){
 	return acum+=bytes;
 }
 int osada_write(char* path,char* buf, size_t size, off_t offset){
-	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
+	int resultadoDeBuscarRegistroPorNombre;
+	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	int bytesEscritos=0;
 	pthread_mutex_lock(&mutexTablaArchivos);
 	pthread_mutex_lock(&mutexTablaAsignaciones);
@@ -189,7 +197,8 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 		pthread_mutex_lock(&mutexTablaAsignaciones);
 		pthread_mutex_lock(&mutexBitmap);
 		pthread_mutex_lock(&mutexDatos);
-	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path);
+		int resultadoDeBuscarRegistroPorNombre;
+	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	if (!superaTamanioArchivo(indice,offset,size)){
 		//con el indice voy a TA y busco el FB
 		int bloque=osada_drive.directorio[indice].first_block;
@@ -230,8 +239,9 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 
 
 int osada_open(char* path){
+	int resultadoDeBuscarRegistroPorNombre;
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
-	u_int16_t child = osada_TA_obtenerUltimoHijoFromPath(path);
+	u_int16_t child = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	if(child>=0){
 		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: La funcion open encontro que el bloque ocupado por %s es %d\n",
 				path,child);
@@ -298,6 +308,7 @@ void directoryContainingFile(char** pathVectorizado, char* directoryName){
 
 }
 void generarNuevoArchivoEnTablaDeArchivos(char* path){
+	int resultadoDeBuscarRegistroPorNombre;
 	time_t timer=time(0);
 	struct tm *tlocal = localtime(&timer);
 	char* fecha=string_new();
@@ -316,7 +327,7 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path){
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod=atoi(fecha);
 	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: La fecha de modificacion es %d\n",osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod);
 	strcpy((char*)osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].fname,fileName);
-	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=osada_TA_obtenerUltimoHijoFromPath(directoryName);
+	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=osada_TA_obtenerUltimoHijoFromPath(directoryName, &resultadoDeBuscarRegistroPorNombre);
 	free(fecha);
 	free(fileName);
 	free(directoryName);
@@ -346,7 +357,8 @@ int osada_createFile(char* path, mode_t mode){
 	return resultado;
 }
 int osada_createDir(char* path, char* name, mode_t mode){
-	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
+	int resultadoDeBuscarRegistroPorNombre;
+	int subindice=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	//aca hay que obtener el hijo del ultimo path/ parametro es el path
 	pthread_mutex_lock(&mutexTablaArchivos);
 	darDeAltaDirectorioEnTablaDeArchivos(name, subindice);
@@ -392,7 +404,8 @@ char* getFileNameFromPath(char* path, char** pathSplitteada, char* nombre){
 }
 int osada_rename(char* path, char* nuevaPath){
 	int resultado;
-	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
+	int resultadoDeBuscarRegistroPorNombre;
+	int subindice=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	char* nombre=string_new();
 	char** pathSplitteada=(char**)malloc(sizeof(char*));
 	getFileNameFromPath(nuevaPath,pathSplitteada, nombre);
@@ -469,7 +482,8 @@ void ocuparEspacio (int sub, int bq_to_set){
 }
 }
 int osada_truncate(char* path, off_t offset){
-	int subindice=osada_TA_obtenerUltimoHijoFromPath(path);
+	int resultadoDeBuscarRegistroPorNombre;
+	int subindice=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	int resultado=0;
 	int bloquesTruncate;
 	if (osada_drive.directorio[subindice].file_size>offset){

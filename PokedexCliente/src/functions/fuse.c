@@ -32,9 +32,9 @@ void sendBasicInfo(char* function, const char* path){
 }
 
 
-void recvBasicInfo(int* resultadoOsada){
+void recvBasicInfo(int* resultadoOsada, char* nombreFuncion, char* path){
 	recv(pokedexServer,resultadoOsada, sizeof(int), 0);
-	log_info(archivoLog, "La respuesta recibida (int) desde osada es: ", *resultadoOsada);
+	log_info(archivoLog, "La respuesta recibida (int) desde osada para %s con el path %s es: %d", nombreFuncion, path, *resultadoOsada);
 }
 
 void enviarNombreDeLaFuncion(char* nom){
@@ -69,35 +69,36 @@ int chamba_getattr(char* path, struct stat* stbuf){
 	int res = 0;
 	int* resultadoOsada = malloc(sizeof(int));
 	sendBasicInfo("GETAT", path);
-//	recvBasicInfo(resultadoOsada);
-//
-//	memset(stbuf, 0, sizeof(struct stat));
-//
-//	if (resultadoOsada==1){
-//		recv(pokedexServer, &(stbuf->st_nlink),sizeof(stbuf->st_nlink),0); //Recibo el tipo del archivo reconocido por osada
-//		log_info(archivoLog,"PokedexCliente: El tipo de archivo reconocido por osada_getattr es %d",stbuf->st_nlink);
-//
-//		//Si es un directorio
-//		if ((stbuf->st_nlink)==2){
-//			recv(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
-//			log_info(archivoLog,"PokedexCliente: El peso del archivo (directorio) es %d",stbuf->st_size);
-//			stbuf->st_mode=S_IFDIR | 0755;
-//			stbuf->st_nlink = 2;
-//		}
-//		//Si es un archivo regular
-//		else if (stbuf->st_nlink==1){
-//			recv(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
-//			log_info(archivoLog,"PokedexCliente: El peso del archivo (regular) es %d",stbuf->st_size);
-//			stbuf->st_mode=S_IFREG | 0444;
-//			stbuf->st_nlink = 1;
-//		}
-//		//Si es un archivo DELETED (el tipo es 0)
-//		else{
-//			res=-ENOENT;
-//		}
-//	}
-//
-//	free(resultadoOsada);
+	recvBasicInfo(resultadoOsada, "GETAT", path);
+
+	memset(stbuf, 0, sizeof(struct stat));
+
+	if (*resultadoOsada==1){
+		int tipoDeArchivo;
+		recv(pokedexServer, &tipoDeArchivo,sizeof(int),0); //Recibo el tipo del archivo reconocido por osada
+		log_info(archivoLog,"PokedexCliente: El tipo de archivo reconocido por osada_getattr para GETAT con el path %s es %d", path, tipoDeArchivo);
+
+		//Si es un directorio
+		if (tipoDeArchivo==2){
+			recv(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
+			stbuf->st_mode=S_IFDIR | 0755;
+			stbuf->st_nlink = 2;
+			log_info(archivoLog,"PokedexCliente: El peso del archivo del path %s es %d", path, stbuf->st_size);
+		}
+		//Si es un archivo regular
+		else if (tipoDeArchivo==1){
+			recv(pokedexServer,&(stbuf->st_size),sizeof(stbuf->st_size),0);
+			log_info(archivoLog,"PokedexCliente: El peso del archivo del path %s es %d", path, stbuf->st_size);
+			stbuf->st_mode=S_IFREG | 0444;
+			stbuf->st_nlink = 1;
+		}
+		//Si es un archivo DELETED (el tipo es 0)
+		else{
+			res=-ENOENT;
+		}
+	}
+
+	free(resultadoOsada);
 	return res;
 
 }

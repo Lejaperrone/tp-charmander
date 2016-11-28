@@ -72,6 +72,7 @@ void recibirBuffer(int socketCliente, file_attr* getAttr){
 }
 
 void enviarBufferLleno(int socketCliente, file_attr* getAttr){
+	send(socketCliente,&(getAttr->state),sizeof(getAttr->state),0);
 	send(socketCliente,&(getAttr->file_size),sizeof(getAttr->file_size),0);
-	log_info(logPokedexServer,"POKEDEXSERVER - Envio buffer lleno");
+	log_info(logPokedexServer,"POKEDEXSERVER - Envio buffer con estado y size");
 }

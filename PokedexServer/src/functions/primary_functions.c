@@ -41,15 +41,16 @@ int proce_getattr(int clientSocket, char* path){
 	send(clientSocket,&resultadoOsada,sizeof(int),0);
 
 	//En base al resultado de osada le mando al servidor el tipo del archivo
-//	if(resultadoOsada==1){
-//		//Enviar el tipo del archivo que reconocio osada (0 es deleted, 1 es regular, 2 es directorio)
-//		log_info(logPokedexServer,"PokedexServer: El tipo de archivo reconocido por osada_getattr es %d",getAttr->primerP);
-//		//Enviar el size del archivo reconocido (enviarBufferLleno que envia??)
-//		enviarBufferLleno(clientSocket, getAttr);
-//	}
-//	else{
-//		log_info(logPokedexServer,"PokedexServer: osada_getattr devolvio el error: %d",resultadoOsada);
-//	}
+	if(resultadoOsada==1){
+		//Enviar el tipo del archivo que reconocio osada (0 es deleted, 1 es regular, 2 es directorio)
+		log_info(logPokedexServer,"PokedexServer: El tipo de archivo reconocido por osada_getattr es %d",getAttr->state);
+		log_info(logPokedexServer,"PokedexServer: El file_size de archivo reconocido por osada_getattr es %d",getAttr->file_size);
+		//Enviar el size del archivo reconocido (enviarBufferLleno que envia??)
+		enviarBufferLleno(clientSocket, getAttr);
+	}
+	else{
+		log_info(logPokedexServer,"PokedexServer: osada_getattr devolvio el error: %d",resultadoOsada);
+	}
 
 	free(getAttr);
 	return resultadoOsada;
