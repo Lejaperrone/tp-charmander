@@ -16,7 +16,7 @@
 #include <sys/stat.h>
 #include "../commons/structures.h"
 
-t_pokemon_custom* createPokemon(char* pathPokemons, char* name, char* speciesName){
+t_pokemon_custom* createPokemon(char* pathPokemons, char* name){
 
 	//Genero path del pokemon
 		char* pathPokemon = string_new();
@@ -33,7 +33,6 @@ t_pokemon_custom* createPokemon(char* pathPokemons, char* name, char* speciesNam
 		pokemon->path = string_substring(pathPokemon, string_length(pokedexPath), string_length(pathPokemon)-string_length(pokedexPath));
 		pokemon->disponible =1;
 		pokemon->duenio=' ';
-		pokemon->nombre = speciesName;
 		free(configPokemon);
 
 	//Return
@@ -70,8 +69,9 @@ t_pokenest* createPokeNest(char* pathPokenest, char* name){
 		if (pokemons != NULL){
 			while ((ep2 = readdir (pokemons))){
 				if(string_ends_with(ep2->d_name, "dat")){
-					t_pokemon_custom* pokemon = createPokemon(pathPokenest, ep2->d_name, name); //Creo el  pokemon
+					t_pokemon_custom* pokemon = createPokemon(pathPokenest, ep2->d_name); //Creo el  pokemon
 					pokemon->identificadorPokenest = pokenest->identificador;
+					pokemon->nombre = string_duplicate(name);
 					list_add(pokenest->pokemons,pokemon); //Agrego a la lista de pokemons de la pokenest
 				}
 			}

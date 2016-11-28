@@ -11,6 +11,7 @@
 #include <nivel.h>
 #include <pkmn/battle.h>
 #include <sys/socket.h>
+#include <commons/string.h>
 #include "../socketLib.h"
 #include "../commons/structures.h"
 #include "../functions/recursos.h"

@@ -4,6 +4,7 @@
 #include <nivel.h>
 #include <pkmn/battle.h>
 #include <sys/socket.h>
+#include <commons/string.h>
 #include "../socketLib.h"
 #include "../commons/structures.h"
 #include "../functions/recursos.h"
@@ -23,7 +24,7 @@ extern pthread_mutex_t mutexEntrBQ;
 
 int countPokemonsCapturadosFromPokenest(t_entrenador* entrenador, char identificador){
 	bool _validarTipoPokemon(t_pokemon_custom* pokemon){
-		return pokemon->id==identificador;
+		return pokemon->identificadorPokenest==identificador;
 	}
 
 	return list_count_satisfying(entrenador->pokemons, (void*)_validarTipoPokemon);
@@ -150,6 +151,9 @@ t_pokemon_custom* obtenerPokemonMasFuerte(t_entrenador* entrenador){
 			pokemonMasFuerte=pokemon;
 		}
 	}
+	char** splitedPath = string_split(pokemonMasFuerte->path, "/");
+	pokemonMasFuerte->nombre=splitedPath[3];
+
 
 	return pokemonMasFuerte;
 }
@@ -173,10 +177,10 @@ void batalla(){
 				t_pokemon_custom* pokemon1 = obtenerPokemonMasFuerte(entrenador1);
 				t_pokemon_custom* pokemon2 = obtenerPokemonMasFuerte(entrenador2);
 
-				log_info(archivoLog, "Nombre poke1: %c", pokemon1->id);
+				log_info(archivoLog, "Nombre poke1: %c", pokemon1->identificadorPokenest);
 				log_info(archivoLog, "Nombre poke1: %s", pokemon1->nombre);
 
-				log_info(archivoLog, "Nombre poke2: %c", pokemon2->id);
+				log_info(archivoLog, "Nombre poke2: %c", pokemon2->identificadorPokenest);
 				log_info(archivoLog, "Nombre poke2: %s", pokemon2->nombre);
 
 				t_pokemon * poke1 = create_pokemon(pokemon_factory, pokemon1->nombre, pokemon1->nivel);
