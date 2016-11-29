@@ -153,18 +153,18 @@ void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
 
 int osada_TA_borrarArchivo(u_int16_t parent){
 	int subindice;
+	strcpy(osada_drive.directorio[parent].fname,"");
+	osada_drive.directorio[parent].state=0;
+	osada_drive.directorio[parent].lastmod=time(NULL);
 	u_int16_t fin = 0xFFFF;
-	pthread_mutex_lock(&mutexTablaArchivos);
 	subindice=osada_drive.directorio[parent].first_block;
-	pthread_mutex_unlock(&mutexTablaArchivos);
 	while (subindice!=fin){
-		pthread_mutex_lock(&mutexBitmap);
 		bitarray_clean_bit(osada_drive.bitmap,subindice);
-		pthread_mutex_unlock(&mutexBitmap);
 		obtenerProximoBloque(&subindice);
 	}
 	return 1;
 }
+
 
 
 void osada_TA_borrarDirectorio(u_int16_t parent){

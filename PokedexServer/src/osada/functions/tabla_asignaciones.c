@@ -38,14 +38,13 @@ int avanzarBloquesParaEscribir (int bloqueInicial,int desplazamientoLimite){
 int existeProximoBloque(int* subindice){
 	return (osada_drive.asignaciones[*subindice]>=0);
 }
+
 void obtenerProximoBloque(int* subindice){
-	pthread_mutex_lock(&mutexTablaAsignaciones);
 	if (existeProximoBloque(subindice)){
 		*subindice=osada_drive.asignaciones[*subindice];
 	}else{
 		*subindice=0xFFFFFFFF;
 	}
-	pthread_mutex_unlock(&mutexTablaAsignaciones);
 }
 
 void ocuparBloqueSegunElUltimo(ultimoBloque,bloqueAOcupar){
