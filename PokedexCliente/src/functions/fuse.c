@@ -236,6 +236,7 @@ int chamba_rmdir (const char * path){
 	int resultadoOsada;
 
 	sendBasicInfo("RMDIR", path);
+
 	recvBasicInfo(&resultadoOsada, "RMDIR", (char*)path);
 
 	return resultadoOsada;

@@ -60,7 +60,7 @@ int osada_init(char* path){
 }
 
 int osada_removeDir(char* path){
-	int pudeBorrar=1;
+
 	int resultadoDeBuscarRegistroPorNombre;
 	t_list* directoriosQueComponenElActual=list_create();
 	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
@@ -69,30 +69,30 @@ int osada_removeDir(char* path){
 		if (list_is_empty(directoriosQueComponenElActual)){
 			osada_TA_borrarDirectorio(parent);
 			log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Se ha borrado el directorio %s de la tabla de archivos. El bloque borrado es %d\n",path,parent);
+			list_destroy(directoriosQueComponenElActual);
+			return 1;
 		}else{
 			perror("NO se pudo remover el directorio porque no esta vacio");
-			pudeBorrar=0;
+			list_destroy(directoriosQueComponenElActual);
+			return -EBUSY;
 		}
-	}else{
-		perror("NO se pudo remover el directorio porque no existe");
-		pudeBorrar=0;
 	}
 	list_destroy(directoriosQueComponenElActual);
-	return pudeBorrar;
+	perror("NO se pudo remover el directorio porque no existe");
+	return -ENOENT;
 }
 
 int osada_removeFile(char* path){
-	int pudeBorrar=1;
 	int resultadoDeBuscarRegistroPorNombre;
 	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	if (resultadoDeBuscarRegistroPorNombre!=-1){
 		osada_TA_borrarArchivo(parent);
 		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Pude borrar el archivo %s. Ocupaba el bloque %d\n", path, parent);
-	} else {
-		perror("NO se pudo remover el directorio porque no existe");
-		pudeBorrar=0;
+		return 1;
 	}
-	return pudeBorrar;
+	perror("NO se pudo remover el directorio porque no existe");
+	return -ENOENT;
+
 }
 
 int osada_readdir(char* path, t_list* directorios){
@@ -203,6 +203,9 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 			}else{
 				bytesEscritos=-ENOMEM;
 			}
+		}
+		else{
+			return -EFBIG;
 		}
 	}else{
 		return -ENOENT;
@@ -407,7 +410,6 @@ char* getFileNameFromPath(char* path, char** pathSplitteada, char* nombre){
 }
 
 int osada_rename(char* path, char* nuevaPath){
-	int resultado;
 	int resultadoDeBuscarRegistroPorNombre;
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 
@@ -418,16 +420,15 @@ int osada_rename(char* path, char* nuevaPath){
 		log_info(logPokedexServer, "OSADA - Renombrando archivo: El nombre del archivo original es: %s\n",nombre);
 		if (renombrarArchivo(subindice,nombre)==1){
 			log_info(logPokedexServer, "OSADA - Renombrando archivo: Se ha renombrado el archivo correctamente\n");
-			resultado= 1;
+			return 1;
 		}else{
-			resultado=ENOMEM;
+			return -EACCES;
 		}
 		free(pathSplitteada);
 		free(nombre);
-	}else{
-		return -1;
 	}
-	return resultado;
+	return -ENOENT;
+
 }
 
 int calcularBloquesQueOcupaDesdeElPrimerBloque (int indice){
@@ -494,7 +495,6 @@ void ocuparEspacio (int sub, int bq_to_set){
 int osada_truncate(char* path, off_t offset){
 	int resultadoDeBuscarRegistroPorNombre;
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	int resultado=0;
 	int bloquesTruncate;
 	if(resultadoDeBuscarRegistroPorNombre != -1){
 		if (osada_drive.directorio[subindice].file_size>offset){
