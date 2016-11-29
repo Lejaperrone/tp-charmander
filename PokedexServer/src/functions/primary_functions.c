@@ -114,21 +114,37 @@ int proce_readfile(int clientSocket, char* path){
 		send(clientSocket,buf,tamanio,0);
 		log_info(logPokedexServer,"Envie los %d elementos correctamente del path %s",tamanio, path);
 	}
+
+	free(readFile);
 	return resultadoOsada;
 }
 
-int proce_create(int clientSocket){
-	char* path = string_new();
-	t_createFile* createFile;
-	recv(clientSocket,&(createFile->modo),sizeof(createFile->modo),0);
-	return osada_createFile(path, createFile->modo);
+int proce_create(int clientSocket, char* path){
+	int resultadoOsada = 0;
+	t_createFile* createFile = malloc(sizeof(t_createFile));
+
+	recv(clientSocket,&(createFile->modo),sizeof(mode_t),0);
+	resultadoOsada = osada_createFile(path, createFile->modo);
+
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+
+	free(createFile);
+	return resultadoOsada;
 }
 
-int proce_truncate(int clientSocket){
-	char* path = string_new();
-	t_truncateFile* truncateFile;
-	recv(clientSocket,&(truncateFile->offset),sizeof(truncateFile->offset),0);
-	return osada_truncate(path, truncateFile->offset);
+int proce_truncate(int clientSocket, char* path){
+	int resultadoOsada = 0;
+	t_truncateFile* truncateFile = malloc(sizeof(t_truncateFile));
+
+	recv(clientSocket,&(truncateFile->offset),sizeof(off_t),0);
+	resultadoOsada = osada_truncate(path, truncateFile->offset);
+
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+
+	free(truncateFile);
+	return resultadoOsada;
 }
 
 int proce_mkdir(int clientSocket){

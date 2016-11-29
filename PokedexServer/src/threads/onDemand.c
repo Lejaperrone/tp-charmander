@@ -52,9 +52,9 @@ void* procesarPeticiones(t_hilo* h){
 		}else if(string_equals_ignore_case(nombreFuncion, "READF")){
 			result = proce_readfile(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "CREAT")){
-			//result = proce_create(*socket, path);
+			result = proce_create(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
-			//result  = proce_truncate(*socket, path);
+			result  = proce_truncate(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "MKDIR")){
 			//result = proce_mkdir(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "RENAM")){

@@ -55,6 +55,11 @@ void sendOffset(off_t offset){
 	log_info(archivoLog,"FUSE: Envie el off_t: %d",offset);
 }
 
+void sendMode(mode_t mode){
+	send(pokedexServer, &mode, sizeof(mode_t), 0);
+	//log_info(archivoLog,"FUSE: Envie el mode_t: %d",mode);
+}
+
 void enviarNombreDeLaFuncion(char* nom){
 	if (send(pokedexServer,nom,5*sizeof(char),0) >0){
 	log_info(archivoLog,"FUSE: Envie %s al servidor",nom);
@@ -171,35 +176,26 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 }
 
 int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
+	int resultadoOsada;
 
 	sendBasicInfo("CREAT", path);
-	return -ENOENT;
+	sendMode(mode);
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("CREAT", (char*)path, &mensaje);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(mode));
+	recvBasicInfo(&resultadoOsada, "CREAT", (char*)path);
 
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
 
-	return 0;*/
+	return resultadoOsada;
 }
 
 int chamba_truncate (const char * path, off_t offset){
+	int resultadoOsada;
 
 	sendBasicInfo("TRUNC", path);
-	return -ENOENT;
+	sendOffset(offset);
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("TRUNC", (char*)path, &mensaje);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(offset));
+	recvBasicInfo(&resultadoOsada, "TRUNC", (char*)path);
 
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-	return 0;*/
+	return resultadoOsada;
 }
 
 int chamba_mkdir (const char * path, mode_t modo){
@@ -223,7 +219,7 @@ int chamba_rename (const char * path, const char * newPath){
 	sendBasicInfo("RENAM", path);
 	sendNuevoPath(newPath);
 
-	recvBasicInfo(&resultadoOsada, "RENAM", path);
+	recvBasicInfo(&resultadoOsada, "RENAM", (char*)path);
 
 	return resultadoOsada;
 }
@@ -232,7 +228,7 @@ int chamba_unlink (const char * path){
 	int resultadoOsada;
 
 	sendBasicInfo("ULINK", path);
-	recvBasicInfo(&resultadoOsada, "ULINK", path);
+	recvBasicInfo(&resultadoOsada, "ULINK", (char*)path);
 
 	return resultadoOsada;
 
@@ -243,7 +239,7 @@ int chamba_rmdir (const char * path){
 	int resultadoOsada;
 
 	sendBasicInfo("RMDIR", path);
-	recvBasicInfo(&resultadoOsada, "RMDIR", path);
+	recvBasicInfo(&resultadoOsada, "RMDIR", (char*)path);
 
 	return resultadoOsada;
 }

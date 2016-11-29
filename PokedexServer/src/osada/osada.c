@@ -344,23 +344,17 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path){
 }
 int osada_createFile(char* path, mode_t mode){
 	int resultado;
-	pthread_mutex_lock(&mutexBitmap);
-	pthread_mutex_lock(&mutexTablaArchivos);
-	pthread_mutex_lock(&mutexTablaAsignaciones);
+
 	if (buscarLugarLibreEnBitmap()>=0){
 		log_info(logPokedexServer, "OSADA - BITMAP: Hay lugar libre para crear archivo\n");
 		int posicionEnBitmap=buscarLugarLibreEnBitmap();
-		if (hayPosicionDisponibleEnTablaDeArchivos(posicionEnBitmap)){
-			log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El archivo %s ocupara la posicion %d\n",path,posicionEnBitmap);
-			generarNuevoArchivoEnTablaDeArchivos(path);
-			resultado=1;
-		}
+		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El archivo %s ocupara la posicion %d\n",path,posicionEnBitmap);
+		generarNuevoArchivoEnTablaDeArchivos(path);
+		resultado = 1;
 	}else{
-		resultado=0;
+		resultado = -ENOSPC;
 	}
-	pthread_mutex_unlock(&mutexBitmap);
-		pthread_mutex_unlock(&mutexTablaArchivos);
-		pthread_mutex_unlock(&mutexTablaAsignaciones);
+
 	return resultado;
 }
 int osada_createDir(char* path, char* name, mode_t mode){
@@ -484,37 +478,41 @@ void ocuparEspacio (int sub, int bq_to_set){
 	if (hayBloquesDesocupadosEnElBitmap(bq_to_set)){
 		pthread_mutex_lock(&mutexBitmap);
 		pthread_mutex_lock(&mutexTablaAsignaciones);
-	for (i=0;i<bq_to_set;i++){
-		int bloqueAOcupar=buscarLugarLibreEnBitmap();
-		bitarray_set_bit(osada_drive.bitmap,bloqueAOcupar);
-		ocuparBloqueSegunElUltimo(ultimoBloque,bloqueAOcupar);
+		for (i=0;i<bq_to_set;i++){
+			int bloqueAOcupar=buscarLugarLibreEnBitmap();
+			bitarray_set_bit(osada_drive.bitmap,bloqueAOcupar);
+			ocuparBloqueSegunElUltimo(ultimoBloque,bloqueAOcupar);
+		}
+		pthread_mutex_unlock(&mutexTablaAsignaciones);
+		pthread_mutex_unlock(&mutexBitmap);
+		pthread_mutex_lock(&mutexBitmap);
 	}
-	pthread_mutex_unlock(&mutexTablaAsignaciones);
-	pthread_mutex_unlock(&mutexBitmap);
-	pthread_mutex_lock(&mutexBitmap);
 }
-}
+
 int osada_truncate(char* path, off_t offset){
 	int resultadoDeBuscarRegistroPorNombre;
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	int resultado=0;
 	int bloquesTruncate;
-	if (osada_drive.directorio[subindice].file_size>offset){
-		bloquesTruncate=bloquesATruncar(subindice,offset);
-		liberarEspacio(subindice,bloquesTruncate);
-		resultado=1;
-		log_info(logPokedexServer, "OSADA - Truncate: Se han liberado %d bytes\n",(int)osada_drive.directorio[subindice].file_size-(int)offset);
-	}else{
-		bloquesTruncate=bloquesATruncar(subindice,offset);
+	if(resultadoDeBuscarRegistroPorNombre != -1){
+		if (osada_drive.directorio[subindice].file_size>offset){
+			bloquesTruncate=bloquesATruncar(subindice,offset);
+			liberarEspacio(subindice,bloquesTruncate);
+			return 1;
+			log_info(logPokedexServer, "OSADA - Truncate: Se han liberado %d bytes\n",(int)osada_drive.directorio[subindice].file_size-(int)offset);
+		}else{
+			bloquesTruncate=bloquesATruncar(subindice,offset);
 			if (hayBloquesDesocupadosEnElBitmap(bloquesTruncate)){
 				ocuparEspacio(subindice,offset-osada_drive.directorio[subindice].file_size);
 				log_info(logPokedexServer, "OSADA - Truncate: Se han ocupado %d bytes\n",(int)offset-(int)osada_drive.directorio[subindice].file_size);
 			}else{
 				return -ENOMEM;
 			}
+		}
 	}
-	return resultado;
+	return -ENOENT;
 }
+
 int contarBloquesLibresTotales(){
 	pthread_mutex_lock(&mutexBitmap);
 	int t=bitarray_get_max_bit(osada_drive.bitmap);
