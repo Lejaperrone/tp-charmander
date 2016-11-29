@@ -78,17 +78,16 @@ int osada_removeDir(char* path){
 int osada_removeFile(char* path){
 	int pudeBorrar=1;
 	int resultadoDeBuscarRegistroPorNombre;
-	u_int16_t parent=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	if (parent!=NULL){
-	osada_TA_borrarArchivo(parent);
-	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Pude borrar el archivo %s. Ocupaba el bloque %d\n", path, parent);
+	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
+	if (resultadoDeBuscarRegistroPorNombre!=-1){
+		osada_TA_borrarArchivo(parent);
+		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Pude borrar el archivo %s. Ocupaba el bloque %d\n", path, parent);
 	} else {
 		perror("NO se pudo remover el directorio porque no existe");
 		pudeBorrar=0;
 	}
-	free (parent);
 	return pudeBorrar;
-	}
+}
 
 int osada_readdir(char* path, t_list* directorios){
 	int resultadoDeBuscarRegistroPorNombre;
@@ -97,11 +96,11 @@ int osada_readdir(char* path, t_list* directorios){
 	//Obtengo los directorios
 	osada_TA_obtenerDirectorios(parent, directorios);
 	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Los directorios que contiene %s son: ",path);
-	int i;
-	for (i=0;i<list_size(directorios);i++){
-		osada_file* d = (osada_file*)list_get(directorios,i);
-		log_info(logPokedexServer, "%s",d->fname);
-	}
+//	int i;
+//	for (i=0;i<list_size(directorios);i++){
+//		osada_file* d = (osada_file*)list_get(directorios,i);
+//		log_info(logPokedexServer, "%s",d->fname);
+//	}
 	//Return
 	return 1;
 }

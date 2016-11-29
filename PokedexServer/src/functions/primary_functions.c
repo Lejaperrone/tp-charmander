@@ -60,10 +60,14 @@ char* agruparContenidoDeDirectorio(t_list* directorio, char* path, int* cantidad
 	char* vectorDeContenido=string_new();
 	for (i=0;i<list_size(directorio);i++){
 		string_append(&vectorDeContenido,(char*)list_get(directorio,i));
-		string_append(&vectorDeContenido,",");
+
+		if(i!= (list_size(directorio)-1)){
+			string_append(&vectorDeContenido,",");
+		}
+
 		cantidad++;
 	}
-	log_info(logPokedexServer,"El contenido de %s es %s",path, vectorDeContenido);
+	log_info(logPokedexServer,"El contenido de %s es: %s",path, vectorDeContenido);
 	return vectorDeContenido;
 }
 int proce_readdir(int clientSocket, char* path){
@@ -74,10 +78,11 @@ int proce_readdir(int clientSocket, char* path){
 	t_list* directorios=list_create();
 
 	resultadoOsada = osada_readdir(path, directorios);
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+
 	tamanio=list_size(directorios);
 	strcpy(contenido,agruparContenidoDeDirectorio(directorios,path,&tamanio));
-
-	send(clientSocket,&resultadoOsada,sizeof(int),0);
 
 	send(clientSocket,&tamanio,sizeof(int),0);
 	log_info(logPokedexServer,"Enviando %d elementos del path %s",tamanio,path);
@@ -152,9 +157,14 @@ int proce_statfs(int clientSocket){
 	return osada_statfs(path,statfs);
 }
 
-int proce_removeFile(int clientSocket){
-	char* path = string_new();
-	return osada_removeFile(path);
+int proce_removeFile(int clientSocket, char* path){
+	int resultadoOsada = 0;
+
+	resultadoOsada = osada_removeFile(path);
+
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	return resultadoOsada;
 }
 
 int proce_removeDir(int clientSocket){

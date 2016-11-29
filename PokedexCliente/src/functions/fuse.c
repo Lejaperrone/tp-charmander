@@ -67,13 +67,13 @@ void recibirBufferCompleto (struct stat* stbuf){
 
 int chamba_getattr(char* path, struct stat* stbuf){
 	int res = 0;
-	int* resultadoOsada = malloc(sizeof(int));
+	int resultadoOsada;
 	sendBasicInfo("GETAT", path);
-	recvBasicInfo(resultadoOsada, "GETAT", path);
+	recvBasicInfo(&resultadoOsada, "GETAT", path);
 
 	memset(stbuf, 0, sizeof(struct stat));
 
-	if (*resultadoOsada==1){
+	if (resultadoOsada==1){
 		int tipoDeArchivo;
 		recv(pokedexServer, &tipoDeArchivo,sizeof(int),0); //Recibo el tipo del archivo reconocido por osada
 		log_info(archivoLog,"PokedexCliente: El tipo de archivo reconocido por osada_getattr para GETAT con el path %s es %d", path, tipoDeArchivo);
@@ -98,57 +98,33 @@ int chamba_getattr(char* path, struct stat* stbuf){
 		}
 	}
 
-	free(resultadoOsada);
 	return res;
-
 }
 
 
 int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
-	int tamanio,i;
-	int* resultadoOsada = malloc(sizeof(int));
+	int tamanio;
+	int resultadoOsada;
 
 	sendBasicInfo("READD", path);
-	recvBasicInfo(resultadoOsada, "READD", path);
+	recvBasicInfo(&resultadoOsada, "READD", (char*)path);
 
 	recv(pokedexServer,&tamanio,sizeof(int),0);
 	log_info(archivoLog,"Voy a recibir %d archivos del directorio %s",tamanio,path);
 	recv(pokedexServer,buf,tamanio,0);
 	log_info(archivoLog,"Recibi el buf: %s", buf);
 
-//	for (i=0;i<tamanio;i++){
-//		char* nombre=string_new();
-//		strcpy(nombre,(char*)buf);
-//	log_info(archivoLog,"%s",nombre);
-//	free(nombre);
-//	}
-
-	return tamanio;
-
-	/*(void) offset;
-	(void) fi;
-
-	char* mensaje = string_new();
-	armarMensajeBasico("READD", (char*)path, &mensaje);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(offset));
-
-
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-
-	return 0;*/
+	return resultadoOsada;
 }
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
 
-	int* resultadoOsada = malloc(sizeof(int));
+	int resultadoOsada;
 	sendBasicInfo("OPENF", path);
-	recvBasicInfo(resultadoOsada, "OPENF", (char*)path);
+	recvBasicInfo(&resultadoOsada, "OPENF", (char*)path);
 
 
-	return *resultadoOsada; //Desde el servidor ya me devuelve un 1 o un ENOENT
+	return resultadoOsada; //Desde el servidor ya me devuelve un 1 o un ENOENT
 }
 
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
@@ -234,17 +210,13 @@ int chamba_rename (const char * path, const char * newPath){
 }
 
 int chamba_unlink (const char * path){
+	int resultadoOsada;
 
 	sendBasicInfo("ULINK", path);
-	return -ENOENT;
+	recvBasicInfo(&resultadoOsada, "ULINK", path);
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("ULINK", (char*)path, &mensaje);
+	return resultadoOsada;
 
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-	return 0;*/
 }
 
 int chamba_rmdir (const char * path){
