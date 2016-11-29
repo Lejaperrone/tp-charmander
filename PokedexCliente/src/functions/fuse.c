@@ -106,17 +106,23 @@ int chamba_getattr(char* path, struct stat* stbuf){
 
 int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
 	int tamanio,i;
+	int* resultadoOsada = malloc(sizeof(int));
+
 	sendBasicInfo("READD", path);
+	recvBasicInfo(resultadoOsada, "READD", path);
+
 	recv(pokedexServer,&tamanio,sizeof(int),0);
 	log_info(archivoLog,"Voy a recibir %d archivos del directorio %s",tamanio,path);
 	recv(pokedexServer,buf,tamanio,0);
-	log_info(archivoLog,"Recibi: ");
-	for (i=0;i<tamanio;i++){
-		char* nombre=string_new();
-		strcpy(nombre,(char*)buf);
-	log_info(archivoLog,"%s",nombre);
-	free(nombre);
-	}
+	log_info(archivoLog,"Recibi el buf: %s", buf);
+
+//	for (i=0;i<tamanio;i++){
+//		char* nombre=string_new();
+//		strcpy(nombre,(char*)buf);
+//	log_info(archivoLog,"%s",nombre);
+//	free(nombre);
+//	}
+
 	return tamanio;
 
 	/*(void) offset;

@@ -88,11 +88,11 @@ int osada_readdir(char* path, t_list* directorios){
 	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
 	//Obtengo los directorios
 	osada_TA_obtenerDirectorios(parent, directorios);
-	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Los directorios que contiene %s son: \n",path);
+	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Los directorios que contiene %s son: ",path);
 	int i;
 	for (i=0;i<list_size(directorios);i++){
 		osada_file* d = (osada_file*)list_get(directorios,i);
-		log_info(logPokedexServer, "%s\n",d->fname);
+		log_info(logPokedexServer, "%s",d->fname);
 	}
 	//Return
 	return 1;

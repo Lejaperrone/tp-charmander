@@ -66,22 +66,24 @@ char* agruparContenidoDeDirectorio(t_list* directorio, char* path, int* cantidad
 	log_info(logPokedexServer,"El contenido de %s es %s",path, vectorDeContenido);
 	return vectorDeContenido;
 }
-int proce_readdir(int clientSocket){
+int proce_readdir(int clientSocket, char* path){
 	int tamanio=0;
-	char* path=string_new();
+	int resultadoOsada = 0;
+
 	char* contenido=string_new();
-	log_info(logPokedexServer,"Entro al readdir");
-	recibirParametrosDeReadDir(clientSocket,path);
-	log_info(logPokedexServer,"Recibo los parametros de Readdir");
 	t_list* directorios=list_create();
-	osada_readdir(path, directorios);
+
+	resultadoOsada = osada_readdir(path, directorios);
 	tamanio=list_size(directorios);
 	strcpy(contenido,agruparContenidoDeDirectorio(directorios,path,&tamanio));
+
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
 	send(clientSocket,&tamanio,sizeof(int),0);
 	log_info(logPokedexServer,"Enviando %d elementos del path %s",tamanio,path);
 	send(clientSocket,contenido,string_length(contenido),0);
 	log_info(logPokedexServer,"Envie los %d elementos correctamente del path %s",tamanio, path);
-	return tamanio;
+	return resultadoOsada;
 }
 
 int proce_readfile(int clientSocket){
