@@ -56,17 +56,17 @@ void* procesarPeticiones(t_hilo* h){
 		}else if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
 			result  = proce_truncate(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "MKDIR")){
-			//result = proce_mkdir(*socket, path);
+			result = proce_mkdir(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "RENAM")){
-			//result = proce_rename(*socket, path);
+			result = proce_rename(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "ULINK")){
-			//result = proce_removeFile(*socket, path);
+			result = proce_removeFile(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "RMDIR")){
-			//result = proce_removeDir(*socket, path);
+			result = proce_removeDir(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "WRITE")){
-			//result = proce_write(*socket, path);
+			result = proce_write(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "STATF")){
-			//result=proce_statfs(*socket, path);
+			result=proce_statfs(h->socket, path);
 		}
 
 	}

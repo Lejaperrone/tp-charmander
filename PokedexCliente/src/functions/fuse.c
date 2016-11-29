@@ -199,17 +199,14 @@ int chamba_truncate (const char * path, off_t offset){
 }
 
 int chamba_mkdir (const char * path, mode_t modo){
+	int resultadoOsada;
+
 	sendBasicInfo("MKDIR", path);
-	return -ENOENT;
-	/*char* mensaje = string_new();
-	armarMensajeBasico("MKDIR", (char*)path, &mensaje);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(modo));
+	sendMode(modo);
 
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
+	recvBasicInfo(&resultadoOsada, "MKDIR", (char*)path);
 
-	return 0;*/
+	return resultadoOsada;
 }
 
 int chamba_rename (const char * path, const char * newPath){
@@ -245,38 +242,48 @@ int chamba_rmdir (const char * path){
 }
 
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
+	int resultadoOsada;
+	int tamanio;
 
 	sendBasicInfo("WRITE", path);
-	return -ENOENT;
+	sendSize(size);
+	sendOffset(offset);
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("WRITE", (char*)path, &mensaje);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, (char*)buffer);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(size));
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(offset));
+	recvBasicInfo(&resultadoOsada, "WRITE", (char*)path);
 
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
+	if(resultadoOsada > 0){
+		recv(pokedexServer,&tamanio,sizeof(int),0);
+		log_info(archivoLog,"Voy a escribir %d bytes al path %s",tamanio,path);
+		recv(pokedexServer,(char*)buffer,tamanio,0);
+		log_info(archivoLog,"Escribi en el buffer: %s", buffer);
+	}
 
-	return 0;*/
+	return resultadoOsada;
 }
 
 int chamba_statfs (const char * path, struct statvfs * stats){
+	int resultadoOsada;
 
 	sendBasicInfo("STATF", path);
-	return -ENOENT;
 
-	char* mensaje = string_new();
-	armarMensajeBasico("STATF", (char*)path, &mensaje);
-	//faltaria agregarle la estructura de stats?
+	recvBasicInfo(&resultadoOsada, "STATF", (char*)path);
 
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
+	if(resultadoOsada == 1){
+		recv(pokedexServer,&(stats->__f_spare),sizeof(int),0);
+		recv(pokedexServer,&(stats->f_bavail),sizeof(__fsblkcnt_t),0);
+		recv(pokedexServer,&(stats->f_bfree),sizeof(__fsblkcnt_t),0);
+		recv(pokedexServer,&(stats->f_blocks),sizeof(__fsblkcnt_t),0);
+		recv(pokedexServer,&(stats->f_bsize),sizeof(unsigned long int),0);
+		recv(pokedexServer,&(stats->f_favail),sizeof(__fsfilcnt_t),0);
+		recv(pokedexServer,&(stats->f_ffree),sizeof(__fsfilcnt_t),0);
+		recv(pokedexServer,&(stats->f_files),sizeof(__fsfilcnt_t),0);
+		recv(pokedexServer,&(stats->f_flag),sizeof(unsigned long int),0);
+		recv(pokedexServer,&(stats->f_frsize),sizeof(unsigned long int),0);
+		recv(pokedexServer,&(stats->f_fsid),sizeof(unsigned long int),0);
+		recv(pokedexServer,&(stats->f_namemax),sizeof(unsigned long int),0);
+	}
 
-	return 0;
+	return resultadoOsada;
 }
 
 

@@ -147,11 +147,17 @@ int proce_truncate(int clientSocket, char* path){
 	return resultadoOsada;
 }
 
-int proce_mkdir(int clientSocket){
-	char* path = string_new();
-	t_makeDir* makeDir;
-	recv(clientSocket,&(makeDir->mode),sizeof(makeDir->mode),0);
-	return osada_createDir(path, obtenerNombreDelDirectorio(path), makeDir->mode);
+int proce_mkdir(int clientSocket, char* path){
+	int resultadoOsada = 0;
+	t_makeDir* makeDir = malloc(sizeof(t_makeDir));
+	recv(clientSocket,&(makeDir->mode),sizeof(mode_t),0);
+
+	resultadoOsada = osada_createDir(path, obtenerNombreDelDirectorio(path), makeDir->mode);
+
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	free(makeDir);
+	return resultadoOsada;
 }
 
 int proce_rename(int clientSocket, char* path){
@@ -169,32 +175,47 @@ int proce_rename(int clientSocket, char* path){
 	return resultadoOsada;
 }
 
-int proce_write(int clientSocket){
-	char* path = string_new();
+int proce_write(int clientSocket, char* path){
+	int resultadoOsada = 0;
 	char* buffer = string_new();
-	recv(clientSocket,buffer,sizeof(buffer),0);
-	t_write* swrite;
-	recv(clientSocket,&(swrite->size),sizeof(swrite->size),0);
-	recv(clientSocket,&(swrite->offset),sizeof(swrite->size),0);
-	return osada_write(path, buffer, swrite->size, swrite->offset);
+
+	t_write* swrite = malloc(sizeof(t_write));
+
+	recv(clientSocket,&(swrite->size),sizeof(size_t),0);
+	recv(clientSocket,&(swrite->offset),sizeof(off_t),0);
+
+	resultadoOsada = osada_write(path, buffer, swrite->size, swrite->offset);
+
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	free(swrite);
+	return resultadoOsada;
 }
 
-int proce_statfs(int clientSocket){
-	char* path = string_new();
-	t_statfs* statfs;
-	recv(clientSocket,&(statfs->__f_spare),sizeof(statfs->__f_spare),0);
-	recv(clientSocket,&(statfs->f_bavail),sizeof(statfs->f_bavail),0);
-	recv(clientSocket,&(statfs->f_bfree),sizeof(statfs->f_bfree),0);
-	recv(clientSocket,&(statfs->f_blocks),sizeof(statfs->f_blocks),0);
-	recv(clientSocket,&(statfs->f_bsize),sizeof(statfs->f_bsize),0);
-	recv(clientSocket,&(statfs->f_favail),sizeof(statfs->f_favail),0);
-	recv(clientSocket,&(statfs->f_ffree),sizeof(statfs->f_ffree),0);
-	recv(clientSocket,&(statfs->f_files),sizeof(statfs->f_files),0);
-	recv(clientSocket,&(statfs->f_flag),sizeof(statfs->f_flag),0);
-	recv(clientSocket,&(statfs->f_frsize),sizeof(statfs->f_frsize),0);
-	recv(clientSocket,&(statfs->f_fsid),sizeof(statfs->f_fsid),0);
-	recv(clientSocket,&(statfs->f_namemax),sizeof(statfs->f_namemax),0);
-	return osada_statfs(path,statfs);
+int proce_statfs(int clientSocket, char* path){
+	int resultadoOsada = 0;
+	t_statfs* statfs = malloc(sizeof(t_statfs));
+
+	resultadoOsada = osada_statfs(path,statfs);
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	if(resultadoOsada == 1){
+		send(clientSocket,&(statfs->__f_spare),sizeof(int),0);
+		send(clientSocket,&(statfs->f_bavail),sizeof(__fsblkcnt_t),0);
+		send(clientSocket,&(statfs->f_bfree),sizeof(__fsblkcnt_t),0);
+		send(clientSocket,&(statfs->f_blocks),sizeof(__fsblkcnt_t),0);
+		send(clientSocket,&(statfs->f_bsize),sizeof(unsigned long int),0);
+		send(clientSocket,&(statfs->f_favail),sizeof(__fsfilcnt_t),0);
+		send(clientSocket,&(statfs->f_ffree),sizeof(__fsfilcnt_t),0);
+		send(clientSocket,&(statfs->f_files),sizeof(__fsfilcnt_t),0);
+		send(clientSocket,&(statfs->f_flag),sizeof(unsigned long int),0);
+		send(clientSocket,&(statfs->f_frsize),sizeof(unsigned long int),0);
+		send(clientSocket,&(statfs->f_fsid),sizeof(unsigned long int),0);
+		send(clientSocket,&(statfs->f_namemax),sizeof(unsigned long int),0);
+	}
+
+	free(statfs);
+	return resultadoOsada;
 }
 
 int proce_removeFile(int clientSocket, char* path){

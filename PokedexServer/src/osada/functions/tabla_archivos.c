@@ -87,7 +87,7 @@ void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 			struct tm *tlocal = localtime(&timer);
 			osada_drive.directorio[i].file_size=0;
 			//osada_drive.directorio[i].first_block=NULL;
-			strcpy((char*)osada_drive.directorio[i].fname,nombre);
+			strcpy((char*)osada_drive.directorio[i].fname, nombre);
 			strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
 			osada_drive.directorio[i].lastmod=atoi(fecha);
 			// no sabemos si el directorio padre de un directorio nuevo es 0xFFFF u otro

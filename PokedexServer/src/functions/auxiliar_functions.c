@@ -27,7 +27,7 @@
 #include "../commons/definitions.h"
 
 char* obtenerNombreDelDirectorio(char* path){
-	int tamanio = strlen(*string_split(path,"/"));
+	int tamanio = string_length(*string_split(path,"/"));
 	return string_split(path,"/")[tamanio-1];
 }
 
