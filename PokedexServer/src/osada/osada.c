@@ -96,18 +96,25 @@ int osada_removeFile(char* path){
 
 int osada_readdir(char* path, t_list* directorios){
 	int resultadoDeBuscarRegistroPorNombre;
-	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
-	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	//Obtengo los directorios
-	osada_TA_obtenerDirectorios(parent, directorios);
-	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Los directorios que contiene %s son: ",path);
-//	int i;
-//	for (i=0;i<list_size(directorios);i++){
-//		osada_file* d = (osada_file*)list_get(directorios,i);
-//		log_info(logPokedexServer, "%s",d->fname);
-//	}
+
+	if(strcmp(path,"") != 0){
+		u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
+		//Obtengo los directorios
+		if(resultadoDeBuscarRegistroPorNombre != -1){
+			osada_TA_obtenerDirectorios(parent, directorios);
+			log_info(logPokedexServer, "Se pudo leer el directorio del path: %s", path);
+			return 1;
+		}
+	}
+	//	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Los directorios que contiene %s son: ",path);
+	//	int i;
+	//	for (i=0;i<list_size(directorios);i++){
+	//		osada_file* d = (osada_file*)list_get(directorios,i);
+	//		log_info(logPokedexServer, "%s",d->fname);
+	//	}
 	//Return
-	return 1;
+	log_info(logPokedexServer, "No pudo leer el directorio del path %s porque no existe", path);
+	return -1;
 }
 
 

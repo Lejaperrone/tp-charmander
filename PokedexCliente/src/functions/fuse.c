@@ -116,10 +116,15 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 	sendBasicInfo("READD", path);
 	recvBasicInfo(&resultadoOsada, "READD", (char*)path);
 
-	recv(pokedexServer,&tamanio,sizeof(int),0);
-	log_info(archivoLog,"Voy a recibir %d archivos del directorio %s",tamanio,path);
-	recv(pokedexServer,buf,tamanio,0);
-	log_info(archivoLog,"Recibi el buf: %s", buf);
+	if(resultadoOsada != -1){
+		recv(pokedexServer,&tamanio,sizeof(int),0);
+		log_info(archivoLog,"Voy a recibir %d archivos del directorio %s",tamanio,path);
+		recv(pokedexServer,buf,tamanio,0);
+		log_info(archivoLog,"Recibi el buf: %s", buf);
+	}
+	else{
+		return -ENOENT;
+	}
 
 	return resultadoOsada;
 }
