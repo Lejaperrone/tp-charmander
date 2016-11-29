@@ -221,16 +221,12 @@ int chamba_unlink (const char * path){
 
 int chamba_rmdir (const char * path){
 
+	int resultadoOsada;
+
 	sendBasicInfo("RMDIR", path);
-	return -ENOENT;
+	recvBasicInfo(&resultadoOsada, "RMDIR", path);
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("RMDIR", (char*)path, &mensaje);
-
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-	return 0;*/
+	return resultadoOsada;
 }
 
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){

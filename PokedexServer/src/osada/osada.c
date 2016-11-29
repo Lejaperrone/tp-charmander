@@ -63,12 +63,17 @@ int osada_removeDir(char* path){
 	int resultadoDeBuscarRegistroPorNombre;
 	t_list* directoriosQueComponenElActual=list_create();
 	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	osada_TA_obtenerDirectorios(parent, directoriosQueComponenElActual);
-	if (list_is_empty(directoriosQueComponenElActual)){
-		osada_TA_borrarDirectorio(parent);
-		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Se ha borrado el directorio %s de la tabla de archivos. El bloque borrado es %d\n",path,parent);
+	if(resultadoDeBuscarRegistroPorNombre != -1){
+		osada_TA_obtenerDirectorios(parent, directoriosQueComponenElActual);
+		if (list_is_empty(directoriosQueComponenElActual)){
+			osada_TA_borrarDirectorio(parent);
+			log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Se ha borrado el directorio %s de la tabla de archivos. El bloque borrado es %d\n",path,parent);
+		}else{
+			perror("NO se pudo remover el directorio porque no esta vacio");
+			pudeBorrar=0;
+		}
 	}else{
-		perror("NO se pudo remover el directorio porque no esta vacio");
+		perror("NO se pudo remover el directorio porque no existe");
 		pudeBorrar=0;
 	}
 	list_destroy(directoriosQueComponenElActual);
