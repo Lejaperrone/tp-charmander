@@ -76,12 +76,20 @@ int osada_removeDir(char* path){
 }
 
 int osada_removeFile(char* path){
+	int pudeBorrar=1;
 	int resultadoDeBuscarRegistroPorNombre;
 	u_int16_t parent=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
+	if (parent!=NULL){
 	osada_TA_borrarArchivo(parent);
 	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Pude borrar el archivo %s. Ocupaba el bloque %d\n", path, parent);
-	return 1;
-}
+	} else {
+		perror("NO se pudo remover el directorio porque no existe");
+		pudeBorrar=0;
+	}
+	free (parent);
+	return pudeBorrar;
+	}
+
 int osada_readdir(char* path, t_list* directorios){
 	int resultadoDeBuscarRegistroPorNombre;
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
