@@ -56,8 +56,10 @@ int main(int argc, char *argv[]){
 	//Informo mi PID
 	log_info(archivoLog, "Entrenador inicia ejecucion PID: %d\n", getpid());
 
+	//Reinicio medallas
+	reiniciarJuego();
+
 	t_mapa* mapa = getNextMap();
-	char resp = ' ';
 	while(mapa != NULL){
 		pthread_mutex_lock(&mutexMapaVidasReinicio);
 		if(entrenador->vidas>0){
@@ -75,6 +77,7 @@ int main(int argc, char *argv[]){
 				}
 			}else{
 				printf("No fue posible conectarse al mapa %s, desea reintentar? (Y/N)", mapa->nombre);
+				char resp;
 				scanf("%c",&resp);
 				if(resp=='N' || resp=='n'){
 					mapa = NULL;
@@ -83,7 +86,11 @@ int main(int argc, char *argv[]){
 		}else{
 			pthread_mutex_unlock(&mutexMapaVidasReinicio);
 			printf("Te quedaste sin vidas y reintentaste %d veces.\nDesea reiniciar el juego? (Y/N)\n", entrenador->reintentos);
-			scanf("%c",&resp);
+
+			char string [256];
+			fgets (string, 256, stdin);
+			char resp = string[0];
+
 			if(resp=='Y' || resp=='y'){
 				printf("Reinciaste\n");
 				pthread_mutex_lock(&mutexMapaVidasReinicio);
@@ -97,6 +104,7 @@ int main(int argc, char *argv[]){
 					printf("No se encontro proximo mapa\n");
 				}
 				actualizarMetadata();
+				reiniciarJuego();
 				pthread_mutex_unlock(&mutexMapaVidasReinicio);
 			}else{
 				mapa=NULL;

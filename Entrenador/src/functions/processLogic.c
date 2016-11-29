@@ -175,6 +175,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 							string_append(&path,"\0");
 							copiarPokemonFile(path);
 							objetivo->logrado = 1;
+							return 1;
 						}else{
 							log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
 							return 0;
@@ -198,6 +199,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 								string_append(&path,"\0");
 								copiarPokemonFile(path);
 								objetivo->logrado = 1;
+								return 1;
 							}else{
 								log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
 								return 0;

@@ -3,4 +3,4 @@ simbolo=%
 hojaDeViaje=[CiudadAzul]
 obj[CiudadAzul]=[C,B]
 vidas=1
-reintentos=23
+reintentos=0

@@ -110,6 +110,16 @@ void reiniciarMapa(t_mapa* mapa){
 	remove_directory(pathBill);
 }
 
+void reiniciarJuego(){
+	char* pathMedallas = string_new();
+	string_append(&pathMedallas, pokedexPath);
+	string_append(&pathMedallas, "/Entrenadores/");
+	string_append(&pathMedallas, name);
+	string_append(&pathMedallas, "/medallas/");
+
+	remove_directory(pathMedallas);
+}
+
 void actualizarMetadata(){
 	char* path = string_new();
 	string_append(&path, pokedexPath);
