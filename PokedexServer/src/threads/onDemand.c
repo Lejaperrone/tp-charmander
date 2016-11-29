@@ -43,8 +43,6 @@ void* procesarPeticiones(t_hilo* h){
 		recibirPath(h->socket,&path,tamanioPath);
 		log_info(logPokedexServer,"POKEDEXSERVER - Path: %s\n",path);
 
-		//printf("Funcion: %s\nPath:%s\nTamanio:%d", nombreFuncion, path, sizeof(path));
-
 
 
 		if(string_equals_ignore_case(nombreFuncion, "GETAT")){
@@ -73,7 +71,6 @@ void* procesarPeticiones(t_hilo* h){
 			//result=proce_statfs(*socket, path);
 		}
 
-		//devolverResultadoAlCliente(result,h->socket);
 	}
 
 	return NULL;

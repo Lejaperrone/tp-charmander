@@ -15,21 +15,18 @@ TENER EN CUENTA CUAL ES EL PRIMER MAPA DE CADA ENTRENADOR YA QUE SINO ESTA LEVAN
 ## Para ejecutar el pokedexServer con el pokedexCliente
 1. Buildear
 2. Abrir una consola para server y otra para cliente
-3.POKEDEX SERVER
-        3.1 En una consola posicionarse en  "tp-2016-2c-Chamba/PokedexServer/Debug" y ejecutar PUERTO=7666
-        3.2 Luego de 3.1 ejecutar export PUERTO
-        3.3 Luego de 3.2 ejecutar ./PokedexServer
+3. En la consola de PokedexServer ejecutar:
+  * *export PUERTO=7666*
+  * *./PokedexServer*
 
-4. POKEDEX CLIENTE
-4. En la otra consola posicionarse en "tp-2016-2c-Chamba/PokedexCliente/Debug" y tener lo siguiente en cuenta:
-5. Dentro de ese directorio tienen que tener creada una carpeta vacia que se llame "tmp" (va a ser el punto de montaje)
-6. Escribir los siguientes comandos para setear el puerto e ip por variable de entorno
-7. PUERTO=7666
-8. IP_SERVER=127.0.0.1
-9. export PUERTO
-10. export IP_SERVER
-11. Ejecutar ./PokedexCliente tmp
+4. En la consola de PokedexCliente ejecutar:
+  * *export PUERTO=7666*
+  * *export IP_SERVER=127.0.0.1*
+  * *./PokedexCliente carpetaDondeSeMonta*
 
+5. Al terminar, posicionarse en PokedexConfig/Debug y desmontar con el comando:
+  * *sudo umount carpetaDondeSeMonta*
+  
 ## Links útiles
 * [Foro de issues del TP](https://github.com/sisoputnfrba/foro/issues)
 * [Repositorios de la cátedra](https://github.com/sisoputnfrba)

@@ -126,17 +126,13 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 }
 
 int chamba_open (const char * path, struct fuse_file_info * fi){
+
+	int* resultadoOsada = malloc(sizeof(int));
 	sendBasicInfo("OPENF", path);
-	return 0;
+	recvBasicInfo(resultadoOsada, "OPENF", (char*)path);
 
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("OPENF", (char*)path, &mensaje);
-
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-	return 0;*/
+	return *resultadoOsada; //Desde el servidor ya me devuelve un 1 o un ENOENT
 }
 
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
