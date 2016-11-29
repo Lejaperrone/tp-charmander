@@ -502,14 +502,17 @@ int osada_truncate(char* path, off_t offset){
 			liberarEspacio(subindice,bloquesTruncate);
 			return 1;
 			log_info(logPokedexServer, "OSADA - Truncate: Se han liberado %d bytes\n",(int)osada_drive.directorio[subindice].file_size-(int)offset);
-		}else{
+		}else if(osada_drive.directorio[subindice].file_size<offset){
 			bloquesTruncate=bloquesATruncar(subindice,offset);
 			if (hayBloquesDesocupadosEnElBitmap(bloquesTruncate)){
 				ocuparEspacio(subindice,offset-osada_drive.directorio[subindice].file_size);
 				log_info(logPokedexServer, "OSADA - Truncate: Se han ocupado %d bytes\n",(int)offset-(int)osada_drive.directorio[subindice].file_size);
+				return 1;
 			}else{
 				return -ENOMEM;
 			}
+		}else{
+			return -EPERM;
 		}
 	}
 	return -ENOENT;
