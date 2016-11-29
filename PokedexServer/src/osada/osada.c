@@ -247,7 +247,7 @@ int osada_open(char* path){
 				path,child);
 		pthread_mutex_lock(&mutexTablaArchivos);
 		if(osada_drive.directorio[child].state ==2){
-			return -EACCES;
+			return 1;
 		}
 		pthread_mutex_unlock(&mutexTablaArchivos);
 	}

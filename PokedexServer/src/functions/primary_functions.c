@@ -140,7 +140,11 @@ int proce_removeDir(int clientSocket){
 	return osada_removeDir(path);
 }
 
-int proce_open(int clientSocket){
-	char* path = string_new();
-	return osada_open(path);
+int proce_open(int clientSocket, char* path){
+	int resultadoOsada;
+	resultadoOsada = osada_open(path);
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+
+	return resultadoOsada;
 }
