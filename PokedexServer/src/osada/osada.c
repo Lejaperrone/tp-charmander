@@ -414,22 +414,28 @@ char* getFileNameFromPath(char* path, char** pathSplitteada, char* nombre){
 	nombre=pathSplitteada[strlen(*pathSplitteada)-2];
 	return nombre;
 }
+
 int osada_rename(char* path, char* nuevaPath){
 	int resultado;
 	int resultadoDeBuscarRegistroPorNombre;
 	int subindice=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	char* nombre=string_new();
-	char** pathSplitteada=(char**)malloc(sizeof(char*));
-	getFileNameFromPath(nuevaPath,pathSplitteada, nombre);
-	log_info(logPokedexServer, "OSADA - Renombrando archivo: El nombre del archivo original es: %s\n",nombre);
-	if (renombrarArchivo(subindice,nombre)==1){
-		log_info(logPokedexServer, "OSADA - Renombrando archivo: Se ha renombrado el archivo correctamente\n");
-		resultado= 1;
+
+	if(resultadoDeBuscarRegistroPorNombre != -1){
+		char* nombre=string_new();
+		char** pathSplitteada=(char**)malloc(sizeof(char*));
+		getFileNameFromPath(nuevaPath,pathSplitteada, nombre);
+		log_info(logPokedexServer, "OSADA - Renombrando archivo: El nombre del archivo original es: %s\n",nombre);
+		if (renombrarArchivo(subindice,nombre)==1){
+			log_info(logPokedexServer, "OSADA - Renombrando archivo: Se ha renombrado el archivo correctamente\n");
+			resultado= 1;
+		}else{
+			resultado=ENOMEM;
+		}
+		free(pathSplitteada);
+		free(nombre);
 	}else{
-		resultado=ENOMEM;
+		return -1;
 	}
-	free(pathSplitteada);
-	free(nombre);
 	return resultado;
 }
 

@@ -122,11 +122,19 @@ int proce_mkdir(int clientSocket){
 	return osada_createDir(path, obtenerNombreDelDirectorio(path), makeDir->mode);
 }
 
-int proce_rename(int clientSocket){
-	char* path = string_new();
-	char* nombreNuevo=string_new();
-	recv(clientSocket, nombreNuevo,sizeof(nombreNuevo),0);
-	return osada_rename(path, nombreNuevo);
+int proce_rename(int clientSocket, char* path){
+	int tamanioNuevoPath;
+	int resultadoOsada = 0;
+	recibirTamanioDelPath(clientSocket,&tamanioNuevoPath);
+
+	char* newPath=string_new();
+	recibirPath(clientSocket,&newPath,tamanioNuevoPath);
+
+	resultadoOsada = osada_rename(path, newPath);
+
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	return resultadoOsada;
 }
 
 int proce_write(int clientSocket){

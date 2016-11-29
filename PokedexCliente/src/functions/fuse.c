@@ -37,6 +37,13 @@ void recvBasicInfo(int* resultadoOsada, char* nombreFuncion, char* path){
 	log_info(archivoLog, "La respuesta recibida (int) desde osada para %s con el path %s es: %d", nombreFuncion, path, *resultadoOsada);
 }
 
+void sendNuevoPath(const char* newPath){
+	char* sizePath=malloc(sizeof(char)*11);
+	sprintf(sizePath,"%i",string_length((char*)newPath));
+	send(pokedexServer, sizePath, 11, 0);
+	send(pokedexServer, newPath, string_length((char*)newPath), 0);
+	log_info(archivoLog,"PokedexCliente: La nueva path va a ser %s",newPath);
+}
 void enviarNombreDeLaFuncion(char* nom){
 	if (send(pokedexServer,nom,5*sizeof(char),0) >0){
 	log_info(archivoLog,"FUSE: Envie %s al servidor",nom);
@@ -195,18 +202,14 @@ int chamba_mkdir (const char * path, mode_t modo){
 
 int chamba_rename (const char * path, const char * newPath){
 
+	int resultadoOsada;
+
 	sendBasicInfo("RENAM", path);
-	return -ENOENT;
+	sendNuevoPath(newPath);
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("RENAM", (char*)path, &mensaje);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, (char*)newPath);
+	recvBasicInfo(&resultadoOsada, "RENAM", path);
 
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
-
-	return 0;*/
+	return resultadoOsada;
 }
 
 int chamba_unlink (const char * path){
