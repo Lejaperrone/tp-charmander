@@ -93,14 +93,28 @@ int proce_readdir(int clientSocket, char* path){
 	return resultadoOsada;
 }
 
-int proce_readfile(int clientSocket){
-	char* path=string_new();
-	char* buffer = string_new();
-	recv(clientSocket,buffer,sizeof(buffer),0);
-	t_readFile* readFile;
-	recv(clientSocket,&(readFile->size),sizeof(readFile->size),0);
-	recv(clientSocket,&(readFile->offset),sizeof(readFile->offset),0);
-	return osada_read(path, buffer, readFile->size, readFile->offset);
+int proce_readfile(int clientSocket, char* path){
+	int resultadoOsada = 0;
+	int tamanio = 0;
+	char* buf = string_new();
+	t_readFile* readFile = malloc(sizeof(t_readFile));
+
+	recv(clientSocket,&(readFile->size),sizeof(size_t),0);
+	recv(clientSocket,&(readFile->offset),sizeof(off_t),0);
+
+	resultadoOsada = osada_read(path, buf, readFile->size, readFile->offset);
+
+	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	tamanio = string_length(buf);
+
+	if(resultadoOsada == 1){
+		send(clientSocket,&tamanio,sizeof(int),0);
+		log_info(logPokedexServer,"Envie %d elementos del path %s",tamanio,path);
+		send(clientSocket,buf,tamanio,0);
+		log_info(logPokedexServer,"Envie los %d elementos correctamente del path %s",tamanio, path);
+	}
+	return resultadoOsada;
 }
 
 int proce_create(int clientSocket){

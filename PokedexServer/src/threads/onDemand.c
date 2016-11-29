@@ -48,9 +48,9 @@ void* procesarPeticiones(t_hilo* h){
 		}else if(string_equals_ignore_case(nombreFuncion, "READD")){
 			result = proce_readdir(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "OPENF")){
-			//result = proce_open(*socket, path);
+			result = proce_open(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "READF")){
-			//result = proce_readfile(*socket, path);
+			result = proce_readfile(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "CREAT")){
 			//result = proce_create(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "TRUNC")){

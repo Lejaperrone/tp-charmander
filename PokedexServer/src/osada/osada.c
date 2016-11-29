@@ -211,14 +211,12 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 	}
 	return bytesEscritos;
 }
-int osada_read(char *path, char *buf, size_t size, off_t offset){
-		pthread_mutex_lock(&mutexTablaArchivos);
-		pthread_mutex_lock(&mutexTablaAsignaciones);
-		pthread_mutex_lock(&mutexBitmap);
-		pthread_mutex_lock(&mutexDatos);
-		int resultadoDeBuscarRegistroPorNombre;
+int osada_read(char *path, char* buf, size_t size, off_t offset){
+
+	int resultadoDeBuscarRegistroPorNombre;
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	if (!superaTamanioArchivo(indice,offset,size)){
+
+	if (!superaTamanioArchivo(indice,offset,size) && osada_open(path) == 1){
 		//con el indice voy a TA y busco el FB
 		int bloque=osada_drive.directorio[indice].first_block;
 		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n", path, bloque);
@@ -239,21 +237,13 @@ int osada_read(char *path, char *buf, size_t size, off_t offset){
 			log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: El bloque siguiente es: %d\n",bloqueArranque);
 			byteComienzoLectura=0;
 		}
-		log_info(logPokedexServer, "OSADA - DATOS: Se han leido %d bytes\n", strlen(buf));
-		pthread_mutex_unlock(&mutexTablaArchivos);
-				pthread_mutex_unlock(&mutexTablaAsignaciones);
-				pthread_mutex_unlock(&mutexBitmap);
-				pthread_mutex_unlock(&mutexDatos);
-		return strlen(buf);
+		log_info(logPokedexServer, "OSADA - DATOS: Se han leido %d bytes\n", string_length(buf));
 
-	}else{
-		pthread_mutex_unlock(&mutexTablaArchivos);
-				pthread_mutex_unlock(&mutexTablaAsignaciones);
-				pthread_mutex_unlock(&mutexBitmap);
-				pthread_mutex_unlock(&mutexDatos);
-		return -ENOMEM;
+		return 1;
 	}
 
+
+	return -ENOMEM;
 }
 
 
@@ -261,14 +251,12 @@ int osada_open(char* path){
 	int resultadoDeBuscarRegistroPorNombre;
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
 	u_int16_t child = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	if(child>=0){
+	if(child>=0 && resultadoDeBuscarRegistroPorNombre != -1){
 		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: La funcion open encontro que el bloque ocupado por %s es %d\n",
 				path,child);
-		pthread_mutex_lock(&mutexTablaArchivos);
-		if(osada_drive.directorio[child].state ==2){
+		if(osada_drive.directorio[child].state == 2 || osada_drive.directorio[child].state == 1){
 			return 1;
 		}
-		pthread_mutex_unlock(&mutexTablaArchivos);
 	}
 
 	return -ENOENT;

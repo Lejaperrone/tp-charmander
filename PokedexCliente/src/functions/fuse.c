@@ -44,6 +44,17 @@ void sendNuevoPath(const char* newPath){
 	send(pokedexServer, newPath, string_length((char*)newPath), 0);
 	log_info(archivoLog,"PokedexCliente: La nueva path va a ser %s",newPath);
 }
+
+void sendSize(size_t size){
+	send(pokedexServer, &size, sizeof(size_t), 0);
+	log_info(archivoLog,"FUSE: Envie el size_t: %d",size);
+}
+
+void sendOffset(off_t offset){
+	send(pokedexServer, &offset, sizeof(off_t), 0);
+	log_info(archivoLog,"FUSE: Envie el off_t: %d",offset);
+}
+
 void enviarNombreDeLaFuncion(char* nom){
 	if (send(pokedexServer,nom,5*sizeof(char),0) >0){
 	log_info(archivoLog,"FUSE: Envie %s al servidor",nom);
@@ -140,23 +151,23 @@ int chamba_open (const char * path, struct fuse_file_info * fi){
 }
 
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
-
+	int resultadoOsada;
+	int tamanio;
 	sendBasicInfo("READF", path);
-	return -ENOENT;
 
-	/*char* mensaje = string_new();
-	armarMensajeBasico("READF", (char*)path, &mensaje);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, buffer);
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(size));
-	string_append(&mensaje, ",");
-	string_append(&mensaje, string_itoa(offset));
+	sendSize(size);
+	sendOffset(offset);
 
-	char* respuesta = string_new();
-	conectarConServidorYRecibirRespuesta(pokedexServer, mensaje, &respuesta);
+	recvBasicInfo(&resultadoOsada, "READF", (char*)path);
 
-	return 0;*/
+	if(resultadoOsada == 1){
+		recv(pokedexServer,&tamanio,sizeof(int),0);
+		log_info(archivoLog,"Voy a leer %d bytes del path %s",tamanio,path);
+		recv(pokedexServer,buffer,tamanio,0);
+		log_info(archivoLog,"Lei el buffer: %s", buffer);
+	}
+
+	return resultadoOsada;
 }
 
 int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
