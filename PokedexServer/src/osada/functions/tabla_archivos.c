@@ -67,16 +67,14 @@ int osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
 //agrega a la lista de directorios los directorios de esa path
 void osada_TA_obtenerDirectorios(u_int16_t parent, t_list* directorio){
 	int i;
-	pthread_mutex_lock(&mutexTablaArchivos);
 	for(i=0;i<2048;i++){
 		//state=2
 		if(osada_drive.directorio[i].parent_directory == parent && osada_drive.directorio[i].state!=0){
 			list_add(directorio, osada_drive.directorio[i].fname);
+			log_info(logPokedexServer,"Agrego a la lista de directorios %s", osada_drive.directorio[i].fname);
 		}
-		pthread_mutex_unlock(&mutexTablaArchivos);
 	}
 
-	return;
 }
 void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 	int i;

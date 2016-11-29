@@ -43,12 +43,10 @@ void* procesarPeticiones(t_hilo* h){
 		recibirPath(h->socket,&path,tamanioPath);
 		log_info(logPokedexServer,"POKEDEXSERVER - Path: %s\n",path);
 
-
-
 		if(string_equals_ignore_case(nombreFuncion, "GETAT")){
 			result=proce_getattr(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "READD")){
-			//result = proce_readdir(*socket, path);
+			result = proce_readdir(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "OPENF")){
 			//result = proce_open(*socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "READF")){
