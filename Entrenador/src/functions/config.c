@@ -54,8 +54,8 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 				list_add(mapa->objetivos, objetivo);
 				o++;
 			}
-			free(o);
-			free(key);
+			//free(o);
+			//free(key);
 
 		//Obtengo la configuracion del mapa
 			char* pathMapa = string_new();
@@ -70,16 +70,18 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 			mapa->miPosicion.x= 1;
 			mapa->miPosicion.y= 1;
 
-			free(configMapa);
+			//config_destroy(configMapa);
+			//free(pathMapa);
 
 		//Agrego el mapa a mi hoja de Viaje
 			list_add(entrenador->hojaDeViaje,mapa);
 
 		p++;
 	}
+	//free(p);
 
 
-	config_destroy(config);
-	free(path);
+	//config_destroy(config);
+	//free(path);
 }
 

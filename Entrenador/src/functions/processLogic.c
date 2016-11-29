@@ -46,13 +46,13 @@ void copiarPokemonFile(char* path){
 		fclose(to);
 	}
 	fclose(from);
-	free(pathFrom);
-	free(pathTo);
-	int i;
-	for(i=0; i<string_length((char*)splited); i++){
-		free(splited[i]);
-	}
-	free(splited);
+	//free(pathFrom);
+	//free(pathTo);
+	//int i;
+	//for(i=0; i<string_length((char*)splited); i++){
+	//	free(splited[i]);
+	//}
+	//free(splited);
 }
 void copiarMedalla(t_mapa* mapa){
 	char* pathFrom=string_new();
@@ -84,8 +84,8 @@ void copiarMedalla(t_mapa* mapa){
 		fclose(to);
 	}
 	fclose(from);
-	free(pathFrom);
-	free(pathTo);
+	//free(pathFrom);
+	//free(pathTo);
 }
 
 int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int serverMapa){
@@ -106,7 +106,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
 				return 0;
 			}
-			free(mensaje);
+			//free(mensaje);
 			log_info(archivoLog,"Solicite ubicacion de pokenest: %s", objetivo->nombre);
 
 			//Espero la respuesta
@@ -168,7 +168,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 				log_info(archivoLog,"No pude enviar el mensaje: %s", mensaje);
 				return 0;
 			}
-			free(mensaje);
+			//free(mensaje);
 			log_info(archivoLog,"Solicite captura de: %s", objetivo->nombre);
 
 			time_t tiempoInicialBloqueo;
@@ -193,7 +193,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 							string_append(&path,"\0");
 							copiarPokemonFile(path);
 							objetivo->logrado = 1;
-							free(path);
+							//free(path);
 							return 1;
 						}else{
 							log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
@@ -218,7 +218,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 								string_append(&path,"\0");
 								copiarPokemonFile(path);
 								objetivo->logrado = 1;
-								free(path);
+								//free(path);
 								return 1;
 							}else{
 								log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
