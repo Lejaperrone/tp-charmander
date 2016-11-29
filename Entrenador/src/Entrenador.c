@@ -129,8 +129,22 @@ int main(int argc, char *argv[]){
 		printf("Esta vez no lograste convertirte en MAESTRO POKEMON.\nMejor suerte la proxima\n");
 	}
 
+
+	void _destroyMapa(t_mapa* mapa){
+		void _destroyObjetivo(t_objetivo* objetivo){
+			free(objetivo->nombre);
+			free(objetivo);
+		}
+
+		list_destroy_and_destroy_elements(mapa->objetivos, (void*)_destroyObjetivo);
+		free(mapa->ip);
+		free(mapa->nombre);
+		free(mapa->puerto);
+		free(mapa);
+	}
+	list_destroy_and_destroy_elements(entrenador->hojaDeViaje, (void*)_destroyMapa);
 	free(entrenador);
-	free(archivoLog);
+	log_destroy(archivoLog);
 	return 0;
 }
 

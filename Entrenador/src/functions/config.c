@@ -54,6 +54,8 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 				list_add(mapa->objetivos, objetivo);
 				o++;
 			}
+			free(o);
+			free(key);
 
 		//Obtengo la configuracion del mapa
 			char* pathMapa = string_new();
@@ -77,6 +79,7 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 	}
 
 
-	free(config);
+	config_destroy(config);
+	free(path);
 }
 

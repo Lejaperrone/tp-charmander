@@ -16,7 +16,7 @@ t_log* crearArchivoLog(char* nombre) {
 	remove(path);
 
 	t_log* logs = log_create(path, "EntrenadorLog", 0, LOG_LEVEL_TRACE);
-
+	free(path);
 	if (logs == NULL) {
 		puts("No se pudo generar el archivo de logueo.\n");
 		return NULL;
