@@ -24,20 +24,22 @@ extern pthread_mutex_t mutexBitmap;
 
 
 int compare(int indice, char* test2){
-	if(strcmp(osada_drive.directorio[indice].fname, test2)==0){
+	if(strcmp((char*)osada_drive.directorio[indice].fname, test2)==0){
 		return 1;
 	}
 	return 0;
 }
 
 int osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
-	int i;
-	for(i=0;i<2048;i++){
-		if(compare(i, nombre) && osada_drive.directorio[i].parent_directory == parent){
-			return i;
+	if(parent>=0){
+		int i;
+		for(i=0;i<2048;i++){
+			if(osada_drive.directorio[i].parent_directory == parent && compare(i, nombre)){
+				return i;
+			}else{
+			}
 		}
 	}
-
 	return -1;
 }
 
@@ -77,14 +79,27 @@ void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 }
 
 int osada_TA_obtenerIndiceTA(char* path){
-	char** splited = string_split(path, "/");
-	int i;
-	u_int16_t child = 0xFFFF;
-	for(i=0;i<string_length((char*)splited);i++){
+	u_int16_t childOf = 0xFFFF;
+	int newChildOf;
 
+	char** dirc = string_split(path, "/");
+	int i=0;
+	while(dirc[i]!=NULL){
+		newChildOf = osada_TA_buscarRegistroPorNombre(dirc[i], childOf);
+		if(newChildOf>=0){
+			childOf = newChildOf;
+		}else{
+			return -1;
+		}
+		free(dirc[i]);
+		i++;
 	}
+
+	free(dirc);
+	return childOf;
 }
 int osada_TA_obtenerUltimoHijoFromPath(char* path, int* resultadoDeBuscarRegistroPorNombre){
+	//DEPRECATED usar: osada_TA_obtenerIndiceTA
 	char** dirc = (char**)malloc(sizeof(char*));
 	u_int16_t child = 0xFFFF;
 	if(strcmp(path,"/")!=0){
@@ -110,17 +125,13 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path, int* resultadoDeBuscarRegistr
 	return child;
 }
 
-void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr, int* resultadoDeBuscarRegistroPorNombre){
-
-	if(indice != 65535){
-	attr->file_size = osada_drive.directorio[indice].file_size;
-	attr->state = osada_drive.directorio[indice].state;
-	}
-	else if(indice == 65535 && *resultadoDeBuscarRegistroPorNombre!=-1){
+void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
+	if(indice>=0){
 		attr->file_size = osada_drive.directorio[indice].file_size;
 		attr->state = osada_drive.directorio[indice].state;
 	}
 }
+
 void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
 	attr->file_size=0;
 	attr->state=0;
