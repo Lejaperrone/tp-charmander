@@ -130,19 +130,24 @@ int main(int argc, char *argv[]){
 	}
 
 
-	/*void _destroyMapa(t_mapa* mapa){
-		void _destroyObjetivo(t_objetivo* objetivo){
+	int i,j;
+	for(i=0;i<list_size(entrenador->hojaDeViaje);i++){
+		t_mapa* mapa = (t_mapa*)list_get(entrenador->hojaDeViaje, i);
+		for(j=0;j<list_size(mapa->objetivos);j++){
+			t_objetivo* objetivo = (t_objetivo*)list_get(mapa->objetivos, j);
 			free(objetivo->nombre);
+			free(objetivo);
 		}
-
-		list_destroy_and_destroy_elements(mapa->objetivos, (void*)_destroyObjetivo);
+		list_destroy(mapa->objetivos);
 		free(mapa->ip);
 		free(mapa->nombre);
 		free(mapa->puerto);
+		free(mapa);
 	}
-	list_destroy_and_destroy_elements(entrenador->hojaDeViaje, (void*)_destroyMapa);
+	list_destroy(entrenador->hojaDeViaje);
+	free(entrenador->nombre);
 	free(entrenador);
-	log_destroy(archivoLog);*/
+	log_destroy(archivoLog);
 	return 0;
 }
 

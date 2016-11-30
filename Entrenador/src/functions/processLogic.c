@@ -185,6 +185,7 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 
 					if (recv(serverMapa, size, 11,  0) == 11){
 						int size_int = atoi(size);
+						free(size);
 						char* temp = malloc(sizeof(char)*size_int);
 						if (recv(serverMapa, temp, size_int,  0) == size_int){
 							char* path=string_substring(temp,0,size_int);
@@ -192,12 +193,15 @@ int procesarObjetivo(t_mapa* mapa, t_objetivo* objetivo, int* movimiento, int se
 							copiarPokemonFile(path);
 							objetivo->logrado = 1;
 							free(path);
+							free(temp);
 							return 1;
 						}else{
+							free(temp);
 							log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
 							return 0;
 						}
 					}else{
+						free(size);
 						log_info(archivoLog,"FATAL ERROR: El servidor respondio algo inesperado");
 						return 0;
 					}
