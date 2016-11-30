@@ -31,6 +31,8 @@ int hayBloquesDesocupadosEnElBitmap (int n);
 int osada_truncate(char* path, off_t offset);
 int osada_fallocate(const char* path, int amount, off_t sizef, off_t sizeh);
 int osada_statfs(const char* path, t_statfs* stats);
+int contarBloquesLibresTotales();
+int contarOsadaFilesLibres();
 
 
 #endif /* OSADA_OSADA_H_ */

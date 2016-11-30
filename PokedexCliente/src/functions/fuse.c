@@ -364,18 +364,26 @@ int chamba_statfs (const char * path, struct statvfs * stats){
 	int res=-ENOENT;
 
 	if(resultadoOsada == 1){
-		//stats->__f_spare = recvInt();
-		stats->f_bavail = recvInt();
-		stats->f_bfree = recvInt();
-		stats->f_blocks = recvInt();
-		stats->f_bsize = recvInt();
-		stats->f_favail = recvInt();
-		stats->f_ffree = recvInt();
-		stats->f_files = recvInt();
-		stats->f_flag = recvInt();
-		stats->f_frsize = recvInt();
-		stats->f_fsid = recvInt();
-		stats->f_namemax = recvInt();
+		memset(stats, 0, sizeof(struct statvfs));
+		int bloquesLibres = recvInt();
+		int bloqueSize = recvInt();
+		int bloquesTotales = recvInt();
+		int filesLibres = recvInt();
+		int filenameLength = recvInt();
+
+		//stats->__f_spare;
+		//stats->__f_unused;
+		stats->f_bavail = bloquesLibres;
+		stats->f_bfree = bloquesLibres;
+		stats->f_blocks = bloquesTotales;
+		stats->f_bsize = bloqueSize;
+		stats->f_favail = filesLibres;
+		stats->f_ffree = filesLibres;
+		stats->f_files = 2048;
+		//stats->f_flag;
+		//stats->f_frsize;
+		//stats->f_fsid;
+		stats->f_namemax = filenameLength;
 		res=0;
 	}
 

@@ -165,18 +165,11 @@ void proce_statfs(int clientSocket, char* path){
 	sendInt(clientSocket, resultadoOsada);
 
 	if(resultadoOsada == 1){
-		sendInt(clientSocket, statfs->__f_spare);
-		sendInt(clientSocket, statfs->f_bavail);
-		sendInt(clientSocket, statfs->f_bfree);
-		sendInt(clientSocket, statfs->f_blocks);
-		sendInt(clientSocket, statfs->f_bsize);
-		sendInt(clientSocket, statfs->f_favail);
-		sendInt(clientSocket, statfs->f_ffree);
-		sendInt(clientSocket, statfs->f_files);
-		sendInt(clientSocket, statfs->f_flag);
-		sendInt(clientSocket, statfs->f_frsize);
-		sendInt(clientSocket, statfs->f_fsid);
-		sendInt(clientSocket, statfs->f_namemax);
+		sendInt(clientSocket, contarBloquesLibresTotales());
+		sendInt(clientSocket, OSADA_BLOCK_SIZE);
+		sendInt(clientSocket, osada_drive.header->fs_blocks);
+		sendInt(clientSocket, contarOsadaFilesLibres());
+		sendInt(clientSocket, OSADA_FILENAME_LENGTH);
 	}
 
 	free(statfs);
