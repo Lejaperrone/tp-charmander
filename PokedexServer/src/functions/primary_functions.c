@@ -48,7 +48,6 @@ void proce_getattr(int clientSocket, char* path){
 }
 
 void proce_readdir(int clientSocket, char* path){
-	char* contenido=string_new();
 	t_list* directorios=list_create();
 
 	int resultadoOsada = osada_readdir(path, directorios);
@@ -160,25 +159,24 @@ void proce_write(int clientSocket, char* path){
 }
 
 void proce_statfs(int clientSocket, char* path){
-	int resultadoOsada = 0;
 	t_statfs* statfs = malloc(sizeof(t_statfs));
 
-	resultadoOsada = osada_statfs(path,statfs);
-	send(clientSocket,&resultadoOsada,sizeof(int),0);
+	int resultadoOsada = osada_statfs(path,statfs);
+	sendInt(clientSocket, resultadoOsada);
 
 	if(resultadoOsada == 1){
-		send(clientSocket,&(statfs->__f_spare),sizeof(int),0);
-		send(clientSocket,&(statfs->f_bavail),sizeof(__fsblkcnt_t),0);
-		send(clientSocket,&(statfs->f_bfree),sizeof(__fsblkcnt_t),0);
-		send(clientSocket,&(statfs->f_blocks),sizeof(__fsblkcnt_t),0);
-		send(clientSocket,&(statfs->f_bsize),sizeof(unsigned long int),0);
-		send(clientSocket,&(statfs->f_favail),sizeof(__fsfilcnt_t),0);
-		send(clientSocket,&(statfs->f_ffree),sizeof(__fsfilcnt_t),0);
-		send(clientSocket,&(statfs->f_files),sizeof(__fsfilcnt_t),0);
-		send(clientSocket,&(statfs->f_flag),sizeof(unsigned long int),0);
-		send(clientSocket,&(statfs->f_frsize),sizeof(unsigned long int),0);
-		send(clientSocket,&(statfs->f_fsid),sizeof(unsigned long int),0);
-		send(clientSocket,&(statfs->f_namemax),sizeof(unsigned long int),0);
+		sendInt(clientSocket, statfs->__f_spare);
+		sendInt(clientSocket, statfs->f_bavail);
+		sendInt(clientSocket, statfs->f_bfree);
+		sendInt(clientSocket, statfs->f_blocks);
+		sendInt(clientSocket, statfs->f_bsize);
+		sendInt(clientSocket, statfs->f_favail);
+		sendInt(clientSocket, statfs->f_ffree);
+		sendInt(clientSocket, statfs->f_files);
+		sendInt(clientSocket, statfs->f_flag);
+		sendInt(clientSocket, statfs->f_frsize);
+		sendInt(clientSocket, statfs->f_fsid);
+		sendInt(clientSocket, statfs->f_namemax);
 	}
 
 	free(statfs);

@@ -13,6 +13,7 @@
 #include <fuse.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <pthread.h>
 #include "functions/log.h"
 #include "commons/structures.h"
 #include "functions/fuse.h"
@@ -31,7 +32,8 @@ int main(int argc, char *argv[]){
 	printf("Puerto : %s\n", PORT);
 	printf("PID: %d\n", getpid());
 
-	//Creo el socket
+	//Creo el socket t su mutex
+	pthread_mutex_init(&mutexSocket,NULL);
 	create_socketClient(&pokedexServer, IP_SERVER, PORT);
 
 	//Identificacion

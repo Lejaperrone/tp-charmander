@@ -40,4 +40,6 @@ enum {
 	KEY_HELP,
 };
 
+pthread_mutex_t mutexSocket;
+
 #endif /* COMMONS_STRUCTURES_H_ */

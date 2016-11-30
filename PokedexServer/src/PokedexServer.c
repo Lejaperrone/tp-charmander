@@ -42,7 +42,7 @@ int main(){
 	logPokedexServer=crearArchivoLogPokedexServer();
 	log_info(logPokedexServer,"Inicio OSADA");
 	//Osada
-	osada_init("../../basic.bin");
+	osada_init("../../osada.bin");
 	log_info(logPokedexServer,"Inicializo semaforos para el bitmap\n");
 	pthread_mutex_init(&mutexBitmap,NULL);
 	log_info(logPokedexServer,"Inicializo semaforos para la tabla de archivos\n");

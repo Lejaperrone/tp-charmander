@@ -38,7 +38,7 @@ void* procesarPeticiones(t_hilo* h){
 		char* path=string_new();
 		recibirPath(h->socket,&path);
 
-		log_info(logPokedexServer,"POKEDEXSERVER - 1 - Funcion: GETAT");
+		log_info(logPokedexServer,"POKEDEXSERVER - 1 - Funcion: %s", nombreFuncion);
 		log_info(logPokedexServer,"POKEDEXSERVER - 2 - Path: %s",path);
 
 		if(string_equals_ignore_case(nombreFuncion, "GETAT")){
@@ -64,7 +64,7 @@ void* procesarPeticiones(t_hilo* h){
 		}else if(string_equals_ignore_case(nombreFuncion, "WRITE")){
 			//proce_write(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "STATF")){
-			//proce_statfs(h->socket, path);
+			proce_statfs(h->socket, path);
 		}else{
 			log_info(logPokedexServer, "Funcion desconocida");
 		}

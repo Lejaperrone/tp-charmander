@@ -19,6 +19,7 @@
 #include <fuse.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <pthread.h>
 #include "../commons/structures.h"
 
 int sendValue(void* parameter, int size){
@@ -72,6 +73,7 @@ int recvInt(){
 }
 
 int chamba_getattr(char* path, struct stat* stbuf){
+	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: GETATTR");
 	log_info(archivoLog, "2 - Path: %s", path);
 
@@ -83,7 +85,7 @@ int chamba_getattr(char* path, struct stat* stbuf){
 	log_info(archivoLog, "3 - resultadoOsada: %d", resultadoOsada);
 
 	if (resultadoOsada==1){
-		int tipoDeArchivo= recvInt();
+		int tipoDeArchivo = recvInt();
 		log_info(archivoLog, "4 - tipoDeArchivo: %d", tipoDeArchivo);
 
 		if (tipoDeArchivo==2){
@@ -101,9 +103,11 @@ int chamba_getattr(char* path, struct stat* stbuf){
 		}
 	}
 
+	pthread_mutex_unlock(&mutexSocket);
 	return res;
 }
 int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
+	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: READDIR");
 	log_info(archivoLog, "2 - Path: %s", path);
 
@@ -129,6 +133,7 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 		res = -ENOENT;
 	}
 
+	pthread_mutex_unlock(&mutexSocket);
 	return res;
 }
 /*
@@ -189,17 +194,25 @@ void recibirBufferCompleto (struct stat* stbuf){
 }
 */
 int chamba_open (const char * path, struct fuse_file_info * fi){
+	pthread_mutex_lock(&mutexSocket);
+	log_info(archivoLog, "1 - Funcion: OPEN");
+	log_info(archivoLog, "2 - Path: %s", path);
+	/*
 
-	/*int resultadoOsada;
+	int resultadoOsada;
 	sendBasicInfo("OPENF", path);
 	recvBasicInfo(&resultadoOsada, "OPENF", (char*)path);
 
 
 	return resultadoOsada; //Desde el servidor ya me devuelve un 1 o un ENOENT*/
+	pthread_mutex_unlock(&mutexSocket);
 	return -ENOENT;
 }
 
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
+	pthread_mutex_lock(&mutexSocket);
+	log_info(archivoLog, "1 - Funcion: READ");
+	log_info(archivoLog, "2 - Path: %s", path);
 	/*int resultadoOsada;
 	int tamanio;
 	sendBasicInfo("READF", path);
@@ -217,10 +230,14 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 	}
 
 	return resultadoOsada;*/
+	pthread_mutex_unlock(&mutexSocket);
 	return -ENOENT;
 }
 
 int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
+	pthread_mutex_lock(&mutexSocket);
+	log_info(archivoLog, "1 - Funcion: CREATE");
+	log_info(archivoLog, "2 - Path: %s", path);
 	/*int resultadoOsada;
 
 	sendBasicInfo("CREAT", path);
@@ -230,10 +247,14 @@ int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 
 
 	return resultadoOsada;*/
+	pthread_mutex_unlock(&mutexSocket);
 	return -ENOENT;
 }
 
 int chamba_truncate (const char * path, off_t offset){
+	pthread_mutex_lock(&mutexSocket);
+	log_info(archivoLog, "1 - Funcion: TRUNCATE");
+	log_info(archivoLog, "2 - Path: %s", path);
 	/*int resultadoOsada;
 
 	sendBasicInfo("TRUNC", path);
@@ -242,10 +263,14 @@ int chamba_truncate (const char * path, off_t offset){
 	recvBasicInfo(&resultadoOsada, "TRUNC", (char*)path);
 
 	return resultadoOsada;*/
+	pthread_mutex_unlock(&mutexSocket);
 	return -ENOENT;
 }
 
 int chamba_mkdir (const char * path, mode_t modo){
+	pthread_mutex_lock(&mutexSocket);
+	log_info(archivoLog, "1 - Funcion: MKDIR");
+	log_info(archivoLog, "2 - Path: %s", path);
 	/*int resultadoOsada;
 
 	sendBasicInfo("MKDIR", path);
@@ -254,11 +279,14 @@ int chamba_mkdir (const char * path, mode_t modo){
 	recvBasicInfo(&resultadoOsada, "MKDIR", (char*)path);
 
 	return resultadoOsada;*/
+	pthread_mutex_unlock(&mutexSocket);
 	return -ENOENT;
 }
 
 int chamba_rename (const char * path, const char * newPath){
-
+	pthread_mutex_lock(&mutexSocket);
+	log_info(archivoLog, "1 - Funcion: RENAME");
+	log_info(archivoLog, "2 - Path: %s", path);
 	/*int resultadoOsada;
 
 	sendBasicInfo("RENAM", path);
@@ -267,22 +295,29 @@ int chamba_rename (const char * path, const char * newPath){
 	recvBasicInfo(&resultadoOsada, "RENAM", (char*)path);
 
 	return resultadoOsada;*/
+	pthread_mutex_unlock(&mutexSocket);
 	return -ENOENT;
 }
 
 int chamba_unlink (const char * path){
+	pthread_mutex_lock(&mutexSocket);
+	log_info(archivoLog, "1 - Funcion: UNLINK");
+	log_info(archivoLog, "2 - Path: %s", path);
 	/*int resultadoOsada;
 
 	sendBasicInfo("ULINK", path);
 	recvBasicInfo(&resultadoOsada, "ULINK", (char*)path);
 
 	return resultadoOsada;*/
+	pthread_mutex_unlock(&mutexSocket);
 	return -ENOENT;
 
 }
 
 int chamba_rmdir (const char * path){
-
+	pthread_mutex_lock(&mutexSocket);
+	log_info(archivoLog, "1 - Funcion: RMDIR");
+	log_info(archivoLog, "2 - Path: %s", path);
 	/*int resultadoOsada;
 
 	sendBasicInfo("RMDIR", path);
@@ -290,10 +325,14 @@ int chamba_rmdir (const char * path){
 	recvBasicInfo(&resultadoOsada, "RMDIR", (char*)path);
 
 	return resultadoOsada;*/
+	pthread_mutex_unlock(&mutexSocket);
 	return -ENOENT;
 }
 
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
+	pthread_mutex_lock(&mutexSocket);
+	log_info(archivoLog, "1 - Funcion: WRITE");
+	log_info(archivoLog, "2 - Path: %s", path);
 	/*int resultadoOsada;
 	int tamanio;
 
@@ -311,31 +350,35 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 	}
 
 	return resultadoOsada;*/
+	pthread_mutex_unlock(&mutexSocket);
 	return -ENOENT;
 }
 
 int chamba_statfs (const char * path, struct statvfs * stats){
-	/*int resultadoOsada;
-
+	pthread_mutex_lock(&mutexSocket);
+	log_info(archivoLog, "1 - Funcion: STATFS");
+	log_info(archivoLog, "2 - Path: %s", path);
 	sendBasicInfo("STATF", path);
+	int resultadoOsada = recvInt();
 
-	recvBasicInfo(&resultadoOsada, "STATF", (char*)path);
+	int res=-ENOENT;
 
 	if(resultadoOsada == 1){
-		recv(pokedexServer,&(stats->__f_spare),sizeof(int),0);
-		recv(pokedexServer,&(stats->f_bavail),sizeof(__fsblkcnt_t),0);
-		recv(pokedexServer,&(stats->f_bfree),sizeof(__fsblkcnt_t),0);
-		recv(pokedexServer,&(stats->f_blocks),sizeof(__fsblkcnt_t),0);
-		recv(pokedexServer,&(stats->f_bsize),sizeof(unsigned long int),0);
-		recv(pokedexServer,&(stats->f_favail),sizeof(__fsfilcnt_t),0);
-		recv(pokedexServer,&(stats->f_ffree),sizeof(__fsfilcnt_t),0);
-		recv(pokedexServer,&(stats->f_files),sizeof(__fsfilcnt_t),0);
-		recv(pokedexServer,&(stats->f_flag),sizeof(unsigned long int),0);
-		recv(pokedexServer,&(stats->f_frsize),sizeof(unsigned long int),0);
-		recv(pokedexServer,&(stats->f_fsid),sizeof(unsigned long int),0);
-		recv(pokedexServer,&(stats->f_namemax),sizeof(unsigned long int),0);
+		//stats->__f_spare = recvInt();
+		stats->f_bavail = recvInt();
+		stats->f_bfree = recvInt();
+		stats->f_blocks = recvInt();
+		stats->f_bsize = recvInt();
+		stats->f_favail = recvInt();
+		stats->f_ffree = recvInt();
+		stats->f_files = recvInt();
+		stats->f_flag = recvInt();
+		stats->f_frsize = recvInt();
+		stats->f_fsid = recvInt();
+		stats->f_namemax = recvInt();
+		res=0;
 	}
 
-	return resultadoOsada;*/
-	return -ENOENT;
+	pthread_mutex_unlock(&mutexSocket);
+	return res;
 }
