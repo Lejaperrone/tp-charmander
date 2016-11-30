@@ -82,6 +82,6 @@ void leerConfiguracion(t_entrenador* entrenador, char* name, char* pokedexPath) 
 
 
 	//config_destroy(config);
-	//free(path);
+	free(path);
 }
 

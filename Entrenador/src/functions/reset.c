@@ -100,7 +100,7 @@ void reiniciarMapa(t_mapa* mapa){
 			log_info(archivoLog, "No pudo borrarse la medalla: %c", pathMedalla);
 		}
 	}
-	//free(pathMedalla);
+	free(pathMedalla);
 
 	char* pathBill = string_new();
 	string_append(&pathBill, pokedexPath);
@@ -109,7 +109,7 @@ void reiniciarMapa(t_mapa* mapa){
 	string_append(&pathBill, "/Dir de Bill/");
 
 	remove_directory(pathBill);
-	//free(pathBill);
+	free(pathBill);
 }
 
 void reiniciarJuego(){
@@ -163,7 +163,7 @@ void actualizarMetadata(){
 
 	unlink(path);
 	rename(pathTemp, path);
-	//free(path);
-	//free(pathTemp);
+	free(path);
+	free(pathTemp);
 }
 
