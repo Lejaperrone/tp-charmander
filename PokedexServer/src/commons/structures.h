@@ -37,7 +37,7 @@ struct write{
 	off_t offset;
 }typedef t_write;
 
-struct statvfs{
+struct statvfsNuestra{
 	    unsigned long int f_bsize;
 	    unsigned long int f_frsize;
 	#ifndef __USE_FILE_OFFSET64
