@@ -24,30 +24,9 @@ extern pthread_mutex_t mutexBitmap;
 
 
 int compare(int indice, char* test2){
-	int i;
-	log_info(logPokedexServer, "El indice antes de entrar al for del compare es: %d", indice);
-	log_info(logPokedexServer, "El test2 antes de entrar al for del compare es: %s", test2);
-//	for(i=0; i<OSADA_FILENAME_LENGTH; i++){
-//		log_info(logPokedexServer, "%c - %c\n", osada_drive.directorio[indice].fname[i], *test2);
-		log_info(logPokedexServer, "El fname para el indice %d es %s", indice, osada_drive.directorio[indice].fname);
-		if(strcmp(osada_drive.directorio[indice].fname, test2)==0){
-			log_info(logPokedexServer, "Va a retornar 1");
-			return 1;
-		}
-//		if(osada_drive.directorio[indice].fname[i] == '\0' && *test2=='\0'){
-//			log_info(logPokedexServer, "Va a retornar 1");
-//			return 1;
-//		}
-//		else{
-//			if(osada_drive.directorio[indice].fname[i] != *test2){
-//				log_info(logPokedexServer, "Va a retornar 0");
-//				return 0;
-//			}
-//		}
-
-//		test2++;
-//	}
-	log_info(logPokedexServer, "Va a retornar 0");
+	if(strcmp(osada_drive.directorio[indice].fname, test2)==0){
+		return 1;
+	}
 	return 0;
 }
 
@@ -55,12 +34,10 @@ int osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
 	int i;
 	for(i=0;i<2048;i++){
 		if(compare(i, nombre) && osada_drive.directorio[i].parent_directory == parent){
-			log_info(logPokedexServer, "El indice es: %s", i);
 			return i;
 		}
 	}
 
-	log_info(logPokedexServer, "BuscarRegistroPorNombre devuelve -1");
 	return -1;
 }
 
@@ -98,23 +75,26 @@ void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 	}
 
 }
+
+int osada_TA_obtenerIndiceTA(char* path){
+	char** splited = string_split(path, "/");
+	int i;
+	u_int16_t child = 0xFFFF;
+	for(i=0;i<string_length((char*)splited);i++){
+
+	}
+}
 int osada_TA_obtenerUltimoHijoFromPath(char* path, int* resultadoDeBuscarRegistroPorNombre){
 	char** dirc = (char**)malloc(sizeof(char*));
 	u_int16_t child = 0xFFFF;
 	if(strcmp(path,"/")!=0){
 	dirc = string_split(path, "/");
 	int i=0;
-	log_info(logPokedexServer, "OSADA - Se va a recorrer el vector de strings separados del path");
 	while(dirc[i]!=NULL){
-		log_info(logPokedexServer, "Entro al while con: %s", dirc[i]);
 		if(string_length(dirc[i]) != 0){
-			log_info(logPokedexServer, "OSADA - Se va a buscar el registro por nombre");
 			child = osada_TA_buscarRegistroPorNombre(dirc[i], child);
 			*resultadoDeBuscarRegistroPorNombre = osada_TA_buscarRegistroPorNombre(dirc[i], child);
-			log_info(logPokedexServer, "Child luego de ejecutar buscarRegistroPorNombre vale: %d",child);
-			log_info(logPokedexServer, "ResultadoDeBuscarRegistroPorNombre (signado) es: %d",*resultadoDeBuscarRegistroPorNombre);
 			if(child == -1){
-				log_info(logPokedexServer, "obtenerUltimoHijoFromPath devuelve ENOENT");
 				return -ENOENT;
 			}
 		}
@@ -133,15 +113,11 @@ int osada_TA_obtenerUltimoHijoFromPath(char* path, int* resultadoDeBuscarRegistr
 void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr, int* resultadoDeBuscarRegistroPorNombre){
 
 	if(indice != 65535){
-	log_info(logPokedexServer, "OSADA - El file_size de la estructura attr que me llega es: %d", attr->file_size);
 	attr->file_size = osada_drive.directorio[indice].file_size;
-	log_info(logPokedexServer, "OSADA - Ahora el file_size de la estructura attr es: %d", attr->file_size);
 	attr->state = osada_drive.directorio[indice].state;
 	}
 	else if(indice == 65535 && *resultadoDeBuscarRegistroPorNombre!=-1){
-		log_info(logPokedexServer, "OSADA - El file_size de la estructura attr que me llega es: %d", attr->file_size);
 		attr->file_size = osada_drive.directorio[indice].file_size;
-		log_info(logPokedexServer, "OSADA - Ahora el file_size de la estructura attr es: %d", attr->file_size);
 		attr->state = osada_drive.directorio[indice].state;
 	}
 }

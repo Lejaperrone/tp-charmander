@@ -26,20 +26,59 @@
 #include "../commons/structures.h"
 #include "../commons/definitions.h"
 
-char* obtenerNombreDelDirectorio(char* path){
-	int tamanio = string_length(*string_split(path,"/"));
-	return string_split(path,"/")[tamanio-1];
-}
-
-void devolverResultadoAlCliente(int resultadoDeOsada,int socketCliente){
-	if(send(socketCliente,&resultadoDeOsada,sizeof(int),0)>=1){
-		printf("Se envia correctamente el resultado al cliente\n");
+int sendString(int clientSocket, char* parameter, int size){
+	char* sizeStr=malloc(sizeof(char)*11);
+	sprintf(sizeStr,"%i",size);
+	if(send(clientSocket, sizeStr, 11, 0) == 11){
+		if(send(clientSocket, parameter, size, 0) == size){
+			return 1;
+		}
 	}
+	return 0;
+}
+int recvValue(int clientSocket, void* buffer){
+	char* sizeStr = malloc(sizeof(char)*11);
+	if (recv(clientSocket, sizeStr, 11,  0) == 11){
+		int size = atoi(sizeStr);
+		if (recv(clientSocket, buffer, size,  0) == size){
+			return 1;
+		}
+	}
+	return 0;
+}
+int recvString(int clientSocket, char** string){
+	char* sizeStr = malloc(sizeof(char)*11);
+	if (recv(clientSocket, sizeStr, 11,  0) == 11){
+		int size = atoi(sizeStr);
+		char* temp=malloc(sizeof(char)*size);
+		if (recv(clientSocket, temp, size,  0) == size){
+			*string = string_substring(temp,0,size);
+			return 1;
+		}
+	}
+	return 0;
+}
+int recvInt(int clientSocket){
+	char* sizeStr = malloc(sizeof(char)*11);
+	if (recv(clientSocket, sizeStr, 11,  0) == 11){
+		int size = atoi(sizeStr);
+		return size;
+	}
+
+	return -1;
+}
+int sendInt(int clientSocket, int number){
+	char* numberStr=malloc(sizeof(char)*11);
+
+	sprintf(numberStr,"%i",number);
+	if(send(clientSocket, numberStr, 11, 0) == 11){
+		return 1;
+	}
+	return 0;
 }
 
 int recibirNombreDeLaFuncion(int socketCliente, char* nombreFuncion){
 	if(recv(socketCliente, nombreFuncion, 5*sizeof(char),0)>=0){
-		log_info(logPokedexServer,"POKEDEXSERVER - Recibo el nombre de la funcion %s", nombreFuncion);
 		return 1;
 	}else{
 		log_info(logPokedexServer,"POKEDEXSERVER - Se cerro la conexion");
@@ -47,32 +86,6 @@ int recibirNombreDeLaFuncion(int socketCliente, char* nombreFuncion){
 	}
 
 }
-
-void recibirParametrosDeReadDir(int socketCliente,char* path){
-	recv(socketCliente,path,sizeof(path),0);
-}
-
-void recibirTamanioDelPath(int socketCliente, int* tamanio){
-	char* size=(char*)malloc(11*sizeof(char));
-	recv(socketCliente,size,11,0);
-	*tamanio=atoi(size);
-	log_info(logPokedexServer,"POKEDEXSERVER - Recibo el tamanio del path: %d",*tamanio);
-}
-
-void recibirPath(int socketCliente,char** path, int tamanioPath){
-	char* pathPiloto=malloc(sizeof(char)*tamanioPath);
-	recv(socketCliente,pathPiloto,tamanioPath,0);
-	*path=string_substring(pathPiloto,0,tamanioPath);
-	string_append(path,"\0");
-	free(pathPiloto);
-}
-
-void recibirBuffer(int socketCliente, file_attr* getAttr){
-	recv(socketCliente,&(getAttr->file_size),sizeof(getAttr->file_size),0);
-}
-
-void enviarBufferLleno(int socketCliente, file_attr* getAttr){
-	send(socketCliente,&(getAttr->state),sizeof(getAttr->state),0);
-	send(socketCliente,&(getAttr->file_size),sizeof(getAttr->file_size),0);
-	log_info(logPokedexServer,"POKEDEXSERVER - Envio buffer con estado y size");
+void recibirPath(int socketCliente,char** path){
+	recvString(socketCliente, path);
 }

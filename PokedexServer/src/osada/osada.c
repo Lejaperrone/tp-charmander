@@ -121,26 +121,18 @@ int osada_readdir(char* path, t_list* directorios){
 
 int osada_getattr(char* path, file_attr* attrs){
 	int resultadoDeBuscarRegistroPorNombre;
-	log_info(logPokedexServer, "OSADA - Se invoca obtenerUltimoHijoFromPath");
 	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	log_info(logPokedexServer, "OSADA - El indice del ultimo hijo from path es: %d", indice);
 	if(indice>=0){
-		log_info(logPokedexServer, "OSADA - Invoco la funccion obtenerAttr pasandole el indice: %d", indice);
-		//el indice es numero de posicion en la que esta en la tabla de archivos, si indice vale 6, esta en la
-		//posicion 6 de la tabla de achivos
 		if(resultadoDeBuscarRegistroPorNombre>=0){
 		osada_TA_obtenerAttr(indice, attrs, &resultadoDeBuscarRegistroPorNombre);
-		log_info(logPokedexServer, "OSADA - Se llenaron los attr para el indice >=0");
 		return 1;
 		}
 	}
 	if(strcmp(path,"/") == 0){
-		log_info(logPokedexServer, "OSADA - El archivo se trata de un directorio");
 		attrs->file_size = 0;
 		attrs->state = 2;
 		return 1;
 	}else{
-		log_info(logPokedexServer, "OSADA - El indice del ultimo hijo from path es negativo. Se devuelve ENOENT.");
 		return -ENOENT;
 	}
 	return 0;

@@ -35,38 +35,38 @@ void* procesarPeticiones(t_hilo* h){
 	int result=0;
 
 	while(recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
-		int tamanioPath;
-		recibirTamanioDelPath(h->socket,&tamanioPath);
-
-		//char* path=malloc(sizeof(char)*tamanioPath);
 		char* path=string_new();
-		recibirPath(h->socket,&path,tamanioPath);
-		log_info(logPokedexServer,"POKEDEXSERVER - Path: %s\n",path);
+		recibirPath(h->socket,&path);
+
+		log_info(logPokedexServer,"POKEDEXSERVER - 1 - Funcion: GETAT");
+		log_info(logPokedexServer,"POKEDEXSERVER - 2 - Path: %s",path);
 
 		if(string_equals_ignore_case(nombreFuncion, "GETAT")){
-			result=proce_getattr(h->socket, path);
+			proce_getattr(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "READD")){
-			result = proce_readdir(h->socket, path);
+			proce_readdir(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "OPENF")){
-			result = proce_open(h->socket, path);
+			//proce_open(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "READF")){
-			result = proce_readfile(h->socket, path);
+			//proce_readfile(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "CREAT")){
-			result = proce_create(h->socket, path);
+			//proce_create(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
-			result  = proce_truncate(h->socket, path);
+			//result  = proce_truncate(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "MKDIR")){
-			result = proce_mkdir(h->socket, path);
+			//proce_mkdir(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "RENAM")){
-			result = proce_rename(h->socket, path);
+			//proce_rename(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "ULINK")){
-			result = proce_removeFile(h->socket, path);
+			//proce_removeFile(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "RMDIR")){
-			result = proce_removeDir(h->socket, path);
+			//proce_removeDir(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "WRITE")){
-			result = proce_write(h->socket, path);
+			//proce_write(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "STATF")){
-			result=proce_statfs(h->socket, path);
+			//proce_statfs(h->socket, path);
+		}else{
+			log_info(logPokedexServer, "Funcion desconocida");
 		}
 
 	}

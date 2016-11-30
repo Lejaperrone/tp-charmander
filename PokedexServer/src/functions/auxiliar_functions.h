@@ -8,13 +8,13 @@
 #ifndef FUNCTIONS_AUXILIAR_FUNCTIONS_H_
 #define FUNCTIONS_AUXILIAR_FUNCTIONS_H_
 
-	char* obtenerNombreDelDirectorio(char* path);
-	void devolverResultadoAlCliente(int resultadoDeOsada,int socketCliente);
+	int sendString(int clientSocket, char* parameter, int size);
+	int recvValue(int clientSocket, void* buffer);
+	int recvString(int clientSocket, char** string);
+	int recvInt(int clientSocket);
+	int sendInt(int clientSocket, int number);
+
 	int recibirNombreDeLaFuncion(int socketCliente, char* nombreFuncion);
-	void recibirParametrosDeReadDir(int socketCliente,char* path);
-	void recibirTamanioDelPath(int socketCliente, int* tamanio);
-	void recibirPath(int socketCliente,char** path, int tamanioPath);
-	void recibirBuffer(int socketCliente, file_attr* getAttr);
-	void enviarBufferLleno(int socketCliente, file_attr* getAttr);
+	void recibirPath(int socketCliente,char** path);
 
 #endif /* FUNCTIONS_AUXILIAR_FUNCTIONS_H_ */
