@@ -35,6 +35,7 @@ void* procesarPeticiones(t_hilo* h){
 	int result=0;
 
 	while(recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
+
 		char* path=string_new();
 		recibirPath(h->socket,&path);
 
@@ -70,6 +71,7 @@ void* procesarPeticiones(t_hilo* h){
 		}
 
 	}
+
 
 	return NULL;
 }

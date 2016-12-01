@@ -63,8 +63,9 @@ int osada_removeDir(char* path){
 
 	int resultadoDeBuscarRegistroPorNombre;
 	t_list* directoriosQueComponenElActual=list_create();
-	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	if(resultadoDeBuscarRegistroPorNombre != -1){
+	u_int16_t parent = osada_TA_obtenerIndiceTA(path);
+
+	if(strcmp(path, "/") != 0){
 		osada_TA_obtenerDirectorios(parent, directoriosQueComponenElActual);
 		if (list_is_empty(directoriosQueComponenElActual)){
 			osada_TA_borrarDirectorio(parent);
@@ -83,13 +84,23 @@ int osada_removeDir(char* path){
 }
 
 int osada_removeFile(char* path){
-	int resultadoDeBuscarRegistroPorNombre;
-	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	if (resultadoDeBuscarRegistroPorNombre!=-1){
+
+	u_int16_t parent;
+	if (strcmp(path, "/") != 0){
+		log_info(logPokedexServer, "OSADA - El path es != de /, se va a obtenerIndiceTA");
+		parent = osada_TA_obtenerIndiceTA(path);
+		log_info(logPokedexServer, "El indice devuelto (parent) es: %d", parent);
+	}else{
+		parent = 0xFFFF;
+	}
+
+	if(parent >= 0 || parent == 0xFFFF){
+		log_info(logPokedexServer, "OSADA - Se procede a borrar el archivo del bloque %d", parent);
 		osada_TA_borrarArchivo(parent);
 		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Pude borrar el archivo %s. Ocupaba el bloque %d\n", path, parent);
 		return 1;
 	}
+
 	perror("NO se pudo remover el directorio porque no existe");
 	return -ENOENT;
 

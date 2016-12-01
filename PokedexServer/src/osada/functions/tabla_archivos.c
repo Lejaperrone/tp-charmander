@@ -142,15 +142,19 @@ void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
 
 int osada_TA_borrarArchivo(u_int16_t parent){
 	int subindice;
-	strcpy(osada_drive.directorio[parent].fname,"");
+	strcpy((char*)osada_drive.directorio[parent].fname,"");
+	log_info(logPokedexServer, "El fname del directorio del bloque %d es -%s-", parent, osada_drive.directorio[parent].fname);
 	osada_drive.directorio[parent].state=0;
 	osada_drive.directorio[parent].lastmod=time(NULL);
 	u_int16_t fin = 0xFFFF;
 	subindice=osada_drive.directorio[parent].first_block;
-	while (subindice!=fin){
+	log_info(logPokedexServer, "El subindice (primer bloque del parent) es %d", subindice);
+	while (subindice!=fin && subindice != -1){
 		bitarray_clean_bit(osada_drive.bitmap,subindice);
 		obtenerProximoBloque(&subindice);
+		log_info(logPokedexServer, "Ahora el subindice es: %d", subindice);
 	}
+	log_info(logPokedexServer, "Se pudieron limpiar los bits del bitarray correctamente");
 	return 1;
 }
 

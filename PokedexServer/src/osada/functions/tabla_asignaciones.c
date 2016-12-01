@@ -9,7 +9,9 @@
 #include <stdlib.h>
 #include <commons/collections/list.h>
 #include <commons/string.h>
+#include <commons/log.h>
 #include "../commons/declarations.h"
+#include "../../commons/definitions.h"
 #include "../commons/osada.h"
 #include <errno.h>
 
@@ -35,15 +37,18 @@ int avanzarBloquesParaEscribir (int bloqueInicial,int desplazamientoLimite){
 
 
 
-int existeProximoBloque(int* subindice){
-	return (osada_drive.asignaciones[*subindice]>=0);
+bool existeProximoBloque(int* subindice){
+	return (osada_drive.asignaciones[*subindice] != 0xFFFF);
 }
 
 void obtenerProximoBloque(int* subindice){
 	if (existeProximoBloque(subindice)){
+		log_info(logPokedexServer, "El subindice %d se reemplazara por %d", *subindice,osada_drive.asignaciones[*subindice]);
 		*subindice=osada_drive.asignaciones[*subindice];
+		log_info(logPokedexServer, "El nuevo subindice (dentro de ProximoBloque) es: %d",*subindice);
 	}else{
-		*subindice=0xFFFFFFFF;
+		*subindice=0xFFFF;
+		log_info(logPokedexServer, "El nuevo subindice (dentro de ProximoBloque) que deberia ser 65535 es: %d",*subindice);
 	}
 }
 
