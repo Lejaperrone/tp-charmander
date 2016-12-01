@@ -61,7 +61,7 @@ void* procesarPeticiones(t_hilo* h){
 		}else if(string_equals_ignore_case(nombreFuncion, "ULINK")){
 			proce_removeFile(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "RMDIR")){
-			//proce_removeDir(h->socket, path);
+			proce_removeDir(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "WRITE")){
 			//proce_write(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "STATF")){

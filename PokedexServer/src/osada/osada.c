@@ -63,8 +63,9 @@ int osada_removeDir(char* path){
 
 	int resultadoDeBuscarRegistroPorNombre;
 	t_list* directoriosQueComponenElActual=list_create();
-	u_int16_t parent = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	if(resultadoDeBuscarRegistroPorNombre != -1){
+	u_int16_t parent = osada_TA_obtenerIndiceTA(path);
+
+	if(strcmp(path, "/") != 0){
 		osada_TA_obtenerDirectorios(parent, directoriosQueComponenElActual);
 		if (list_is_empty(directoriosQueComponenElActual)){
 			osada_TA_borrarDirectorio(parent);

@@ -183,17 +183,15 @@ void proce_statfs(int clientSocket, char* path){
 }
 
 void proce_removeFile(int clientSocket, char* path){
-	log_info(logPokedexServer, "Se llamo a la funcion removeFile");
 	int resultadoOsada = osada_removeFile(path);
 
 	sendInt(clientSocket,resultadoOsada);
 }
 
 void proce_removeDir(int clientSocket, char* path){
-	int resultadoOsada = 0;
+	int resultadoOsada = osada_removeDir(path);
 
-	resultadoOsada = osada_removeDir(path);
-	send(clientSocket,&resultadoOsada,sizeof(int),0);
+	sendInt(clientSocket,resultadoOsada);
 
 }
 

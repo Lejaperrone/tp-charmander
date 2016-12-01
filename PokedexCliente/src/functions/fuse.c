@@ -318,18 +318,20 @@ int chamba_unlink (const char * path){
 }
 
 int chamba_rmdir (const char * path){
+	int res=0;
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: RMDIR");
 	log_info(archivoLog, "2 - Path: %s", path);
-	/*int resultadoOsada;
 
 	sendBasicInfo("RMDIR", path);
+	int resultadoOsada = recvInt();
 
-	recvBasicInfo(&resultadoOsada, "RMDIR", (char*)path);
+	if(resultadoOsada != 1){
+		res = -ENOENT;
+	}
 
-	return resultadoOsada;*/
 	pthread_mutex_unlock(&mutexSocket);
-	return -ENOENT;
+	return res;
 }
 
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
