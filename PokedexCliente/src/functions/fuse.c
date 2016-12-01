@@ -301,7 +301,7 @@ int chamba_rename (const char * path, const char * newPath){
 
 	sendBasicInfo("RENAM", path);
 
-	sendValue((char*)newPath,sizeof(char*));
+	sendValue((char*)newPath,string_length((char*)newPath));
 
 	int resultadoOsada=recvInt();
 
