@@ -272,6 +272,7 @@ int chamba_truncate (const char * path, off_t offset){
 	return -ENOENT;
 }
 
+// LISTA - FUNCIONA
 int chamba_mkdir (const char * path, mode_t modo){
 	log_info(archivoLog, "1 - Funcion: MKDIR");
 	pthread_mutex_lock(&mutexSocket);
