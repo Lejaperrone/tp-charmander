@@ -72,6 +72,7 @@ int recvInt(){
 	return -ENOENT;
 }
 
+//LISTA - FUNCIONA
 int chamba_getattr(char* path, struct stat* stbuf){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: GETATTR");
@@ -106,6 +107,8 @@ int chamba_getattr(char* path, struct stat* stbuf){
 	pthread_mutex_unlock(&mutexSocket);
 	return res;
 }
+
+//LISTA - FUNCIONA
 int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info *fi) {
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: READDIR");
@@ -299,6 +302,7 @@ int chamba_rename (const char * path, const char * newPath){
 	return -ENOENT;
 }
 
+//LISTA - FUNCIONA
 int chamba_unlink (const char * path){
 	int res=0;
 	pthread_mutex_lock(&mutexSocket);
@@ -317,6 +321,7 @@ int chamba_unlink (const char * path){
 	return res;
 }
 
+//LISTA - FUNCIONA
 int chamba_rmdir (const char * path){
 	int res=0;
 	pthread_mutex_lock(&mutexSocket);
@@ -359,6 +364,7 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 	return -ENOENT;
 }
 
+//LISTA - FUNCIONA
 int chamba_statfs (const char * path, struct statvfs * stats){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: STATFS");
