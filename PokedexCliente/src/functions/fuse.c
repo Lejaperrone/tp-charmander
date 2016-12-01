@@ -295,11 +295,12 @@ int chamba_mkdir (const char * path, mode_t modo){
 }
 
 int chamba_rename (const char * path, const char * newPath){
+	int res=0;
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: RENAME");
 	log_info(archivoLog, "2 - Path: %s", path);
 
-	int res=0;
+
 	sendBasicInfo("RENAM", path);
 
 	sendValue((char*)newPath,sizeof(char*));
