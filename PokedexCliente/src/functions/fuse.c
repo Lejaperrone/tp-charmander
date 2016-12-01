@@ -282,11 +282,8 @@ int chamba_mkdir (const char * path, mode_t modo){
 	int res=0;
 	sendBasicInfo("MKDIR", path);
 
-	//recvBasicInfo(&resultadoOsada, "MKDIR", (char*)path);
-
-	//return resultadoOsada;
-
 	int resultadoOsada=recvInt();
+
 	if (resultadoOsada != 1){
 		 res=- ENOENT;
 	}
@@ -300,7 +297,7 @@ int chamba_rename (const char * path, const char * newPath){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: RENAME");
 	log_info(archivoLog, "2 - Path: %s", path);
-
+	log_info(archivoLog, "3 - El nuevo path: %s", newPath);
 
 	sendBasicInfo("RENAM", path);
 

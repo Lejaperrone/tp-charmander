@@ -143,6 +143,7 @@ void proce_rename(int clientSocket, char* path){
 
 	char* newPath=string_new();
 	recvString(clientSocket, &newPath);
+	log_info(logPokedexServer, "El nuevoPath recibido es: %s", newPath);
 
 	resultadoOsada = osada_rename(path, newPath);
 
