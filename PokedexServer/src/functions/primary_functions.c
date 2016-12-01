@@ -120,16 +120,15 @@ void proce_truncate(int clientSocket, char* path){
 }
 
 void proce_mkdir(int clientSocket, char* path){
+	log_info(logPokedexServer,"Se quieren crear el directorio %s",path);
 	int resultadoOsada = 0;
-	t_makeDir* makeDir = malloc(sizeof(t_makeDir));
-	recv(clientSocket,&(makeDir->mode),sizeof(mode_t),0);
+	//int tamanio = string_length(*string_split(path,"/"));
+	resultadoOsada = osada_createDir(path);
+	log_info(logPokedexServer,"Recibo el resultado %d de OSADA",resultadoOsada);
+	//send(clientSocket,&resultadoOsada,sizeof(int),0);
+	sendInt(clientSocket,resultadoOsada);
+	log_info(logPokedexServer,"Envie el resultado igual a %d de OSADA",resultadoOsada);
 
-	int tamanio = string_length(*string_split(path,"/"));
-	resultadoOsada = osada_createDir(path, string_split(path,"/")[tamanio-1], makeDir->mode);
-
-	send(clientSocket,&resultadoOsada,sizeof(int),0);
-
-	free(makeDir);
 }
 
 void proce_rename(int clientSocket, char* path){

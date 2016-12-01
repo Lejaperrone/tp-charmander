@@ -340,17 +340,35 @@ int osada_createFile(char* path, mode_t mode){
 
 	return resultado;
 }
-int osada_createDir(char* path, char* name, mode_t mode){
-	int resultadoDeBuscarRegistroPorNombre;
-	int subindice=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	//aca hay que obtener el hijo del ultimo path/ parametro es el path
-
-	if(resultadoDeBuscarRegistroPorNombre != -1){
-		darDeAltaDirectorioEnTablaDeArchivos(name, subindice);
-
-		return 1;
+int osada_createDir(char* path){
+	char* name;
+	int i=0;
+	char** directorio=string_split(path,"/");
+	char* directorioPadre=string_new();
+	while(directorio[i]!=NULL){
+		if(directorio[i+1]!=NULL){
+			string_append(&directorioPadre,directorio[i]);
+			string_append(&directorioPadre,"/");
+		}else{
+			name=string_duplicate(directorio[i]);
+		}
+		free(directorio[i]);
+		i++;
 	}
-
+	free(directorio);
+	int subindice=osada_TA_obtenerIndiceTA(directorioPadre);
+	free(directorioPadre);
+	//aca hay que obtener el hijo del ultimo path/ parametro es el path
+	if(subindice != -1){
+		if(darDeAltaDirectorioEnTablaDeArchivos(name, subindice)){
+			free(name);
+			return 1;
+		}else{
+			free(name);
+			return -ENOENT;
+		}
+	}
+	free(name);
 	return -ENOENT;
 }
 

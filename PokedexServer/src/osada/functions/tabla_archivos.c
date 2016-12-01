@@ -55,7 +55,7 @@ void osada_TA_obtenerDirectorios(u_int16_t parent, t_list* directorio){
 	}
 
 }
-void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
+int darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 	int i;
 	int yaLoGuarde=0;
 	for (i=0;i<2048;i++){
@@ -71,10 +71,12 @@ void darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 			osada_drive.directorio[i].lastmod=atoi(fecha);
 			// no sabemos si el directorio padre de un directorio nuevo es 0xFFFF u otro
 			//parent directory es el subindice del ultimo hijo
-			osada_drive.directorio[i].parent_directory=0xFFFF;
+			osada_drive.directorio[i].parent_directory=indice;
 			osada_drive.directorio[i].state=2;
+			osada_drive.directorio[i].first_block=0xFFFF;
 		}
 	}
+	return yaLoGuarde;
 
 }
 
