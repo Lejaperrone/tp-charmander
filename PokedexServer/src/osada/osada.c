@@ -421,25 +421,26 @@ char* getFileNameFromPath(char* path, char** pathSplitteada, char* nombre){
 }
 
 int osada_rename(char* path, char* nuevaPath){
-	int resultadoDeBuscarRegistroPorNombre;
-	int subindice=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
+	int resultado;
+	int subindice=osada_TA_obtenerIndiceTA(path);
 
-	if(resultadoDeBuscarRegistroPorNombre != -1){
+	if(subindice != -1){
 		char* nombre=string_new();
 		char** pathSplitteada=(char**)malloc(sizeof(char*));
 		getFileNameFromPath(nuevaPath,pathSplitteada, nombre);
 		log_info(logPokedexServer, "OSADA - Renombrando archivo: El nombre del archivo original es: %s\n",nombre);
 		if (renombrarArchivo(subindice,nombre)==1){
 			log_info(logPokedexServer, "OSADA - Renombrando archivo: Se ha renombrado el archivo correctamente\n");
-			return 1;
+			resultado = 1;
 		}else{
-			return -EACCES;
+			resultado = -EACCES;
 		}
-		free(pathSplitteada);
 		free(nombre);
+	}else{
+		resultado = -ENOENT;
 	}
-	return -ENOENT;
 
+	return resultado;
 }
 
 int calcularBloquesQueOcupaDesdeElPrimerBloque (int indice){

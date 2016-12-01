@@ -102,6 +102,8 @@ int chamba_getattr(char* path, struct stat* stbuf){
 		}else{
 			res=-ENOENT;
 		}
+	}else{
+		res = -ENOENT;
 	}
 
 	pthread_mutex_unlock(&mutexSocket);
@@ -275,7 +277,7 @@ int chamba_mkdir (const char * path, mode_t modo){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: MKDIR");
 	log_info(archivoLog, "2 - Path: %s", path);
-	int resultadoOsada;
+
 	int res=0;
 	sendBasicInfo("MKDIR", path);
 
@@ -283,8 +285,8 @@ int chamba_mkdir (const char * path, mode_t modo){
 
 	//return resultadoOsada;
 
-	resultadoOsada=recvInt();
-	if (resultadoOsada!=1){
+	int resultadoOsada=recvInt();
+	if (resultadoOsada != 1){
 		 res=- ENOENT;
 	}
 
@@ -296,16 +298,20 @@ int chamba_rename (const char * path, const char * newPath){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: RENAME");
 	log_info(archivoLog, "2 - Path: %s", path);
-	/*int resultadoOsada;
 
+	int res=0;
 	sendBasicInfo("RENAM", path);
-	sendNuevoPath(newPath);
 
-	recvBasicInfo(&resultadoOsada, "RENAM", (char*)path);
+	sendValue((char*)newPath,sizeof(char*));
 
-	return resultadoOsada;*/
+	int resultadoOsada=recvInt();
+
+	if(resultadoOsada != 1){
+		res = -ENOENT;
+	}
+
 	pthread_mutex_unlock(&mutexSocket);
-	return -ENOENT;
+	return res;
 }
 
 //LISTA - FUNCIONA
