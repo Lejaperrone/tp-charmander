@@ -300,18 +300,21 @@ int chamba_rename (const char * path, const char * newPath){
 }
 
 int chamba_unlink (const char * path){
+	int res=0;
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: UNLINK");
 	log_info(archivoLog, "2 - Path: %s", path);
-	/*int resultadoOsada;
+
 
 	sendBasicInfo("ULINK", path);
-	recvBasicInfo(&resultadoOsada, "ULINK", (char*)path);
+	int resultadoOsada = recvInt();
 
-	return resultadoOsada;*/
+	if(resultadoOsada != 1){
+		res = -ENOENT;
+	}
+
 	pthread_mutex_unlock(&mutexSocket);
-	return -ENOENT;
-
+	return res;
 }
 
 int chamba_rmdir (const char * path){

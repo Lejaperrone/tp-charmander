@@ -47,6 +47,10 @@ void proce_getattr(int clientSocket, char* path){
 	free(getAttr);
 }
 
+void destructorDeNodoDirectorio(unsigned char* directorio){
+	free(directorio);
+}
+
 void proce_readdir(int clientSocket, char* path){
 	t_list* directorios=list_create();
 
@@ -65,7 +69,10 @@ void proce_readdir(int clientSocket, char* path){
 				log_info(logPokedexServer, "No envie valor");
 			}
 		}
+
 	}
+
+
 }
 
 void proce_readfile(int clientSocket, char* path){
@@ -176,11 +183,10 @@ void proce_statfs(int clientSocket, char* path){
 }
 
 void proce_removeFile(int clientSocket, char* path){
-	int resultadoOsada = 0;
+	log_info(logPokedexServer, "Se llamo a la funcion removeFile");
+	int resultadoOsada = osada_removeFile(path);
 
-	resultadoOsada = osada_removeFile(path);
-	send(clientSocket,&resultadoOsada,sizeof(int),0);
-
+	sendInt(clientSocket,resultadoOsada);
 }
 
 void proce_removeDir(int clientSocket, char* path){

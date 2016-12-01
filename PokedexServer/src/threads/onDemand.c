@@ -35,6 +35,7 @@ void* procesarPeticiones(t_hilo* h){
 	int result=0;
 
 	while(recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
+
 		char* path=string_new();
 		recibirPath(h->socket,&path);
 
@@ -58,7 +59,7 @@ void* procesarPeticiones(t_hilo* h){
 		}else if(string_equals_ignore_case(nombreFuncion, "RENAM")){
 			//proce_rename(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "ULINK")){
-			//proce_removeFile(h->socket, path);
+			proce_removeFile(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "RMDIR")){
 			//proce_removeDir(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "WRITE")){
@@ -70,6 +71,7 @@ void* procesarPeticiones(t_hilo* h){
 		}
 
 	}
+
 
 	return NULL;
 }
