@@ -139,13 +139,10 @@ void proce_mkdir(int clientSocket, char* path){
 }
 
 void proce_rename(int clientSocket, char* path){
-	int resultadoOsada = 0;
-	char* newPath=string_new();
-	recibirPath(clientSocket,&newPath);
-
-	resultadoOsada = osada_rename(path, newPath);
-
-	send(clientSocket,&resultadoOsada,sizeof(int),0);
+		char* newPath=string_new();
+		recibirPath(clientSocket,&newPath);
+		int resultadoOsada = osada_rename(path, newPath);
+		sendInt(clientSocket,resultadoOsada);
 }
 
 void proce_write(int clientSocket, char* path){

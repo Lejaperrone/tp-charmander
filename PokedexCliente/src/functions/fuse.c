@@ -293,20 +293,18 @@ int chamba_mkdir (const char * path, mode_t modo){
 }
 
 int chamba_rename (const char * path, const char * newPath){
+	int res=0;
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: RENAME");
 	log_info(archivoLog, "2 - Path: %s", path);
-	/*int resultadoOsada;
-
 	sendBasicInfo("RENAM", path);
-	sendNuevoPath(newPath);
-
-	recvBasicInfo(&resultadoOsada, "RENAM", (char*)path);
-
-	return resultadoOsada;*/
+	int resultadoOsada = recvInt();
+	if(resultadoOsada != 1){
+	res = -ENOENT;
+	 }
 	pthread_mutex_unlock(&mutexSocket);
-	return -ENOENT;
-}
+	return res;
+	 }
 
 //LISTA - FUNCIONA
 int chamba_unlink (const char * path){

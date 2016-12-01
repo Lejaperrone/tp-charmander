@@ -421,10 +421,8 @@ char* getFileNameFromPath(char* path, char** pathSplitteada, char* nombre){
 }
 
 int osada_rename(char* path, char* nuevaPath){
-	int resultadoDeBuscarRegistroPorNombre;
-	int subindice=osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-
-	if(resultadoDeBuscarRegistroPorNombre != -1){
+		u_int16_t subindice = osada_TA_obtenerIndiceTA(path);
+		if(strcmp(path, "/") != 0){
 		char* nombre=string_new();
 		char** pathSplitteada=(char**)malloc(sizeof(char*));
 		getFileNameFromPath(nuevaPath,pathSplitteada, nombre);
@@ -438,9 +436,11 @@ int osada_rename(char* path, char* nuevaPath){
 		free(pathSplitteada);
 		free(nombre);
 	}
+	perror("NO se pudo cambiar de nombre al archivo porque no existe");
 	return -ENOENT;
 
 }
+
 
 int calcularBloquesQueOcupaDesdeElPrimerBloque (int indice){
 	int bloques=0;
