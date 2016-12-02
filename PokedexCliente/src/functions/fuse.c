@@ -224,7 +224,7 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 	log_info(archivoLog, "1 - Funcion: READ");
 	log_info(archivoLog, "2 - Path: %s", path);
 
-	int res = -ENOENT;
+	int res = 0;
 	sendBasicInfo("READF", path);
 
 	log_info(archivoLog, "El size_t que le llega a FUSE es: %d", size);
@@ -236,7 +236,7 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 	if(resultadoOsada == 1){
 		recvString(&buffer);
 		log_info(archivoLog, "El buf recibido es: %s", buffer);
-		res = 0;
+		res = string_length(buffer);
 	}
 
 	pthread_mutex_unlock(&mutexSocket);
