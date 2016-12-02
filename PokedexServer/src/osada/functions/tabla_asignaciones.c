@@ -18,12 +18,15 @@
 extern pthread_mutex_t mutexTablaAsignaciones;
 int avanzarBloquesParaLeer (int bloqueInicial,int desplazamientoLimite){
 	int i;
-	int bloqueInicioLectura;
+
 	for (i=0;i<desplazamientoLimite;i++){
-		bloqueInicioLectura=osada_drive.asignaciones[bloqueInicial];
-		bloqueInicial=bloqueInicioLectura;
+		if(bloqueInicial != 0xFFFF && bloqueInicial != -1){
+			bloqueInicial=osada_drive.asignaciones[bloqueInicial];
+		}else{
+			bloqueInicial = -1;
+		}
 	}
-	return bloqueInicioLectura;
+	return bloqueInicial;
 }
 int avanzarBloquesParaEscribir (int bloqueInicial,int desplazamientoLimite){
 	int i;

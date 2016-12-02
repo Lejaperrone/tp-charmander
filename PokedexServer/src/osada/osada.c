@@ -205,32 +205,54 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 	}
 	return bytesEscritos;
 }
-int osada_read(char *path, char* buf, size_t size, off_t offset){
+
+int osada_read(char *path, char** buf, size_t size, off_t offset){
 
 	int indice = osada_TA_obtenerIndiceTA(path);
+	log_info(logPokedexServer, "OSADA - El indice que se obtiene es: %d", indice);
 
-	if (!superaTamanioArchivo(indice,offset,size) && indice != -1){
+	if (indice != -1){
 		//con el indice voy a TA y busco el FB
 		int bloque=osada_drive.directorio[indice].first_block;
 		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n", path, bloque);
 		//offset/TAMBLQ= R ,rrdondearlo para arriba y restarle 1-->2
-		double desplazamientoHastaElBloque=ceil(offset/OSADA_BLOCK_SIZE);
+		double desplazamientoHastaElBloque=floor(offset/OSADA_BLOCK_SIZE);
 		log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: Tengo que desplazarme %f bloques\n",desplazamientoHastaElBloque);
 		//Voy a FB y avanzo 2 dentro de Tasignaciones
 		int bloqueArranque=avanzarBloquesParaLeer(bloque,desplazamientoHastaElBloque);
 		log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: Comienzo a leer desde el bloque %d\n",bloqueArranque);
 		//RDO=ofsset-(RxBSIZE)=cuando llegue al bloque solicitado hago *data (en declarations.h) y me muevo (se sumo) RDO
-		int byteComienzoLectura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
+		int byteComienzoLectura = 0;
+		if(offset != 0){
+			byteComienzoLectura = offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
+		}
+
 		log_info(logPokedexServer, "Empiezo a leer desde el byte %d\n",byteComienzoLectura);
-		while (bloqueArranque!=0xFFFFFFFF){
+		int byteCopiados = size;
+		while (bloqueArranque!=0xFFFFFFFF && bloqueArranque != -1 && byteCopiados>0){
 			//falta chequear inicio
-			memcpy(buf,osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoLectura],OSADA_BLOCK_SIZE-byteComienzoLectura);
-			log_info(logPokedexServer, "OSADA - DATOS: Se leyo esta informacion: %s\n",buf);
+			log_info(logPokedexServer, "OSADA - Quiero leer %d bytes", OSADA_BLOCK_SIZE-byteComienzoLectura);
+			log_info(logPokedexServer, "OSADA - El bloque de arranque: %d", bloqueArranque);
+			log_info(logPokedexServer, "OSADA - El bloque tiene %s", string_substring(osada_drive.data[bloqueArranque], 0, OSADA_BLOCK_SIZE));
+			if(byteCopiados >= (OSADA_BLOCK_SIZE-byteComienzoLectura)){
+				char* substring = string_substring(osada_drive.data[bloqueArranque], byteComienzoLectura, OSADA_BLOCK_SIZE);
+				log_info(logPokedexServer, "OSADA - El substring: %s", substring);
+				string_append(buf,substring);
+				byteCopiados -= OSADA_BLOCK_SIZE-byteComienzoLectura;
+			}else{
+				char* substring = string_substring(osada_drive.data[bloqueArranque], byteComienzoLectura, byteCopiados);
+				log_info(logPokedexServer, "OSADA - El substring: %s", substring);
+				string_append(buf,substring);
+				byteCopiados = 0;
+			}
+
+			//memcpy(buf,osada_drive.data[bloqueArranque]+byteComienzoLectura,OSADA_BLOCK_SIZE-byteComienzoLectura);
+			log_info(logPokedexServer, "OSADA - DATOS: Se leyo esta informacion: %s\n",*buf);
 			bloqueArranque=osada_drive.asignaciones[bloque];
 			log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: El bloque siguiente es: %d\n",bloqueArranque);
 			byteComienzoLectura=0;
 		}
-		log_info(logPokedexServer, "OSADA - DATOS: Se han leido %d bytes\n", string_length(buf));
+		log_info(logPokedexServer, "OSADA - DATOS: Se han leido %d bytes\n", string_length(*buf));
 
 		return 1;
 	}

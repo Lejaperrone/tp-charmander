@@ -222,25 +222,24 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: READ");
 	log_info(archivoLog, "2 - Path: %s", path);
-	/*int resultadoOsada;
-	int tamanio;
+
+	int res = -ENOENT;
 	sendBasicInfo("READF", path);
 
-	sendSize(size);
-	sendOffset(offset);
+	log_info(archivoLog, "El size_t que le llega a FUSE es: %d", size);
+	sendValue(&size, sizeof(size_t));
+	sendValue(&offset, sizeof(off_t));
 
-	recvBasicInfo(&resultadoOsada, "READF", (char*)path);
+	int resultadoOsada=recvInt();
 
 	if(resultadoOsada == 1){
-		recv(pokedexServer,&tamanio,sizeof(int),0);
-		log_info(archivoLog,"Voy a leer %d bytes del path %s",tamanio,path);
-		recv(pokedexServer,buffer,tamanio,0);
-		log_info(archivoLog,"Lei el buffer: %s", buffer);
+		recvString(&buffer);
+
+		res = 0;
 	}
 
-	return resultadoOsada;*/
 	pthread_mutex_unlock(&mutexSocket);
-	return -ENOENT;
+	return res;
 }
 
 int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
