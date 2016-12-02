@@ -234,7 +234,7 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 
 	if(resultadoOsada == 1){
 		recvString(&buffer);
-
+		log_info(archivoLog, "El buf recibido es: %s", buffer);
 		res = 0;
 	}
 

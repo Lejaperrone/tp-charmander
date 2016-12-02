@@ -82,18 +82,24 @@ void proce_readfile(int clientSocket, char* path){
 	off_t offset;
 
 	recvValue(clientSocket,&size);
-	char* buf = string_new();
 	recvValue(clientSocket,&offset);
 
 	log_info(logPokedexServer,"El size_t que me llega para READF es: %d",size);
 	log_info(logPokedexServer,"El off_t que me llega para READF es: %d",offset);
+
+
+	int indice = osada_TA_obtenerIndiceTA(path);
+
+	char* buf = malloc(osada_drive.directorio[indice].file_size);
 
 	int resultadoOsada = osada_read(path, &buf, size, offset);
 	sendInt(clientSocket, resultadoOsada);
 
 
 	if(resultadoOsada == 1){
-		sendString(clientSocket, buf, string_length(buf)-1);
+		log_info(logPokedexServer, "Voy a enviar como size del buf %d con el contenido %s", string_length(buf), buf);
+		sendString(clientSocket, buf, string_length(buf));
+
 	}
 
 	free(buf);
