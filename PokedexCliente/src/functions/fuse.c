@@ -198,6 +198,8 @@ void recibirBufferCompleto (struct stat* stbuf){
 	log_info(archivoLog,"FUSE: Recibo el primer parametro de stbuf");
 }
 */
+
+//LISTA - FUNCIONA
 int chamba_open (const char * path, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: OPEN");
