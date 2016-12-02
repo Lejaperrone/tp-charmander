@@ -441,7 +441,7 @@ void getFileNameFromPath(char* path,  char** nombre){
 	}
 	free(pathSplitteada);
 }
-//LISTA - FUNCIONA
+
 int osada_rename(char* path, char* nuevaPath){
 	int resultado;
 	int subindice=osada_TA_obtenerIndiceTA(path);

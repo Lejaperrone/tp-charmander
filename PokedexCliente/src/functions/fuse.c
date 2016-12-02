@@ -294,6 +294,7 @@ int chamba_mkdir (const char * path, mode_t modo){
 	return res;
 }
 
+//LISTA - FUNCIONA
 int chamba_rename (const char * path, const char * newPath){
 	int res=0;
 	pthread_mutex_lock(&mutexSocket);
