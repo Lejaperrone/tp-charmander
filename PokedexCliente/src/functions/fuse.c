@@ -218,6 +218,7 @@ int chamba_open (const char * path, struct fuse_file_info * fi){
 	return res;
 }
 
+//LISTA - FUNCIONA (queda ver por que no muestra los caracteres del buff)
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: READ");
