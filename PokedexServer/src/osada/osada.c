@@ -207,10 +207,9 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 }
 int osada_read(char *path, char* buf, size_t size, off_t offset){
 
-	int resultadoDeBuscarRegistroPorNombre;
-	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
+	int indice = osada_TA_obtenerIndiceTA(path);
 
-	if (!superaTamanioArchivo(indice,offset,size) && osada_open(path) == 1){
+	if (!superaTamanioArchivo(indice,offset,size) && indice != -1){
 		//con el indice voy a TA y busco el FB
 		int bloque=osada_drive.directorio[indice].first_block;
 		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n", path, bloque);
@@ -242,12 +241,11 @@ int osada_read(char *path, char* buf, size_t size, off_t offset){
 
 
 int osada_open(char* path){
-	int resultadoDeBuscarRegistroPorNombre;
+
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
-	u_int16_t child = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
-	if(child>=0 && resultadoDeBuscarRegistroPorNombre != -1){
-		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: La funcion open encontro que el bloque ocupado por %s es %d\n",
-				path,child);
+	int child = osada_TA_obtenerIndiceTA(path);
+	if(child>=0 && child != -1){
+		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: La funcion open encontro que el bloque ocupado por %s es %d\n",path,child);
 		if(osada_drive.directorio[child].state == 2 || osada_drive.directorio[child].state == 1){
 			return 1;
 		}

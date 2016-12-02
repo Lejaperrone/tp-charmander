@@ -200,7 +200,8 @@ void proce_removeDir(int clientSocket, char* path){
 }
 
 void proce_open(int clientSocket, char* path){
-	int resultadoOsada;
-	resultadoOsada = osada_open(path);
-	send(clientSocket,&resultadoOsada,sizeof(int),0);
+
+	int resultadoOsada = osada_open(path);
+
+	sendInt(clientSocket,resultadoOsada);
 }

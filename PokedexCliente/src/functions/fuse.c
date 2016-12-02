@@ -202,16 +202,18 @@ int chamba_open (const char * path, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: OPEN");
 	log_info(archivoLog, "2 - Path: %s", path);
-	/*
 
-	int resultadoOsada;
+	int res = -ENOENT;
 	sendBasicInfo("OPENF", path);
-	recvBasicInfo(&resultadoOsada, "OPENF", (char*)path);
 
+	int resultadoOsada=recvInt();
 
-	return resultadoOsada; //Desde el servidor ya me devuelve un 1 o un ENOENT*/
+	if(resultadoOsada == 1){
+		res = 0;
+	}
+
 	pthread_mutex_unlock(&mutexSocket);
-	return -ENOENT;
+	return res;
 }
 
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
