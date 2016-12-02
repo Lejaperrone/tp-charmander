@@ -395,9 +395,9 @@ bool esUnDirectorio(int subindice){
 
 int renombrarArchivo (int subindice, char* newFileName){
 	int resultado;
-	pthread_mutex_lock(&mutexTablaArchivos);
 	if (esUnArchivo(subindice)){
 		if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
+			log_info(logPokedexServer,"Se ha reemplazado el nombre del archivo por %s",newFileName);
 			resultado= 1;
 		}else{
 			resultado= 0;
@@ -407,31 +407,51 @@ int renombrarArchivo (int subindice, char* newFileName){
 			resultado=ENOENT;
 		}
 		if (esUnDirectorio(subindice)){
-			resultado=EISDIR;
+			if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
+				log_info(logPokedexServer,"Se ha reemplazado el nombre del directorio por %s",newFileName);
+						resultado= 1;
+					}else{
+						resultado= 0;
+					}
 		}
 	}
-	pthread_mutex_unlock(&mutexTablaArchivos);
 	return resultado;
 
 }
-char* getFileNameFromPath(char* path, char** pathSplitteada, char* nombre){
-	pathSplitteada=string_split(path,"/");
-	nombre=pathSplitteada[strlen(*pathSplitteada)-2];
-	return nombre;
+void getFileNameFromPath(char* path,  char** nombre){
+	char** pathSplitteada=string_split(path,"/");
+	//*nombre=pathSplitteada[strlen(*pathSplitteada)-1];
+	int j=0;
+	while(j!=-1){
+		if(pathSplitteada[j+1]==NULL){
+			string_append(nombre,pathSplitteada[j]);
+			j=-1;
+		}else{
+			j++;
+		}
+	}
+	log_info(logPokedexServer,"El nombre a modificar es %s",*nombre );
+	log_info(logPokedexServer,"La path nueva es %s, el nombre a actualizar es %s",path,*nombre);
+	int i=0;
+	while(i!=-1){
+		free(pathSplitteada[i]);
+		if (pathSplitteada[i]==NULL){
+			i=-1;
+		}else{
+			i++;
+		}
+	}
+	free(pathSplitteada);
 }
-
+//LISTA - FUNCIONA
 int osada_rename(char* path, char* nuevaPath){
-
 	int resultado;
 	int subindice=osada_TA_obtenerIndiceTA(path);
-
+	log_info(logPokedexServer,"El subindice es %d",subindice);
 	if(subindice != -1){
-		u_int16_t subindice = osada_TA_obtenerIndiceTA(path);
-		if(strcmp(path, "/") != 0){
 			char* nombre=string_new();
-			char** pathSplitteada=(char**)malloc(sizeof(char*));
-			getFileNameFromPath(nuevaPath,pathSplitteada, nombre);
-			log_info(logPokedexServer, "OSADA - Renombrando archivo: El nombre del archivo original es: %s\n",nombre);
+			getFileNameFromPath(nuevaPath, &nombre);
+			log_info(logPokedexServer, "OSADA - Renombrando archivo: El nombre del archivo nuevo es: %s\n",nombre);
 			if (renombrarArchivo(subindice,nombre)==1){
 				log_info(logPokedexServer, "OSADA - Renombrando archivo: Se ha renombrado el archivo correctamente\n");
 				resultado = 1;
@@ -439,12 +459,11 @@ int osada_rename(char* path, char* nuevaPath){
 				resultado = -EACCES;
 			}
 			free(nombre);
-		}else{
+	}else{
 			resultado = -ENOENT;
+			perror("NO se pudo cambiar de nombre al archivo porque no existe");
 		}
 
-	}
-	perror("NO se pudo cambiar de nombre al archivo porque no existe");
 
 	return resultado;
 }
