@@ -120,16 +120,14 @@ void proce_create(int clientSocket, char* path){
 }
 
 void proce_truncate(int clientSocket, char* path){
-	int resultadoOsada = 0;
-	t_truncateFile* truncateFile = malloc(sizeof(t_truncateFile));
 
-	recv(clientSocket,&(truncateFile->offset),sizeof(off_t),0);
-	resultadoOsada = osada_truncate(path, truncateFile->offset);
+	off_t offset;
+	recvValue(clientSocket,&offset);
+	log_info(logPokedexServer, "Recibi el offset: %d", offset);
 
-	send(clientSocket,&resultadoOsada,sizeof(int),0);
+	int resultadoOsada = osada_truncate(path, offset);
 
-
-	free(truncateFile);
+	sendInt(clientSocket, resultadoOsada);
 }
 
 void proce_mkdir(int clientSocket, char* path){

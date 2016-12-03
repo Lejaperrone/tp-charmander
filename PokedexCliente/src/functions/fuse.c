@@ -270,16 +270,20 @@ int chamba_truncate (const char * path, off_t offset){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: TRUNCATE");
 	log_info(archivoLog, "2 - Path: %s", path);
-	/*int resultadoOsada;
 
+	int res=0;
 	sendBasicInfo("TRUNC", path);
-	sendOffset(offset);
+	sendValue(&offset, sizeof(off_t));
+	log_info(archivoLog, "Le mando al servidor el offset: %d", offset);
 
-	recvBasicInfo(&resultadoOsada, "TRUNC", (char*)path);
+	int resultadoOsada = recvInt();
 
-	return resultadoOsada;*/
+	if(resultadoOsada != 1){
+		res = -1;
+	}
+
 	pthread_mutex_unlock(&mutexSocket);
-	return -ENOENT;
+	return res;
 }
 
 // LISTA - FUNCIONA
