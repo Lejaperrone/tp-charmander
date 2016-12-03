@@ -235,13 +235,14 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 	sendValue(&offset, sizeof(off_t));
 
 	int resultadoOsada=recvInt();
-
+	char* bufAlternativo=malloc(resultadoOsada);
 	if(resultadoOsada >0){
 		log_info(archivoLog,"Recibo como resultadoOsada: %d",resultadoOsada);
-		recvString(&buffer);
-		log_info(archivoLog,"El tamanio del buffer es: %d",string_length(buffer));
+		recvString(&bufAlternativo);
+		//log_info(archivoLog,"El tamanio del buffer es: %d",string_length(buffer));
+		memcpy(buffer,bufAlternativo,resultadoOsada);
 		log_info(archivoLog, "El buf recibido es: %s", buffer);
-		res = string_length(buffer);
+		res = resultadoOsada;
 	}
 
 	pthread_mutex_unlock(&mutexSocket);
