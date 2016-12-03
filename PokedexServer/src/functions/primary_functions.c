@@ -96,7 +96,8 @@ void proce_readfile(int clientSocket, char* path){
 	sendInt(clientSocket, resultadoOsada);
 
 
-	if(resultadoOsada == 1){
+	if(resultadoOsada > 0){
+		log_info(logPokedexServer,"El tamanio (devuelto por resultadoOsada) es %d",resultadoOsada);
 		log_info(logPokedexServer, "Voy a enviar como size del buf %d con el contenido %s", string_length(buf), buf);
 		sendString(clientSocket, buf, string_length(buf));
 

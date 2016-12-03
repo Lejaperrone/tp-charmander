@@ -267,7 +267,8 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 //		memcpy(buf,bufAuxiliar,osada_drive.directorio[indice].file_size);
 		log_info(logPokedexServer, "OSADA - DATOS: Se leyo el buf posta: %s\n",*buf);
 		free(bufAuxiliar);
-		return 1;
+		log_info(logPokedexServer,"El tamanio del buffer es %d bytes",string_length(*buf));
+		return string_length(*buf);
 	}
 
 	free(bufAuxiliar);
