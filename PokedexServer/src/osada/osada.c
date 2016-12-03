@@ -260,6 +260,7 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 		}
 //		log_info(logPokedexServer, "OSADA - DATOS: Se han leido %d bytes\n", string_length(bufAuxiliar));
 		memcpy(*buf,bufAuxiliar,osada_drive.directorio[indice].file_size);
+//		string_append(buf, '\0');
 //		*buf = string_substring(bufAuxiliar, 0, osada_drive.directorio[indice].file_size);
 //		memcpy(bufAuxiliar,bufAuxiliar,osada_drive.directorio[indice].file_size);
 //		log_info(logPokedexServer, "OSADA - DATOS: Se leyo el bufAuxiliar: %s\n",bufAuxiliar);
