@@ -31,9 +31,11 @@ int sendString(int clientSocket, char* parameter, int size){
 	sprintf(sizeStr,"%i",size);
 	if(send(clientSocket, sizeStr, 11, 0) == 11){
 		if(send(clientSocket, parameter, size, 0) == size){
+			free(sizeStr);
 			return 1;
 		}
 	}
+	free(sizeStr);
 	return 0;
 }
 int recvValue(int clientSocket, void* buffer){
@@ -72,8 +74,10 @@ int sendInt(int clientSocket, int number){
 
 	sprintf(numberStr,"%i",number);
 	if(send(clientSocket, numberStr, 11, 0) == 11){
+		free(numberStr);
 		return 1;
 	}
+	free(numberStr);
 	return 0;
 }
 

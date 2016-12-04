@@ -71,7 +71,7 @@ void* procesarPeticiones(t_hilo* h){
 		}
 
 	}
-
+	free(nombreFuncion);
 
 	return NULL;
 }

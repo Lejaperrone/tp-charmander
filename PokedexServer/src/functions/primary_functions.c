@@ -33,6 +33,7 @@ void proce_getattr(int clientSocket, char* path){
 	getAttr->state=0;
 
 	int resultadoOsada = osada_getattr(path,getAttr);
+	free(path);
 	log_info(logPokedexServer, "POKEDEXSERVER  - 3 - resultadoOsada: %d", resultadoOsada);
 	sendInt(clientSocket, resultadoOsada);
 
@@ -55,6 +56,7 @@ void proce_readdir(int clientSocket, char* path){
 	t_list* directorios=list_create();
 
 	int resultadoOsada = osada_readdir(path, directorios);
+	free(path);
 	log_info(logPokedexServer, "resultadoOsada: %d", resultadoOsada);
 	sendInt(clientSocket, resultadoOsada);
 
