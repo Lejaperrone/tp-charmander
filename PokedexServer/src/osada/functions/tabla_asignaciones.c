@@ -46,12 +46,12 @@ bool existeProximoBloque(int* subindice){
 
 void obtenerProximoBloque(int* subindice){
 	if (existeProximoBloque(subindice) && *subindice != -1){
-		log_info(logPokedexServer, "El subindice %d se reemplazara por %d", *subindice,osada_drive.asignaciones[*subindice]);
+		//log_info(logPokedexServer, "El subindice %d se reemplazara por %d", *subindice,osada_drive.asignaciones[*subindice]);
 		*subindice=osada_drive.asignaciones[*subindice];
-		log_info(logPokedexServer, "El nuevo subindice (dentro de ProximoBloque) es: %d",*subindice);
+		//log_info(logPokedexServer, "El nuevo subindice (dentro de ProximoBloque) es: %d",*subindice);
 	}else{
 		*subindice=0xFFFF;
-		log_info(logPokedexServer, "El nuevo subindice (dentro de ProximoBloque) que deberia ser 65535 es: %d",*subindice);
+		//log_info(logPokedexServer, "El nuevo subindice (dentro de ProximoBloque) que deberia ser 65535 es: %d",*subindice);
 	}
 }
 
