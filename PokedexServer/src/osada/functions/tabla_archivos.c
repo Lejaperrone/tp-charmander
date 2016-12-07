@@ -60,6 +60,7 @@ int darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 	int yaLoGuarde=0;
 	for (i=0;i<2048;i++){
 		if(yaLoGuarde==0 && osada_drive.directorio[i].state==0){
+//			log_info(logPokedexServer, "OSADA - Entre en el if de que NO se guardo y el state del archivo es 0");
 			yaLoGuarde=1;
 			char* fecha=string_new();
 			time_t timer=time(0);
@@ -72,6 +73,7 @@ int darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 			// no sabemos si el directorio padre de un directorio nuevo es 0xFFFF u otro
 			//parent directory es el subindice del ultimo hijo
 			osada_drive.directorio[i].parent_directory=indice;
+//			log_info(logPokedexServer, "OSADA - Entre en el if de que NO se guardo y el state del archivo es 0");
 			osada_drive.directorio[i].state=2;
 			osada_drive.directorio[i].first_block=0xFFFF;
 		}

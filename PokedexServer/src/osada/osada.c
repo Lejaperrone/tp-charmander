@@ -442,10 +442,11 @@ int osada_createDir(char* path){
 	}
 	free(directorio);
 	int subindice=osada_TA_obtenerIndiceTA(directorioPadre);
+//	log_info(logPokedexServer, "OSADA - El subindice obtenido es: %d", subindice);
 	free(directorioPadre);
 	//aca hay que obtener el hijo del ultimo path/ parametro es el path
 	if(subindice != -1){
-		if(darDeAltaDirectorioEnTablaDeArchivos(name, subindice)){
+		if(darDeAltaDirectorioEnTablaDeArchivos(name, subindice) == 1){
 			free(name);
 			return 1;
 		}else{
