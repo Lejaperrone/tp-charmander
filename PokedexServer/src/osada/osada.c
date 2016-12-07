@@ -402,7 +402,8 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path){
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod=atoi(fecha);
 	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: La fecha de modificacion es %d\n",osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod);
 	strcpy((char*)osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].fname,fileName);
-	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=osada_TA_obtenerUltimoHijoFromPath(directoryName, &resultadoDeBuscarRegistroPorNombre);
+	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=osada_TA_obtenerIndiceTA(path);
+//	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=osada_TA_obtenerUltimoHijoFromPath(directoryName, &resultadoDeBuscarRegistroPorNombre);
 	free(fecha);
 	free(fileName);
 	free(directoryName);
@@ -410,21 +411,25 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path){
 	free(fileSplitteado);
 	pthread_mutex_unlock(&mutexTablaArchivos);
 }
-//int osada_createFile(char* path, mode_t mode){
-//	int resultado;
-//
-//	if (buscarLugarLibreEnBitmap(&)>=0){
-//		log_info(logPokedexServer, "OSADA - BITMAP: Hay lugar libre para crear archivo\n");
-//		int posicionEnBitmap=buscarLugarLibreEnBitmap();
-//		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El archivo %s ocupara la posicion %d\n",path,posicionEnBitmap);
-//		generarNuevoArchivoEnTablaDeArchivos(path);
-//		resultado = 1;
-//	}else{
-//		resultado = -ENOSPC;
-//	}
-//
-//	return resultado;
-//}
+
+int osada_createFile(char* path, mode_t mode){
+	int resultado;
+	int posicionLibreEnBitmap = -1;
+	buscarLugarLibreEnBitmap(&posicionLibreEnBitmap);
+
+	if (posicionLibreEnBitmap != -1){
+		log_info(logPokedexServer, "OSADA - BITMAP: Hay lugar libre para crear archivo\n");
+		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El archivo %s ocupara la posicion %d\n",path,posicionLibreEnBitmap);
+		generarNuevoArchivoEnTablaDeArchivos(path);
+		resultado = 1;
+	}else{
+		log_info(logPokedexServer, "OSADA - No se encontro lugar libre en el bitmap");
+		resultado = -ENOSPC;
+	}
+
+	return resultado;
+}
+
 int osada_createDir(char* path){
 	char* name;
 	int i=0;

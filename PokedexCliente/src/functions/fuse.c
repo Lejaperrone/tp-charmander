@@ -254,17 +254,18 @@ int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: CREATE");
 	log_info(archivoLog, "2 - Path: %s", path);
-	/*int resultadoOsada;
 
 	sendBasicInfo("CREAT", path);
-	sendMode(mode);
+//	sendValue(&mode, sizeof(mode_t));
 
-	recvBasicInfo(&resultadoOsada, "CREAT", (char*)path);
+	int res= -ENOENT;
+	int resultadoOsada = recvInt();
+	if(resultadoOsada == 1){
+		res = 0;
+	}
 
-
-	return resultadoOsada;*/
 	pthread_mutex_unlock(&mutexSocket);
-	return -ENOENT;
+	return res;
 }
 
 //CUASI LISTA (hay que ver por que a veces rompe cuando offset>tamanioArchivo)

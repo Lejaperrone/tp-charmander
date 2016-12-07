@@ -51,7 +51,7 @@ void* procesarPeticiones(t_hilo* h){
 		}else if(string_equals_ignore_case(nombreFuncion, "READF")){
 			proce_readfile(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "CREAT")){
-		//	proce_create(h->socket, path);
+			proce_create(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
 			proce_truncate(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "MKDIR")){

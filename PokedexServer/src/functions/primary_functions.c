@@ -108,18 +108,16 @@ void proce_readfile(int clientSocket, char* path){
 	free(buf);
 }
 
-//void proce_create(int clientSocket, char* path){
-//	int resultadoOsada = 0;
-//	t_createFile* createFile = malloc(sizeof(t_createFile));
-//
-//	recv(clientSocket,&(createFile->modo),sizeof(mode_t),0);
-//	resultadoOsada = osada_createFile(path, createFile->modo);
-//
-//	send(clientSocket,&resultadoOsada,sizeof(int),0);
-//
-//
-//	free(createFile);
-//}
+void proce_create(int clientSocket, char* path){
+
+	mode_t modo = 0;
+//	recvValue(clientSocket, &modo);
+
+	int resultadoOsada = osada_createFile(path, modo);
+
+	sendInt(clientSocket, resultadoOsada);
+
+}
 
 void proce_truncate(int clientSocket, char* path){
 
