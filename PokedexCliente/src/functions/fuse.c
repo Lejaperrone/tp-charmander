@@ -199,6 +199,7 @@ void recibirBufferCompleto (struct stat* stbuf){
 }
 */
 
+//LISTA - FUNCIONA (era necesaria para el chamba_read)
 int chamba_flush(const char* path, struct fuse_file_info* fi){
 	return 0;
 }
@@ -221,7 +222,7 @@ int chamba_open (const char * path, struct fuse_file_info * fi){
 	return res;
 }
 
-//LISTA - FUNCIONA
+//LISTA - FUNCIONA (corregir para los casos de archivos muy grandes)
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: READ");
@@ -266,6 +267,7 @@ int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 	return -ENOENT;
 }
 
+//CUASI LISTA (hay que ver por que a veces rompe cuando offset>tamanioArchivo)
 int chamba_truncate (const char * path, off_t offset){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: TRUNCATE");
