@@ -203,6 +203,10 @@ void recibirBufferCompleto (struct stat* stbuf){
 int chamba_flush(const char* path, struct fuse_file_info* fi){
 	return 0;
 }
+
+int chamba_utimens(const char *path, const struct timespec tv[2]){
+	return 0;
+}
 //LISTA - FUNCIONA
 int chamba_open (const char * path, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);

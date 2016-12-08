@@ -34,6 +34,7 @@ int chamba_rmdir (const char * path);
 int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi);
 int chamba_statfs (const char * path, struct statvfs * stats);
 int chamba_flush(const char* path, struct fuse_file_info* fi);
+int chamba_utimens(const char *path, const struct timespec tv[2]);
 
 static struct fuse_operations chamba_oper = {
 	.getattr        = chamba_getattr, //obtiene lo atributos de un path
@@ -48,7 +49,8 @@ static struct fuse_operations chamba_oper = {
 	.rmdir          = chamba_rmdir, //elimina un directorio
 	.write          = chamba_write, //escribe
 	.statfs         = chamba_statfs, //estadisticas del filesystem, espacio disponible, etc.
-	.flush			= chamba_flush
+	.flush			= chamba_flush,
+	.utimens		= chamba_utimens
 };
 
 #endif /* FUNCTIONS_FUSE_H_ */
