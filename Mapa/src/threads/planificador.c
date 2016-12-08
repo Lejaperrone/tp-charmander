@@ -62,13 +62,11 @@ void logEntrenadoresBloqueados(){
 	int i;
 	char * mensaje = string_new();
 	string_append(&mensaje, "Entrenadores bloqueados: ");
-	pthread_mutex_lock(&mutexEntrBQ);
 	for(i=0; i<list_size(entrenadoresBloqueados); i++){
 		t_entrenador* entrenador = list_get(entrenadoresBloqueados, i);
 		string_append(&mensaje, &(entrenador->simbolo));
 		string_append(&mensaje, " ");
 	}
-	pthread_mutex_unlock(&mutexEntrBQ);
 	log_info(archivoLog, mensaje);
 }
 void logColasEntrenadores(){
@@ -127,11 +125,10 @@ void procesarEntrenadoresBloqueados(){
 		}
 	}
 
-	pthread_mutex_lock(&mutexEntrBQ);
 	int i;
 	if(!list_is_empty(entrenadoresBloqueados)){
 		for(i=0 ;i<list_size(entrenadoresBloqueados); i++){
-			//pthread_mutex_lock(&mutexEntrBQ);
+			pthread_mutex_lock(&mutexEntrBQ);
 			t_entrenador* entrenador = list_get(entrenadoresBloqueados,i);
 			int valorDeRetorno = _asignar_PokemonsDisponible_PorElCualElEntrenadorSeBloqueo(entrenador);
 			switch(valorDeRetorno){
@@ -143,10 +140,9 @@ void procesarEntrenadoresBloqueados(){
 				list_remove(entrenadoresBloqueados,i);
 				break;
 			}
-			//pthread_mutex_unlock(&mutexEntrBQ);
+			pthread_mutex_unlock(&mutexEntrBQ);
 		}
 	}
-	pthread_mutex_unlock(&mutexEntrBQ);
 	nivel_gui_dibujar(elementosUI, mapa->nombre);
 }
 void procesarEntrenadoresGarbageCollector(){
