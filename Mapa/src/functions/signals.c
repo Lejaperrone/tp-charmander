@@ -6,6 +6,7 @@
  */
 
 #include <signal.h>
+#include <pthread.h>
 
 #include "../commons/structures.h"
 #include "config.h"
@@ -19,7 +20,9 @@ void sigusr2_handler(int signum){
 
 void verificarSenialesRecibidas(){
 	if(recvSIGUSR2==1){
+		pthread_mutex_lock(&mutexMapa);
 		recvSIGUSR2 = 0;
 		leerConfiguracionMetadataMapa(mapa, name, pokedexPath);
+		pthread_mutex_unlock(&mutexMapa);
 	}
 }

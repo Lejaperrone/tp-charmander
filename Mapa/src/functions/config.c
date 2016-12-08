@@ -100,14 +100,13 @@ void leerConfiguracionMetadataMapa(t_mapa* mapa, char* name, char* pokedexPath){
 	mapa->retardo = config_get_int_value(config, "retardo");
 	mapa->ip = config_get_string_value(config, "IP");
 	mapa->puerto = config_get_string_value(config, "Puerto");
-	mapa->pokeNests = list_create();
 
-	free(config);
+	log_destroy(config);
 }
 
 void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){
 	leerConfiguracionMetadataMapa(mapa, name, pokedexPath);
-
+	mapa->pokeNests = list_create();
 
 	//Creo el path de los pokenest
 	char* pathPokenests = string_new();

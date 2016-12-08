@@ -20,7 +20,6 @@ int** mNecesidad;
 int* vDisponibles;
 int* resultadoDeteccion;
 int cantEntrenadores,cantPokenests;
-extern pthread_mutex_t mutexEntrBQ;
 
 int countPokemonsCapturadosFromPokenest(t_entrenador* entrenador, char identificador){
 	bool _validarTipoPokemon(t_pokemon_custom* pokemon){
@@ -158,6 +157,7 @@ t_pokemon_custom* obtenerPokemonMasFuerte(t_entrenador* entrenador){
 	return pokemonMasFuerte;
 }
 void batalla(){
+	pthread_mutex_lock(&mutexMapa);
 	if (mapa->batalla==1){
 		int cantEntrenadoresDeadlock=list_size(entrenadoresDeadlock);
 		if (cantEntrenadoresDeadlock>1){
@@ -210,6 +210,7 @@ void batalla(){
 	}else{
 		log_info(archivoLog,"No esta activada la batalla Pokemon.");
 	}
+	pthread_mutex_unlock(&mutexMapa);
 }
 
 void liberarMemoria(){

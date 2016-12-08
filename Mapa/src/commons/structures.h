@@ -59,6 +59,9 @@
 	pthread_t hiloPlanificador;
 	pthread_t hiloDeadlock;
 
+	pthread_mutex_t mutexEntrBQ;
+	pthread_mutex_t mutexMapa;
+
 	t_list* entrenadoresPreparados;
 	t_list* entrenadoresListos;
 	t_list* entrenadoresBloqueados;
