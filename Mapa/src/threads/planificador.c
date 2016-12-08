@@ -223,39 +223,30 @@ t_entrenador* obtenerProximoEntrenadorCercano(){
 
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAnterior){
 	if(entrenadorAnterior != NULL){
-		if(entrenadorAnterior->planificador.quantum == -2){
+		if(entrenadorAnterior->planificador.quantum == -2 || entrenadorAnterior->planificador.quantum == -1){
 			entrenadorAnterior->planificador.quantum = 0;
 		}
 
 		if(list_size(entrenadoresListos)>0){
 			t_entrenador* otroEntrenador = list_get(entrenadoresListos, list_size(entrenadoresListos)-1);
-			if(entrenadorAnterior->planificador.quantum == -1 && otroEntrenador->simbolo == entrenadorAnterior->simbolo){
+			if(otroEntrenador->simbolo==entrenadorAnterior->simbolo && entrenadorAnterior->planificador.quantum>0){
 				list_remove(entrenadoresListos, list_size(entrenadoresListos)-1);
+
+				entrenadorAnterior->planificador.quantum--;
 				return entrenadorAnterior;
 			}else{
-				if(entrenadorAnterior->planificador.quantum == -1){
-					entrenadorAnterior->planificador.quantum =  0;
-				}
+				entrenadorAnterior->planificador.quantum=0;
+				log_info(archivoLog, "Planficador - El entrenador %c va al final de la cola de Listos", entrenadorAnterior->simbolo);
 
-				if(otroEntrenador->simbolo==entrenadorAnterior->simbolo && entrenadorAnterior->planificador.quantum>0){
-					list_remove(entrenadoresListos, list_size(entrenadoresListos)-1);
+				if(list_size(entrenadoresListos)>0){
+					t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
+					proximoEntrenador->planificador.quantum = mapa->quantum-1;
 
-					entrenadorAnterior->planificador.quantum--;
-					return entrenadorAnterior;
+					log_info(archivoLog, "Planficador - Planifico al entrenador %c", proximoEntrenador->simbolo);
+					logColasEntrenadores();
+					return proximoEntrenador;
 				}else{
-					entrenadorAnterior->planificador.quantum=0;
-					log_info(archivoLog, "Planficador - El entrenador %c va al final de la cola de Listos", entrenadorAnterior->simbolo);
-
-					if(list_size(entrenadoresListos)>0){
-						t_entrenador* proximoEntrenador = list_remove(entrenadoresListos, 0);
-						proximoEntrenador->planificador.quantum = mapa->quantum-1;
-
-						log_info(archivoLog, "Planficador - Planifico al entrenador %c", proximoEntrenador->simbolo);
-						logColasEntrenadores();
-						return proximoEntrenador;
-					}else{
-						return NULL;
-					}
+					return NULL;
 				}
 			}
 		}else{
