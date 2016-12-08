@@ -186,6 +186,7 @@ int main(int argc, char *argv[]){
 		}
 		//Destruyo el semaforo de los entrenadores bloqueados
 		pthread_mutex_destroy(&mutexEntrBQ);
+		pthread_mutex_destroy(&mutexMapa);
 	//Libero memoria y termino ui
 		free(archivoLog);
 		nivel_gui_terminar();
