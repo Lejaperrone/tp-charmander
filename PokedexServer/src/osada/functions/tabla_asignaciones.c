@@ -30,12 +30,10 @@ int avanzarBloquesParaLeer (int bloqueInicial,int desplazamientoLimite){
 }
 int avanzarBloquesParaEscribir (int bloqueInicial,int desplazamientoLimite){
 	int i;
-	int bloqueInicioEscritura;
 	for (i=0;i<desplazamientoLimite;i++){
-		bloqueInicioEscritura=osada_drive.asignaciones[bloqueInicial];
-		bloqueInicial=bloqueInicioEscritura;
+		bloqueInicial=osada_drive.asignaciones[bloqueInicial];
 	}
-	return bloqueInicioEscritura;
+	return bloqueInicial;
 }
 
 

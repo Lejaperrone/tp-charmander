@@ -158,19 +158,32 @@ void proce_rename(int clientSocket, char* path){
 }
 
 void proce_write(int clientSocket, char* path){
-	int resultadoOsada = 0;
-	char* buffer = string_new();
+	size_t size;
+	off_t offset;
+	char* bufParaElWrite;
 
-	t_write* swrite = malloc(sizeof(t_write));
+	recvValue(clientSocket,&size);
+	recvValue(clientSocket,&offset);
+	recvValue(clientSocket,bufParaElWrite);
 
-	recv(clientSocket,&(swrite->size),sizeof(size_t),0);
-	recv(clientSocket,&(swrite->offset),sizeof(off_t),0);
+	log_info(logPokedexServer,"El size_t que me llega para WRITE es: %d",size);
+	log_info(logPokedexServer,"El off_t que me llega para WRITE es: %d",offset);
+	log_info(logPokedexServer, "El buffer que me llega para WRITE es: %s",bufParaElWrite);
 
-	resultadoOsada = osada_write(path, buffer, swrite->size, swrite->offset);
+	//	int indice = osada_TA_obtenerIndiceTA(path);
 
-	send(clientSocket,&resultadoOsada,sizeof(int),0);
+	//	char* buf = malloc(osada_drive.directorio[indice].file_size);
 
-	free(swrite);
+	int resultadoOsada = osada_write(path, &bufParaElWrite, size, offset);
+	sendInt(clientSocket, resultadoOsada);
+
+
+	if(resultadoOsada > 0){
+		log_info(logPokedexServer,"El tamanio (devuelto por resultadoOsada) es %d",resultadoOsada);
+		log_info(logPokedexServer, "Voy a enviar como size del buf %d con el contenido %s", string_length(*bufParaElWrite), *bufParaElWrite);
+		sendString(clientSocket, *bufParaElWrite, string_length(*bufParaElWrite));
+
+	}
 }
 
 void proce_statfs(int clientSocket, char* path){

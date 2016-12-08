@@ -208,6 +208,11 @@ int chamba_flush(const char* path, struct fuse_file_info* fi){
 int chamba_utimens(const char *path, const struct timespec tv[2]){
 	return 0;
 }
+
+int chamba_chown (const char *filename, uid_t owner, gid_t group){
+	return 0;
+}
+
 //LISTA - FUNCIONA
 int chamba_open (const char * path, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);
@@ -378,25 +383,27 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: WRITE");
 	log_info(archivoLog, "2 - Path: %s", path);
-	/*int resultadoOsada;
-	int tamanio;
-
+	int res = -ENOENT;
 	sendBasicInfo("WRITE", path);
-	sendSize(size);
-	sendOffset(offset);
 
-	recvBasicInfo(&resultadoOsada, "WRITE", (char*)path);
+	log_info(archivoLog, "El size_t que le llega a FUSE es: %d", size);
+	sendValue(&size, sizeof(size_t));
+	sendValue(&offset, sizeof(off_t));
+	log_info(archivoLog,"El buffer que nos llega a FUSE es: %s",buffer);
+	sendValue((char*)buffer,string_length((char*)buffer));
 
-	if(resultadoOsada > 0){
-		recv(pokedexServer,&tamanio,sizeof(int),0);
-		log_info(archivoLog,"Voy a escribir %d bytes al path %s",tamanio,path);
-		recv(pokedexServer,(char*)buffer,tamanio,0);
-		log_info(archivoLog,"Escribi en el buffer: %s", buffer);
+	int resultadoOsada=recvInt();
+	char* bufAlternativo=malloc(resultadoOsada);
+	if(resultadoOsada >0){
+		log_info(archivoLog,"Recibo como resultadoOsada: %d",resultadoOsada);
+		recvString(&bufAlternativo);
+		//log_info(archivoLog,"El tamanio del buffer es: %d",string_length(buffer));
+		memcpy(buffer,bufAlternativo,resultadoOsada);
+		log_info(archivoLog, "El buf recibido es: %s", buffer);
+		res = resultadoOsada;
 	}
-
-	return resultadoOsada;*/
 	pthread_mutex_unlock(&mutexSocket);
-	return -ENOENT;
+	return res;
 }
 
 //LISTA - FUNCIONA

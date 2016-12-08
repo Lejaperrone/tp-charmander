@@ -35,6 +35,7 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 int chamba_statfs (const char * path, struct statvfs * stats);
 int chamba_flush(const char* path, struct fuse_file_info* fi);
 int chamba_utimens(const char *path, const struct timespec tv[2]);
+int chamba_chown(const char *filename, uid_t owner, gid_t group);
 
 static struct fuse_operations chamba_oper = {
 	.getattr        = chamba_getattr,	//obtiene lo atributos de un path
@@ -50,7 +51,8 @@ static struct fuse_operations chamba_oper = {
 	.write          = chamba_write,		//escribe
 	.statfs         = chamba_statfs,	//estadisticas del filesystem, espacio disponible, etc.
 	.flush			= chamba_flush,		//funcion dummy necesaria para el funcionamiento del read
-	.utimens		= chamba_utimens	//funcion dummy necesaria para el funcionamiento del read
+	.utimens		= chamba_utimens,	//funcion dummy necesaria para el funcionamiento del read
+	.chown			= chamba_chown
 };
 
 #endif /* FUNCTIONS_FUSE_H_ */

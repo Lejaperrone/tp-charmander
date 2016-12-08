@@ -182,45 +182,42 @@ bool superaTamanioArchivo (int indice, off_t offset, size_t size){
 bool elBufferTieneDatosParaEscribir(char* buf){
 	return strlen(buf)>0;
 }
-void actualizarBuffer(char* buffer, char* bufUp, int bytesEscritos){
-	int tamanioBufferOriginal=strlen(buffer);
-	int i;
-	int j=0;
-	for (i=bytesEscritos;i<tamanioBufferOriginal;i++){
-		bufUp[j]=buffer[i];
-		j++;
-	}
+void actualizarBuffer(char* buffer, int bytesEscritos){
+	log_info(logPokedexServer,"El buffer tenia antes: %s", buffer);
+	buffer=string_substring(buffer,bytesEscritos,string_length(buffer)-bytesEscritos);
+	log_info(logPokedexServer,"El buffer tiene ahora: %s", buffer);
 }
 
 void actualizarBytesEscritos (int* acum, int bytes){
 	*acum += bytes;
 }
-int osada_write(char* path,char* buf, size_t size, off_t offset){
-	int resultadoDeBuscarRegistroPorNombre;
-	u_int16_t indice = osada_TA_obtenerUltimoHijoFromPath(path, &resultadoDeBuscarRegistroPorNombre);
+int osada_write(char* path,char** buf, size_t size, off_t offset){
+	//int resultadoDeBuscarRegistroPorNombre;
+	log_info(logPokedexServer,"El buf que me llega es: %s",*buf);
+	int indice = osada_TA_obtenerIndiceTA(path);
 	int bytesEscritos=0;
 	t_list* listaDeBloquesAEscribir=list_create();
-
-	if(resultadoDeBuscarRegistroPorNombre != -1){
-		if (!superaTamanioArchivo(indice,offset,size)){
+	log_info(logPokedexServer,"El path es %s, el subindice es %d",path,indice);
+	if(indice != -1){
 			int bloque=osada_drive.directorio[indice].first_block;
 			log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n",path, bloque);
-			double desplazamientoHastaElBloque=ceil(offset/OSADA_BLOCK_SIZE);
+			double desplazamientoHastaElBloque=floor(offset/OSADA_BLOCK_SIZE);
 			int bloqueArranque=avanzarBloquesParaEscribir(bloque,desplazamientoHastaElBloque);
 			log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: Desde el bloque %d me desplace hasta el %d, me movi %f bloques.\n",bloque,bloqueArranque,desplazamientoHastaElBloque);;
-			int byteComienzoEscritura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
+			int byteComienzoEscritura=abs(offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE));
 			log_info(logPokedexServer, "OSADA - DATOS: Empiezo a leer desde el byte: %d\n",byteComienzoEscritura);
-			char* bufUpdated=string_new();
-			strcpy(bufUpdated,buf);
-			int bloquesQueNecesitoEscribir=ceil((strlen(buf)*sizeof(char))/OSADA_BLOCK_SIZE);
-			if (hayBloquesDesocupadosEnElBitmap(bloquesQueNecesitoEscribir, listaDeBloquesAEscribir)){
-				while (elBufferTieneDatosParaEscribir(bufUpdated)){
-					log_info(logPokedexServer, "El contenido del buffer es %s\n",bufUpdated);
+			//char* bufUpdated=malloc(size);
+		//	strcpy(bufUpdated,buf);
+			int bloquesQueNecesitoEscribir=ceil((float)string_length(*buf)/(float)OSADA_BLOCK_SIZE);
+			size_t sizeAux=size;
+			if (hayBloquesDesocupadosEnElBitmap(&bloquesQueNecesitoEscribir, listaDeBloquesAEscribir)){
+				while (/*elBufferTieneDatosParaEscribir(*buf)*/sizeAux>0){
+					log_info(logPokedexServer, "El contenido del buffer es %s\n",*buf);
 					bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
-					log_info(logPokedexServer, "OSADA - BITMAP: Marco al bloque %d como ocupado\n",bloqueArranque);
-					memcpy(osada_drive.data[bloqueArranque*OSADA_BLOCK_SIZE+byteComienzoEscritura],buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
-					log_info(logPokedexServer, "OSADA - DATOS: Los datos que voy a escribir son: %s\n",bufUpdated);
-					actualizarBuffer(buf,bufUpdated,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+					log_info(logPokedexServer, "OSADA - BITMAP: Marco al bloque %d como %d\n",bloqueArranque, bitarray_test_bit(osada_drive.bitmap,bloqueArranque));
+					memcpy(osada_drive.data[bloqueArranque]+byteComienzoEscritura,*buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+					//actualizarBuffer(buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+					sizeAux-=OSADA_BLOCK_SIZE-byteComienzoEscritura;
 					actualizarBytesEscritos(&bytesEscritos,OSADA_BLOCK_SIZE-byteComienzoEscritura);
 					log_info(logPokedexServer, "OSADA - DATOS: Se han escrito %d bytes\n",bytesEscritos);
 					byteComienzoEscritura=0;
@@ -230,10 +227,6 @@ int osada_write(char* path,char* buf, size_t size, off_t offset){
 			}else{
 				bytesEscritos=-ENOMEM;
 			}
-		}
-		else{
-			return -EFBIG;
-		}
 	}else{
 		return -ENOENT;
 	}
@@ -839,7 +832,7 @@ int osada_truncate(char* path, off_t offset){
 			}
 			else{
 			log_info(logPokedexServer, "OSADA - El file_size del subindice es igual al offset");
-			return -EPERM;
+			return 1;
 		}
 	}
 	}else{

@@ -34,7 +34,9 @@ void* procesarPeticiones(t_hilo* h){
 	char* nombreFuncion=string_new();
 	int result=0;
 
+	//HAY QUE SACAR LO HARCODEADO////////////////////////////
 	char* bufParaElRead = malloc(1000000);
+	//char* bufParaElWrite=malloc(1000000);
 	while(recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
 
 		char* path=string_new();
