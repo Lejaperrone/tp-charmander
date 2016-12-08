@@ -204,6 +204,7 @@ int chamba_flush(const char* path, struct fuse_file_info* fi){
 	return 0;
 }
 
+//LISTA - FUNCIONA (era necesaria para el seteo de la fecha de modificacion del createFile)
 int chamba_utimens(const char *path, const struct timespec tv[2]){
 	return 0;
 }

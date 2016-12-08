@@ -37,20 +37,20 @@ int chamba_flush(const char* path, struct fuse_file_info* fi);
 int chamba_utimens(const char *path, const struct timespec tv[2]);
 
 static struct fuse_operations chamba_oper = {
-	.getattr        = chamba_getattr, //obtiene lo atributos de un path
-	.readdir        = chamba_readdir, //lee un directorio
-	.open           = chamba_open, //abre  un archivo
-	.read           = chamba_read, //lee
-	.create			= chamba_create, //crea y abre un archivo.
-	.truncate       = chamba_truncate, //cambia  el tamanio de un archivo (lo reserva)
-	.mkdir          = chamba_mkdir, //crea  un directorio
-	.rename         = chamba_rename, //cambia el nombre  del archivo
-	.unlink         = chamba_unlink, //elimina un archivo
-	.rmdir          = chamba_rmdir, //elimina un directorio
-	.write          = chamba_write, //escribe
-	.statfs         = chamba_statfs, //estadisticas del filesystem, espacio disponible, etc.
-	.flush			= chamba_flush,
-	.utimens		= chamba_utimens
+	.getattr        = chamba_getattr,	//obtiene lo atributos de un path
+	.readdir        = chamba_readdir,	//lee un directorio
+	.open           = chamba_open,		//abre  un archivo
+	.read           = chamba_read,		//lee
+	.create			= chamba_create,	//crea y abre un archivo.
+	.truncate       = chamba_truncate,	//cambia  el tamanio de un archivo (lo reserva)
+	.mkdir          = chamba_mkdir,		//crea  un directorio
+	.rename         = chamba_rename,	//cambia el nombre  del archivo
+	.unlink         = chamba_unlink,	//elimina un archivo
+	.rmdir          = chamba_rmdir,		//elimina un directorio
+	.write          = chamba_write,		//escribe
+	.statfs         = chamba_statfs,	//estadisticas del filesystem, espacio disponible, etc.
+	.flush			= chamba_flush,		//funcion dummy necesaria para el funcionamiento del read
+	.utimens		= chamba_utimens	//funcion dummy necesaria para el funcionamiento del read
 };
 
 #endif /* FUNCTIONS_FUSE_H_ */
