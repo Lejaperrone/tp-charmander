@@ -85,22 +85,25 @@ int darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 int osada_TA_obtenerIndiceTA(char* path){
 	u_int16_t childOf = 0xFFFF;
 	int newChildOf;
-
-	char** dirc = string_split(path, "/");
-	int i=0;
-	while(dirc[i]!=NULL){
-		newChildOf = osada_TA_buscarRegistroPorNombre(dirc[i], childOf);
-		if(newChildOf>=0){
-			childOf = newChildOf;
-		}else{
-			return -1;
+	if (strcmp(path,"/")==0){
+		return childOf;
+	}else{
+		char** dirc = string_split(path, "/");
+		int i=0;
+		while(dirc[i]!=NULL){
+			newChildOf = osada_TA_buscarRegistroPorNombre(dirc[i], childOf);
+			if(newChildOf>=0){
+				childOf = newChildOf;
+			}else{
+				return -1;
+			}
+			free(dirc[i]);
+			i++;
 		}
-		free(dirc[i]);
-		i++;
-	}
 
-	free(dirc);
-	return childOf;
+		free(dirc);
+		return childOf;
+	}
 }
 int osada_TA_obtenerUltimoHijoFromPath(char* path, int* resultadoDeBuscarRegistroPorNombre){
 	//DEPRECATED usar: osada_TA_obtenerIndiceTA

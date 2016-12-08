@@ -353,19 +353,19 @@ int osada_open(char* path){
 }*/
 
 void buscarLugarLibreEnBitmap(int* lugarLibre){
+	int bloqueInicialDeDatos=osada_drive.header->bitmap_blocks+1025+(osada_drive.header->fs_blocks-osada_drive.header->bitmap_blocks-1025)*4/OSADA_BLOCK_SIZE;
 	int i;
+	log_info(logPokedexServer, "OSADA - El tamanio del bitmap de osada_drive es: %d", bitarray_get_max_bit(osada_drive.bitmap));
 
-	log_info(logPokedexServer, "OSADA - El tamanio del bitmap de osada_drive es: %d", osada_drive.bitmap->size);
-
-	for (i=0;i<=osada_drive.bitmap->size;i++){
+	for (i=bloqueInicialDeDatos;i<=bitarray_get_max_bit(osada_drive.bitmap);i++){
 	//	printf("%d", bitarray_test_bit(osada_drive.bitmap,i));
 		if (bitarray_test_bit(osada_drive.bitmap,i)){
-
-
 		}else{
 //			log_info(logPokedexServer, "OSADA - El bit del bloque %d es %d", i, bitarray_test_bit(osada_drive.bitmap,i));
 			*lugarLibre=i;
-			i=osada_drive.bitmap->size;
+			i=bitarray_get_max_bit(osada_drive.bitmap);
+
+			log_info(logPokedexServer,"Encontre lugar libre en %d",*lugarLibre);
 		}
 	}
 }
@@ -373,42 +373,77 @@ void buscarLugarLibreEnBitmap(int* lugarLibre){
 bool hayPosicionDisponibleEnTablaDeArchivos (int pos){
 	return osada_drive.directorio[pos].state==0;
 }
-
-void directoryContainingFile(char** pathVectorizado, char* directoryName){
-	int i, ult=strlen(*pathVectorizado);
-	for (i=0;i<ult-2;i++){
-		string_append(&directoryName,pathVectorizado[i]);
-	}
-
-}
-void generarNuevoArchivoEnTablaDeArchivos(char* path){
-	int resultadoDeBuscarRegistroPorNombre;
-	time_t timer=time(0);
-	struct tm *tlocal = localtime(&timer);
-	char* fecha=string_new();
+int obtenerLongitudDelNombreDelArchivo(char* path){
 	char* fileName=string_new();
 	char* directoryName=string_new();
-	char** fileSplitteado=string_split(path,"/");
-	directoryContainingFile(fileSplitteado, directoryName);
-	fileName=strcpy(fileName,fileSplitteado[strlen(*fileSplitteado)-2]);
+	directoryContainingFile(path,&fileName,&directoryName);
+	if (string_length(fileName)>17){
+		return -E2BIG;
+	}else{
+		return 1;
+	}
+}
+
+void directoryContainingFile(char* path, char** fileName, char** father){
+	char** vectorPath=string_split(path,"/");
+	if (vectorPath[1]==NULL){
+		string_append(father,"/");
+		string_append(fileName,vectorPath[0]);
+	}else{
+		int i=0;
+		while(vectorPath[i]!=NULL){
+			if(vectorPath[i+1]==NULL){
+				string_append(fileName,vectorPath[i]);
+			}
+			string_append(father,vectorPath[i]);
+			string_append(father,"/");
+		}
+	}
+	log_info(logPokedexServer,"OSADA - Directory Containing File: El nombre del archivo es %s y su path es %s",*fileName,*father);
+}
+int buscarLugarLibreEnTablaArchivos(){
+	int i;
+	for (i=0;i<2048;i++){
+		if(osada_drive.directorio[i].state!=DIRECTORY && osada_drive.directorio[i].state!=REGULAR){
+			return i;
+		}
+	}
+	return -ENOMEM;
+}
+void generarNuevoArchivoEnTablaDeArchivos(char* path, int posicionEnTablaArchivos){
+	int i, resultadoDeBuscarRegistroPorNombre;
+	time_t timer=time(0);
+	char* fileName=string_new();
+	char* directoryName=string_new();
+	directoryContainingFile(path,&fileName, &directoryName);
 	log_info(logPokedexServer, "OSADA - Generacion nuevo archivo: El nombre del archivo es: %s\n",fileName);
 	int bloqueInicioArchivo;
 	buscarLugarLibreEnBitmap(&bloqueInicioArchivo);
 	log_info(logPokedexServer, "OSADA - BITMAP: El primer bloque libre es: %d\n",bloqueInicioArchivo);
 	pthread_mutex_lock(&mutexTablaArchivos);
-	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].file_size=0;
-	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].first_block=bloqueInicioArchivo;
-	strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
+	osada_drive.directorio[posicionEnTablaArchivos].file_size=0;
+	log_info(logPokedexServer,"El archivo %s de la path %s ocupa %d bytes",fileName,directoryName,osada_drive.directorio[posicionEnTablaArchivos].file_size);
+	osada_drive.directorio[posicionEnTablaArchivos].first_block=bloqueInicioArchivo;
+	/*strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
 	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod=atoi(fecha);
-	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: La fecha de modificacion es %d\n",osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod);
-	strcpy((char*)osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].fname,fileName);
-	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=osada_TA_obtenerIndiceTA(path);
+	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: La fecha de modificacion es %d\n",osada_drive.directorio[posicionEnTablaArchivos].lastmod);*/
+	log_info(logPokedexServer,"El nombre inicial es %s",osada_drive.directorio[posicionEnTablaArchivos].fname);
+	char* barrasCero=string_repeat('\0',17);
+	memcpy(osada_drive.directorio[posicionEnTablaArchivos].fname,barrasCero,17);
+	log_info(logPokedexServer,"El nombre inicial despues del memcpy es %s",osada_drive.directorio[posicionEnTablaArchivos].fname);
+	osada_drive.directorio[posicionEnTablaArchivos].parent_directory=osada_TA_obtenerIndiceTA(directoryName);
+	log_info(logPokedexServer,"El directorio padre de %s es %d",fileName,osada_drive.directorio[posicionEnTablaArchivos].parent_directory);
+	for (i=0;i<17;i++){
+		osada_drive.directorio[posicionEnTablaArchivos].fname[i]=fileName[i];
+	}
+	log_info(logPokedexServer,"El nombre final es %s",osada_drive.directorio[posicionEnTablaArchivos].fname);
+	osada_drive.directorio[posicionEnTablaArchivos].state=REGULAR;
+	osada_drive.directorio[posicionEnTablaArchivos].lastmod=timer;
 //	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=osada_TA_obtenerUltimoHijoFromPath(directoryName, &resultadoDeBuscarRegistroPorNombre);
-	free(fecha);
+	/*free(fecha);*/
 	free(fileName);
 	free(directoryName);
-	free(*fileSplitteado);
-	free(fileSplitteado);
+
 	pthread_mutex_unlock(&mutexTablaArchivos);
 }
 
@@ -416,11 +451,12 @@ int osada_createFile(char* path, mode_t mode){
 	int resultado;
 	int posicionLibreEnBitmap = -1;
 	buscarLugarLibreEnBitmap(&posicionLibreEnBitmap);
-
-	if (posicionLibreEnBitmap != -1){
+	int posicionEnTablaDeArchivos=buscarLugarLibreEnTablaArchivos();
+	int tamanioNombre=obtenerLongitudDelNombreDelArchivo(path);
+	if (posicionLibreEnBitmap != -1 && posicionEnTablaDeArchivos>=0 && tamanioNombre>0){
 		log_info(logPokedexServer, "OSADA - BITMAP: Hay lugar libre para crear archivo\n");
-		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El archivo %s ocupara la posicion %d\n",path,posicionLibreEnBitmap);
-		generarNuevoArchivoEnTablaDeArchivos(path);
+		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El archivo %s ocupara la posicion %d\n",path,posicionEnTablaDeArchivos);
+		generarNuevoArchivoEnTablaDeArchivos(path,posicionEnTablaDeArchivos);
 		resultado = 1;
 	}else{
 		log_info(logPokedexServer, "OSADA - No se encontro lugar libre en el bitmap");
