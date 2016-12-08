@@ -31,7 +31,7 @@
 
 	void proce_getattr(int clientSocket, char* path);
 	void proce_readdir(int clientSocket, char* path);
-	void proce_readfile(int clientSocket, char* path);
+	void proce_readfile(int clientSocket, char* path, char** bufParaElRead);
 	void proce_create(int clientSocket, char* path);
 	void proce_truncate(int clientSocket, char* path);
 	void proce_mkdir(int clientSocket, char* path);

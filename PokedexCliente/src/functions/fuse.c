@@ -227,7 +227,7 @@ int chamba_open (const char * path, struct fuse_file_info * fi){
 	return res;
 }
 
-//LISTA - FUNCIONA (corregir para los casos de archivos muy grandes)
+//LISTA - FUNCIONA (reveer la reproduccion del archivo mp4)
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: READ");
@@ -255,6 +255,7 @@ int chamba_read (const char * path, char * buffer, size_t size, off_t offset, st
 	return res;
 }
 
+//LISTA - FUNCIONA
 int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: CREATE");
