@@ -275,38 +275,28 @@ t_entrenador* obtenerSiguienteEntrenadorPlanificadoRR(t_entrenador* entrenadorAn
 }
 t_entrenador* obtenerSiguienteEntrenadorPlanificadoSRDF(t_entrenador* entrenadorAnterior){
 	if(entrenadorAnterior != NULL){
-		log_trace(archivoLog, "Planificador - SRDF - Entrenador anterior no es null");
 		if(list_size(entrenadoresListos)>0){
-			log_trace(archivoLog, "Planificador - SRDF - Tengo entrenadores listos");
 			t_entrenador* otroEntrenador = list_get(entrenadoresListos, list_size(entrenadoresListos)-1);
 			if(otroEntrenador->simbolo == entrenadorAnterior->simbolo){
-				log_trace(archivoLog, "Planificador - SRDF - Entrenador anterior y ultimo listo coinciden");
 				if(entrenadorAnterior->planificador.quantum>0){
-					log_trace(archivoLog, "Planificador - SRDF - entrenador  anterior le queda quantum");
 					return obtenerSiguienteEntrenadorPlanificadoRR(entrenadorAnterior);
 				}else if(entrenadorAnterior->planificador.quantum == -1){
-					log_trace(archivoLog, "Planificador - SRDF - Quantum -1");
 					list_remove(entrenadoresListos, list_size(entrenadoresListos)-1);
 					return entrenadorAnterior;
 				}else if(entrenadorAnterior->planificador.quantum == -2){
-					log_trace(archivoLog, "Planificador - SRDF - Quantum -2");
 					entrenadorAnterior->planificador.quantum = 0;
 					return obtenerProximoEntrenadorCercano();
 				}else{
-					log_trace(archivoLog, "Planificador - SRDF - Otro quantum, error");
 					return obtenerProximoEntrenadorCercano();
 				}
 			}else{
-				log_trace(archivoLog, "Planificador - SRDF - Entrenador  anterior  no  coincide con  ultimo listo");
 				entrenadorAnterior->planificador.quantum=0;
 				return obtenerProximoEntrenadorCercano();
 			}
 		}else{
-			log_trace(archivoLog, "Planificador - SRDF - No hay entrenadores listos");
 			return NULL;
 		}
 	}else{
-		log_trace(archivoLog, "Planificador - SRDF - Entrenador anterior es null");
 		return obtenerProximoEntrenadorCercano();
 	}
 }

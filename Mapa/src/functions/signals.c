@@ -21,9 +21,12 @@ void sigusr2_handler(int signum){
 
 void verificarSenialesRecibidas(){
 	if(recvSIGUSR2==1){
+		log_info(archivoLog,"Voy a procesar releida de config");
 		pthread_mutex_lock(&mutexMapa);
+		log_info(archivoLog,"Entre al mutex");
 		recvSIGUSR2 = 0;
 		leerConfiguracionMetadataMapa(mapa, name, pokedexPath);
 		pthread_mutex_unlock(&mutexMapa);
+		log_info(archivoLog,"Finalice releida de config");
 	}
 }

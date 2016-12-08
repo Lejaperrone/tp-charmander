@@ -231,7 +231,7 @@ void liberarMemoria(){
 
 void* deadlock(void* arg){
 	while (1){
-		sleep(2);
+		usleep(mapa->tiempoChequeoDeadlock * 1000);
 
 		if (list_size(entrenadoresBloqueados)>1){
 			pthread_mutex_lock(&mutexEntrBQ);
