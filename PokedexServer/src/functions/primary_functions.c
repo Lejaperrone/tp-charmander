@@ -164,7 +164,7 @@ void proce_write(int clientSocket, char* path){
 
 	recvValue(clientSocket,&size);
 	recvValue(clientSocket,&offset);
-	recvValue(clientSocket,bufParaElWrite);
+	recvString(clientSocket,&bufParaElWrite);
 
 	log_info(logPokedexServer,"El size_t que me llega para WRITE es: %d",size);
 	log_info(logPokedexServer,"El off_t que me llega para WRITE es: %d",offset);
@@ -180,9 +180,6 @@ void proce_write(int clientSocket, char* path){
 
 	if(resultadoOsada > 0){
 		log_info(logPokedexServer,"El tamanio (devuelto por resultadoOsada) es %d",resultadoOsada);
-		log_info(logPokedexServer, "Voy a enviar como size del buf %d con el contenido %s", string_length(*bufParaElWrite), *bufParaElWrite);
-		sendString(clientSocket, *bufParaElWrite, string_length(*bufParaElWrite));
-
 	}
 }
 

@@ -92,6 +92,34 @@ int osada_init(char* path){
 	return 1;
 }
 
+int buscarLugarLibreEnTablaArchivos(){
+	int i;
+	for (i=0;i<2048;i++){
+		if(osada_drive.directorio[i].state!=DIRECTORY && osada_drive.directorio[i].state!=REGULAR){
+			return i;
+		}
+	}
+	return -ENOMEM;
+}
+
+void directoryContainingFile(char* path, char** fileName, char** father){
+	char** vectorPath=string_split(path,"/");
+	if (vectorPath[1]==NULL){
+		string_append(father,"/");
+		string_append(fileName,vectorPath[0]);
+	}else{
+		int i=0;
+		while(vectorPath[i]!=NULL){
+			if(vectorPath[i+1]==NULL){
+				string_append(fileName,vectorPath[i]);
+			}
+			string_append(father,vectorPath[i]);
+			string_append(father,"/");
+		}
+	}
+	log_info(logPokedexServer,"OSADA - Directory Containing File: El nombre del archivo es %s y su path es %s",*fileName,*father);
+}
+
 int osada_removeDir(char* path){
 
 	int resultadoDeBuscarRegistroPorNombre;
@@ -191,13 +219,63 @@ void actualizarBuffer(char* buffer, int bytesEscritos){
 void actualizarBytesEscritos (int* acum, int bytes){
 	*acum += bytes;
 }
+
+void actualizarTablaDeArchivosParaWrite(char* path, size_t size, int bloqueArranque, int indice){
+//	char* fileName = string_new();
+//	char* directoryName = string_new();
+	time_t timer=time(0);
+//	directoryContainingFile(path,&fileName,&directoryName);
+//
+//	log_info(logPokedexServer, "OSADA - El lugar libre en la tabla de archivos que nos llega de osada_write es: %d", indice);
+
+	osada_drive.directorio[indice].file_size = size;
+	log_info(logPokedexServer, "OSADA - El file_size del path %s es %d, y el size que me llego por parametro es %d",path, osada_drive.directorio[indice].file_size, size);
+//	osada_drive.directorio[indice].first_block = bloqueArranque;
+
+//	char* barrasCero=string_repeat('\0',17);
+//	memcpy(osada_drive.directorio[indice].fname,barrasCero,17);
+//	log_info(logPokedexServer,"El nombre inicial despues del memcpy es %s",osada_drive.directorio[indice].fname);
+//	log_info(logPokedexServer,"El directorio padre de %s es %d",fileName,osada_drive.directorio[indice].parent_directory);
+//	int i;
+//	for (i=0;i<17;i++){
+//		osada_drive.directorio[indice].fname[i]=fileName[i];
+//	}
+
+//	osada_drive.directorio[indice].state = 1;
+	osada_drive.directorio[indice].lastmod = timer;
+
+//	free(fileName);
+//	free(directoryName);
+}
+
+//int buscarIndiceEnTablaDeArchivos(char* path, int indice){
+//	char* fileName = string_new();
+//	char* directoryName = string_new();
+//	time_t timer=time(0);
+//	directoryContainingFile(path,&fileName,&directoryName);
+//
+//	int i;
+//	log_info(logPokedexServer, "OSADA - El indicePadre (dentro de buscarIndiceEnTablaDeArchivos) es: %d", indice);
+//	free(directoryName);
+//	for(i=0; i<2048; i++){
+//		if(strcmp(osada_drive.directorio[indice].fname,fileName) == 0){
+//			free(fileName);
+//			return i;
+//		}
+//	}
+//
+//	return -1;
+//}
+
+//	/README.txt
 int osada_write(char* path,char** buf, size_t size, off_t offset){
 	//int resultadoDeBuscarRegistroPorNombre;
 	log_info(logPokedexServer,"El buf que me llega es: %s",*buf);
 	int indice = osada_TA_obtenerIndiceTA(path);
 	int bytesEscritos=0;
 	t_list* listaDeBloquesAEscribir=list_create();
-	log_info(logPokedexServer,"El path es %s, el subindice es %d",path,indice);
+	log_info(logPokedexServer,"El path es %s y el indice es %d",path,indice);
+	log_info(logPokedexServer, "El offset es %d", offset);
 	if(indice != -1){
 			int bloque=osada_drive.directorio[indice].first_block;
 			log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n",path, bloque);
@@ -211,14 +289,21 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 			int bloquesQueNecesitoEscribir=ceil((float)string_length(*buf)/(float)OSADA_BLOCK_SIZE);
 			size_t sizeAux=size;
 			if (hayBloquesDesocupadosEnElBitmap(&bloquesQueNecesitoEscribir, listaDeBloquesAEscribir)){
-				while (/*elBufferTieneDatosParaEscribir(*buf)*/sizeAux>0){
+				while (/*elBufferTieneDatosParaEscribir(*buf)*/sizeAux>0 && bloqueArranque != -1){
+		//			int lugarLibreEnLaTablaDeArchivos = buscarIndiceEnTablaDeArchivos(path, indice);
+
+
+
 					log_info(logPokedexServer, "El contenido del buffer es %s\n",*buf);
 					bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
 					log_info(logPokedexServer, "OSADA - BITMAP: Marco al bloque %d como %d\n",bloqueArranque, bitarray_test_bit(osada_drive.bitmap,bloqueArranque));
-					memcpy(osada_drive.data[bloqueArranque]+byteComienzoEscritura,*buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+					memcpy(osada_drive.data[bloqueArranque]+byteComienzoEscritura,*buf,size);
+	//				log_info(logPokedexServer, "OSADA - Acabamos de escribir el buf: %s", osada_drive.data[bloqueArranque]+byteComienzoEscritura);
+
+					actualizarTablaDeArchivosParaWrite(path, size, bloqueArranque, indice);
 					//actualizarBuffer(buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
 					sizeAux-=OSADA_BLOCK_SIZE-byteComienzoEscritura;
-					actualizarBytesEscritos(&bytesEscritos,OSADA_BLOCK_SIZE-byteComienzoEscritura);
+					actualizarBytesEscritos(&bytesEscritos,size);
 					log_info(logPokedexServer, "OSADA - DATOS: Se han escrito %d bytes\n",bytesEscritos);
 					byteComienzoEscritura=0;
 					bloqueArranque=avanzarBloquesParaEscribir(bloqueArranque,1);
@@ -383,32 +468,8 @@ int obtenerLongitudDelNombreDelArchivo(char* path){
 	}
 }
 
-void directoryContainingFile(char* path, char** fileName, char** father){
-	char** vectorPath=string_split(path,"/");
-	if (vectorPath[1]==NULL){
-		string_append(father,"/");
-		string_append(fileName,vectorPath[0]);
-	}else{
-		int i=0;
-		while(vectorPath[i]!=NULL){
-			if(vectorPath[i+1]==NULL){
-				string_append(fileName,vectorPath[i]);
-			}
-			string_append(father,vectorPath[i]);
-			string_append(father,"/");
-		}
-	}
-	log_info(logPokedexServer,"OSADA - Directory Containing File: El nombre del archivo es %s y su path es %s",*fileName,*father);
-}
-int buscarLugarLibreEnTablaArchivos(){
-	int i;
-	for (i=0;i<2048;i++){
-		if(osada_drive.directorio[i].state!=DIRECTORY && osada_drive.directorio[i].state!=REGULAR){
-			return i;
-		}
-	}
-	return -ENOMEM;
-}
+
+
 void generarNuevoArchivoEnTablaDeArchivos(char* path, int posicionEnTablaArchivos){
 	int i, resultadoDeBuscarRegistroPorNombre;
 	time_t timer=time(0);
