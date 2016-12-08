@@ -363,7 +363,7 @@ void buscarLugarLibreEnBitmap(int* lugarLibre){
 
 
 		}else{
-			log_info(logPokedexServer, "OSADA - El bit del bloque %d es %d", i, bitarray_test_bit(osada_drive.bitmap,i));
+//			log_info(logPokedexServer, "OSADA - El bit del bloque %d es %d", i, bitarray_test_bit(osada_drive.bitmap,i));
 			*lugarLibre=i;
 			i=osada_drive.bitmap->size;
 		}
