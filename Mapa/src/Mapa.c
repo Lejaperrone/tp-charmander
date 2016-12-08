@@ -16,6 +16,7 @@
 #include <nivel.h>
 #include <signal.h>
 #include <pthread.h>
+#include <errno.h>
 #include "commons/structures.h"
 #include "functions/config.h"
 #include "functions/log.h"
@@ -25,9 +26,7 @@
 #include "threads/deadlock.h"
 
 
-pthread_mutex_t mutexEntrBQ;
 
-pthread_mutex_t mutexEntrRD;
 
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
@@ -91,6 +90,7 @@ int main(int argc, char *argv[]){
 	//Creo el hilo planificador
 		log_info(archivoLog,"Inicializo los hilos de planificacion y deadlock");
 		pthread_mutex_init(&mutexEntrBQ,NULL);
+		pthread_mutex_init(&mutexMapa,NULL);
 		pthread_create(&hiloPlanificador,NULL,planificador, NULL);
 		pthread_create(&hiloDeadlock,NULL,deadlock, NULL );
 
@@ -126,70 +126,70 @@ int main(int argc, char *argv[]){
 		//Me mantengo en el bucle para asi poder procesar cambios en los sockets
 		while(1) {
 			//Copio los sockets y me fijo si alguno tiene cambios, si no hay itinero de vuelta
-			read_fds = master; // cÃ³pialo
-			if (select(fdmax+1, &read_fds, NULL, NULL, NULL) == -1) {
-				perror("select");
-				exit(1);
-			}
-
-			//Recorro los sockets con cambios
-			for(i = 0; i <= fdmax; i++) {
-				//Detecto si hay datos en un socket especifico
-				if (FD_ISSET(i, &read_fds)) {
-					//Si es el socket de escucha proceso el nuevo socket
-					if (i == listeningSocket) {
-						addrlen = sizeof(addr);
-						if ((newfd = accept(listeningSocket, (struct sockaddr*)&addr, &addrlen)) == -1){
-							log_info(archivoLog,"Ocurrio error al aceptar una conexion");
-						} else {
-							FD_SET(newfd, &master); // AÃ±ado el nuevo socket al  select
-							//Actualizo la cantidad
-							if (newfd > fdmax) {
-								fdmax = newfd;
-							}
-
-							log_trace(archivoLog, "Nueva conexion de %s en  el socket %d", inet_ntoa(addr.sin_addr),newfd);
-
-						}
-					} else {
-						//Si es un socket existente
-						if ((nbytes = recv(i, &package, 1, 0)) <= 0) {
-							//Si la conexion se cerro
-							if (nbytes == 0) {
-								log_trace(archivoLog, "El socket %d se desconecto", i);
+			read_fds = master; // copialo
+			if (select(fdmax+1, &read_fds, NULL, NULL, NULL)<0) {
+				if (errno != EINTR){
+					perror("select error");
+					return 1;
+				}
+			}else{
+				//Recorro los sockets con cambios
+				for(i = 0; i <= fdmax; i++) {
+					//Detecto si hay datos en un socket especifico
+					if (FD_ISSET(i, &read_fds)) {
+						//Si es el socket de escucha proceso el nuevo socket
+						if (i == listeningSocket) {
+							addrlen = sizeof(addr);
+							if ((newfd = accept(listeningSocket, (struct sockaddr*)&addr, &addrlen)) == -1){
+								log_info(archivoLog,"Ocurrio error al aceptar una conexion");
 							} else {
-								log_trace(archivoLog, "Error al recibir informacion del socket");
+								FD_SET(newfd, &master); // AÃ±ado el nuevo socket al  select
+								//Actualizo la cantidad
+								if (newfd > fdmax) {
+									fdmax = newfd;
+								}
+
+								log_trace(archivoLog, "Nueva conexion de %s en  el socket %d", inet_ntoa(addr.sin_addr),newfd);
+
 							}
-							close(i);
-							FD_CLR(i, &master); // eliminar del conjunto maestro
 						} else {
-							// tenemos datos de algÃºn cliente
-							if (nbytes != 0){
-								log_trace(archivoLog, "Ingresa nuevo entrenador a la lista de entrenadores preparados");
-								t_entrenador* entrenador = malloc(sizeof(t_entrenador));
-								entrenador->simbolo = package;
-								entrenador->socket = i;
-								entrenador->pokemons = list_create();
-								entrenador->ubicacion.x = 1;
-								entrenador->ubicacion.y = 1;
-								entrenador->planificador.ubicacionObjetivo.x = -1;
-								entrenador->planificador.ubicacionObjetivo.y = -1;
-								pthread_mutex_lock(&mutexEntrRD);
-								list_add(entrenadoresPreparados, entrenador);
-								pthread_mutex_unlock(&mutexEntrRD);
-								FD_CLR(i, &master);// eliminar del conjunto maestro
+							//Si es un socket existente
+							if ((nbytes = recv(i, &package, 1, 0)) <= 0) {
+								//Si la conexion se cerro
+								if (nbytes == 0) {
+									log_trace(archivoLog, "El socket %d se desconecto", i);
+								} else {
+									log_trace(archivoLog, "Error al recibir informacion del socket");
+								}
+								close(i);
+								FD_CLR(i, &master); // eliminar del conjunto maestro
+							} else {
+								// tenemos datos de algÃºn cliente
+								if (nbytes != 0){
+									log_trace(archivoLog, "Ingresa nuevo entrenador a la lista de entrenadores preparados");
+									t_entrenador* entrenador = malloc(sizeof(t_entrenador));
+									entrenador->simbolo = package;
+									entrenador->socket = i;
+									entrenador->pokemons = list_create();
+									entrenador->ubicacion.x = 1;
+									entrenador->ubicacion.y = 1;
+									entrenador->planificador.ubicacionObjetivo.x = -1;
+									entrenador->planificador.ubicacionObjetivo.y = -1;
+									list_add(entrenadoresPreparados, entrenador);
+									FD_CLR(i, &master);// eliminar del conjunto maestro
 
-								log_trace(archivoLog, "Agrego entrenador a preparados: %c", entrenador->simbolo);
+									log_trace(archivoLog, "Agrego entrenador a preparados: %c", entrenador->simbolo);
+								}
+
 							}
-
 						}
 					}
 				}
 			}
 		}
 		//Destruyo el semaforo de los entrenadores bloqueados
-		pthread_mutex_destroy(&mutexEntrRD);
 		pthread_mutex_destroy(&mutexEntrBQ);
+		pthread_mutex_destroy(&mutexMapa);
 	//Libero memoria y termino ui
 		free(archivoLog);
 		nivel_gui_terminar();

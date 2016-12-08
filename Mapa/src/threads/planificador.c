@@ -128,7 +128,7 @@ void procesarEntrenadoresBloqueados(){
 	int i;
 	if(!list_is_empty(entrenadoresBloqueados)){
 		for(i=0 ;i<list_size(entrenadoresBloqueados); i++){
-			//pthread_mutex_lock(&mutexEntrBQ);
+			pthread_mutex_lock(&mutexEntrBQ);
 			t_entrenador* entrenador = list_get(entrenadoresBloqueados,i);
 			int valorDeRetorno = _asignar_PokemonsDisponible_PorElCualElEntrenadorSeBloqueo(entrenador);
 			switch(valorDeRetorno){
@@ -140,10 +140,9 @@ void procesarEntrenadoresBloqueados(){
 				list_remove(entrenadoresBloqueados,i);
 				break;
 			}
-			//pthread_mutex_unlock(&mutexEntrBQ);
+			pthread_mutex_unlock(&mutexEntrBQ);
 		}
 	}
-
 	nivel_gui_dibujar(elementosUI, mapa->nombre);
 }
 void procesarEntrenadoresGarbageCollector(){
