@@ -15,6 +15,7 @@
 void sigusr2_handler(int signum){
 	log_info(archivoLog,"Recibo senial SIGUSR2, releo metadata.");
 	recvSIGUSR2 = 1;
+	log_info(archivoLog,"Recibi senial SIGUSR2, continuo.");
 
 }
 
