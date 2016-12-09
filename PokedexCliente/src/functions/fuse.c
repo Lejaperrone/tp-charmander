@@ -390,9 +390,9 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 	sendValue(&size, sizeof(size_t));
 	sendValue(&offset, sizeof(off_t));
 	log_info(archivoLog,"El buffer que nos llega a FUSE es: %s",buffer);
-	sendValue((char*)buffer,string_length((char*)buffer));
+	sendValue((char*)buffer,size);
 
-	int cantBytesDelBuffer = string_length((char*) buffer);
+	int cantBytesDelBuffer = size;
 	int resultadoOsada=recvInt();
 	if(resultadoOsada >0 && cantBytesDelBuffer==resultadoOsada){
 		res = resultadoOsada;
