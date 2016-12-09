@@ -170,9 +170,9 @@ void proce_write(int clientSocket, char* path){
 	log_info(logPokedexServer,"El off_t que me llega para WRITE es: %d",offset);
 	log_info(logPokedexServer, "El buffer que me llega para WRITE es: %s",bufParaElWrite);
 
-	//	int indice = osada_TA_obtenerIndiceTA(path);
+	// int indice = osada_TA_obtenerIndiceTA(path);
 
-	//	char* buf = malloc(osada_drive.directorio[indice].file_size);
+	// char* buf = malloc(osada_drive.directorio[indice].file_size);
 
 	int resultadoOsada = osada_write(path, &bufParaElWrite, size, offset);
 	sendInt(clientSocket, resultadoOsada);

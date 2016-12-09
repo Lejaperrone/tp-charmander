@@ -379,7 +379,7 @@ int chamba_rmdir (const char * path){
 	return res;
 }
 
-int chamba_write (const char * path, const char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
+int chamba_write (const char*  path, const char*  buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: WRITE");
 	log_info(archivoLog, "2 - Path: %s", path);
@@ -390,17 +390,13 @@ int chamba_write (const char * path, const char * buffer, size_t size, off_t off
 	sendValue(&size, sizeof(size_t));
 	sendValue(&offset, sizeof(off_t));
 	log_info(archivoLog,"El buffer que nos llega a FUSE es: %s",buffer);
-	sendValue((char*)buffer,string_length((char*)buffer));
+	sendValue((char*)buffer,size);
 
+	int cantBytesDelBuffer = size;
 	int resultadoOsada=recvInt();
-	char* bufAlternativo=malloc(resultadoOsada);
-	if(resultadoOsada >0){
-		log_info(archivoLog,"Recibo como resultadoOsada: %d",resultadoOsada);
-		recvString(&bufAlternativo);
-		//log_info(archivoLog,"El tamanio del buffer es: %d",string_length(buffer));
-		memcpy(buffer,bufAlternativo,resultadoOsada);
-		log_info(archivoLog, "El buf recibido es: %s", buffer);
+	if(resultadoOsada >0 && cantBytesDelBuffer==resultadoOsada){
 		res = resultadoOsada;
+		log_info(archivoLog, "La cant de bytes del buffer de FUSE es %d, y la que me llega del servidor es %d", cantBytesDelBuffer, resultadoOsada);
 	}
 	pthread_mutex_unlock(&mutexSocket);
 	return res;
