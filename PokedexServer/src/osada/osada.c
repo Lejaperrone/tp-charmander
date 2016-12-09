@@ -309,11 +309,10 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 					log_info(logPokedexServer, "El contenido del buffer es %s\n",*buf);
 			//		bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
 					log_info(logPokedexServer, "OSADA - BITMAP: Marco al bloque %d como %d\n",bloqueArranque, bitarray_test_bit(osada_drive.bitmap,bloqueArranque));
-
 					if(sizeAux >= (OSADA_BLOCK_SIZE - byteComienzoEscritura)){
-						memcpy(osada_drive.data[bloqueArranque]+byteComienzoEscritura,*buf,OSADA_BLOCK_SIZE - byteComienzoEscritura);
+						memcpy(osada_drive.data[bloqueArranque]+byteComienzoEscritura,*buf+((int)size-sizeAux),OSADA_BLOCK_SIZE - byteComienzoEscritura);
 					}else{
-						memcpy(osada_drive.data[bloqueArranque]+byteComienzoEscritura,*buf,sizeAux);
+						memcpy(osada_drive.data[bloqueArranque]+byteComienzoEscritura,*buf+((int)size-sizeAux),sizeAux);
 					}
 
 	//				log_info(logPokedexServer, "OSADA - Acabamos de escribir el buf: %s", osada_drive.data[bloqueArranque]+byteComienzoEscritura);
