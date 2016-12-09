@@ -27,12 +27,13 @@ int osada_removeFile(char* path);
 int osada_createFile(char* path, mode_t mode);
 int osada_createDir(char* path);
 int osada_rename(char* path, char* nuevaPath);
-int hayBloquesDesocupadosEnElBitmap (int* n, t_list* lista);
+int hayBloquesDesocupadosEnElBitmap (int* n, int bloqueArranque);
 int osada_truncate(char* path, off_t offset);
 int osada_fallocate(const char* path, int amount, off_t sizef, off_t sizeh);
 int osada_statfs(const char* path, t_statfs* stats);
 int contarBloquesLibresTotales();
 int contarOsadaFilesLibres();
+void actualizarTablaDeArchivosParaWrite(char* path, size_t size, int indice);
 
 
 #endif /* OSADA_OSADA_H_ */
