@@ -34,9 +34,7 @@ void* procesarPeticiones(t_hilo* h){
 	char* nombreFuncion=string_new();
 	int result=0;
 
-	//HAY QUE SACAR LO HARCODEADO////////////////////////////
-	char* bufParaElRead = malloc(1000000);
-	//char* bufParaElWrite=malloc(1000000);
+
 	while(recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
 
 		char* path=string_new();
@@ -52,7 +50,7 @@ void* procesarPeticiones(t_hilo* h){
 		}else if(string_equals_ignore_case(nombreFuncion, "OPENF")){
 			proce_open(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "READF")){
-			proce_readfile(h->socket, path, &bufParaElRead);
+			proce_readfile(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "CREAT")){
 			proce_create(h->socket, path);
 		}else if(string_equals_ignore_case(nombreFuncion, "TRUNC")){
@@ -74,7 +72,6 @@ void* procesarPeticiones(t_hilo* h){
 		}
 
 	}
-	free(bufParaElRead);
 	free(nombreFuncion);
 
 	return NULL;

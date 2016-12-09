@@ -309,6 +309,7 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 					log_info(logPokedexServer, "El contenido del buffer es %s\n",*buf);
 			//		bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
 					log_info(logPokedexServer, "OSADA - BITMAP: Marco al bloque %d como %d\n",bloqueArranque, bitarray_test_bit(osada_drive.bitmap,bloqueArranque));
+
 					if(sizeAux >= (OSADA_BLOCK_SIZE - byteComienzoEscritura)){
 						memcpy(osada_drive.data[bloqueArranque]+byteComienzoEscritura,*buf+((int)size-sizeAux),OSADA_BLOCK_SIZE - byteComienzoEscritura);
 					}else{
@@ -347,7 +348,7 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 	int indice = osada_TA_obtenerIndiceTA(path);
 	log_info(logPokedexServer, "OSADA - El indice que se obtiene es: %d", indice);
 
-	char* bufAuxiliar = malloc(size);
+
 	if (indice != -1){
 		int bloque=osada_drive.directorio[indice].first_block;
 		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n", path, bloque);
@@ -375,13 +376,19 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 
 			if((fileSize-desplazamiento-offset)>=(OSADA_BLOCK_SIZE-byteComienzoLectura)){
 				if((iSize-desplazamiento)>=(OSADA_BLOCK_SIZE-byteComienzoLectura)){
+					log_info(logPokedexServer, "OSADA - El realloc va a ser: %d", desplazamiento+OSADA_BLOCK_SIZE-byteComienzoLectura);
+					*buf = realloc(*buf, desplazamiento+OSADA_BLOCK_SIZE-byteComienzoLectura);
 					memcpy(*buf+desplazamiento,osada_drive.data[bloqueArranque]+byteComienzoLectura,OSADA_BLOCK_SIZE-byteComienzoLectura);
 					desplazamiento += OSADA_BLOCK_SIZE-byteComienzoLectura;
 				}else{
+					log_info(logPokedexServer, "OSADA - El realloc va a ser: %d", iSize);
+					*buf = realloc(*buf, iSize);
 					memcpy(*buf+desplazamiento,osada_drive.data[bloqueArranque]+byteComienzoLectura,iSize-desplazamiento);
 					desplazamiento += iSize-desplazamiento;
 				}
 			}else{
+				log_info(logPokedexServer, "OSADA - El realloc va a ser: %d", fileSize-offset);
+				*buf = realloc(*buf, fileSize-offset);
 				memcpy(*buf+desplazamiento,osada_drive.data[bloqueArranque]+byteComienzoLectura,fileSize-desplazamiento-offset);
 				desplazamiento += fileSize-desplazamiento-offset;
 			}
@@ -392,12 +399,12 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 			byteComienzoLectura=0;
 		}
 		log_info(logPokedexServer, "OSADA - DATOS: Se leyo el buf posta: %s\n",*buf);
-		free(bufAuxiliar);
-		log_info(logPokedexServer,"El tamanio del buffer es %d bytes",string_length(*buf));
-		return string_length(*buf);
+
+		log_info(logPokedexServer,"El tamanio del buffer es %d bytes",desplazamiento);
+		return desplazamiento;
 	}
 
-	free(bufAuxiliar);
+
 	return -ENOMEM;
 }
 

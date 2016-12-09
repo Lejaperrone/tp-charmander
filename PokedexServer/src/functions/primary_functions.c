@@ -77,11 +77,12 @@ void proce_readdir(int clientSocket, char* path){
 
 }
 
-void proce_readfile(int clientSocket, char* path, char** bufParaElRead){
+void proce_readfile(int clientSocket, char* path){
 
 
 	size_t size;
 	off_t offset;
+	char* bufParaElRead = malloc(OSADA_BLOCK_SIZE);
 
 	recvValue(clientSocket,&size);
 	recvValue(clientSocket,&offset);
@@ -94,14 +95,14 @@ void proce_readfile(int clientSocket, char* path, char** bufParaElRead){
 
 //	char* buf = malloc(osada_drive.directorio[indice].file_size);
 
-	int resultadoOsada = osada_read(path, bufParaElRead, size, offset);
+	int resultadoOsada = osada_read(path, &bufParaElRead, size, offset);
 	sendInt(clientSocket, resultadoOsada);
 
 
 	if(resultadoOsada > 0){
 		log_info(logPokedexServer,"El tamanio (devuelto por resultadoOsada) es %d",resultadoOsada);
-		log_info(logPokedexServer, "Voy a enviar como size del buf %d con el contenido %s", string_length(*bufParaElRead), *bufParaElRead);
-		sendString(clientSocket, *bufParaElRead, string_length(*bufParaElRead));
+		log_info(logPokedexServer, "Voy a enviar como size del buf %d con el contenido %s", resultadoOsada, bufParaElRead);
+		sendString(clientSocket, bufParaElRead, resultadoOsada);
 
 	}
 
