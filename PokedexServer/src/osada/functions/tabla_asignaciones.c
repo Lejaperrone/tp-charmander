@@ -44,12 +44,9 @@ bool existeProximoBloque(int* subindice){
 
 void obtenerProximoBloque(int* subindice){
 	if (existeProximoBloque(subindice) && *subindice != -1){
-		//log_info(logPokedexServer, "El subindice %d se reemplazara por %d", *subindice,osada_drive.asignaciones[*subindice]);
 		*subindice=osada_drive.asignaciones[*subindice];
-		//log_info(logPokedexServer, "El nuevo subindice (dentro de ProximoBloque) es: %d",*subindice);
 	}else{
 		*subindice=0xFFFF;
-		//log_info(logPokedexServer, "El nuevo subindice (dentro de ProximoBloque) que deberia ser 65535 es: %d",*subindice);
 	}
 }
 
@@ -60,7 +57,6 @@ void modificarBloquesAsignadosATablaDeAsignaciones(t_list* bloques){
 	int i;
 	for (i=0;i<list_size(bloques);i++){
 		if (i==list_size(bloques)){
-			//4294967295
 			osada_drive.asignaciones[i-1]=0xFFFFFFFF;
 		}else{
 			osada_drive.asignaciones[(int)list_get(bloques,i)]=(int)list_get(bloques,i+1);

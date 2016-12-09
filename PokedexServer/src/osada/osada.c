@@ -46,8 +46,7 @@ void bloquesATruncar(int subindice, off_t offset, int* nuevoUltimoBloque){
 	int bloquesQueNecesitoMoverme=bytes.quot;
 	log_info(logPokedexServer,"Necesito moverme %d bloques para llegar al nuevo ultimo",bloquesQueNecesitoMoverme);
 	*nuevoUltimoBloque=osada_drive.directorio[subindice].first_block;
-	//log_info(logPokedexServer,"El primer bloque era: %d",osada_drive.directorio[subindice].first_block);
-	//log_info(logPokedexServer,"nuevoUltimoBloque vale: %d",*nuevoUltimoBloque);
+
 	for(i=0;i<bloquesQueNecesitoMoverme;i++){
 		*nuevoUltimoBloque=osada_drive.asignaciones[*nuevoUltimoBloque];
 		log_info(logPokedexServer,"nuevoUltimoBloque vale ahora: %d",*nuevoUltimoBloque);
@@ -57,15 +56,11 @@ void bloquesATruncar(int subindice, off_t offset, int* nuevoUltimoBloque){
 
 int hayBloquesDesocupadosEnElBitmap (int* n, int* bloqueArranque){
 	int bloqueReal = *bloqueArranque;
-	//log_info(logPokedexServer, "n vale %d",*n);
 	int i=osada_drive.header->bitmap_blocks+1025+((osada_drive.header->fs_blocks-1025-osada_drive.header->bitmap_blocks)*4/OSADA_BLOCK_SIZE);
 	int bloquesNecesarios=0;
 
-	//log_info(logPokedexServer,"Empiezo a leer desde el bloque %d",i);
-	//log_info(logPokedexServer,"El bitmap tiene %d bits",bitarray_get_max_bit(osada_drive.bitmap));
 	while(bloquesNecesarios<*n && i<=bitarray_get_max_bit(osada_drive.bitmap)){
 		if (!bitarray_test_bit(osada_drive.bitmap,i)){
-			//log_info(logPokedexServer,"El bit %d del bitmap vale %d",i,bitarray_test_bit(osada_drive.bitmap,i));
 			bitarray_set_bit(osada_drive.bitmap,i);
 			log_info(logPokedexServer, "OSADA - El bloque arranque en hayBloquesDesocupadosEnElBitmap es: %d", *bloqueArranque);
 			if(*bloqueArranque != 0xFFFF){
@@ -78,13 +73,10 @@ int hayBloquesDesocupadosEnElBitmap (int* n, int* bloqueArranque){
 
 			bloqueReal = i;
 			osada_drive.asignaciones[i] = 0xFFFF;
-			//log_info(logPokedexServer,"OSADA - Bloques desocupados. Agrego a la lista: %d",list_get(lista,j));
 			bloquesNecesarios++;
-			//log_info(logPokedexServer,"OSADA - Hay  %d bloques libres",bloquesNecesarios);
 
 		}
 		i++;
-		//log_info(logPokedexServer,"i vale %d",i);
 	}
 	if(bloquesNecesarios==*n){
 		return 1;
@@ -206,10 +198,6 @@ int osada_getattr(char* path, file_attr* attrs){
 		return 0;
 	}
 }
-//Path es la ruta al archivo
-//Buf viene vacio y se llena con la info que hay en la path
-//size es cuantos bytes del archivo hay que leer
-//offset es desde donde tengo que leer
 
 bool superaTamanioArchivo (int indice, off_t offset, size_t size){
 	return size>(osada_drive.directorio[indice].file_size-offset);
@@ -228,55 +216,15 @@ void actualizarBytesEscritos (int* acum, int bytes){
 }
 
 void actualizarTablaDeArchivosParaWrite(char* path, size_t size, int indice){
-//	char* fileName = string_new();
-//	char* directoryName = string_new();
 	time_t timer=time(0);
-//	directoryContainingFile(path,&fileName,&directoryName);
-//
-//	log_info(logPokedexServer, "OSADA - El lugar libre en la tabla de archivos que nos llega de osada_write es: %d", indice);
 
 	osada_drive.directorio[indice].file_size = size;
 	log_info(logPokedexServer, "OSADA - El file_size del path %s es %d, y el size que me llego por parametro es %d",path, osada_drive.directorio[indice].file_size, size);
-//	osada_drive.directorio[indice].first_block = bloqueArranque;
 
-//	char* barrasCero=string_repeat('\0',17);
-//	memcpy(osada_drive.directorio[indice].fname,barrasCero,17);
-//	log_info(logPokedexServer,"El nombre inicial despues del memcpy es %s",osada_drive.directorio[indice].fname);
-//	log_info(logPokedexServer,"El directorio padre de %s es %d",fileName,osada_drive.directorio[indice].parent_directory);
-//	int i;
-//	for (i=0;i<17;i++){
-//		osada_drive.directorio[indice].fname[i]=fileName[i];
-//	}
-
-//	osada_drive.directorio[indice].state = 1;
 	osada_drive.directorio[indice].lastmod = timer;
-
-//	free(fileName);
-//	free(directoryName);
 }
 
-//int buscarIndiceEnTablaDeArchivos(char* path, int indice){
-//	char* fileName = string_new();
-//	char* directoryName = string_new();
-//	time_t timer=time(0);
-//	directoryContainingFile(path,&fileName,&directoryName);
-//
-//	int i;
-//	log_info(logPokedexServer, "OSADA - El indicePadre (dentro de buscarIndiceEnTablaDeArchivos) es: %d", indice);
-//	free(directoryName);
-//	for(i=0; i<2048; i++){
-//		if(strcmp(osada_drive.directorio[indice].fname,fileName) == 0){
-//			free(fileName);
-//			return i;
-//		}
-//	}
-//
-//	return -1;
-//}
-
-//	/README.txt
 int osada_write(char* path,char** buf, size_t size, off_t offset){
-	//int resultadoDeBuscarRegistroPorNombre;
 	log_info(logPokedexServer,"El buf que me llega es: %s",*buf);
 	int indice = osada_TA_obtenerIndiceTA(path);
 	int bytesEscritos=0;
@@ -290,8 +238,6 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 			log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: Desde el bloque %d me desplace hasta el %d, me movi %f bloques.\n",bloque,bloqueArranque,desplazamientoHastaElBloque);;
 			int byteComienzoEscritura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
 			log_info(logPokedexServer, "OSADA - DATOS: Empiezo a leer desde el byte: %d\n",byteComienzoEscritura);
-			//char* bufUpdated=malloc(size);
-		//	strcpy(bufUpdated,buf);
 			int bloquesQueNecesitoEscribir=ceil((float)size/(float)OSADA_BLOCK_SIZE);
 			int sizeAux=(int)size;
 			log_info(logPokedexServer,"Size aux vale %d y size comienzo vale %d",sizeAux,size);
@@ -315,10 +261,8 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 				actualizarTablaDeArchivosParaWrite(path, size+offset, indice);
 				while (sizeAux>0 && bloqueArranque != 0xFFFF){
 					log_info(logPokedexServer,"Size aux vale %d",sizeAux);
-		//			int lugarLibreEnLaTablaDeArchivos = buscarIndiceEnTablaDeArchivos(path, indice);
 
 					log_info(logPokedexServer, "El contenido del buffer es %s\n",*buf);
-			//		bitarray_set_bit(osada_drive.bitmap,bloqueArranque);
 					log_info(logPokedexServer, "OSADA - BITMAP: Marco al bloque %d como %d\n",bloqueArranque, bitarray_test_bit(osada_drive.bitmap,bloqueArranque));
 
 					if(sizeAux >= (OSADA_BLOCK_SIZE - byteComienzoEscritura)){
@@ -327,9 +271,6 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 						memcpy(osada_drive.data[bloqueArranque]+byteComienzoEscritura,*buf+((int)size-sizeAux),sizeAux);
 					}
 
-	//				log_info(logPokedexServer, "OSADA - Acabamos de escribir el buf: %s", osada_drive.data[bloqueArranque]+byteComienzoEscritura);
-
-					//actualizarBuffer(buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
 					if(sizeAux >= (OSADA_BLOCK_SIZE - byteComienzoEscritura)){
 						log_info(logPokedexServer,"Size aux vale %d y byte comienzo vale %d",sizeAux,byteComienzoEscritura);
 						actualizarBytesEscritos(&bytesEscritos,OSADA_BLOCK_SIZE-byteComienzoEscritura);
@@ -342,7 +283,6 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 					log_info(logPokedexServer, "OSADA - DATOS: Se han escrito %d bytes\n",bytesEscritos);
 					byteComienzoEscritura=0;
 					bloqueArranque=avanzarBloquesParaEscribir(bloqueArranque,1);
-			//		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Avanzo al bloque %d\n",bloqueArranque);
 				}
 
 			}else{
@@ -433,34 +373,6 @@ int osada_open(char* path){
 
 	return -ENOENT;
 }
-/*int hayBloquesLibres(t_list* listaDeBloques, int bloquesNecesarios){
-	bool noMeAlcanzan=true;
-	int tam=bitarray_get_max_bit(osada_drive.bitmap);
-	int i;
-	while(noMeAlcanzan){
-		int posicionEnBitmap=0;
-		if(bitarray_test_bit(osada_drive.bitmap,posicionEnBitmap)){
-			if (posicionEnBitmap>=tam){
-				//perror("No hay bloques libres en el bitmap");
-				//el for se hace por si no me alcanzan los bloques, los libero
-				for (i=0;i<list_size(listaDeBloques);i++){
-					bitarray_clean_bit(osada_drive.bitmap,(int)list_get(listaDeBloques,i));
-				}
-				return -ENOSPC;
-			}else{
-				posicionEnBitmap++;
-			}
-		}else{
-			list_add(listaDeBloques,(void*)posicionEnBitmap);
-			bitarray_set_bit(osada_drive.bitmap,posicionEnBitmap);
-			if(list_size(listaDeBloques)==bloquesNecesarios){
-				noMeAlcanzan=false;
-			}
-
-		}
-	}
-	return 1;
-}*/
 
 void buscarLugarLibreEnBitmap(int* lugarLibre){
 	int bloqueInicialDeDatos=osada_drive.header->bitmap_blocks+1025+(osada_drive.header->fs_blocks-osada_drive.header->bitmap_blocks-1025)*4/OSADA_BLOCK_SIZE;
@@ -468,10 +380,8 @@ void buscarLugarLibreEnBitmap(int* lugarLibre){
 	log_info(logPokedexServer, "OSADA - El tamanio del bitmap de osada_drive es: %d", bitarray_get_max_bit(osada_drive.bitmap));
 
 	for (i=bloqueInicialDeDatos;i<=bitarray_get_max_bit(osada_drive.bitmap);i++){
-	//	printf("%d", bitarray_test_bit(osada_drive.bitmap,i));
 		if (bitarray_test_bit(osada_drive.bitmap,i)){
 		}else{
-//			log_info(logPokedexServer, "OSADA - El bit del bloque %d es %d", i, bitarray_test_bit(osada_drive.bitmap,i));
 			*lugarLibre=i;
 			i=bitarray_get_max_bit(osada_drive.bitmap);
 
@@ -507,9 +417,6 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path, int posicionEnTablaArchivo
 	osada_drive.directorio[posicionEnTablaArchivos].file_size=0;
 	log_info(logPokedexServer,"El archivo %s de la path %s ocupa %d bytes",fileName,directoryName,osada_drive.directorio[posicionEnTablaArchivos].file_size);
 	osada_drive.directorio[posicionEnTablaArchivos].first_block=0xFFFF;
-	/*strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
-	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].lastmod=atoi(fecha);
-	log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: La fecha de modificacion es %d\n",osada_drive.directorio[posicionEnTablaArchivos].lastmod);*/
 	log_info(logPokedexServer,"El nombre inicial es %s",osada_drive.directorio[posicionEnTablaArchivos].fname);
 	char* barrasCero=string_repeat('\0',17);
 	memcpy(osada_drive.directorio[posicionEnTablaArchivos].fname,barrasCero,17);
@@ -522,8 +429,6 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path, int posicionEnTablaArchivo
 	log_info(logPokedexServer,"El nombre final es %s",osada_drive.directorio[posicionEnTablaArchivos].fname);
 	osada_drive.directorio[posicionEnTablaArchivos].state=REGULAR;
 	osada_drive.directorio[posicionEnTablaArchivos].lastmod=timer;
-//	osada_drive.directorio[bloqueInicioArchivo*OSADA_BLOCK_SIZE].parent_directory=osada_TA_obtenerUltimoHijoFromPath(directoryName, &resultadoDeBuscarRegistroPorNombre);
-	/*free(fecha);*/
 	free(fileName);
 	free(directoryName);
 
@@ -566,9 +471,7 @@ int osada_createDir(char* path){
 	}
 	free(directorio);
 	int subindice=osada_TA_obtenerIndiceTA(directorioPadre);
-//	log_info(logPokedexServer, "OSADA - El subindice obtenido es: %d", subindice);
 	free(directorioPadre);
-	//aca hay que obtener el hijo del ultimo path/ parametro es el path
 	if(subindice != -1){
 		if(darDeAltaDirectorioEnTablaDeArchivos(name, subindice) == 1){
 			free(name);
@@ -621,10 +524,6 @@ int renombrarArchivo (int subindice, char* newFileName, int subindicePath){
 }
 int getFileNameFromPath(char* path,  char** nombre){
 	char** pathSplitteada=string_split(path,"/");
-	//ciudad/pokemon/archivo.txt
-
-	//[ciudad,pokemon,archivo.txt,null]
-	//*nombre=pathSplitteada[strlen(*pathSplitteada)-1];
 	int j=0;
 	char* pathNueva=string_new();
 	while(j!=-1){
@@ -682,34 +581,21 @@ int osada_rename(char* path, char* nuevaPath){
 
 int calcularBloquesQueOcupaDesdeElPrimerBloque (int primerBloque){
 	int bloques=0;
-//	pthread_mutex_lock(&mutexTablaAsignaciones);
 	log_info(logPokedexServer, "OSADA - Antes de entrar al while de calcularBloquesQueOcupaDesdeElPrimerBloque, con el bloque: %d", primerBloque);
 	while (primerBloque!=0xFFFFFF && primerBloque != -1){
 		bloques++;
 		primerBloque=osada_drive.asignaciones[primerBloque];
 		log_info(logPokedexServer, "OSADA - El bloque dentro del while es: %d", primerBloque);
 	}
-//	pthread_mutex_unlock(&mutexTablaAsignaciones);
 	return bloques;
 }
 
 void actualizarTablaDeArchivos(int subindice, off_t offset){
-//	time_t timer=time(0);
-//	struct tm *tlocal = localtime(&timer);
-//	char* fecha=string_new();
 
 	log_info(logPokedexServer, "OSADA - Antes del strftime");
-//	strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
-//	osada_drive.directorio[subindice].lastmod=atoi(fecha);
-//	log_info(logPokedexServer, "OSADA - La nueva fecha de modificacion es: %d", osada_drive.directorio[subindice].lastmod);
 	osada_drive.directorio[subindice].file_size = offset;
 	log_info(logPokedexServer, "OSADA - El nuevo size del archivo es: %d",osada_drive.directorio[subindice].file_size);
 
-//	log_info(logPokedexServer, "OSADA - La fecha es: %s", fecha);
-//	log_info(logPokedexServer, "OSADA - E tamanio nuevo es: %d", offset);
-
-//	free(fecha);
-//	free(tlocal);
 }
 void limpiarBitmapParaTruncate(int bloque){
 	log_info(logPokedexServer,"Bloque vale %d",bloque);
@@ -750,10 +636,6 @@ void liberarEspacio (int subindice, off_t offset, int nuevoUltimoBloque){
 
 
 
-
-//	 pthread_mutex_unlock(&mutexBitmap);
-//	 	 pthread_mutex_unlock(&mutexTablaArchivos);
-//	 	 pthread_mutex_unlock(&mutexTablaAsignaciones);
 }
 
 int irAlUltimoBloqueDeLaTablaDeAsignaciones (int subindice){
@@ -768,23 +650,6 @@ int irAlUltimoBloqueDeLaTablaDeAsignaciones (int subindice){
 	return ult;
 }
 
-//--------------- ARREGLAR EL MEMCPY DE ESTA FUNCION ---------------
-/*void ocuparEspacioEnDatos(int bloqueAOcupar, off_t offset, int subindice){
-	int byteComienzo = osada_drive.directorio[subindice].file_size % OSADA_BLOCK_SIZE;
-	log_info(logPokedexServer, "OSADA - El bloqueAOcupar es: %d", bloqueAOcupar);
-	log_info(logPokedexServer, "OSADA - El byteComienzo es: %d", byteComienzo);
-	log_info(logPokedexServer, "OSADA - El data de bloqueAOcupar es: %s", (char*)osada_drive.data[bloqueAOcupar]);
-
-	char barraCero = '\0';
-	if(byteComienzo == 0){
-		log_info(logPokedexServer, "OSADA - Pasa el memcpy cuando byteComienzo == 0");
-		memcpy(osada_drive.data[bloqueAOcupar], &barraCero, OSADA_BLOCK_SIZE);
-	}else{
-		log_info(logPokedexServer, "OSADA - Pasa el memcpy cuando byteComienzo != 0");
-		memcpy(osada_drive.data[bloqueAOcupar]+byteComienzo, &barraCero, OSADA_BLOCK_SIZE-byteComienzo);
-	}
-
-}*/
 void marcarComoOcupadosEnElBitmap (t_list* lista){
 	int i;
 	for (i=0;i<list_size(lista);i++){
@@ -812,7 +677,6 @@ void actualizarDatos (int ultimoBloque, t_list* lista, int bytesOcupadosDelUltim
 		barrasCero=string_repeat('\0',OSADA_BLOCK_SIZE);
 		memcpy(osada_drive.data[ultimoBloque]+OSADA_BLOCK_SIZE,barrasCero,OSADA_BLOCK_SIZE);
 		log_info(logPokedexServer, "Lleno el bloque %d con",ultimoBloque);
-		//log_info(logPokedexServer,"El contenido del bloque %d es: %s",ultimoBloque,osada_drive.data[ultimoBloque]);
 		ultimoBloque=osada_drive.asignaciones[ultimoBloque];
 	}
 }
@@ -828,42 +692,11 @@ void ocuparEspacio (int sub, int bq_to_set, off_t offset, t_list* lista){
 	actualizarTablaDeArchivos(sub,offset);
 	actualizarTablaDeAsignaciones(ultimoBloque,lista);
 	actualizarDatos(ultimoBloque,lista,bytesOcupadosDelUltimoBloque,bytesConBarraCerosDelUltimoBloque);
-//		ocuparEspacioEnDatos(ultimoBloque, offset, sub);
-		//int bloqueAOcupar;
-		/*for (i=0;i<bq_to_set;i++){
-			buscarLugarLibreEnBitmap(&bloqueAOcupar);
-			log_info(logPokedexServer, "OSADA - El bloque a ocupar es: %d", bloqueAOcupar);
-			bitarray_set_bit(osada_drive.bitmap,bloqueAOcupar);
-			log_info(logPokedexServer, "OSADA - El bit de ocupado en el bloque %d es %d", bloqueAOcupar, bitarray_test_bit(osada_drive.bitmap,bloqueAOcupar));
-			ocuparBloqueSegunElUltimo(ultimoBloque,bloqueAOcupar);
-	//		ocuparEspacioEnDatos(bloqueAOcupar, offset, sub);
 
-			int byteComienzo = osada_drive.directorio[sub].file_size % OSADA_BLOCK_SIZE;
-			log_info(logPokedexServer, "OSADA - El bloqueAOcupar es: %d", bloqueAOcupar);
-			log_info(logPokedexServer, "OSADA - El byteComienzo es: %d", byteComienzo);
-			log_info(logPokedexServer, "OSADA - El data de bloqueAOcupar es: %s", osada_drive.data[bloqueAOcupar]);
-
-			char barraCero = '\0';
-			if(byteComienzo == 0){
-				log_info(logPokedexServer, "OSADA - Pasa el memcpy cuando byteComienzo == 0");
-				memcpy(osada_drive.data[bloqueAOcupar], &barraCero, OSADA_BLOCK_SIZE);
-			}else{
-				log_info(logPokedexServer, "OSADA - Pasa el memcpy cuando byteComienzo != 0");
-				memcpy(osada_drive.data[bloqueAOcupar]+byteComienzo, &barraCero, OSADA_BLOCK_SIZE-byteComienzo);
-			}
-
-		}*/
-//		pthread_mutex_unlock(&mutexTablaAsignaciones);
-//		pthread_mutex_unlock(&mutexBitmap);
-//		pthread_mutex_lock(&mutexBitmap);
 
 }
 void contarBloquesSegun(int originalFileSize,int offset, int* bloques){
-	/*log_info(logPokedexServer,"Necesito %d libres",ceil((float)offset-(float)originalFileSize/(float)OSADA_BLOCK_SIZE));
-	printf("offset vale %d, originalFileSize vale %d, el ceil vale %d, y antes valia %d",offset
-			,originalFileSize,ceil((float)offset-(float)originalFileSize/(float)OSADA_BLOCK_SIZE)
-			,ceil((float)offset-(float)originalFileSize/(float)OSADA_BLOCK_SIZE));
-	*bloques=ceil((float)offset-(float)originalFileSize/(float)OSADA_BLOCK_SIZE);*/
+
 	div_t bloquesAux=div(offset-originalFileSize,OSADA_BLOCK_SIZE);
 	*bloques=bloquesAux.quot;
 	if(bloquesAux.rem>0){

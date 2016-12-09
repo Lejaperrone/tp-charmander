@@ -60,20 +60,15 @@ int darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 	int yaLoGuarde=0;
 	for (i=0;i<2048;i++){
 		if(yaLoGuarde==0 && osada_drive.directorio[i].state==0){
-//			log_info(logPokedexServer, "OSADA - Entre en el if de que NO se guardo y el state del archivo es 0");
 			yaLoGuarde=1;
 			char* fecha=string_new();
 			time_t timer=time(0);
 			struct tm *tlocal = localtime(&timer);
 			osada_drive.directorio[i].file_size=0;
-			//osada_drive.directorio[i].first_block=NULL;
 			strcpy((char*)osada_drive.directorio[i].fname, nombre);
 			strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
 			osada_drive.directorio[i].lastmod=atoi(fecha);
-			// no sabemos si el directorio padre de un directorio nuevo es 0xFFFF u otro
-			//parent directory es el subindice del ultimo hijo
 			osada_drive.directorio[i].parent_directory=indice;
-//			log_info(logPokedexServer, "OSADA - Entre en el if de que NO se guardo y el state del archivo es 0");
 			osada_drive.directorio[i].state=2;
 			osada_drive.directorio[i].first_block=0xFFFF;
 		}
@@ -104,32 +99,6 @@ int osada_TA_obtenerIndiceTA(char* path){
 		free(dirc);
 		return childOf;
 	}
-}
-int osada_TA_obtenerUltimoHijoFromPath(char* path, int* resultadoDeBuscarRegistroPorNombre){
-	//DEPRECATED usar: osada_TA_obtenerIndiceTA
-	char** dirc = (char**)malloc(sizeof(char*));
-	u_int16_t child = 0xFFFF;
-	if(strcmp(path,"/")!=0){
-	dirc = string_split(path, "/");
-	int i=0;
-	while(dirc[i]!=NULL){
-		if(string_length(dirc[i]) != 0){
-			child = osada_TA_buscarRegistroPorNombre(dirc[i], child);
-			*resultadoDeBuscarRegistroPorNombre = osada_TA_buscarRegistroPorNombre(dirc[i], child);
-			if(child == -1){
-				return -ENOENT;
-			}
-		}
-		i++;
-	}
-
-	}
-	if(child==0xFFFF && path[0]!='/'){
-		return -1;
-	}
-
-	free(dirc);
-	return child;
 }
 
 void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
@@ -171,12 +140,3 @@ void osada_TA_borrarDirectorio(u_int16_t parent){
 	pthread_mutex_unlock(&mutexTablaArchivos);
 }
 
-
-void osada_TA_renombrarArchivo(char* nombre, u_int16_t parent,char* nuevoNombre){
-	int i;
-	for(i=0;i<2048;i++){
-	if(compare(i, nombre) && osada_drive.directorio[i].parent_directory == parent){
-		rename(nombre, nuevoNombre); //funciona como rename (const char *__old, const char *__new)
-	}
-	}
-}
