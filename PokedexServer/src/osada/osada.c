@@ -284,13 +284,15 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 			//char* bufUpdated=malloc(size);
 		//	strcpy(bufUpdated,buf);
 			int bloquesQueNecesitoEscribir=ceil((float)size/(float)OSADA_BLOCK_SIZE);
-			size_t sizeAux=size;
+			int sizeAux=(int)size;
+			log_info(logPokedexServer,"Size aux vale %d y size comienzo vale %d",sizeAux,size);
 			if (hayBloquesDesocupadosEnElBitmap(&bloquesQueNecesitoEscribir, bloqueArranque) && byteComienzoEscritura>=0){
 				if(offset==0){
 					osada_drive.directorio[indice].first_block=bloqueArranque;
 				}
 				actualizarTablaDeArchivosParaWrite(path, size, indice);
-				while (/*elBufferTieneDatosParaEscribir(*buf)*/sizeAux>0 && bloqueArranque != -1){
+				while (sizeAux>0 && bloqueArranque != -1){
+					log_info(logPokedexServer,"Size aux vale %d",sizeAux);
 		//			int lugarLibreEnLaTablaDeArchivos = buscarIndiceEnTablaDeArchivos(path, indice);
 
 					log_info(logPokedexServer, "El contenido del buffer es %s\n",*buf);
@@ -307,11 +309,13 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 
 					//actualizarBuffer(buf,OSADA_BLOCK_SIZE-byteComienzoEscritura);
 					if(sizeAux >= (OSADA_BLOCK_SIZE - byteComienzoEscritura)){
+						log_info(logPokedexServer,"Size aux vale %d y byte comienzo vale %d",sizeAux,byteComienzoEscritura);
 						actualizarBytesEscritos(&bytesEscritos,OSADA_BLOCK_SIZE-byteComienzoEscritura);
 					}else{
+						log_info(logPokedexServer,"Size aux vale %d y byte comienzo vale %d",sizeAux,byteComienzoEscritura);
 						actualizarBytesEscritos(&bytesEscritos,sizeAux);
 					}
-					sizeAux-=OSADA_BLOCK_SIZE-byteComienzoEscritura;
+					sizeAux=sizeAux-(OSADA_BLOCK_SIZE-byteComienzoEscritura);
 
 					log_info(logPokedexServer, "OSADA - DATOS: Se han escrito %d bytes\n",bytesEscritos);
 					byteComienzoEscritura=0;
