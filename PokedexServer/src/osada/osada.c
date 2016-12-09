@@ -76,7 +76,7 @@ int hayBloquesDesocupadosEnElBitmap (int* n, int* bloqueArranque){
 				log_info(logPokedexServer, "OSADA - El bloque arranque en hayBloquesDesocupadosEnElBitmap es: %d", *bloqueArranque);
 			}
 
-			i=bloqueReal;
+			bloqueReal = i;
 			osada_drive.asignaciones[i] = 0xFFFF;
 			//log_info(logPokedexServer,"OSADA - Bloques desocupados. Agrego a la lista: %d",list_get(lista,j));
 			bloquesNecesarios++;
@@ -392,7 +392,7 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 			desplazamiento += OSADA_BLOCK_SIZE;
 			sizeParaEscribir -= OSADA_BLOCK_SIZE;
 //			log_info(logPokedexServer, "OSADA - DATOS: Se leyo esta informacion: %s\n",*buf);
-			log_info(logPokedexServer, "OSADA - DATOS: Se leyo esta informacion: %s\n",bufAuxiliar);
+			log_info(logPokedexServer, "OSADA - DATOS: Se leyo esta informacion: %s\n",string_duplicate(bufAuxiliar));
 			bloqueArranque=osada_drive.asignaciones[bloqueArranque];
 			log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: El bloque siguiente es: %d\n",bloqueArranque);
 //			byteComienzoLectura=0;
