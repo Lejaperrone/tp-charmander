@@ -69,43 +69,47 @@ int sendBufferParaElWrite(char* bufferLlenoDeFuse, int size){
 
 int recibirBuffer(char* buffer, int bytesLeidosEnOsada){
 
-	div_t divisionEnPartes = div(bytesLeidosEnOsada, 32768);
-	int vecesQueHayQueHacerRecv = divisionEnPartes.quot;
+//	div_t divisionEnPartes = div(bytesLeidosEnOsada, 32768);
+//	int vecesQueHayQueHacerRecv = divisionEnPartes.quot;
+//
+//	char* bufferAuxiliar = malloc(bytesLeidosEnOsada);
+//	if(bytesLeidosEnOsada <= 32768){
+//		recv(pokedexServer, bufferAuxiliar, bytesLeidosEnOsada, 0);
+//		log_info(archivoLog, "IMPORTANTE - recibirBuffer - Recibo del servidor la cant de bytes: %d", bytesLeidosEnOsada);
+//		memcpy(buffer, bufferAuxiliar, bytesLeidosEnOsada);
+//		return 1;
+//	}
+//	else{
+//		int i;
+//		int desplazam = 0;
+//		for(i=0 ; i<vecesQueHayQueHacerRecv; i++){
+//			char* bufferDe32kb = malloc(32768*sizeof(char));
+//			log_info(archivoLog, "IMPORTANTE - recibirBuffer - Las veces que hay que hacer recvs de 32768 es: %d",vecesQueHayQueHacerRecv);
+//			recv(pokedexServer, bufferDe32kb, 32768, 0);
+//			memcpy(bufferAuxiliar+desplazam, bufferDe32kb, 32768);
+//			desplazam += 32768;
+//
+//			free(bufferDe32kb);
+//		}
+//		if(divisionEnPartes.rem > 0){
+//			char* bufferDelRestoDeBytes = malloc((divisionEnPartes.rem)*sizeof(char));
+//			log_info(archivoLog, "IMPORTANTE - recibirBuffer - Recibo del servidor la cant de bytes: %d", divisionEnPartes.rem);
+//			recv(pokedexServer, bufferDelRestoDeBytes, divisionEnPartes.rem, 0);
+//			memcpy(bufferAuxiliar+desplazam, bufferDelRestoDeBytes, divisionEnPartes.rem);
+//			free(bufferDelRestoDeBytes);
+//		}
+//		memcpy(buffer, bufferAuxiliar, bytesLeidosEnOsada);
+//	}
+//
+//	log_info(archivoLog,"----------IMPRIMO EL BUFFER RECIBIDO----------");
+//			int i;
+//			for (i=0; i<bytesLeidosEnOsada; i++){
+//				log_info(archivoLog,"%d", buffer[i]);
+//			}
+//
+//	return 1;
 
-	char* bufferAuxiliar = malloc(bytesLeidosEnOsada);
-	if(bytesLeidosEnOsada <= 32768){
-		recv(pokedexServer, bufferAuxiliar, bytesLeidosEnOsada, 0);
-		log_info(archivoLog, "IMPORTANTE - recibirBuffer - Recibo del servidor la cant de bytes: %d", bytesLeidosEnOsada);
-		memcpy(buffer, bufferAuxiliar, bytesLeidosEnOsada);
-		return 1;
-	}
-	else{
-		int i;
-		int desplazam = 0;
-		for(i=0 ; i<vecesQueHayQueHacerRecv; i++){
-			char* bufferDe32kb = malloc(32768*sizeof(char));
-			log_info(archivoLog, "IMPORTANTE - recibirBuffer - Las veces que hay que hacer recvs de 32768 es: %d",vecesQueHayQueHacerRecv);
-			recv(pokedexServer, bufferDe32kb, 32768, 0);
-			memcpy(bufferAuxiliar+desplazam, bufferDe32kb, 32768);
-			desplazam += 32768;
-
-			free(bufferDe32kb);
-		}
-		if(divisionEnPartes.rem > 0){
-			char* bufferDelRestoDeBytes = malloc((divisionEnPartes.rem)*sizeof(char));
-			log_info(archivoLog, "IMPORTANTE - recibirBuffer - Recibo del servidor la cant de bytes: %d", divisionEnPartes.rem);
-			recv(pokedexServer, bufferDelRestoDeBytes, divisionEnPartes.rem, 0);
-			memcpy(bufferAuxiliar+desplazam, bufferDelRestoDeBytes, divisionEnPartes.rem);
-			free(bufferDelRestoDeBytes);
-		}
-		memcpy(buffer, bufferAuxiliar, bytesLeidosEnOsada);
-	}
-
-	log_info(archivoLog,"----------IMPRIMO EL BUFFER RECIBIDO----------");
-			int i;
-			for (i=0; i<bytesLeidosEnOsada; i++){
-				log_info(archivoLog,"%d", buffer[i]);
-			}
+	recv(pokedexServer, buffer, bytesLeidosEnOsada, MSG_WAITALL);
 
 	return 1;
 }
