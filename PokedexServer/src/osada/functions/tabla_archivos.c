@@ -20,7 +20,6 @@
 #include <pthread.h>
 
 extern pthread_mutex_t mutexTablaArchivos;
-extern pthread_mutex_t mutexBitmap;
 
 
 int compare(int indice, char* test2){

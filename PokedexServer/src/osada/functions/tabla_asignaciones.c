@@ -15,7 +15,6 @@
 #include "../commons/osada.h"
 #include <errno.h>
 
-extern pthread_mutex_t mutexTablaAsignaciones;
 int avanzarBloquesParaLeer (int bloqueInicial,int desplazamientoLimite){
 	int i;
 

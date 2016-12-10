@@ -27,9 +27,7 @@
 #include <pthread.h>
 
 extern pthread_mutex_t mutexTablaArchivos;
-extern pthread_mutex_t mutexTablaAsignaciones;
 extern pthread_mutex_t mutexBitmap;
-extern pthread_mutex_t mutexDatos;
 
 
 
@@ -121,7 +119,6 @@ void directoryContainingFile(char* path, char** fileName, char** father){
 
 int osada_removeDir(char* path){
 
-	int resultadoDeBuscarRegistroPorNombre;
 	t_list* directoriosQueComponenElActual=list_create();
 	u_int16_t parent = osada_TA_obtenerIndiceTA(path);
 
@@ -407,7 +404,6 @@ int obtenerLongitudDelNombreDelArchivo(char* path){
 
 
 void generarNuevoArchivoEnTablaDeArchivos(char* path, int posicionEnTablaArchivos){
-	int i, resultadoDeBuscarRegistroPorNombre;
 	time_t timer=time(0);
 	char* fileName=string_new();
 	char* directoryName=string_new();
@@ -423,6 +419,7 @@ void generarNuevoArchivoEnTablaDeArchivos(char* path, int posicionEnTablaArchivo
 	log_info(logPokedexServer,"El nombre inicial despues del memcpy es %s",osada_drive.directorio[posicionEnTablaArchivos].fname);
 	osada_drive.directorio[posicionEnTablaArchivos].parent_directory=osada_TA_obtenerIndiceTA(directoryName);
 	log_info(logPokedexServer,"El directorio padre de %s es %d",fileName,osada_drive.directorio[posicionEnTablaArchivos].parent_directory);
+	int i;
 	for (i=0;i<17;i++){
 		osada_drive.directorio[posicionEnTablaArchivos].fname[i]=fileName[i];
 	}
@@ -668,7 +665,7 @@ void actualizarTablaDeAsignaciones(int ultimoBloqueOriginal, t_list* listaDeBloq
 	}
 }
 void actualizarDatos (int ultimoBloque, t_list* lista, int bytesOcupadosDelUltimoBloque, int bytesConBarraCeroDelUltimoBloque){
-	int i;
+
 	log_info(logPokedexServer,"El ultimo bloque es %d",ultimoBloque);
 	char* barrasCero=string_repeat('\0',bytesConBarraCeroDelUltimoBloque);
 	memcpy(osada_drive.data[ultimoBloque]+bytesOcupadosDelUltimoBloque,barrasCero,bytesConBarraCeroDelUltimoBloque);
