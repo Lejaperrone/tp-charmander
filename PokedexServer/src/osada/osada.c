@@ -312,7 +312,7 @@ int osada_removeDir(char* path){
 }
 
 int osada_write(char* path,char** buf, size_t size, off_t offset){
-	log_info(logPokedexServer,"El buf que me llega es: %s",*buf);
+//	log_info(logPokedexServer,"El buf que me llega es: %s",*buf);
 	int indice = osada_TA_obtenerIndiceTA(path);
 	int bytesEscritos=0;
 	log_info(logPokedexServer,"El path es %s y el indice es %d",path,indice);
@@ -321,8 +321,9 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 			int bloque=osada_drive.directorio[indice].first_block;
 			log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n",path, bloque);
 			double desplazamientoHastaElBloque=floor(offset/OSADA_BLOCK_SIZE);
+			log_info(logPokedexServer, "OSADA - El desplazamientoHastaElBloque es: %d", desplazamientoHastaElBloque);
 			int bloqueArranque=avanzarBloquesParaEscribir(bloque,desplazamientoHastaElBloque);
-			log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: Desde el bloque %d me desplace hasta el %d, me movi %f bloques.\n",bloque,bloqueArranque,desplazamientoHastaElBloque);;
+			log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: Desde el bloque %d me desplace hasta el %d, me movi %f bloques.\n",bloque,bloqueArranque,desplazamientoHastaElBloque);
 			int byteComienzoEscritura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
 			log_info(logPokedexServer, "OSADA - DATOS: Empiezo a leer desde el byte: %d\n",byteComienzoEscritura);
 			int bloquesQueNecesitoEscribir=ceil((float)size/(float)OSADA_BLOCK_SIZE);
@@ -337,19 +338,20 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 				}
 			}
 
-			if (hayBloquesDesocupadosEnElBitmap(&bloquesQueNecesitoEscribir, &bloqueArranque) && byteComienzoEscritura>=0){
+			if (hayBloquesDesocupadosEnElBitmapParaWrite(&bloquesQueNecesitoEscribir, &bloqueArranque, indice) && byteComienzoEscritura>=0){
 				if(ultimoBloqueIndice == 0xFFFF && osada_drive.directorio[indice].first_block != 0xFFFF){
 					osada_drive.asignaciones[ultimoBloqueIndice]=bloqueArranque;
-				}else if(offset==0){
-					log_info(logPokedexServer,"Bloque Arranque es: %d",bloqueArranque);
-					osada_drive.directorio[indice].first_block=bloqueArranque;
-					log_info(logPokedexServer,"El first block del indice %d es: %d",indice, osada_drive.directorio[indice].first_block);
 				}
+//				else if(offset==0){
+//					log_info(logPokedexServer,"Bloque Arranque es: %d",bloqueArranque);
+//					osada_drive.directorio[indice].first_block=bloqueArranque;
+//					log_info(logPokedexServer,"El first block del indice %d es: %d",indice, osada_drive.directorio[indice].first_block);
+//				}
 				actualizarTablaDeArchivosParaWrite(path, size+offset, indice);
 				while (sizeAux>0 && bloqueArranque != 0xFFFF){
 					log_info(logPokedexServer,"Size aux vale %d",sizeAux);
 
-					log_info(logPokedexServer, "El contenido del buffer es %s\n",*buf);
+	//				log_info(logPokedexServer, "El contenido del buffer es %s\n",*buf);
 					log_info(logPokedexServer, "OSADA - BITMAP: Marco al bloque %d como %d\n",bloqueArranque, bitarray_test_bit(osada_drive.bitmap,bloqueArranque));
 
 					if(sizeAux >= (OSADA_BLOCK_SIZE - byteComienzoEscritura)){

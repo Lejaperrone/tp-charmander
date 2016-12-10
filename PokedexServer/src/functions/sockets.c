@@ -86,6 +86,40 @@ int sendValue(int clientSocket, char* parameter, int size){
 	free(sizeStr);
 	return 0;
 }
+int recvBufferParaWrite(int clientSocket, char** buffer, int size){
+
+	char* bufAuxiliar = malloc(size);
+	if(size <= 32768){
+		recv(clientSocket, bufAuxiliar, size, 0);
+		memcpy(*buffer, bufAuxiliar, size);
+		free(bufAuxiliar);
+	}else{
+		div_t divisionEnPartes = div(size, 32768);
+		int vecesQueHayQueHacerRecv = divisionEnPartes.quot;
+
+		int i;
+		int desplazam = 0;
+		for(i=0 ; i<vecesQueHayQueHacerRecv; i++){
+			char* bufferDe32kb = malloc(32768*sizeof(char));
+			log_info(logPokedexServer, "IMPORTANTE - recibirBuffer - Las veces que hay que hacer recvs de 32768 es: %d",vecesQueHayQueHacerRecv);
+			recv(clientSocket, bufferDe32kb, 32768, 0);
+			memcpy(bufAuxiliar+desplazam, bufferDe32kb, 32768);
+			desplazam += 32768;
+
+			free(bufferDe32kb);
+		}
+		if(divisionEnPartes.rem > 0){
+			char* bufferDelRestoDeBytes = malloc((divisionEnPartes.rem)*sizeof(char));
+			log_info(logPokedexServer, "IMPORTANTE - recibirBuffer - Recibo del cliente la cant de bytes: %d", divisionEnPartes.rem);
+			recv(clientSocket, bufferDelRestoDeBytes, divisionEnPartes.rem, 0);
+			memcpy(bufAuxiliar+desplazam, bufferDelRestoDeBytes, divisionEnPartes.rem);
+			free(bufferDelRestoDeBytes);
+		}
+		memcpy(*buffer, bufAuxiliar, size);
+	}
+
+	return 1;
+}
 int recvValue(int clientSocket, void* buffer){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(clientSocket, sizeStr, 11,  0) == 11){

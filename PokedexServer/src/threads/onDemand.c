@@ -179,16 +179,23 @@ void proce_removeDir(int clientSocket, char* path){
 void proce_write(int clientSocket, char* path){
 	size_t size;
 	off_t offset;
-	char* bufParaElWrite;
+
 
 	recvValue(clientSocket,&size);
 	recvValue(clientSocket,&offset);
-	recvString(clientSocket,&bufParaElWrite);
+
+	char* bufParaElWrite = malloc(size);
+//	recvString(clientSocket,&bufParaElWrite);
+
+	recvBufferParaWrite(clientSocket, &bufParaElWrite, size);
 
 	log_info(logPokedexServer,"El size_t que me llega para WRITE es: %d",size);
 	log_info(logPokedexServer,"El off_t que me llega para WRITE es: %d",offset);
-	log_info(logPokedexServer, "El buffer que me llega para WRITE es: %s",bufParaElWrite);
-
+	log_info(logPokedexServer,"----------IMPRIMO EL BUFFER RECIBIDO----------");
+		int i;
+		for (i=0; i<size; i++){
+			log_info(logPokedexServer,"%d", bufParaElWrite[i]);
+		}
 	// int indice = osada_TA_obtenerIndiceTA(path);
 
 	// char* buf = malloc(osada_drive.directorio[indice].file_size);

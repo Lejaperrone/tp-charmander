@@ -32,6 +32,7 @@
 
 void bloquesATruncar(int subindice, off_t offset, int* nuevoUltimoBloque);
 int hayBloquesDesocupadosEnElBitmap (int* n, int* bloqueArranque);
+int hayBloquesDesocupadosEnElBitmapParaWrite(int* n, int* bloqueArranque, int indice);
 int buscarLugarLibreEnTablaArchivos();
 void directoryContainingFile(char* path, char** fileName, char** father);
 void actualizarBytesEscritos (int* acum, int bytes);

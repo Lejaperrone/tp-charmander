@@ -33,6 +33,40 @@ int sendValue(void* parameter, int size){
 	}
 	return 0;
 }
+
+int sendBufferParaElWrite(char* bufferLlenoDeFuse, int size){
+
+	if(size <= 32768){
+		log_info(archivoLog, "IMPORTANTE - recibirBuffer - Envio al servidor la cant de bytes para el buffer: %d", size);
+		send(pokedexServer, bufferLlenoDeFuse, size, 0);
+		return 1;
+	}
+	else{
+		div_t divisionEnPartes = div(size, 32768);
+		int vecesQueHayQueHacerSend = divisionEnPartes.quot;
+
+		int i;
+		int desplazam = 0;
+		for(i=0 ; i<vecesQueHayQueHacerSend; i++){
+			char* bufferDe32kb = malloc(32768*sizeof(char));
+			memcpy(bufferDe32kb, bufferLlenoDeFuse+desplazam, 32768);
+			desplazam += 32768;
+			log_info(archivoLog, "IMPORTANTE - enviarBuffer - La cant de veces que voy a enviar 32768 bytes al servidor es: %d", vecesQueHayQueHacerSend);
+			send(pokedexServer, bufferDe32kb, 32768, 0);
+			free(bufferDe32kb);
+		}
+		if(divisionEnPartes.rem > 0){
+			char* bufferDelRestoDeBytes = malloc((divisionEnPartes.rem)*sizeof(char));
+			memcpy(bufferDelRestoDeBytes, bufferLlenoDeFuse+desplazam, divisionEnPartes.rem);
+			log_info(archivoLog, "IMPORTANTE - enviarBuffer - Envio al servidor la cant de bytes para el buffer: %d", divisionEnPartes.rem);
+			send(pokedexServer, bufferLlenoDeFuse+desplazam, divisionEnPartes.rem, 0);
+			free(bufferDelRestoDeBytes);
+		}
+		return 1;
+	}
+	return 1;
+}
+
 int recibirBuffer(char* buffer, int bytesLeidosEnOsada){
 
 	div_t divisionEnPartes = div(bytesLeidosEnOsada, 32768);
@@ -436,10 +470,18 @@ int chamba_write (const char*  path, const char*  buffer, size_t size, off_t off
 	sendBasicInfo("WRITE", path);
 
 	log_info(archivoLog, "El size_t que le llega a FUSE es: %d", size);
+	log_info(archivoLog, "El off_t que le llega a FUSE es: %d", offset);
 	sendValue(&size, sizeof(size_t));
 	sendValue(&offset, sizeof(off_t));
-	log_info(archivoLog,"El buffer que nos llega a FUSE es: %s",buffer);
-	sendValue((char*)buffer,size);
+	log_info(archivoLog,"----------IMPRIMO EL BUFFER ENVIADO----------");
+	int i;
+	for (i=0; i<size; i++){
+		log_info(archivoLog,"%d", buffer[i]);
+	}
+//	sendValue((char*)buffer,size);
+	sendBufferParaElWrite((char*)buffer, size);
+
+
 
 	int cantBytesDelBuffer = size;
 	int resultadoOsada=recvInt();
