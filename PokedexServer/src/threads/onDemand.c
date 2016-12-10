@@ -20,6 +20,7 @@
 #include <commons/string.h>
 #include <commons/log.h>
 #include "../osada/osada.h"
+#include "../osada/basura.h"
 #include <pthread.h>
 #include <stdint.h>
 #include <pthread.h>
