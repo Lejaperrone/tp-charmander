@@ -145,7 +145,7 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 	return -ENOMEM;
 }
 
-int osada_createFile(char* path, mode_t mode){
+int osada_createFile(char* path){
 	int resultado;
 	int posicionLibreEnBitmap = -1;
 	buscarLugarLibreEnBitmap(&posicionLibreEnBitmap);
