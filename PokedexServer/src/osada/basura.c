@@ -135,21 +135,9 @@ void actualizarTablaDeArchivosParaWrite(char* path, size_t size, int indice){
 	osada_drive.directorio[indice].lastmod = timer;
 }
 
-bool esUnArchivo(int subindice){
-	return osada_drive.directorio[subindice].state==1;
-}
-
-bool estaBorrado(int subindice){
-	return osada_drive.directorio[subindice].state==0;
-}
-
-bool esUnDirectorio(int subindice){
-	return osada_drive.directorio[subindice].state==2;
-}
-
 int renombrarArchivo (int subindice, char* newFileName, int subindicePath){
 	int resultado;
-	if (esUnArchivo(subindice)){
+	if (osada_TA_TArchivo(subindice)){
 		if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
 			osada_drive.directorio[subindice].parent_directory=subindicePath;
 			log_info(logPokedexServer,"Se ha reemplazado el nombre del archivo por %s",newFileName);
@@ -158,10 +146,10 @@ int renombrarArchivo (int subindice, char* newFileName, int subindicePath){
 			resultado= 0;
 		}
 	}else{
-		if (estaBorrado(subindice)){
+		if (osada_TA_TBorrado(subindice)){
 			resultado=ENOENT;
 		}
-		if (esUnDirectorio(subindice)){
+		if (osada_TA_TDirectorio(subindice)){
 			if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
 				osada_drive.directorio[subindice].parent_directory=subindicePath;
 				log_info(logPokedexServer,"Se ha reemplazado el nombre del directorio por %s",newFileName);
@@ -338,25 +326,4 @@ float calcularEspacioDisponibleEnDisco(){
 	}
 	log_info(logPokedexServer,"Hay %f bytes vacios",((((float)osada_drive.header->data_blocks)*OSADA_BLOCK_SIZE)/((float)bloquesVacios)*OSADA_BLOCK_SIZE));
 	return ((((float)osada_drive.header->data_blocks)*OSADA_BLOCK_SIZE)/((float)bloquesVacios)*OSADA_BLOCK_SIZE);
-}
-
-int contarBloquesLibresTotales(){
-	int t=bitarray_get_max_bit(osada_drive.bitmap);
-	int i,tot=0;
-	for (i=0;i<t;i++){
-		if (!bitarray_test_bit(osada_drive.bitmap,i)){
-			tot++;
-		}
-	}
-	return tot;
-}
-
-int contarOsadaFilesLibres(){
-	int i, tot=0;
-	for (i=0;i<2048;i++){
-		if(estaBorrado(i)){
-			tot++;
-		}
-	}
-	return tot;
 }

@@ -20,6 +20,7 @@
 #include <commons/string.h>
 #include <commons/log.h>
 #include "../osada/osada.h"
+#include "../osada/functions/bitmap.h"
 #include "../osada/basura.h"
 #include <pthread.h>
 #include <stdint.h>
@@ -185,21 +186,13 @@ void proce_write(int clientSocket, char* path){
 }
 
 void proce_statfs(int clientSocket, char* path){
-	t_statfs* statfs = malloc(sizeof(t_statfs));
+	sendInt(clientSocket, 1);
 
-	int resultadoOsada = osada_statfs(path,statfs);
-	sendInt(clientSocket, resultadoOsada);
-	log_info(logPokedexServer,"ResultadoOsada: %d",resultadoOsada);
-
-	if(resultadoOsada == 1){
-		sendInt(clientSocket, contarBloquesLibresTotales());
-		sendInt(clientSocket, OSADA_BLOCK_SIZE);
-		sendInt(clientSocket, osada_drive.header->fs_blocks);
-		sendInt(clientSocket, contarOsadaFilesLibres());
-		sendInt(clientSocket, OSADA_FILENAME_LENGTH);
-	}
-
-	free(statfs);
+	sendInt(clientSocket, osada_B_cantBloquesLibres());
+	sendInt(clientSocket, OSADA_BLOCK_SIZE);
+	sendInt(clientSocket, osada_drive.header->fs_blocks);
+	sendInt(clientSocket, osada_TA_cantRegistrosLibres());
+	sendInt(clientSocket, OSADA_FILENAME_LENGTH);
 }
 
 void* procesarPeticiones(t_hilo* h){
