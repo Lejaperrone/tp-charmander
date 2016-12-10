@@ -25,8 +25,7 @@
 #include <pthread.h>
 #include "../commons/structures.h"
 #include "../commons/definitions.h"
-#include "../functions/primary_functions.h"
-#include "../functions/auxiliar_functions.h"
+#include "../functions/sockets.h"
 #include <errno.h>
 
 void proce_getattr(int clientSocket, char* path){

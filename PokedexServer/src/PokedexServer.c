@@ -18,7 +18,6 @@
 #include <pthread.h>
 #include "commons/structures.h"
 #include "commons/definitions.h"
-#include "functions/primary_functions.h"
 #include "threads/onDemand.h"
 
 t_log* crearArchivoLogPokedexServer() {

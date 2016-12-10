@@ -1,32 +1,46 @@
 /*
- * auxiliar_functions.c
+ * sockets.c
  *
- *  Created on: 26/11/2016
+ *  Created on: 10/12/2016
  *      Author: utnso
  */
-
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <netdb.h>
 #include <unistd.h>
-#include <stdbool.h>
-#include "../socketLib.h"
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <commons/collections/list.h>
+#include <sys/socket.h>
 #include <commons/string.h>
-#include <commons/log.h>
-#include "../osada/osada.h"
-#include <pthread.h>
-#include <stdint.h>
-#include <pthread.h>
+
 #include "../commons/structures.h"
 #include "../commons/definitions.h"
 
 int sendString(int clientSocket, char* parameter, int size){
+	char* sizeStr=malloc(sizeof(char)*11);
+	sprintf(sizeStr,"%i",size);
+	if(send(clientSocket, sizeStr, 11, 0) == 11){
+		if(send(clientSocket, parameter, size, 0) == size){
+			free(sizeStr);
+			return 1;
+		}
+	}
+	free(sizeStr);
+	return 0;
+}
+int recvString(int clientSocket, char** string){
+	char* sizeStr = malloc(sizeof(char)*11);
+	if (recv(clientSocket, sizeStr, 11,  0) == 11){
+		int size = atoi(sizeStr);
+		char* temp=malloc(sizeof(char)*size);
+		if (recv(clientSocket, temp, size,  0) == size){
+			*string = string_substring(temp,0,size);
+			return 1;
+		}
+	}
+	return 0;
+}
+
+int sendValue(int clientSocket, char* parameter, int size){
 	char* sizeStr=malloc(sizeof(char)*11);
 	sprintf(sizeStr,"%i",size);
 	if(send(clientSocket, sizeStr, 11, 0) == 11){
@@ -48,18 +62,7 @@ int recvValue(int clientSocket, void* buffer){
 	}
 	return 0;
 }
-int recvString(int clientSocket, char** string){
-	char* sizeStr = malloc(sizeof(char)*11);
-	if (recv(clientSocket, sizeStr, 11,  0) == 11){
-		int size = atoi(sizeStr);
-		char* temp=malloc(sizeof(char)*size);
-		if (recv(clientSocket, temp, size,  0) == size){
-			*string = string_substring(temp,0,size);
-			return 1;
-		}
-	}
-	return 0;
-}
+
 int recvInt(int clientSocket){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(clientSocket, sizeStr, 11,  0) == 11){
