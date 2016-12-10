@@ -28,6 +28,5 @@ int osada_rename(char* path, char* nuevaPath);
 int osada_removeFile(char* path);
 int osada_removeDir(char* path);
 int osada_write(char* path,char** buf, size_t size, off_t offset);
-int osada_statfs(const char * path, t_statfs* stats);
 
 #endif /* OSADA_OSADA_H_ */

@@ -38,3 +38,14 @@ void osada_B_findFreeBlock(int* lugarLibre){
 		}
 	}
 }
+
+int osada_B_cantBloquesLibres(){
+	int t=bitarray_get_max_bit(osada_drive.bitmap);
+	int i,tot=0;
+	for (i=0;i<t;i++){
+		if (!bitarray_test_bit(osada_drive.bitmap,i)){
+			tot++;
+		}
+	}
+	return tot;
+}

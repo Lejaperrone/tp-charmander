@@ -134,6 +134,30 @@ void osada_TA_createNewDirectory(char* path, int posicionEnTablaArchivos){
 	free(directoryName);
 }
 
+bool osada_TA_TArchivo(int subindice){
+	return osada_drive.directorio[subindice].state==1;
+}
+
+bool osada_TA_TBorrado(int subindice){
+	return osada_drive.directorio[subindice].state==0;
+}
+
+bool osada_TA_TDirectorio(int subindice){
+	return osada_drive.directorio[subindice].state==2;
+}
+
+int osada_TA_cantRegistrosLibres(){
+	int i, tot=0;
+	for (i=0;i<2048;i++){
+		if(osada_TA_TBorrado(i)){
+			tot++;
+		}
+	}
+	return tot;
+}
+
+
+
 //FUNCIONES Q SE USAN
 
 //agrega a la lista de directorios los directorios de esa path

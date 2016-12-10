@@ -361,17 +361,3 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 	}
 	return bytesEscritos;
 }
-
-int osada_statfs(const char * path, t_statfs* stats){
-	stats->f_bavail=contarBloquesLibresTotales();
-	stats->f_bfree=stats->f_bavail;
-	stats->f_blocks=osada_drive.header->fs_blocks;
-	stats->f_bsize=osada_drive.header->fs_blocks;
-	stats->f_favail=contarOsadaFilesLibres();
-	stats->f_ffree=stats->f_favail;
-	stats->f_files=2048;
-	stats->f_namemax=OSADA_FILENAME_LENGTH;
-	stats->f_fsid=(int)osada_drive.header->magic_number;
-	stats->f_frsize=OSADA_BLOCK_SIZE;
-	return 1;
-}

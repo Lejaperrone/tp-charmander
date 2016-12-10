@@ -9,5 +9,6 @@
 #define OSADA_FUNCTIONS_BITMAP_H_
 
 void osada_B_findFreeBlock(int* lugarLibre);
+int osada_B_cantBloquesLibres();
 
 #endif /* OSADA_FUNCTIONS_BITMAP_H_ */
