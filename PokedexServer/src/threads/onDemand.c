@@ -131,7 +131,7 @@ void proce_truncate(int clientSocket, char* path){
 void proce_mkdir(int clientSocket, char* path){
 	int resultadoOsada = osada_createDir(path);
 	sendInt(clientSocket,resultadoOsada);
-	log_info(logPokedexServer,"ResultadoOsada",resultadoOsada);
+	log_info(logPokedexServer,"ResultadoOsada: %d",resultadoOsada);
 }
 
 void proce_rename(int clientSocket, char* path){
@@ -141,7 +141,7 @@ void proce_rename(int clientSocket, char* path){
 
 	int resultadoOsada = osada_rename(path, newPath);
 	sendInt(clientSocket,resultadoOsada);
-	log_info(logPokedexServer, "ResultadoOsada: %s", resultadoOsada);
+	log_info(logPokedexServer, "ResultadoOsada: %d", resultadoOsada);
 
 	free(newPath);
 }
@@ -149,13 +149,13 @@ void proce_rename(int clientSocket, char* path){
 void proce_removeFile(int clientSocket, char* path){
 	int resultadoOsada = osada_removeFile(path);
 	sendInt(clientSocket,resultadoOsada);
-	log_info(logPokedexServer, "ResultadoOsada: %s", resultadoOsada);
+	log_info(logPokedexServer, "ResultadoOsada: %d", resultadoOsada);
 }
 
 void proce_removeDir(int clientSocket, char* path){
 	int resultadoOsada = osada_removeDir(path);
 	sendInt(clientSocket,resultadoOsada);
-	log_info(logPokedexServer, "ResultadoOsada: %s", resultadoOsada);
+	log_info(logPokedexServer, "ResultadoOsada: %d", resultadoOsada);
 }
 
 void proce_write(int clientSocket, char* path){

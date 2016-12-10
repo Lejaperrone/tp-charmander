@@ -248,7 +248,7 @@ int osada_rename(char* path, char* nuevaPath){
 
 int osada_removeFile(char* path){
 
-	u_int16_t parent;
+	int parent;
 	if (strcmp(path, "/") != 0){
 		log_info(logPokedexServer, "OSADA - El path es != de /, se va a obtenerIndiceTA");
 		parent = osada_TA_obtenerIndiceTA(path);
@@ -264,7 +264,7 @@ int osada_removeFile(char* path){
 		return 1;
 	}
 
-	perror("NO se pudo remover el directorio porque no existe");
+//	perror("NO se pudo remover el directorio porque no existe");
 	return -ENOENT;
 
 }
