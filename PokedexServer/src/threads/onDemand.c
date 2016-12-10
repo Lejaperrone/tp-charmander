@@ -35,16 +35,15 @@ void proce_getattr(int clientSocket, char* path){
 	getAttr->state=0;
 
 	int resultadoOsada = osada_getattr(path,getAttr);
-//	free(path);
-	log_info(logPokedexServer, "POKEDEXSERVER  - 3 - resultadoOsada: %d", resultadoOsada);
 	sendInt(clientSocket, resultadoOsada);
+	log_info(logPokedexServer, "ResultadoOsada: %d", resultadoOsada);
 
 	if(resultadoOsada==1){
-		log_info(logPokedexServer, "POKEDEXSERVER  - 4 - getAttr->state: %d", getAttr->state);
-		log_info(logPokedexServer, "POKEDEXSERVER  - 5 - getAttr->file_size: %d", getAttr->file_size);
-
 		sendInt(clientSocket, getAttr->state);
+		log_info(logPokedexServer, "getAttr->state: %d", getAttr->state);
+
 		sendInt(clientSocket, (int)getAttr->file_size);
+		log_info(logPokedexServer, "getAttr->file_size: %d", getAttr->file_size);
 	}
 
 	free(getAttr);
@@ -54,32 +53,30 @@ void proce_readdir(int clientSocket, char* path){
 	t_list* directorios=list_create();
 
 	int resultadoOsada = osada_readdir(path, directorios);
-	free(path);
-	log_info(logPokedexServer, "resultadoOsada: %d", resultadoOsada);
 	sendInt(clientSocket, resultadoOsada);
+	log_info(logPokedexServer, "ResultadoOsada: %d", resultadoOsada);
 
 	if(resultadoOsada != -1){
-		log_info(logPokedexServer, "list_size: %d", list_size(directorios));
 		sendInt(clientSocket, list_size(directorios));
+		log_info(logPokedexServer, "list_size: %d", list_size(directorios));
+
 		int i;
 		for(i=0;i<list_size(directorios);i++){
 			char* directory = (char*)list_get(directorios, i);
+
+			sendString(clientSocket, directory, string_length(directory));
 			log_info(logPokedexServer, "Directorio: %s", directory);
-			if(sendString(clientSocket, directory, string_length(directory))==0){
-				log_info(logPokedexServer, "No envie valor");
-			}
 		}
 
 	}
 
-
+	free(path);
 }
 
 void proce_open(int clientSocket, char* path){
-
 	int resultadoOsada = osada_open(path);
-
 	sendInt(clientSocket,resultadoOsada);
+	log_info(logPokedexServer, "ResultadoOsada: %d", resultadoOsada);
 }
 
 void proce_readfile(int clientSocket, char* path){
@@ -115,65 +112,49 @@ void proce_readfile(int clientSocket, char* path){
 }
 
 void proce_create(int clientSocket, char* path){
-
-	mode_t modo = 0;
-//	recvValue(clientSocket, &modo);
-
-	int resultadoOsada = osada_createFile(path, modo);
-
+	int resultadoOsada = osada_createFile(path);
 	sendInt(clientSocket, resultadoOsada);
-
+	log_info(logPokedexServer,"ResultadoOsada %d",resultadoOsada);
 }
 
 void proce_truncate(int clientSocket, char* path){
-
 	off_t offset;
 	recvValue(clientSocket,&offset);
-	log_info(logPokedexServer, "Recibi el offset: %d", offset);
+	log_info(logPokedexServer, "Offset: %d", offset);
 
 	int resultadoOsada = osada_truncate(path, offset);
-
 	sendInt(clientSocket, resultadoOsada);
+	log_info(logPokedexServer,"ResultadoOsada %d",resultadoOsada);
 }
 
 void proce_mkdir(int clientSocket, char* path){
-	log_info(logPokedexServer,"Se quieren crear el directorio %s",path);
-	int resultadoOsada = 0;
-	//int tamanio = string_length(*string_split(path,"/"));
-	resultadoOsada = osada_createDir(path);
-	log_info(logPokedexServer,"Recibo el resultado %d de OSADA",resultadoOsada);
-	//send(clientSocket,&resultadoOsada,sizeof(int),0);
+	int resultadoOsada = osada_createDir(path);
 	sendInt(clientSocket,resultadoOsada);
-	log_info(logPokedexServer,"Envie el resultado igual a %d de OSADA",resultadoOsada);
-
+	log_info(logPokedexServer,"ResultadoOsada",resultadoOsada);
 }
 
 void proce_rename(int clientSocket, char* path){
-	int resultadoOsada = 0;
-
 	char* newPath=string_new();
 	recvString(clientSocket, &newPath);
-	log_info(logPokedexServer, "El nuevoPath recibido es: %s", newPath);
+	log_info(logPokedexServer, "NewPath: %s", newPath);
 
-	resultadoOsada = osada_rename(path, newPath);
-
+	int resultadoOsada = osada_rename(path, newPath);
 	sendInt(clientSocket,resultadoOsada);
-
+	log_info(logPokedexServer, "ResultadoOsada: %s", resultadoOsada);
 
 	free(newPath);
 }
 
 void proce_removeFile(int clientSocket, char* path){
 	int resultadoOsada = osada_removeFile(path);
-
 	sendInt(clientSocket,resultadoOsada);
+	log_info(logPokedexServer, "ResultadoOsada: %s", resultadoOsada);
 }
 
 void proce_removeDir(int clientSocket, char* path){
 	int resultadoOsada = osada_removeDir(path);
-
 	sendInt(clientSocket,resultadoOsada);
-
+	log_info(logPokedexServer, "ResultadoOsada: %s", resultadoOsada);
 }
 
 void proce_write(int clientSocket, char* path){
@@ -196,17 +177,11 @@ void proce_write(int clientSocket, char* path){
 		for (i=0; i<size; i++){
 			log_info(logPokedexServer,"%d", bufParaElWrite[i]);
 		}
-	// int indice = osada_TA_obtenerIndiceTA(path);
 
-	// char* buf = malloc(osada_drive.directorio[indice].file_size);
 
 	int resultadoOsada = osada_write(path, &bufParaElWrite, size, offset);
 	sendInt(clientSocket, resultadoOsada);
-
-
-	if(resultadoOsada > 0){
-		log_info(logPokedexServer,"El tamanio (devuelto por resultadoOsada) es %d",resultadoOsada);
-	}
+	log_info(logPokedexServer,"ResultadoOsada: %d",resultadoOsada);
 }
 
 void proce_statfs(int clientSocket, char* path){
@@ -214,6 +189,7 @@ void proce_statfs(int clientSocket, char* path){
 
 	int resultadoOsada = osada_statfs(path,statfs);
 	sendInt(clientSocket, resultadoOsada);
+	log_info(logPokedexServer,"ResultadoOsada: %d",resultadoOsada);
 
 	if(resultadoOsada == 1){
 		sendInt(clientSocket, contarBloquesLibresTotales());

@@ -15,7 +15,7 @@
 #include "../commons/osada.h"
 #include <errno.h>
 
-int avanzarBloquesParaLeer (int bloqueInicial,int desplazamientoLimite){
+int osada_TG_avanzarNBloques (int bloqueInicial,int desplazamientoLimite){
 	int i;
 
 	for (i=0;i<desplazamientoLimite;i++){
@@ -27,6 +27,8 @@ int avanzarBloquesParaLeer (int bloqueInicial,int desplazamientoLimite){
 	}
 	return bloqueInicial;
 }
+
+
 int avanzarBloquesParaEscribir (int bloqueInicial,int desplazamientoLimite){
 	int i;
 	for (i=0;i<desplazamientoLimite;i++){

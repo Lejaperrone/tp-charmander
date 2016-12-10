@@ -27,6 +27,7 @@
 #include "../commons/structures.h"
 #include "functions/tabla_archivos.h"
 #include "functions/tabla_asignaciones.h"
+#include "functions/bitmap.h"
 
 int osada_init(char* path){
 	initOsada (path);
@@ -81,63 +82,41 @@ int osada_open(char* path){
 }
 
 int osada_read(char *path, char** buf, size_t size, off_t offset){
-
 	int indice = osada_TA_obtenerIndiceTA(path);
-	log_info(logPokedexServer, "OSADA - El indice que se obtiene es: %d", indice);
-
 
 	if (indice != -1){
 		int bloque=osada_drive.directorio[indice].first_block;
-		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n", path, bloque);
 
 		double desplazamientoHastaElBloque=floor(offset/OSADA_BLOCK_SIZE);
-		log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: Tengo que desplazarme %f bloques\n",desplazamientoHastaElBloque);
+		int bloqueArranque=osada_TG_avanzarNBloques(bloque,desplazamientoHastaElBloque);
 
-		int bloqueArranque=avanzarBloquesParaLeer(bloque,desplazamientoHastaElBloque);
-		log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: Comienzo a leer desde el bloque %d\n",bloqueArranque);
-
-		int byteComienzoLectura = 0;
-		if(offset != 0){
-			byteComienzoLectura = offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
-		}
-
-		log_info(logPokedexServer, "Empiezo a leer desde el byte %d\n",byteComienzoLectura);
+		int byteComienzoLectura = offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
 		int desplazamiento = 0;
 		int iSize = size;
 		int fileSize = osada_drive.directorio[indice].file_size;
 
 		while (bloqueArranque!=0xFFFF && bloqueArranque != -1 && (iSize-desplazamiento)>0 && (fileSize-desplazamiento-offset)>0){
-			//falta chequear inicio
-			log_info(logPokedexServer, "OSADA - Quiero leer %d bytes", OSADA_BLOCK_SIZE-byteComienzoLectura);
-			log_info(logPokedexServer, "OSADA - El bloque de arranque: %d", bloqueArranque);
 
 			if((fileSize-desplazamiento-offset)>=(OSADA_BLOCK_SIZE-byteComienzoLectura)){
 				if((iSize-desplazamiento)>=(OSADA_BLOCK_SIZE-byteComienzoLectura)){
-					log_info(logPokedexServer, "OSADA - El realloc va a ser: %d", desplazamiento+OSADA_BLOCK_SIZE-byteComienzoLectura);
 					*buf = realloc(*buf, desplazamiento+OSADA_BLOCK_SIZE-byteComienzoLectura);
 					memcpy(*buf+desplazamiento,osada_drive.data[bloqueArranque]+byteComienzoLectura,OSADA_BLOCK_SIZE-byteComienzoLectura);
 					desplazamiento += OSADA_BLOCK_SIZE-byteComienzoLectura;
 				}else{
-					log_info(logPokedexServer, "OSADA - El realloc va a ser: %d", iSize);
 					*buf = realloc(*buf, iSize);
 					memcpy(*buf+desplazamiento,osada_drive.data[bloqueArranque]+byteComienzoLectura,iSize-desplazamiento);
 					desplazamiento += iSize-desplazamiento;
 				}
 			}else{
-				log_info(logPokedexServer, "OSADA - El realloc va a ser: %d", fileSize-offset);
 				*buf = realloc(*buf, fileSize-offset);
 				memcpy(*buf+desplazamiento,osada_drive.data[bloqueArranque]+byteComienzoLectura,fileSize-desplazamiento-offset);
 				desplazamiento += fileSize-desplazamiento-offset;
 			}
 
-			log_info(logPokedexServer, "OSADA - DATOS: Se leyo esta informacion: %s\n",string_duplicate(*buf));
 			bloqueArranque=osada_drive.asignaciones[bloqueArranque];
-			log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: El bloque siguiente es: %d\n",bloqueArranque);
 			byteComienzoLectura=0;
 		}
-		log_info(logPokedexServer, "OSADA - DATOS: Se leyo el buf posta: %s\n",*buf);
 
-		log_info(logPokedexServer,"El tamanio del buffer es %d bytes",desplazamiento);
 		return desplazamiento;
 	}
 
@@ -145,19 +124,21 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 	return -ENOMEM;
 }
 
-int osada_createFile(char* path, mode_t mode){
-	int resultado;
+int osada_createFile(char* path){
+
 	int posicionLibreEnBitmap = -1;
-	buscarLugarLibreEnBitmap(&posicionLibreEnBitmap);
-	int posicionEnTablaDeArchivos=buscarLugarLibreEnTablaArchivos();
-	int tamanioNombre=obtenerLongitudDelNombreDelArchivo(path);
-	if (posicionLibreEnBitmap != -1 && posicionEnTablaDeArchivos>=0 && tamanioNombre>0){
-		log_info(logPokedexServer, "OSADA - BITMAP: Hay lugar libre para crear archivo\n");
-		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El archivo %s ocupara la posicion %d\n",path,posicionEnTablaDeArchivos);
-		generarNuevoArchivoEnTablaDeArchivos(path,posicionEnTablaDeArchivos);
+	osada_B_findFreeBlock(&posicionLibreEnBitmap);
+	int posicionEnTablaDeArchivos=osada_TA_obtenerDirectorioLibre();
+
+	char* fileName=string_new();
+	char* directoryName=string_new();
+	osada_TA_splitPathAndName(path,&fileName,&directoryName);
+
+	int resultado;
+	if (posicionLibreEnBitmap != -1 && posicionEnTablaDeArchivos>=0 && string_length(fileName)<=17){
+		osada_TA_createNewDirectory(path,posicionEnTablaDeArchivos);
 		resultado = 1;
 	}else{
-		log_info(logPokedexServer, "OSADA - No se encontro lugar libre en el bitmap");
 		resultado = -ENOSPC;
 	}
 

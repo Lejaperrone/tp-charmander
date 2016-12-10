@@ -21,7 +21,7 @@ int osada_getattr(char* path, file_attr* attrs);
 int osada_readdir(char* path, t_list* directorios);
 int osada_open(char* path);
 int osada_read(char *path, char** buf, size_t size, off_t offset);
-int osada_createFile(char* path, mode_t mode);
+int osada_createFile(char* path);
 int osada_truncate(char* path, off_t offset);
 int osada_createDir(char* path);
 int osada_rename(char* path, char* nuevaPath);
