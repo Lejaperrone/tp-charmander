@@ -33,14 +33,61 @@ int sendValue(void* parameter, int size){
 	}
 	return 0;
 }
+int recibirBuffer(char* buffer, int bytesLeidosEnOsada){
+
+	div_t divisionEnPartes = div(bytesLeidosEnOsada, 32768);
+	int vecesQueHayQueHacerRecv = divisionEnPartes.quot;
+
+	char* bufferAuxiliar = malloc(bytesLeidosEnOsada);
+	if(bytesLeidosEnOsada <= 32768){
+		recv(pokedexServer, bufferAuxiliar, bytesLeidosEnOsada, 0);
+		log_info(archivoLog, "IMPORTANTE - recibirBuffer - Recibo del servidor la cant de bytes: %d", bytesLeidosEnOsada);
+		memcpy(buffer, bufferAuxiliar, bytesLeidosEnOsada);
+		return 1;
+	}
+	else{
+		int i;
+		int desplazam = 0;
+		for(i=0 ; i<vecesQueHayQueHacerRecv; i++){
+			char* bufferDe32kb = malloc(32768*sizeof(char));
+			log_info(archivoLog, "IMPORTANTE - recibirBuffer - Las veces que hay que hacer recvs de 32768 es: %d",vecesQueHayQueHacerRecv);
+			recv(pokedexServer, bufferDe32kb, 32768, 0);
+			memcpy(bufferAuxiliar+desplazam, bufferDe32kb, 32768);
+			desplazam += 32768;
+
+			free(bufferDe32kb);
+		}
+		if(divisionEnPartes.rem > 0){
+			char* bufferDelRestoDeBytes = malloc((divisionEnPartes.rem)*sizeof(char));
+			log_info(archivoLog, "IMPORTANTE - recibirBuffer - Recibo del servidor la cant de bytes: %d", divisionEnPartes.rem);
+			recv(pokedexServer, bufferDelRestoDeBytes, divisionEnPartes.rem, 0);
+			memcpy(bufferAuxiliar+desplazam, bufferDelRestoDeBytes, divisionEnPartes.rem);
+			free(bufferDelRestoDeBytes);
+		}
+		memcpy(buffer, bufferAuxiliar, bytesLeidosEnOsada);
+	}
+
+	log_info(archivoLog,"----------IMPRIMO EL BUFFER RECIBIDO----------");
+			int i;
+			for (i=0; i<bytesLeidosEnOsada; i++){
+				log_info(archivoLog,"%d", buffer[i]);
+			}
+
+	return 1;
+}
 int recvValue(char* buffer){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(pokedexServer, sizeStr, 11,  0) == 11){
 		int size = atoi(sizeStr);
 		log_info(archivoLog,"Size to recv: %d", size);
-		char* temp=malloc(sizeof(char)*17);
-		if (recv(pokedexServer, temp, size,  0) == size){
-			buffer = string_substring(temp, 0, size);
+//		char* temp=malloc(sizeof(char)*17);
+//		if (recv(pokedexServer, temp, size,  0) == size){
+//			buffer = string_substring(temp, 0, size);
+//			return 1;
+//		}
+		char* bufferRecibido = malloc(size);
+		if(recv(pokedexServer, bufferRecibido, size, 0) == size){
+			memcpy(buffer,bufferRecibido,size);
 			return 1;
 		}
 	}
@@ -235,24 +282,26 @@ int chamba_open (const char * path, struct fuse_file_info * fi){
 //LISTA - FUNCIONA (reveer la reproduccion del archivo mp4)
 int chamba_read (const char * path, char * buffer, size_t size, off_t offset, struct fuse_file_info * fi){
 	pthread_mutex_lock(&mutexSocket);
-	log_info(archivoLog, "1 - Funcion: READ");
+	log_info(archivoLog, "1 - Funcion: READF");
 	log_info(archivoLog, "2 - Path: %s", path);
 
 	int res = 0;
 	sendBasicInfo("READF", path);
 
 	log_info(archivoLog, "El size_t que le llega a FUSE es: %d", size);
+	log_info(archivoLog, "El off_t que le llega a FUSE es: %d", offset);
 	sendValue(&size, sizeof(size_t));
 	sendValue(&offset, sizeof(off_t));
 
 	int resultadoOsada=recvInt();
-	char* bufAlternativo=malloc(resultadoOsada);
+	log_info(archivoLog,"Recibo como resultadoOsada: %d",resultadoOsada);
+
+
 	if(resultadoOsada >0){
-		log_info(archivoLog,"Recibo como resultadoOsada: %d",resultadoOsada);
-		recvString(&bufAlternativo);
-		//log_info(archivoLog,"El tamanio del buffer es: %d",string_length(buffer));
-		memcpy(buffer,bufAlternativo,resultadoOsada);
-		log_info(archivoLog, "El buf recibido es: %s", buffer);
+//		char* bufAlternativo=malloc(resultadoOsada);
+//		recvValue(bufAlternativo);
+		recibirBuffer(buffer, resultadoOsada);
+
 		res = resultadoOsada;
 	}
 

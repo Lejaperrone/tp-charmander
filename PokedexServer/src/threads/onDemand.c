@@ -35,7 +35,7 @@ void proce_getattr(int clientSocket, char* path){
 	getAttr->state=0;
 
 	int resultadoOsada = osada_getattr(path,getAttr);
-	free(path);
+//	free(path);
 	log_info(logPokedexServer, "POKEDEXSERVER  - 3 - resultadoOsada: %d", resultadoOsada);
 	sendInt(clientSocket, resultadoOsada);
 
@@ -101,9 +101,14 @@ void proce_readfile(int clientSocket, char* path){
 
 	if(resultadoOsada > 0){
 		log_info(logPokedexServer,"El tamanio (devuelto por resultadoOsada) es %d",resultadoOsada);
-		log_info(logPokedexServer, "Voy a enviar como size del buf %d con el contenido %s", resultadoOsada, bufParaElRead);
-		sendString(clientSocket, bufParaElRead, resultadoOsada);
+		int i;
+		log_info(logPokedexServer, "---------IMPRIMO EL BUFFER---------");
+		for (i=0; i<resultadoOsada; i++){
+			log_info(logPokedexServer, "%d", bufParaElRead[i]);
+		}
 
+	//	sendString(clientSocket, bufParaElRead, resultadoOsada);
+		sendBufferParaRead(clientSocket, bufParaElRead, resultadoOsada);
 	}
 
 //	free(buf);

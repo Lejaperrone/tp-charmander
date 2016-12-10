@@ -8,6 +8,8 @@
 #ifndef FUNCTIONS_SOCKETS_H_
 #define FUNCTIONS_SOCKETS_H_
 
+int sendBufferParaRead(int clientSocket, char* parameter, int size);
+
 int sendString(int clientSocket, char* parameter, int size);
 int recvString(int clientSocket, char** string);
 

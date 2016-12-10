@@ -40,6 +40,7 @@ int osada_getattr(char* path, file_attr* attrs){
 		return 1;
 	}else{
 		int indice = osada_TA_obtenerIndiceTA(path);
+		log_info(logPokedexServer, "GETATTR - El indice obtenido para el path %s es %d", path, indice);
 		if(indice>=0){
 			osada_TA_obtenerAttr(indice, attrs);
 			return 1;

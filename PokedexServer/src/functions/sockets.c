@@ -15,6 +15,40 @@
 #include "../commons/structures.h"
 #include "../commons/definitions.h"
 
+int sendBufferParaRead(int clientSocket, char* parameter, int size){
+
+	div_t divisionEnPartes = div(size, 32768);
+	int vecesQueHayQueHacerSend = divisionEnPartes.quot;
+
+	if(size <= 32768){
+		log_info(logPokedexServer, "IMPORTANTE - recibirBuffer - Envio al cliente la cant de bytes para el buffer: %d", size);
+		if(send(clientSocket, parameter, size, 0) == size){
+			return 1;
+		}
+
+	}else{
+		int i;
+		int desplazam = 0;
+		for(i=0 ; i<vecesQueHayQueHacerSend; i++){
+			char* bufferDe32kb = malloc(32768*sizeof(char));
+			memcpy(bufferDe32kb, parameter+desplazam, 32768);
+			desplazam += 32768;
+			log_info(logPokedexServer, "IMPORTANTE - recibirBuffer - La cant de veces que voy a enviar 32768 bytes al cliente es: %d", vecesQueHayQueHacerSend);
+			send(clientSocket, bufferDe32kb, 32768, 0);
+			free(bufferDe32kb);
+		}
+		if(divisionEnPartes.rem > 0){
+			char* bufferDelRestoDeBytes = malloc((divisionEnPartes.rem)*sizeof(char));
+			memcpy(bufferDelRestoDeBytes, parameter+desplazam, divisionEnPartes.rem);
+			log_info(logPokedexServer, "IMPORTANTE - recibirBuffer - Envio al cliente la cant de bytes para el buffer: %d", divisionEnPartes.rem);
+			send(clientSocket, parameter+desplazam, divisionEnPartes.rem, 0);
+			free(bufferDelRestoDeBytes);
+		}
+	}
+
+	return 0;
+}
+
 int sendString(int clientSocket, char* parameter, int size){
 	char* sizeStr=malloc(sizeof(char)*11);
 	sprintf(sizeStr,"%i",size);
