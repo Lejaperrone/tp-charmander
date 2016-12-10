@@ -32,13 +32,9 @@
 
 void bloquesATruncar(int subindice, off_t offset, int* nuevoUltimoBloque);
 int hayBloquesDesocupadosEnElBitmap (int* n, int* bloqueArranque);
-int buscarLugarLibreEnTablaArchivos();
-void directoryContainingFile(char* path, char** fileName, char** father);
 void actualizarBytesEscritos (int* acum, int bytes);
 void actualizarTablaDeArchivosParaWrite(char* path, size_t size, int indice);
-void buscarLugarLibreEnBitmap(int* lugarLibre);
 int obtenerLongitudDelNombreDelArchivo(char* path);
-void generarNuevoArchivoEnTablaDeArchivos(char* path, int posicionEnTablaArchivos);
 bool esUnArchivo(int subindice);
 bool estaBorrado(int subindice);
 bool esUnDirectorio(int subindice);
