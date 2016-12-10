@@ -34,13 +34,9 @@ void bloquesATruncar(int subindice, off_t offset, int* nuevoUltimoBloque);
 int hayBloquesDesocupadosEnElBitmap (int* n, int* bloqueArranque);
 int buscarLugarLibreEnTablaArchivos();
 void directoryContainingFile(char* path, char** fileName, char** father);
-bool superaTamanioArchivo (int indice, off_t offset, size_t size);
-bool elBufferTieneDatosParaEscribir(char* buf);
-void actualizarBuffer(char* buffer, int bytesEscritos);
 void actualizarBytesEscritos (int* acum, int bytes);
 void actualizarTablaDeArchivosParaWrite(char* path, size_t size, int indice);
 void buscarLugarLibreEnBitmap(int* lugarLibre);
-bool hayPosicionDisponibleEnTablaDeArchivos (int pos);
 int obtenerLongitudDelNombreDelArchivo(char* path);
 void generarNuevoArchivoEnTablaDeArchivos(char* path, int posicionEnTablaArchivos);
 bool esUnArchivo(int subindice);
@@ -48,7 +44,6 @@ bool estaBorrado(int subindice);
 bool esUnDirectorio(int subindice);
 int renombrarArchivo (int subindice, char* newFileName, int subindicePath);
 int getFileNameFromPath(char* path,  char** nombre);
-int calcularBloquesQueOcupaDesdeElPrimerBloque (int primerBloque);
 void actualizarTablaDeArchivos(int subindice, off_t offset);
 void limpiarBitmapParaTruncate(int bloque);
 void asignarFFFFaNuevoUltimoBloque(int nuevoUltimoBloque);
@@ -63,7 +58,6 @@ void contarBloquesSegun(int originalFileSize,int offset, int* bloques);
 float calcularEspacioDisponibleEnDisco();
 int contarBloquesLibresTotales();
 int contarOsadaFilesLibres();
-int osada_fallocate(const char* path, int amount, off_t sizeh, off_t sizef);
 
 
 #endif /* OSADA_BASURA_H_ */

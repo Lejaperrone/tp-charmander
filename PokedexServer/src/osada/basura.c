@@ -106,20 +106,6 @@ void directoryContainingFile(char* path, char** fileName, char** father){
 	log_info(logPokedexServer,"OSADA - Directory Containing File: El nombre del archivo es %s y su path es %s",*fileName,*father);
 }
 
-bool superaTamanioArchivo (int indice, off_t offset, size_t size){
-	return size>(osada_drive.directorio[indice].file_size-offset);
-}
-
-bool elBufferTieneDatosParaEscribir(char* buf){
-	return strlen(buf)>0;
-}
-
-void actualizarBuffer(char* buffer, int bytesEscritos){
-	log_info(logPokedexServer,"El buffer tenia antes: %s", buffer);
-	buffer=string_substring(buffer,bytesEscritos,string_length(buffer)-bytesEscritos);
-	log_info(logPokedexServer,"El buffer tiene ahora: %s", buffer);
-}
-
 void actualizarBytesEscritos (int* acum, int bytes){
 	*acum += bytes;
 }
@@ -147,10 +133,6 @@ void buscarLugarLibreEnBitmap(int* lugarLibre){
 			log_info(logPokedexServer,"Encontre lugar libre en %d",*lugarLibre);
 		}
 	}
-}
-
-bool hayPosicionDisponibleEnTablaDeArchivos (int pos){
-	return osada_drive.directorio[pos].state==0;
 }
 
 int obtenerLongitudDelNombreDelArchivo(char* path){
@@ -260,17 +242,6 @@ int getFileNameFromPath(char* path,  char** nombre){
 	free(pathNueva);
 	free(pathSplitteada);
 	return subindicePath;
-}
-
-int calcularBloquesQueOcupaDesdeElPrimerBloque (int primerBloque){
-	int bloques=0;
-	log_info(logPokedexServer, "OSADA - Antes de entrar al while de calcularBloquesQueOcupaDesdeElPrimerBloque, con el bloque: %d", primerBloque);
-	while (primerBloque!=0xFFFFFF && primerBloque != -1){
-		bloques++;
-		primerBloque=osada_drive.asignaciones[primerBloque];
-		log_info(logPokedexServer, "OSADA - El bloque dentro del while es: %d", primerBloque);
-	}
-	return bloques;
 }
 
 void actualizarTablaDeArchivos(int subindice, off_t offset){
@@ -426,8 +397,3 @@ int contarOsadaFilesLibres(){
 	}
 	return tot;
 }
-
-int osada_fallocate(const char* path, int amount, off_t sizeh, off_t sizef){
-	return 0;
-}
-
