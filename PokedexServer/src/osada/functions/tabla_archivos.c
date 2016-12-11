@@ -18,6 +18,8 @@
 #include "../functions/tabla_asignaciones.h"
 #include <time.h>
 #include <pthread.h>
+#include "mutex.h"
+
 
 int osada_TA_compareNameToIndex(int indice, char* test2){
 	if(strcmp((char*)osada_drive.directorio[indice].fname, test2)==0){
@@ -178,6 +180,7 @@ void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
 
 void osada_TA_deleteDirectory(u_int16_t indice, osada_file_state state){
 	if(state == REGULAR){
+		mutex_lockFile(indice);
 		int block = osada_drive.directorio[indice].first_block;
 		int nextBlock;
 		while(block != 0xFFFF && block != -1){
@@ -186,8 +189,7 @@ void osada_TA_deleteDirectory(u_int16_t indice, osada_file_state state){
 			block=nextBlock;
 		}
 	}
-
-
 	osada_drive.directorio[indice].state=0;
+	mutex_unlockFile(indice);
 }
 
