@@ -306,7 +306,7 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 			int bloqueArranque=avanzarBloquesParaEscribir(bloque,desplazamientoHastaElBloque);
 			log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: Desde el bloque %d me desplace hasta el %d, me movi %f bloques.\n",bloque,bloqueArranque,desplazamientoHastaElBloque);
 			int byteComienzoEscritura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
-			log_info(logPokedexServer, "OSADA - DATOS: Empiezo a leer desde el byte: %d\n",byteComienzoEscritura);
+			log_info(logPokedexServer, "OSADA - DATOS: Empiezo a escribir desde el byte: %d\n",byteComienzoEscritura);
 			int bloquesQueNecesitoEscribir=ceil((float)size/(float)OSADA_BLOCK_SIZE);
 			int sizeAux=(int)size;
 			log_info(logPokedexServer,"Size aux vale %d y size comienzo vale %d",sizeAux,size);
