@@ -1,5 +1,10 @@
 # TP 2016 2C - Chamba
 
+- [x] Funciones de osada completas
+- [ ] Semáforos (Osada - ¿Mapa/Entrenador?)
+- [ ] Corrección deadlock según tiempo de ingreso, etc.
+- [ ] Memory Leaks
+
 ## Para abrir un mapa (PuebloPaleta)
 1. Buildear
 2. Abrir una consola para el Mapa y posicionarse en "tp-2016-2c-Chamba/Mapa/Debug"
