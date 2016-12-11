@@ -157,7 +157,7 @@ int osada_truncate(char* path, off_t offset){
 			int nuevoUltimoBloque, bloquesNecesarios;
 			t_list* listaDeBloquesParaLlenar=list_create();
 			int block=osada_drive.directorio[subindice].first_block;
-			log_info(logPokedexServer,"%s ocupa estos bloques:",path);
+//			log_info(logPokedexServer,"%s ocupa estos bloques:",path);
 			log_info(logPokedexServer,"Bloque %d",block);
 		if(subindice != -1) {
 			if (osada_drive.directorio[subindice].file_size>offset){
@@ -185,7 +185,7 @@ int osada_truncate(char* path, off_t offset){
 	}
 	}else{
 		log_info(logPokedexServer,"El archivo es muy grande, pesa %fl y hay %fl bytes disponibles",(float)offset,espacioDisponible);
-		return -EFBIG;
+		return -ENOSPC;
 	}
 	log_info(logPokedexServer, "OSADA - No existe el path indicado");
 	return -ENOENT;
@@ -302,7 +302,7 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 			int bloque=osada_drive.directorio[indice].first_block;
 			log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n",path, bloque);
 			double desplazamientoHastaElBloque=floor(offset/OSADA_BLOCK_SIZE);
-			log_info(logPokedexServer, "OSADA - El desplazamientoHastaElBloque es: %d", desplazamientoHastaElBloque);
+			log_info(logPokedexServer, "OSADA - El desplazamientoHastaElBloque es: %f", desplazamientoHastaElBloque);
 			int bloqueArranque=avanzarBloquesParaEscribir(bloque,desplazamientoHastaElBloque);
 			log_info(logPokedexServer, "OSADA - TABLA DE ASIGNACIONES: Desde el bloque %d me desplace hasta el %d, me movi %f bloques.\n",bloque,bloqueArranque,desplazamientoHastaElBloque);
 			int byteComienzoEscritura=offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
