@@ -139,7 +139,9 @@ int renombrarArchivo (int subindice, char* newFileName, int subindicePath){
 	int resultado;
 	if (osada_TA_TArchivo(subindice)){
 		if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
+			pthread_mutex_lock(&osada_mutex.directorio[subindice]);
 			osada_drive.directorio[subindice].parent_directory=subindicePath;
+			pthread_mutex_unlock(&osada_mutex.directorio[subindice]);
 			log_info(logPokedexServer,"Se ha reemplazado el nombre del archivo por %s",newFileName);
 			resultado= 1;
 		}else{
@@ -151,7 +153,9 @@ int renombrarArchivo (int subindice, char* newFileName, int subindicePath){
 		}
 		if (osada_TA_TDirectorio(subindice)){
 			if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
+				pthread_mutex_lock(&osada_mutex.directorio[subindice]);
 				osada_drive.directorio[subindice].parent_directory=subindicePath;
+				pthread_mutex_unlock(&osada_mutex.directorio[subindice]);
 				log_info(logPokedexServer,"Se ha reemplazado el nombre del directorio por %s",newFileName);
 						resultado= 1;
 					}else{
