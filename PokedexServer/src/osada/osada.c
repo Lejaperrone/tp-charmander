@@ -28,9 +28,11 @@
 #include "functions/tabla_archivos.h"
 #include "functions/tabla_asignaciones.h"
 #include "functions/bitmap.h"
+#include "functions/mutex.h"
 
 int osada_init(char* path){
 	initOsada (path);
+	mutex_init();
 	return 1;
 }
 
