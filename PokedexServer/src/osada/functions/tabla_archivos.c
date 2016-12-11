@@ -30,7 +30,7 @@ int osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
 	if(parent>=0){
 		int i;
 		for(i=0;i<2048;i++){
-			if(osada_drive.directorio[i].parent_directory == parent && osada_TA_compareNameToIndex(i, nombre)){
+			if(osada_drive.directorio[i].state!=DELETED && osada_drive.directorio[i].parent_directory == parent && osada_TA_compareNameToIndex(i, nombre)){
 				return i;
 			}else{
 			}
@@ -111,32 +111,36 @@ void osada_TA_splitPathAndName(char* path, char** name, char** pathFrom){
 	}
 }
 int osada_TA_createNewDirectory(char* path, osada_file_state state){
-	char* fileName=string_new();
-	char* directoryName=string_new();
-	osada_TA_splitPathAndName(path,&fileName, &directoryName);
+	int fileExist = osada_TA_obtenerIndiceTA(path);
+	if(fileExist == -1){
+		char* fileName=string_new();
+		char* directoryName=string_new();
+		osada_TA_splitPathAndName(path,&fileName, &directoryName);
 
-	int guardado= 0;
-	if(string_length(fileName)<=17){
-		int i;
-		for (i=0;(i<2048 && guardado==0);i++){
-			if(osada_drive.directorio[i].state==0){
-				pthread_mutex_lock(&osada_mutex.directorio[i]);
-				osada_drive.directorio[i].file_size=0;
-				osada_drive.directorio[i].first_block=0xFFFF;
-				strcpy((char*)osada_drive.directorio[i].fname, fileName);
-				osada_drive.directorio[i].lastmod=(int)time(NULL);
-				osada_drive.directorio[i].parent_directory=osada_TA_obtenerIndiceTA(directoryName);
-				osada_drive.directorio[i].state=state;
-				pthread_mutex_unlock(&osada_mutex.directorio[i]);
-				guardado=1;
+		int guardado= 0;
+		if(string_length(fileName)<=17){
+			int i;
+			for (i=0;(i<2048 && guardado==0);i++){
+				if(osada_drive.directorio[i].state==0){
+					pthread_mutex_lock(&osada_mutex.directorio[i]);
+					osada_drive.directorio[i].file_size=0;
+					osada_drive.directorio[i].first_block=0xFFFF;
+					strcpy((char*)osada_drive.directorio[i].fname, fileName);
+					osada_drive.directorio[i].lastmod=(int)time(NULL);
+					osada_drive.directorio[i].parent_directory=osada_TA_obtenerIndiceTA(directoryName);
+					osada_drive.directorio[i].state=state;
+					pthread_mutex_unlock(&osada_mutex.directorio[i]);
+					guardado=1;
+				}
 			}
 		}
+
+		free(fileName);
+		free(directoryName);
+
+		return guardado;
 	}
-
-	free(fileName);
-	free(directoryName);
-
-	return guardado;
+	return 0;
 }
 
 bool osada_TA_TArchivo(int subindice){
