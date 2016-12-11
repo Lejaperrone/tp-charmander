@@ -47,7 +47,6 @@ int osada_TA_obtenerIndiceTA(char* path){
 		char** dirc = string_split(path, "/");
 		int i=0;
 		while(dirc[i]!=NULL){
-			log_info(logPokedexServer,"dirc[i] vale %s",dirc[i]);
 			newChildOf = osada_TA_buscarRegistroPorNombre(dirc[i], childOf);
 			if(newChildOf>=0){
 				childOf = newChildOf;
