@@ -122,7 +122,6 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 		for (i=0;(i<2048 && guardado==0);i++){
 			if(osada_drive.directorio[i].state==0){
 				pthread_mutex_lock(&osada_mutex.directorio[i]);
-				printf("BLOQUEE EL EMENE");
 				osada_drive.directorio[i].file_size=0;
 				osada_drive.directorio[i].first_block=0xFFFF;
 				strcpy((char*)osada_drive.directorio[i].fname, fileName);
