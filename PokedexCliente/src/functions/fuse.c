@@ -34,10 +34,19 @@ int sendValue(void* parameter, int size){
 	return 0;
 }
 
+int sendPrimerByteBuffer(char* buffer, int size){
+	char* bufferDe1Byte = malloc(1);
+
+	memcpy(bufferDe1Byte, buffer, 1);
+
+	send(pokedexServer, bufferDe1Byte, 1, 0);
+
+	return 0;
+}
 int sendBufferParaElWrite(char* bufferLlenoDeFuse, int size){
 
 	if(size <= 32768){
-		log_info(archivoLog, "IMPORTANTE - recibirBuffer - Envio al servidor la cant de bytes para el buffer: %d", size);
+		log_info(archivoLog, "IMPORTANTE - enviarBuffer - Envio al servidor la cant de bytes para el buffer: %d", size);
 		send(pokedexServer, bufferLlenoDeFuse, size, 0);
 		return 1;
 	}
@@ -475,24 +484,54 @@ int chamba_write (const char*  path, const char*  buffer, size_t size, off_t off
 
 	log_info(archivoLog, "El size_t que le llega a FUSE es: %d", size);
 	log_info(archivoLog, "El off_t que le llega a FUSE es: %d", offset);
-	sendValue(&size, sizeof(size_t));
+
+	int cantBytesDelPrimerBuffer = 1;
+
+	sendValue(&cantBytesDelPrimerBuffer, sizeof(size_t));
 	sendValue(&offset, sizeof(off_t));
-	log_info(archivoLog,"----------IMPRIMO EL BUFFER ENVIADO----------");
+//	log_info(archivoLog,"----------IMPRIMO EL BUFFER ENVIADO----------");
+//	int i;
+//	for (i=0; i<size; i++){
+//		log_info(archivoLog,"%d", buffer[i]);
+//	}
+//	sendValue((char*)buffer,size);
+
+	log_info(archivoLog,"----------IMPRIMO EL 1er BYTE DEL BUFFER QUE VOY A ENVIAR----------");
 	int i;
-	for (i=0; i<size; i++){
+	for (i=0; i<1; i++){
 		log_info(archivoLog,"%d", buffer[i]);
 	}
-//	sendValue((char*)buffer,size);
-	sendBufferParaElWrite((char*)buffer, size);
+	sendPrimerByteBuffer((char*)buffer, size);
 
 
+	int primerResultadoOsada = recvInt();
+	log_info(archivoLog, "El primerResultadoOsada es: %d", primerResultadoOsada);
 
-	int cantBytesDelBuffer = size;
-	int resultadoOsada=recvInt();
-	if(resultadoOsada >0 && cantBytesDelBuffer==resultadoOsada){
-		res = resultadoOsada;
-		log_info(archivoLog, "La cant de bytes del buffer de FUSE es %d, y la que me llega del servidor es %d", cantBytesDelBuffer, resultadoOsada);
+	if(primerResultadoOsada > 0 && cantBytesDelPrimerBuffer == primerResultadoOsada){
+		log_info(archivoLog, "El 1er byte se escribio bien.");
+
+		sendBasicInfo("WRITE", path);
+
+		int elRestoDeBytes = size-1;
+		int offSetDeUno = offset+1;
+		sendValue(&elRestoDeBytes, sizeof(size_t));
+		sendValue(&offSetDeUno, sizeof(off_t));
+
+		char* elRestoDelBuffer = malloc(size - 1);
+		memcpy(elRestoDelBuffer, buffer+1, size -1);
+		sendBufferParaElWrite(elRestoDelBuffer, size - 1);
+
+		int segundoResultadoOsada = recvInt();
+		log_info(archivoLog, "El segundoResultadoOsada es: %d", segundoResultadoOsada);
+		int cantBytesDelSegundoBuffer = size - 1;
+		if(segundoResultadoOsada > 0 && cantBytesDelSegundoBuffer == segundoResultadoOsada){
+			res = primerResultadoOsada + segundoResultadoOsada;
+		}else{
+			res = primerResultadoOsada;
+		}
 	}
+
+
 	pthread_mutex_unlock(&mutexSocket);
 	return res;
 }

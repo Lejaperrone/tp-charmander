@@ -298,6 +298,13 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 	int bytesEscritos=0;
 	log_info(logPokedexServer,"El path es %s y el indice es %d",path,indice);
 	log_info(logPokedexServer, "El offset es %d", offset);
+
+//	/*Si el archivo era nuevo sin bytes (primer bloque 65535)*/
+//	if(osada_drive.directorio[indice].first_block == 0xFFFF){
+//		log_info(logPokedexServer, "OSADA - VOY A TRUNCAR EL ARCHIVO EN OFFSET 1 PORQUE ES UN ARCHIVO NUEVO");
+//		osada_truncate(path, 1);
+//	//	osada_truncate(path, 0);
+//	}
 	if(indice != -1){
 			int bloque=osada_drive.directorio[indice].first_block;
 			log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n",path, bloque);
