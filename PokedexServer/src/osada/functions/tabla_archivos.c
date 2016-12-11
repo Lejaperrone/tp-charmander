@@ -165,21 +165,26 @@ int osada_TA_cantRegistrosLibres(){
 int darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
 	int i;
 	int yaLoGuarde=0;
+	log_info(logPokedexServer, "ENTRE EN darDeAltaDirectorioEnTablaDeArchivos");
 	for (i=0;i<2048;i++){
 		if(yaLoGuarde==0 && osada_drive.directorio[i].state==0){
 			yaLoGuarde=1;
-			char* fecha=string_new();
-			time_t timer=time(0);
-			struct tm *tlocal = localtime(&timer);
+
+	/*IMPORTANTE, SI SE DESCOMENTA ALGO DE ESTO, EL SERVIDOR VA A TIRAR UN MEMORY CORRUPTION malloc()*/
+	//		char* fecha=string_new();
+	//		time_t timer=time(0);
+	//		struct tm *tlocal = localtime(&timer);
 			osada_drive.directorio[i].file_size=0;
 			strcpy((char*)osada_drive.directorio[i].fname, nombre);
-			strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
-			osada_drive.directorio[i].lastmod=atoi(fecha);
+	//		strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
+	//		osada_drive.directorio[i].lastmod=atoi(fecha);
 			osada_drive.directorio[i].parent_directory=indice;
 			osada_drive.directorio[i].state=2;
 			osada_drive.directorio[i].first_block=0xFFFF;
 		}
 	}
+
+	log_info(logPokedexServer, "yaLoGuarde en tablaDeArchivos es: %d", yaLoGuarde);
 	return yaLoGuarde;
 
 }

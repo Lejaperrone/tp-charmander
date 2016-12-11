@@ -398,7 +398,6 @@ int chamba_truncate (const char * path, off_t offset){
 
 // LISTA - FUNCIONA
 int chamba_mkdir (const char * path, mode_t modo){
-	log_info(archivoLog, "1 - Funcion: MKDIR");
 	pthread_mutex_lock(&mutexSocket);
 	log_info(archivoLog, "1 - Funcion: MKDIR");
 	log_info(archivoLog, "2 - Path: %s", path);
@@ -407,6 +406,7 @@ int chamba_mkdir (const char * path, mode_t modo){
 	sendBasicInfo("MKDIR", path);
 
 	int resultadoOsada=recvInt();
+	log_info(archivoLog, "Para MKDIR se recibe como resultadoOsada: %d", resultadoOsada);
 
 	if (resultadoOsada != 1){
 		 res=- ENOENT;

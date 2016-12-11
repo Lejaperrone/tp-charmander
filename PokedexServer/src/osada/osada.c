@@ -51,7 +51,7 @@ int osada_getattr(char* path, file_attr* attrs){
 }
 
 int osada_readdir(char* path, t_list* directorios){
-	u_int16_t parent;
+	int parent;
 	if(strcmp(path,"/") != 0){
 		parent = osada_TA_obtenerIndiceTA(path);
 	}else{
@@ -222,7 +222,7 @@ int osada_truncate(char* path, off_t offset){
 }
 
 int osada_createDir(char* path){
-	char* name;
+	char* name = string_new();
 	int i=0;
 	char** directorio=string_split(path,"/");
 	char* directorioPadre=string_new();
@@ -238,6 +238,7 @@ int osada_createDir(char* path){
 	}
 	free(directorio);
 	int subindice=osada_TA_obtenerIndiceTA(directorioPadre);
+	log_info(logPokedexServer, "CREATEDIR - El subindice del directorio padre es: %d", subindice);
 	free(directorioPadre);
 	if(subindice != -1){
 		if(darDeAltaDirectorioEnTablaDeArchivos(name, subindice) == 1){
@@ -302,7 +303,7 @@ int osada_removeFile(char* path){
 int osada_removeDir(char* path){
 
 	t_list* directoriosQueComponenElActual=list_create();
-	u_int16_t parent = osada_TA_obtenerIndiceTA(path);
+	int parent = osada_TA_obtenerIndiceTA(path);
 
 	if(strcmp(path, "/") != 0){
 		osada_TA_obtenerDirectorios(parent, directoriosQueComponenElActual);
