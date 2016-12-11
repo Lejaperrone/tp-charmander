@@ -8,6 +8,7 @@
 #ifndef OSADA_FUNCTIONS_TABLA_ARCHIVOS_H_
 #define OSADA_FUNCTIONS_TABLA_ARCHIVOS_H_
 
+int osada_TA_compareNameToIndex(int indice, char* test2);
 int osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent);
 void osada_TA_obtenerDirectorios(u_int16_t parent, t_list* directorio);
 void osada_TA_splitPathAndName(char* path, char** name, char** pathFrom);

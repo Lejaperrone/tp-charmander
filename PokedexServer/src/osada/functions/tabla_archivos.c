@@ -21,7 +21,7 @@
 
 extern pthread_mutex_t mutexTablaArchivos;
 
-int compare(int indice, char* test2){
+int osada_TA_compareNameToIndex(int indice, char* test2){
 	if(strcmp((char*)osada_drive.directorio[indice].fname, test2)==0){
 		return 1;
 	}
@@ -31,7 +31,7 @@ int osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
 	if(parent>=0){
 		int i;
 		for(i=0;i<2048;i++){
-			if(osada_drive.directorio[i].parent_directory == parent && compare(i, nombre)){
+			if(osada_drive.directorio[i].parent_directory == parent && osada_TA_compareNameToIndex(i, nombre)){
 				return i;
 			}else{
 			}
