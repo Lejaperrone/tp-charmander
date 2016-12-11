@@ -121,8 +121,7 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 		int i;
 		for (i=0;(i<2048 && guardado==0);i++){
 			if(osada_drive.directorio[i].state==0){
-				log_info(logPokedexServer,"BLOQUEO EL ELEMENTO %d DE TA",i);
-				//pthread_mutex_lock(&osada_mutex.directorio[i]);
+				pthread_mutex_lock(&osada_mutex.directorio[i]);
 				printf("BLOQUEE EL EMENE");
 				osada_drive.directorio[i].file_size=0;
 				osada_drive.directorio[i].first_block=0xFFFF;
@@ -130,9 +129,7 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 				osada_drive.directorio[i].lastmod=(int)time(NULL);
 				osada_drive.directorio[i].parent_directory=osada_TA_obtenerIndiceTA(directoryName);
 				osada_drive.directorio[i].state=state;
-				log_info(logPokedexServer,"Salgo del semaforo");
-				//pthread_mutex_unlock(&osada_mutex.directorio[i]);
-				log_info(logPokedexServer,"Ya sali del semaforo para %d",i);
+				pthread_mutex_unlock(&osada_mutex.directorio[i]);
 				guardado=1;
 			}
 		}
