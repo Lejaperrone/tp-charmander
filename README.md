@@ -4,6 +4,7 @@
 - [ ] Semáforos (Osada - ¿Mapa/Entrenador?)
 - [ ] Corrección deadlock según tiempo de ingreso, etc.
 - [ ] Memory Leaks
+- [ ] Setear la fecha de acceso y modificación para los casos correspondientes (read, write, truncate, create)
 
 ## Para abrir un mapa (PuebloPaleta)
 1. Buildear
