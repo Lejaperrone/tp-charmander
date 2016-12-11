@@ -107,31 +107,31 @@ void osada_TA_splitPathAndName(char* path, char** name, char** pathFrom){
 		}
 	}
 }
-void osada_TA_createNewDirectory(char* path, int posicionEnTablaArchivos){
-	time_t timer=time(0);
+int osada_TA_createNewDirectory(char* path, osada_file_state state){
 	char* fileName=string_new();
 	char* directoryName=string_new();
 	osada_TA_splitPathAndName(path,&fileName, &directoryName);
 
-	log_info(logPokedexServer, "OSADA - Generacion nuevo archivo: El nombre del archivo es: %s\n",fileName);
-	osada_drive.directorio[posicionEnTablaArchivos].file_size=0;
-	log_info(logPokedexServer,"El archivo %s de la path %s ocupa %d bytes",fileName,directoryName,osada_drive.directorio[posicionEnTablaArchivos].file_size);
-	osada_drive.directorio[posicionEnTablaArchivos].first_block=0xFFFF;
-	log_info(logPokedexServer,"El nombre inicial es %s",osada_drive.directorio[posicionEnTablaArchivos].fname);
-	char* barrasCero=string_repeat('\0',17);
-	memcpy(osada_drive.directorio[posicionEnTablaArchivos].fname,barrasCero,17);
-	log_info(logPokedexServer,"El nombre inicial despues del memcpy es %s",osada_drive.directorio[posicionEnTablaArchivos].fname);
-	osada_drive.directorio[posicionEnTablaArchivos].parent_directory=osada_TA_obtenerIndiceTA(directoryName);
-	log_info(logPokedexServer,"El directorio padre de %s es %d",fileName,osada_drive.directorio[posicionEnTablaArchivos].parent_directory);
-	int i;
-	for (i=0;i<17;i++){
-		osada_drive.directorio[posicionEnTablaArchivos].fname[i]=fileName[i];
+	int guardado= 0;
+	if(string_length(fileName)<=17){
+		int i;
+		for (i=0;i<2048 && guardado==0;i++){
+			if(osada_drive.directorio[i].state==0){
+				osada_drive.directorio[i].file_size=0;
+				osada_drive.directorio[i].first_block=0xFFFF;
+				strcpy((char*)osada_drive.directorio[i].fname, fileName);
+				osada_drive.directorio[i].lastmod=(int)time(NULL);
+				osada_drive.directorio[i].parent_directory=osada_TA_obtenerIndiceTA(directoryName);
+				osada_drive.directorio[i].state=state;
+				guardado=1;
+			}
+		}
 	}
-	log_info(logPokedexServer,"El nombre final es %s",osada_drive.directorio[posicionEnTablaArchivos].fname);
-	osada_drive.directorio[posicionEnTablaArchivos].state=REGULAR;
-	osada_drive.directorio[posicionEnTablaArchivos].lastmod=timer;
+
 	free(fileName);
 	free(directoryName);
+
+	return guardado;
 }
 
 bool osada_TA_TArchivo(int subindice){
@@ -161,33 +161,6 @@ int osada_TA_cantRegistrosLibres(){
 //FUNCIONES Q SE USAN
 
 //agrega a la lista de directorios los directorios de esa path
-
-int darDeAltaDirectorioEnTablaDeArchivos(char* nombre,int indice){
-	int i;
-	int yaLoGuarde=0;
-	log_info(logPokedexServer, "ENTRE EN darDeAltaDirectorioEnTablaDeArchivos");
-	for (i=0;i<2048;i++){
-		if(yaLoGuarde==0 && osada_drive.directorio[i].state==0){
-			yaLoGuarde=1;
-
-	/*IMPORTANTE, SI SE DESCOMENTA ALGO DE ESTO, EL SERVIDOR VA A TIRAR UN MEMORY CORRUPTION malloc()*/
-	//		char* fecha=string_new();
-	//		time_t timer=time(0);
-	//		struct tm *tlocal = localtime(&timer);
-			osada_drive.directorio[i].file_size=0;
-			strcpy((char*)osada_drive.directorio[i].fname, nombre);
-	//		strftime(fecha,128,"%d/%m/%y %H:%M:%S",tlocal);
-	//		osada_drive.directorio[i].lastmod=atoi(fecha);
-			osada_drive.directorio[i].parent_directory=indice;
-			osada_drive.directorio[i].state=2;
-			osada_drive.directorio[i].first_block=0xFFFF;
-		}
-	}
-
-	log_info(logPokedexServer, "yaLoGuarde en tablaDeArchivos es: %d", yaLoGuarde);
-	return yaLoGuarde;
-
-}
 
 
 

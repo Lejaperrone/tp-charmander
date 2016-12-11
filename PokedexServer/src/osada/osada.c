@@ -74,7 +74,6 @@ int osada_open(char* path){
 	//Verifico si  el path que me pasan existe y obtengo el indice del ultimo hijo
 	int child = osada_TA_obtenerIndiceTA(path);
 	if(child>=0 && child != -1){
-		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: La funcion open encontro que el bloque ocupado por %s es %d\n",path,child);
 		if(osada_drive.directorio[child].state == 2 || osada_drive.directorio[child].state == 1){
 			return 1;
 		}
@@ -127,24 +126,11 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 }
 
 int osada_createFile(char* path){
-
-	int posicionLibreEnBitmap = -1;
-	osada_B_findFreeBlock(&posicionLibreEnBitmap);
-	int posicionEnTablaDeArchivos=osada_TA_obtenerDirectorioLibre();
-
-	char* fileName=string_new();
-	char* directoryName=string_new();
-	osada_TA_splitPathAndName(path,&fileName,&directoryName);
-
-	int resultado;
-	if (posicionLibreEnBitmap != -1 && posicionEnTablaDeArchivos>=0 && string_length(fileName)<=17){
-		osada_TA_createNewDirectory(path,posicionEnTablaDeArchivos);
-		resultado = 1;
-	}else{
-		resultado = -ENOSPC;
+	if(osada_TA_createNewDirectory(path,REGULAR)){
+		return 1;
 	}
 
-	return resultado;
+	return -ENOSPC;
 }
 
 int osada_truncate(char* path, off_t offset){
@@ -224,34 +210,10 @@ int osada_truncate(char* path, off_t offset){
 }
 
 int osada_createDir(char* path){
-	char* name = string_new();
-	int i=0;
-	char** directorio=string_split(path,"/");
-	char* directorioPadre=string_new();
-	while(directorio[i]!=NULL){
-		if(directorio[i+1]!=NULL){
-			string_append(&directorioPadre,directorio[i]);
-			string_append(&directorioPadre,"/");
-		}else{
-			name=string_duplicate(directorio[i]);
-		}
-		free(directorio[i]);
-		i++;
+	if(osada_TA_createNewDirectory(path, DIRECTORY)){
+		return 1;
 	}
-	free(directorio);
-	int subindice=osada_TA_obtenerIndiceTA(directorioPadre);
-	log_info(logPokedexServer, "CREATEDIR - El subindice del directorio padre es: %d", subindice);
-	free(directorioPadre);
-	if(subindice != -1){
-		if(darDeAltaDirectorioEnTablaDeArchivos(name, subindice) == 1){
-			free(name);
-			return 1;
-		}else{
-			free(name);
-			return -ENOENT;
-		}
-	}
-	free(name);
+
 	return -ENOENT;
 }
 
