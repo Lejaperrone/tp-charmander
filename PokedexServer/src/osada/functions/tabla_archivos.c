@@ -28,6 +28,7 @@ int osada_TA_compareNameToIndex(int indice, char* test2){
 	return 0;
 }
 int osada_TA_buscarRegistroPorNombre(char* nombre, u_int16_t parent){
+	log_info(logPokedexServer,"Nombre vale %s", nombre);
 	if(parent>=0){
 		int i;
 		for(i=0;i<2048;i++){
@@ -48,6 +49,7 @@ int osada_TA_obtenerIndiceTA(char* path){
 		char** dirc = string_split(path, "/");
 		int i=0;
 		while(dirc[i]!=NULL){
+			log_info(logPokedexServer,"dirc[i] vale %s",dirc[i]);
 			newChildOf = osada_TA_buscarRegistroPorNombre(dirc[i], childOf);
 			if(newChildOf>=0){
 				childOf = newChildOf;
@@ -103,9 +105,11 @@ void osada_TA_splitPathAndName(char* path, char** name, char** pathFrom){
 		while(vectorPath[i]!=NULL){
 			if(vectorPath[i+1]==NULL){
 				string_append(name,vectorPath[i]);
+			}else{
+				string_append(pathFrom,"/");
+				string_append(pathFrom,vectorPath[i]);
 			}
-			string_append(pathFrom,vectorPath[i]);
-			string_append(pathFrom,"/");
+			i++;
 		}
 	}
 }
@@ -117,14 +121,20 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 	int guardado= 0;
 	if(string_length(fileName)<=17){
 		int i;
-		for (i=0;i<2048 && guardado==0;i++){
+		for (i=0;(i<2048 && guardado==0);i++){
 			if(osada_drive.directorio[i].state==0){
+				log_info(logPokedexServer,"BLOQUEO EL ELEMENTO %d DE TA",i);
+				//pthread_mutex_lock(&osada_mutex.directorio[i]);
+				printf("BLOQUEE EL EMENE");
 				osada_drive.directorio[i].file_size=0;
 				osada_drive.directorio[i].first_block=0xFFFF;
 				strcpy((char*)osada_drive.directorio[i].fname, fileName);
 				osada_drive.directorio[i].lastmod=(int)time(NULL);
 				osada_drive.directorio[i].parent_directory=osada_TA_obtenerIndiceTA(directoryName);
 				osada_drive.directorio[i].state=state;
+				log_info(logPokedexServer,"Salgo del semaforo");
+				//pthread_mutex_unlock(&osada_mutex.directorio[i]);
+				log_info(logPokedexServer,"Ya sali del semaforo para %d",i);
 				guardado=1;
 			}
 		}
