@@ -19,8 +19,6 @@
 #include <time.h>
 #include <pthread.h>
 
-extern pthread_mutex_t mutexTablaArchivos;
-
 int osada_TA_compareNameToIndex(int indice, char* test2){
 	if(strcmp((char*)osada_drive.directorio[indice].fname, test2)==0){
 		return 1;
@@ -183,30 +181,18 @@ void osada_TA_setearAttr(u_int16_t indice, file_attr* attr){
 	attr->state=0;
 }
 
-
-int osada_TA_borrarArchivo(u_int16_t parent){
-	int subindice;
-	strcpy((char*)osada_drive.directorio[parent].fname,"");
-	log_info(logPokedexServer, "El fname del directorio del bloque %d es -%s-", parent, osada_drive.directorio[parent].fname);
-	osada_drive.directorio[parent].state=0;
-	osada_drive.directorio[parent].lastmod=time(NULL);
-	u_int16_t fin = 0xFFFF;
-	subindice=osada_drive.directorio[parent].first_block;
-	log_info(logPokedexServer, "El subindice (primer bloque del parent) es %d", subindice);
-	while (subindice!=fin && subindice != -1){
-		bitarray_clean_bit(osada_drive.bitmap,subindice);
-		obtenerProximoBloque(&subindice);
-		log_info(logPokedexServer, "Ahora el subindice es: %d", subindice);
+void osada_TA_deleteDirectory(u_int16_t indice, osada_file_state state){
+	if(state == REGULAR){
+		int block = osada_drive.directorio[indice].first_block;
+		int nextBlock;
+		while(block != 0xFFFF && block != -1){
+			nextBlock = osada_drive.asignaciones[block];
+			bitarray_clean_bit(osada_drive.bitmap,block);
+			block=nextBlock;
+		}
 	}
-	log_info(logPokedexServer, "Se pudieron limpiar los bits del bitarray correctamente");
-	return 1;
-}
 
 
-
-void osada_TA_borrarDirectorio(u_int16_t parent){
-	pthread_mutex_lock(&mutexTablaArchivos);
-	osada_drive.directorio[parent].state=0;
-	pthread_mutex_unlock(&mutexTablaArchivos);
+	osada_drive.directorio[indice].state=0;
 }
 

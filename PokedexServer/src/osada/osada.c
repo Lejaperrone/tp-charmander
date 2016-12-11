@@ -245,48 +245,34 @@ int osada_rename(char* path, char* nuevaPath){
 }
 
 int osada_removeFile(char* path){
+	int indice = osada_TA_obtenerIndiceTA(path);
 
-	int parent;
-	if (strcmp(path, "/") != 0){
-		log_info(logPokedexServer, "OSADA - El path es != de /, se va a obtenerIndiceTA");
-		parent = osada_TA_obtenerIndiceTA(path);
-		log_info(logPokedexServer, "El indice devuelto (parent) es: %d", parent);
-	}else{
-		parent = 0xFFFF;
-	}
-
-	if(parent >= 0 || parent == 0xFFFF){
-		log_info(logPokedexServer, "OSADA - Se procede a borrar el archivo del bloque %d", parent);
-		osada_TA_borrarArchivo(parent);
-		log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Pude borrar el archivo %s. Ocupaba el bloque %d\n", path, parent);
+	if(indice >= 0 || indice == 0xFFFF){
+		osada_TA_deleteDirectory(indice, REGULAR);
 		return 1;
 	}
 
-//	perror("NO se pudo remover el directorio porque no existe");
 	return -ENOENT;
 
 }
 
 int osada_removeDir(char* path){
+	int indice = osada_TA_obtenerIndiceTA(path);
 
-	t_list* directoriosQueComponenElActual=list_create();
-	int parent = osada_TA_obtenerIndiceTA(path);
-
-	if(strcmp(path, "/") != 0){
-		osada_TA_obtenerDirectorios(parent, directoriosQueComponenElActual);
-		if (list_is_empty(directoriosQueComponenElActual)){
-			osada_TA_borrarDirectorio(parent);
-			log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: Se ha borrado el directorio %s de la tabla de archivos. El bloque borrado es %d\n",path,parent);
-			list_destroy(directoriosQueComponenElActual);
+	if(indice >= 0 || indice == 0xFFFF){
+		t_list* directories=list_create();
+		osada_TA_obtenerDirectorios(indice, directories);
+		if (list_is_empty(directories)){
+			osada_TA_deleteDirectory(indice, DIRECTORY);
+			list_destroy(directories);
 			return 1;
 		}else{
-			perror("NO se pudo remover el directorio porque no esta vacio");
-			list_destroy(directoriosQueComponenElActual);
+			list_destroy(directories);
 			return -EBUSY;
 		}
+		list_destroy(directories);
 	}
-	list_destroy(directoriosQueComponenElActual);
-	perror("NO se pudo remover el directorio porque no existe");
+
 	return -ENOENT;
 }
 
