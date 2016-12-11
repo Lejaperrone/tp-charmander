@@ -89,11 +89,10 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 	int indice = osada_TA_obtenerIndiceTA(path);
 
 	if (indice != -1){
+		mutex_lockFile(indice);
 		int bloque=osada_drive.directorio[indice].first_block;
-
 		double desplazamientoHastaElBloque=floor(offset/OSADA_BLOCK_SIZE);
 		int bloqueArranque=osada_TG_avanzarNBloques(bloque,desplazamientoHastaElBloque);
-
 		int byteComienzoLectura = offset-(desplazamientoHastaElBloque*OSADA_BLOCK_SIZE);
 		int desplazamiento = 0;
 		int iSize = size;
@@ -120,11 +119,11 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 			bloqueArranque=osada_drive.asignaciones[bloqueArranque];
 			byteComienzoLectura=0;
 		}
-
+		mutex_unlockFile(indice);
 		return desplazamiento;
 	}
 
-
+	mutex_unlockFile(indice);
 	return -ENOMEM;
 }
 
