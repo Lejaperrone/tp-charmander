@@ -73,7 +73,9 @@ void osada_TA_obtenerDirectorios(u_int16_t parent, t_list* directorio){
 	for(i=0;i<2048;i++){
 		//state=2
 		if(osada_drive.directorio[i].parent_directory == parent && osada_drive.directorio[i].state!=0){
+			pthread_mutex_lock(&osada_mutex.directorio[i]);
 			list_add(directorio, osada_drive.directorio[i].fname);
+			pthread_mutex_unlock(&osada_mutex.directorio[i]);
 			log_info(logPokedexServer,"Agrego a la lista de directorios %s", osada_drive.directorio[i].fname);
 		}
 	}
