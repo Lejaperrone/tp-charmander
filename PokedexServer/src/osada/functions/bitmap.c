@@ -62,7 +62,7 @@ int osada_B_reserveNewBlocks (int* n, int* bloqueArranque, int indice){
 		if (bitarray_test_bit(osada_drive.bitmap,i) == false){
 			bitarray_set_bit(osada_drive.bitmap,i);
 
-			if(*bloqueArranque != 0xFFFF){
+			if(*bloqueArranque != 0xFFFF && *bloqueArranque != -1){
 				osada_drive.asignaciones[bloqueReal] = i;
 			}else{
 				*bloqueArranque = i;

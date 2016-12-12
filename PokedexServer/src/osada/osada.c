@@ -148,19 +148,20 @@ int osada_truncate(char* path, off_t offset){
 
 		if(osada_drive.directorio[indice].file_size>offset){
 			int nuevoFinBlock = osada_TG_avanzarNBloques(osada_drive.directorio[indice].first_block, cantBlockOffset);
-			if(cantBlockOffset != cantBlockFileSize){
-				int bloqueLiberar = osada_drive.asignaciones[nuevoFinBlock];
-				osada_drive.asignaciones[nuevoFinBlock] = 0xFFFF;
-
-				while(bloqueLiberar != 0xFFFF){
-					bitarray_clean_bit(osada_drive.bitmap, bloqueLiberar);
-					bloqueLiberar = osada_drive.asignaciones[bloqueLiberar];
-				}
+			int bloqueLiberar = osada_drive.asignaciones[nuevoFinBlock];
+			osada_drive.asignaciones[nuevoFinBlock] = 0xFFFF;
+			log_info(logPokedexServer, "1");
+			while(bloqueLiberar != 0xFFFF && bloqueLiberar != -1){
+				bitarray_clean_bit(osada_drive.bitmap, bloqueLiberar);
+				bloqueLiberar = osada_drive.asignaciones[bloqueLiberar];
+				log_info(logPokedexServer, "2 %d", bloqueLiberar);
 			}
-
+			log_info(logPokedexServer, "3");
 			if(offset>0){
+				log_info(logPokedexServer, "4");
 				int offBlock = offset - (cantBlockOffset * OSADA_BLOCK_SIZE);
 				osada_D_truncateBlock(nuevoFinBlock, offBlock);
+				log_info(logPokedexServer, "5");
 			}
 
 			osada_drive.directorio[indice].file_size = offset;
@@ -168,7 +169,7 @@ int osada_truncate(char* path, off_t offset){
 			log_info(logPokedexServer, "FileSize: %d", osada_drive.directorio[indice].file_size);
 			int blockDump = osada_drive.directorio[indice].first_block;
 			int j = 1;
-			while(blockDump != 0xFFFF){
+			while(blockDump != 0xFFFF && blockDump != -1){
 				int i;
 				char* tempBlock = string_new();
 				for(i=0;i<OSADA_BLOCK_SIZE; i++){
@@ -184,7 +185,7 @@ int osada_truncate(char* path, off_t offset){
 
 				blockDump = osada_drive.asignaciones[blockDump];
 			}
-
+			log_info(logPokedexServer, "6");
 			return 1;
 		}else if(osada_drive.directorio[indice].file_size<offset){
 			if ((offset-osada_drive.directorio[indice].file_size)<=espacioDisponible){
