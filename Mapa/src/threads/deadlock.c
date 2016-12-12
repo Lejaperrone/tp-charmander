@@ -156,12 +156,28 @@ t_pokemon_custom* obtenerPokemonMasFuerte(t_entrenador* entrenador){
 
 	return pokemonMasFuerte;
 }
+
+bool ordenamientoPorTiempoDeIngreso(t_entrenador* entrenador1, t_entrenador* entrenador2){
+	return (entrenador1->tiempoDeIngresoAlMapa < entrenador2->tiempoDeIngresoAlMapa);
+}
+void ordenarEntrenadoresEnDeadlockPorTiempoDeIngresoAlMapa(t_list* entrenadoresEnDeadlock){
+
+	list_sort(entrenadoresEnDeadlock, (void*)ordenamientoPorTiempoDeIngreso);
+	int i;
+	for(i=0; i<list_size(entrenadoresEnDeadlock); i++){
+		log_info(archivoLog, "ORDENAMIENTO LISTA DEADLOCK - El entrenador %c tiene el tiempo de ingreso %d", ((t_entrenador*)list_get(entrenadoresEnDeadlock, i))->simbolo, ((t_entrenador*)list_get(entrenadoresEnDeadlock, i))->tiempoDeIngresoAlMapa);
+	}
+}
 void batalla(){
 	pthread_mutex_lock(&mutexMapa);
 	if (mapa->batalla==1){
 		int cantEntrenadoresDeadlock=list_size(entrenadoresDeadlock);
 		if (cantEntrenadoresDeadlock>1){
 
+			/*Ordenamos la lista de entrenadores en deadlock segun su tiempo de ingreso al mapa*/
+			ordenarEntrenadoresEnDeadlockPorTiempoDeIngresoAlMapa(entrenadoresDeadlock);
+
+			/*--------------------------------------------*/
 			t_pkmn_factory* pokemon_factory = create_pkmn_factory();
 			int numBatalla;
 			int vNivelBatalla[2];

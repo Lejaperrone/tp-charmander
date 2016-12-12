@@ -49,6 +49,7 @@
 		t_list* pokemons;
 		t_pokenest* pokenestBloqueante;
 		t_planificador_entrenador planificador;
+		int tiempoDeIngresoAlMapa;
 	}t_entrenador;
 
 	t_mapa* mapa;

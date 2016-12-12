@@ -175,6 +175,7 @@ int main(int argc, char *argv[]){
 									entrenador->ubicacion.y = 1;
 									entrenador->planificador.ubicacionObjetivo.x = -1;
 									entrenador->planificador.ubicacionObjetivo.y = -1;
+									entrenador->tiempoDeIngresoAlMapa = (int)time(NULL);
 									list_add(entrenadoresPreparados, entrenador);
 									FD_CLR(i, &master);// eliminar del conjunto maestro
 
