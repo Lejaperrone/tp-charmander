@@ -36,6 +36,7 @@ int osada_init(char* path){
 	return 1;
 }
 
+/*------------REVISAR SEMAFOROS DEL GETATTR PORQUE AL DESCONECTAR EL CLIENTE TIRA VIOLACION DE SEGMENTO EN EL SERVIDOR-------*/
 int osada_getattr(char* path, file_attr* attrs){
 	if(strcmp(path,"/") == 0){
 		attrs->file_size = 0;
@@ -43,14 +44,14 @@ int osada_getattr(char* path, file_attr* attrs){
 		return 1;
 	}else{
 		int indice = osada_TA_obtenerIndiceTA(path);
-		pthread_mutex_lock(&osada_mutex.directorio[indice]);
+//		pthread_mutex_lock(&osada_mutex.directorio[indice]);
 		log_info(logPokedexServer, "GETATTR - El indice obtenido para el path %s es %d", path, indice);
 		if(indice>=0){
 			osada_TA_obtenerAttr(indice, attrs);
-			pthread_mutex_unlock(&osada_mutex.directorio[indice]);
+//			pthread_mutex_unlock(&osada_mutex.directorio[indice]);
 			return 1;
 		}
-		pthread_mutex_unlock(&osada_mutex.directorio[indice]);
+//		pthread_mutex_unlock(&osada_mutex.directorio[indice]);
 		return 0;
 	}
 }
@@ -87,6 +88,7 @@ int osada_open(char* path){
 
 int osada_read(char *path, char** buf, size_t size, off_t offset){
 	int indice = osada_TA_obtenerIndiceTA(path);
+
 
 	if (indice != -1){
 		mutex_lockFile(indice);
