@@ -66,8 +66,10 @@ int osada_TA_obtenerIndiceTA(char* path){
 
 void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
 	if(indice>=0){
+		pthread_mutex_lock(&osada_mutex.directorio[indice]);
 		attr->file_size = osada_drive.directorio[indice].file_size;
 		attr->state = osada_drive.directorio[indice].state;
+		pthread_mutex_unlock(&osada_mutex.directorio[indice]);
 	}
 }
 
