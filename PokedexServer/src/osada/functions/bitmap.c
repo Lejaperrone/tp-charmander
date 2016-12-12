@@ -60,20 +60,57 @@ int osada_B_reserveNewBlocks (int* n, int* bloqueArranque, int indice){
 
 	while(bloquesReservados<*n && i<=bitarray_get_max_bit(osada_drive.bitmap)){
 		if (bitarray_test_bit(osada_drive.bitmap,i) == false){
-			bitarray_set_bit(osada_drive.bitmap,i);
+			if(pthread_mutex_trylock(&osada_mutex.block[i])){
+				bitarray_set_bit(osada_drive.bitmap,i);
 
-			if(*bloqueArranque != 0xFFFF && *bloqueArranque != -1){
-				osada_drive.asignaciones[bloqueReal] = i;
-			}else{
-				*bloqueArranque = i;
-				osada_drive.directorio[indice].first_block = i;
+				if(*bloqueArranque != 0xFFFF && *bloqueArranque != -1){
+					osada_drive.asignaciones[bloqueReal] = i;
+				}else{
+					*bloqueArranque = i;
+					osada_drive.directorio[indice].first_block = i;
+				}
+
+				bloqueReal = i;
+				osada_drive.asignaciones[i] = 0xFFFF;
+				bloquesReservados++;
+
+				osada_D_truncateBlock(i,0);
 			}
+		}
+		i++;
+	}
+	if(bloquesReservados == *n){
+		return 1;
+	}else{
+		return 0;
+	}
+}
 
-			bloqueReal = i;
-			osada_drive.asignaciones[i] = 0xFFFF;
-			bloquesReservados++;
+int osada_B_reserveNewBlocksForWriteDeleteLatter (int* n, int* bloqueArranque, int indice){
+	int offsetAsignaciones = (osada_drive.header->fs_blocks - 1024 - 1 - osada_drive.header->bitmap_blocks) * 4 / OSADA_BLOCK_SIZE;
+	int i =  osada_drive.header->bitmap_blocks + 1024 + 1 + offsetAsignaciones;
 
-			osada_D_truncateBlock(i,0);
+	int bloquesReservados=0;
+	int bloqueReal = *bloqueArranque;
+
+	while(bloquesReservados<*n && i<=bitarray_get_max_bit(osada_drive.bitmap)){
+		if (bitarray_test_bit(osada_drive.bitmap,i) == false){
+			//if(pthread_mutex_trylock(&osada_mutex.block[i])){
+				bitarray_set_bit(osada_drive.bitmap,i);
+
+				if(*bloqueArranque != 0xFFFF && *bloqueArranque != -1){
+					osada_drive.asignaciones[bloqueReal] = i;
+				}else{
+					*bloqueArranque = i;
+					osada_drive.directorio[indice].first_block = i;
+				}
+
+				bloqueReal = i;
+				osada_drive.asignaciones[i] = 0xFFFF;
+				bloquesReservados++;
+
+				osada_D_truncateBlock(i,0);
+			//}
 		}
 		i++;
 	}
