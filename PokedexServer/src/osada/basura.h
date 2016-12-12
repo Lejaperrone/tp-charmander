@@ -32,7 +32,6 @@
 
 void bloquesATruncar(int subindice, off_t offset, int* nuevoUltimoBloque);
 int hayBloquesDesocupadosEnElBitmap (int* n, int* bloqueArranque);
-int hayBloquesDesocupadosEnElBitmapParaWrite(int* n, int* bloqueArranque, int indice);
 int buscarLugarLibreEnTablaArchivos();
 void directoryContainingFile(char* path, char** fileName, char** father);
 void actualizarBytesEscritos (int* acum, int bytes);
@@ -51,7 +50,6 @@ void actualizarTablaDeAsignaciones(int ultimoBloqueOriginal, t_list* listaDeBloq
 void actualizarDatos (int ultimoBloque, t_list* lista, int bytesOcupadosDelUltimoBloque, int bytesConBarraCeroDelUltimoBloque);
 void ocuparEspacio (int sub, int bq_to_set, off_t offset, t_list* lista);
 void contarBloquesSegun(int originalFileSize,int offset, int* bloques);
-float calcularEspacioDisponibleEnDisco();
 
 
 #endif /* OSADA_BASURA_H_ */

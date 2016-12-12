@@ -78,40 +78,6 @@ int hayBloquesDesocupadosEnElBitmap (int* n, int* bloqueArranque){
 	}
 }
 
-
-int hayBloquesDesocupadosEnElBitmapParaWrite (int* n, int* bloqueArranque, int indice){
-	int bloqueReal = *bloqueArranque;
-	int i=osada_drive.header->bitmap_blocks+1025+((osada_drive.header->fs_blocks-1025-osada_drive.header->bitmap_blocks)*4/OSADA_BLOCK_SIZE);
-	int bloquesNecesarios=0;
-
-	while(bloquesNecesarios<*n && i<=bitarray_get_max_bit(osada_drive.bitmap)){
-		if (bitarray_test_bit(osada_drive.bitmap,i) == false){
-			bitarray_set_bit(osada_drive.bitmap,i);
-			log_info(logPokedexServer, "OSADA - El bloque arranque en hayBloquesDesocupadosEnElBitmap es: %d", *bloqueArranque);
-			if(*bloqueArranque != 0xFFFF){
-				osada_drive.asignaciones[bloqueReal] = i;
-				log_info(logPokedexServer, "OSADA - El proximo bloque es: %d", i);
-			}else{
-				*bloqueArranque = i;
-				osada_drive.directorio[indice].first_block = i;
-				log_info(logPokedexServer, "OSADA - El first_block pasa a ser: %d", osada_drive.directorio[indice].first_block);
-				log_info(logPokedexServer, "OSADA - El bloque arranque en hayBloquesDesocupadosEnElBitmap es: %d", *bloqueArranque);
-			}
-
-			bloqueReal = i;
-			osada_drive.asignaciones[i] = 0xFFFF;
-			bloquesNecesarios++;
-
-		}
-		i++;
-	}
-	if(bloquesNecesarios==*n){
-		return 1;
-	}else{
-		return 0;
-	}
-}
-
 int buscarLugarLibreEnTablaArchivos(){
 	int i;
 	for (i=0;i<2048;i++){
@@ -319,15 +285,4 @@ void contarBloquesSegun(int originalFileSize,int offset, int* bloques){
 		*bloques=*bloques+1;
 	}
 	log_info(logPokedexServer, "Necesito ocupar %d mas",*bloques);
-}
-
-float calcularEspacioDisponibleEnDisco(){
-	int i, bloquesVacios=0;
-	for (i=0;i<bitarray_get_max_bit(osada_drive.bitmap);i++){
-		if(!bitarray_test_bit(osada_drive.bitmap,i)){
-			bloquesVacios++;
-		}
-	}
-	log_info(logPokedexServer,"Hay %f bytes vacios",((((float)osada_drive.header->data_blocks)*OSADA_BLOCK_SIZE)/((float)bloquesVacios)*OSADA_BLOCK_SIZE));
-	return ((((float)osada_drive.header->data_blocks)*OSADA_BLOCK_SIZE)/((float)bloquesVacios)*OSADA_BLOCK_SIZE);
 }

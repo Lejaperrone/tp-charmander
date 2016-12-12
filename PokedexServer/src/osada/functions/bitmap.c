@@ -24,6 +24,7 @@
 #include <math.h>
 #include <commons/log.h>
 #include "tabla_asignaciones.h"
+#include "data.h"
 #include <pthread.h>
 
 void osada_B_findFreeBlock(int* lugarLibre){
@@ -48,4 +49,37 @@ int osada_B_cantBloquesLibres(){
 		}
 	}
 	return tot;
+}
+
+int osada_B_reserveNewBlocks (int* n, int* bloqueArranque, int indice){
+	int offsetAsignaciones = (osada_drive.header->fs_blocks - 1024 - 1 - osada_drive.header->bitmap_blocks) * 4 / OSADA_BLOCK_SIZE;
+	int i =  osada_drive.header->bitmap_blocks + 1024 + 1 + offsetAsignaciones;
+
+	int bloquesReservados=0;
+	int bloqueReal = *bloqueArranque;
+
+	while(bloquesReservados<*n && i<=bitarray_get_max_bit(osada_drive.bitmap)){
+		if (bitarray_test_bit(osada_drive.bitmap,i) == false){
+			bitarray_set_bit(osada_drive.bitmap,i);
+
+			if(*bloqueArranque != 0xFFFF){
+				osada_drive.asignaciones[bloqueReal] = i;
+			}else{
+				*bloqueArranque = i;
+				osada_drive.directorio[indice].first_block = i;
+			}
+
+			bloqueReal = i;
+			osada_drive.asignaciones[i] = 0xFFFF;
+			bloquesReservados++;
+
+			osada_D_truncateBlock(i,0);
+		}
+		i++;
+	}
+	if(bloquesReservados == *n){
+		return 1;
+	}else{
+		return 0;
+	}
 }
