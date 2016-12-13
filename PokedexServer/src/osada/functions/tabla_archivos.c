@@ -161,19 +161,11 @@ bool osada_TA_TDirectorio(int subindice){
 
 int osada_TA_cantRegistrosLibres(){
 	int i, tot=0;
-
 	for (i=0;i<2048;i++){
-	pthread_mutex_lock(&osada_mutex.directorio[i]);
 		if(osada_TA_TBorrado(i)){
 			tot++;
 		}
 	}
-
-	int j;
-	for(j=0; j<2048; j++){
-		pthread_mutex_unlock(&osada_mutex.directorio[j]);
-	}
-
 	return tot;
 }
 

@@ -45,28 +45,11 @@ int osada_B_cantBloquesLibres(){
 	int i,tot=0;
 	int offsetAsignaciones = (osada_drive.header->fs_blocks - 1024 - 1 - osada_drive.header->bitmap_blocks) * 4 / OSADA_BLOCK_SIZE;
 	int inicioDatos =  osada_drive.header->bitmap_blocks + 1024 + 1 + offsetAsignaciones;
-	int j;
-	log_info(logPokedexServer, "Antes de entrar al for de lockeo de Bloques.");
-	for(j=inicioDatos; j<t; j++){
-		pthread_mutex_lock(&osada_mutex.block[j]);
-	}
-	log_info(logPokedexServer, "Despues de entrar al for de lockeo de Bloques.");
-
-	log_info(logPokedexServer, "Antes de entrar al for de testeo de bits del bitmap.");
 	for (i=inicioDatos;i<t;i++){
-		//pthread_mutex_lock(&osada_mutex.block[i]);
 		if (!bitarray_test_bit(osada_drive.bitmap,i)){
 			tot++;
 		}
 	}
-	log_info(logPokedexServer, "Despues de entrar al for de testeo de bits del bitmap.");
-
-	log_info(logPokedexServer, "Antes de entrar al for de deslockeo de Bloques.");
-	int h;
-	for(h=inicioDatos; h<t; h++){
-		pthread_mutex_unlock(&osada_mutex.block[h]);
-	}
-	log_info(logPokedexServer, "Despues de entrar al for de deslockeo de Bloques.");
 	return tot;
 }
 
