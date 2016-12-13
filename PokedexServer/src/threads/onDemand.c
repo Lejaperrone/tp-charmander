@@ -30,7 +30,7 @@
 #include "../functions/sockets.h"
 #include <errno.h>
 
-void proce_getattr(int clientSocket, char* path){
+void proce_getattr(int clientSocket, char* path){ //LEAK!! en todos los sendInt
 	file_attr* getAttr = malloc(sizeof(file_attr));
 	getAttr->file_size=0;
 	getAttr->state=0;
@@ -70,7 +70,6 @@ void proce_readdir(int clientSocket, char* path){
 		}
 
 	}
-
 	free(path);
 }
 
@@ -81,7 +80,6 @@ void proce_open(int clientSocket, char* path){
 }
 
 void proce_readfile(int clientSocket, char* path){
-
 
 	size_t size;
 	off_t offset;
@@ -108,8 +106,6 @@ void proce_readfile(int clientSocket, char* path){
 	//	sendString(clientSocket, bufParaElRead, resultadoOsada);
 		sendBufferParaRead(clientSocket, bufParaElRead, resultadoOsada);
 	}
-
-//	free(buf);
 }
 
 void proce_create(int clientSocket, char* path){
@@ -197,7 +193,7 @@ void proce_statfs(int clientSocket, char* path){
 
 void* procesarPeticiones(t_hilo* h){
 	printf("Se conecto %d\n", h->id);
-	char* nombreFuncion=string_new();
+	char* nombreFuncion=string_new(); //LEAK!! a pesar de que este liberado
 
 	while(recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
 		log_info(logPokedexServer,"POKEDEXSERVER - 1 - Funcion: %s", nombreFuncion);
@@ -233,9 +229,10 @@ void* procesarPeticiones(t_hilo* h){
 		}else{
 			log_info(logPokedexServer, "Funcion desconocida");
 		}
-
 	}
 	free(nombreFuncion);
-
 	return NULL;
 }
+
+
+

@@ -17,7 +17,6 @@
 #include "functions/log.h"
 #include "commons/structures.h"
 #include "functions/fuse.h"
-
 #include "socketLib.h"
 
 int main(int argc, char *argv[]){
@@ -37,7 +36,7 @@ int main(int argc, char *argv[]){
 	create_socketClient(&pokedexServer, IP_SERVER, PORT);
 
 	//Identificacion
-	char* sizePID=malloc(sizeof(char)*11);
+	char* sizePID=malloc(sizeof(char)*11); //LEAK!! aunque se libere
 	sprintf(sizePID,"%i",getpid());
 	send(pokedexServer, sizePID, 11, 0);
 
@@ -48,6 +47,7 @@ int main(int argc, char *argv[]){
 	log_info(archivoLog, "Levanto fuse\n");
 	return fuse_main(argc, argv, &chamba_oper, NULL);
 
+	//free (sizePID);
 	return EXIT_SUCCESS;
 
 }
