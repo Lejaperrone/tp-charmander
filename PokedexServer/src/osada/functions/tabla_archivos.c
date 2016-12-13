@@ -45,6 +45,8 @@ int osada_TA_obtenerIndiceTA(char* path){
 	int newChildOf;
 	if (strcmp(path,"/")==0){
 		return childOf;
+	}else if(strcmp(path, "") == 0){
+		return -1;
 	}else{
 		char** dirc = string_split(path, "/");
 		int i=0;
