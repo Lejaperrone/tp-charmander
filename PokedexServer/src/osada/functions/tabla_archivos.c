@@ -119,6 +119,7 @@ void osada_TA_splitPathAndName(char* path, char** name, char** pathFrom){
 }
 int osada_TA_createNewDirectory(char* path, osada_file_state state){
 	int fileExist = osada_TA_obtenerIndiceTA(path);
+	log_info(logPokedexServer, "El indice del fileExist es: %d", fileExist);
 	if(fileExist == -1){
 		char* fileName=string_new();
 		char* directoryName=string_new();
@@ -126,6 +127,7 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 
 		int guardado= 0;
 		if(string_length(fileName)<=17){
+			log_info(logPokedexServer, "El string_length del fileName es: %d", string_length(fileName));
 			int i;
 			for (i=0;(i<2048 && guardado==0);i++){
 				if(osada_drive.directorio[i].state==0){
@@ -147,6 +149,7 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 		free(fileName);
 		free(directoryName);
 
+		log_info(logPokedexServer, "La variable guardado es: %d", guardado);
 		return guardado;
 	}
 	return 0;

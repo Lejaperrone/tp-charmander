@@ -128,7 +128,7 @@ int main(){
 
 							printf("Se intento conectar: %d\n", h->id);
 
-							pthread_create(&thread, NULL,(void*)procesarPeticiones,h);
+							pthread_create(&thread, &attr,(void*)procesarPeticiones,h);
 						}
 					}
 				}
