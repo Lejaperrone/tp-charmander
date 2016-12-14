@@ -185,11 +185,17 @@ int chamba_getattr(char* path, struct stat* stbuf){
 
 		if (tipoDeArchivo==2){
 			stbuf->st_size = recvInt();
+			recv(pokedexServer, &(stbuf->st_atim), sizeof(time_t), 0);
+			stbuf->st_ctim = stbuf->st_atim;
+			stbuf->st_mtim = stbuf->st_atim;
 			log_info(archivoLog, "5 - stbuf->st_size: %d", stbuf->st_size);
 			stbuf->st_mode=S_IFDIR | 0755;
 			stbuf->st_nlink = 2;
 		}else if (tipoDeArchivo==1){
 			stbuf->st_size = recvInt();
+			recv(pokedexServer, &(stbuf->st_atim), sizeof(time_t), 0);
+			stbuf->st_ctim = stbuf->st_atim;
+			stbuf->st_mtim = stbuf->st_atim;
 			log_info(archivoLog, "6 - stbuf->st_size: %d", stbuf->st_size);
 			stbuf->st_mode=S_IFREG | 0444;
 			stbuf->st_nlink = 1;

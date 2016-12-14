@@ -71,6 +71,7 @@ void osada_TA_obtenerAttr(u_int16_t indice, file_attr* attr){
 		pthread_mutex_lock(&osada_mutex.directorio[indice]);
 		attr->file_size = osada_drive.directorio[indice].file_size;
 		attr->state = osada_drive.directorio[indice].state;
+		attr->lastmod = osada_drive.directorio[indice].lastmod;
 		pthread_mutex_unlock(&osada_mutex.directorio[indice]);
 	}
 }
@@ -132,7 +133,9 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 					osada_drive.directorio[i].file_size=0;
 					osada_drive.directorio[i].first_block=0xFFFF;
 					strcpy((char*)osada_drive.directorio[i].fname, fileName);
-					osada_drive.directorio[i].lastmod=(int)time(NULL);
+					time_t currentTime;
+					osada_drive.directorio[i].lastmod=(int)time(&currentTime);
+					log_info(logPokedexServer, "Fecha: %s", ctime(&currentTime));
 					osada_drive.directorio[i].parent_directory=osada_TA_obtenerIndiceTA(directoryName);
 					osada_drive.directorio[i].state=state;
 					pthread_mutex_unlock(&osada_mutex.directorio[i]);
@@ -197,6 +200,7 @@ void osada_TA_deleteDirectory(u_int16_t indice, osada_file_state state){
 		}
 	}
 	osada_drive.directorio[indice].state=0;
+	osada_drive.directorio[indice].lastmod = (int)time(NULL);
 	mutex_unlockFile(indice);
 }
 

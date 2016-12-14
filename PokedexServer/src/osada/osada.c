@@ -43,6 +43,7 @@ int osada_getattr(char* path, file_attr* attrs){
 	if(indice ==  0xFFFF){
 		attrs->file_size = 0;
 		attrs->state = 2;
+		attrs->lastmod = osada_drive.directorio[indice].lastmod;
 		return 1;
 	}else if(indice>=0){
 		osada_TA_obtenerAttr(indice, attrs);
@@ -159,6 +160,7 @@ int osada_truncate(char* path, off_t offset){
 			}
 
 			osada_drive.directorio[indice].file_size = offset;
+			osada_drive.directorio[indice].lastmod=(int)time(NULL);
 
 			mutex_unlockFile(indice);
 			return 1;
@@ -181,6 +183,7 @@ int osada_truncate(char* path, off_t offset){
 				}
 
 				osada_drive.directorio[indice].file_size = offset;
+				osada_drive.directorio[indice].lastmod=(int)time(NULL);
 
 				mutex_unlockFile(indice);
 				return 1;
@@ -194,7 +197,7 @@ int osada_truncate(char* path, off_t offset){
 			return 1;
 		}
 	}else{
-		mutex_unlockFile(indice);
+	//	mutex_unlockFile(indice); 	Si el indice es -1 para que deslockeamos el indice? Si total no vamos a hacer nada
 		log_info(logPokedexServer, "OSADA - No existe el path indicado");
 		return -ENOENT;
 	}

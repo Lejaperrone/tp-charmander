@@ -93,12 +93,11 @@ void actualizarBytesEscritos (int* acum, int bytes){
 }
 
 void actualizarTablaDeArchivosParaWrite(char* path, size_t size, int indice){
-	time_t timer=time(0);
 
 	osada_drive.directorio[indice].file_size = size;
 	log_info(logPokedexServer, "OSADA - El file_size del path %s es %d, y el size que me llego por parametro es %d",path, osada_drive.directorio[indice].file_size, size);
 
-	osada_drive.directorio[indice].lastmod = timer;
+	osada_drive.directorio[indice].lastmod = (int)time(NULL);
 }
 
 int renombrarArchivo (int subindice, char* newFileName, int subindicePath){
@@ -107,6 +106,7 @@ int renombrarArchivo (int subindice, char* newFileName, int subindicePath){
 		if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
 			pthread_mutex_lock(&osada_mutex.directorio[subindice]);
 			osada_drive.directorio[subindice].parent_directory=subindicePath;
+			osada_drive.directorio[subindice].lastmod = (int)time(NULL);
 			pthread_mutex_unlock(&osada_mutex.directorio[subindice]);
 			log_info(logPokedexServer,"Se ha reemplazado el nombre del archivo por %s",newFileName);
 			resultado= 1;
@@ -121,6 +121,7 @@ int renombrarArchivo (int subindice, char* newFileName, int subindicePath){
 			if (strlen(strcpy((char*)osada_drive.directorio[subindice].fname,newFileName))==strlen(newFileName)){
 				pthread_mutex_lock(&osada_mutex.directorio[subindice]);
 				osada_drive.directorio[subindice].parent_directory=subindicePath;
+				osada_drive.directorio[subindice].lastmod = (int)time(NULL);
 				pthread_mutex_unlock(&osada_mutex.directorio[subindice]);
 				log_info(logPokedexServer,"Se ha reemplazado el nombre del directorio por %s",newFileName);
 						resultado= 1;

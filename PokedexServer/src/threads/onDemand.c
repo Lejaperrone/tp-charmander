@@ -34,6 +34,7 @@ void proce_getattr(int clientSocket, char* path){ //LEAK!! en todos los sendInt
 	file_attr* getAttr = malloc(sizeof(file_attr));
 	getAttr->file_size=0;
 	getAttr->state=0;
+	getAttr->lastmod=time(NULL);
 
 	int resultadoOsada = osada_getattr(path,getAttr);
 	sendInt(clientSocket, resultadoOsada);
@@ -45,6 +46,11 @@ void proce_getattr(int clientSocket, char* path){ //LEAK!! en todos los sendInt
 
 		sendInt(clientSocket, (int)getAttr->file_size);
 		log_info(logPokedexServer, "getAttr->file_size: %d", getAttr->file_size);
+
+		send(clientSocket, &(getAttr->lastmod), sizeof(time_t), 0);
+	//	sendInt(clientSocket, getAttr->lastmod);
+		log_info(logPokedexServer, "Fecha: %s", ctime(&getAttr->lastmod));
+
 	}
 
 	free(getAttr);

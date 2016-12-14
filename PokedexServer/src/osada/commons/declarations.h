@@ -15,6 +15,7 @@
 	typedef struct {
 		int state;
 		uint32_t file_size;
+		time_t lastmod;
 	} file_attr;
 
 	typedef struct{
