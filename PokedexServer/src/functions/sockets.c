@@ -157,7 +157,7 @@ int sendInt(int clientSocket, int number){
 }
 
 int recibirNombreDeLaFuncion(int socketCliente, char* nombreFuncion){
-	if(recv(socketCliente, nombreFuncion, 5*sizeof(char),0)>=0){
+	if(recv(socketCliente, nombreFuncion, 5*sizeof(char),0)>0){
 		return 1;
 	}else{
 		log_info(logPokedexServer,"POKEDEXSERVER - Se cerro la conexion");
