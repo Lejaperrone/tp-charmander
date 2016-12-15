@@ -135,10 +135,12 @@ int recvValue(int clientSocket, void* buffer){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(clientSocket, sizeStr, 11,  0) == 11){
 		int size = atoi(sizeStr);
+		free(sizeStr);
 		if (recv(clientSocket, buffer, size,  0) == size){
 			return 1;
 		}
 	}
+	free(sizeStr);
 	return 0;
 }
 
