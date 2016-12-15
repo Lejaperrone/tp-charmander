@@ -1,10 +1,10 @@
 # TP 2016 2C - Chamba
 
+- [ ] Semáforos Write (Jona)
+- [ ] Memory Leaks (jueves en medrano: Fran y Tom)
 - [x] Funciones de osada completas
-- [ ] Semáforos (Osada - ¿Mapa/Entrenador?)
-- [ ] Corrección deadlock según tiempo de ingreso, etc.
-- [ ] Memory Leaks
-- [ ] Setear la fecha de acceso y modificación para los casos correspondientes (read, write, truncate, create)
+- [ ] <del>Corrección deadlock según tiempo de ingreso, etc.</del>
+- [x] Setear la fecha de acceso y modificación para los casos correspondientes
 
 ## Para abrir un mapa (PuebloPaleta)
 1. Buildear
