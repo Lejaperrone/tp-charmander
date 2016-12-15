@@ -28,6 +28,7 @@ int sendValue(void* parameter, int size){
 	sprintf(sizeStr,"%i",size);
 	if(send(pokedexServer, sizeStr, 11, 0) == 11){
 		if(send(pokedexServer, parameter, size, 0) == size){
+			free(sizeStr);
 			return 1;
 		}
 	}
@@ -41,6 +42,7 @@ int sendPrimerByteBuffer(char* buffer, int size){
 
 	send(pokedexServer, bufferDe1Byte, 1, 0);
 
+	free(bufferDe1Byte);
 	return 0;
 }
 int sendBufferParaElWrite(char* bufferLlenoDeFuse, int size){
@@ -126,6 +128,7 @@ int recvValue(char* buffer){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(pokedexServer, sizeStr, 11,  0) == 11){
 		int size = atoi(sizeStr);
+		free(sizeStr);
 		log_info(archivoLog,"Size to recv: %d", size);
 //		char* temp=malloc(sizeof(char)*17);
 //		if (recv(pokedexServer, temp, size,  0) == size){
@@ -135,6 +138,7 @@ int recvValue(char* buffer){
 		char* bufferRecibido = malloc(size);
 		if(recv(pokedexServer, bufferRecibido, size, 0) == size){
 			memcpy(buffer,bufferRecibido,size);
+			free(bufferRecibido);
 			return 1;
 		}
 	}
@@ -144,12 +148,19 @@ int recvString(char** string){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(pokedexServer, sizeStr, 11,  0) == 11){
 		int size = atoi(sizeStr);
+		free(sizeStr);
 		char* temp=malloc(sizeof(char)*size);
 		if (recv(pokedexServer, temp, size,  0) == size){
 			*string = string_substring(temp,0,size);
+			free(temp);
 			return 1;
+		}else{
+			free(temp);
 		}
+	}else{
+		free(sizeStr);
 	}
+
 	return 0;
 }
 void sendBasicInfo(char* function, const char* path){
@@ -160,9 +171,10 @@ int recvInt(){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(pokedexServer, sizeStr, 11,  0) == 11){
 		int size = atoi(sizeStr);
+		free(sizeStr);
 		return size;
 	}
-
+	free(sizeStr);
 	return -ENOENT;
 }
 
