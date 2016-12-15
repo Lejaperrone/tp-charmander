@@ -69,12 +69,19 @@ int recvString(int clientSocket, char** string){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(clientSocket, sizeStr, 11,  0) == 11){
 		int size = atoi(sizeStr);
+		free(sizeStr);
 		char* temp=malloc(sizeof(char)*size);
 		if (recv(clientSocket, temp, size,  0) == size){
 			*string = string_substring(temp,0,size);
+			free(temp);
 			return 1;
+		}else{
+			free(temp);
 		}
+	}else{
+		free(sizeStr);
 	}
+
 	return 0;
 }
 
