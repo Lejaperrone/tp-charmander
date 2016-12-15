@@ -244,6 +244,7 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 			}
 			log_info(archivoLog, "6 - Directorio: %s", directorio);
 			filler(buf, directorio, NULL, 0);
+			free(directorio);
 		}
 	}
 	else{
