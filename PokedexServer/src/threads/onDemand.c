@@ -78,6 +78,7 @@ void proce_readdir(int clientSocket, char* path){
 
 	}
 	free(path);
+	list_destroy(directorios);
 }
 
 void proce_open(int clientSocket, char* path){
