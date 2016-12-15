@@ -53,6 +53,7 @@ void proce_getattr(int clientSocket, char* path){ //LEAK!! en todos los sendInt
 
 	}
 
+	free(path);
 	free(getAttr);
 }
 
@@ -235,6 +236,8 @@ void* procesarPeticiones(t_hilo* h){
 		}else{
 			log_info(logPokedexServer, "Funcion desconocida");
 		}
+
+
 	}
 	free(nombreFuncion);
 	return NULL;
