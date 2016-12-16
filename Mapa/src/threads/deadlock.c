@@ -222,6 +222,7 @@ void batalla(){
 			}
 			list_remove_by_condition(entrenadoresBloqueados, (void*)_encontrarEntrenador);
 			list_add(garbageCollectorEntrenadores, entrenador1);
+			destroy_pkmn_factory(pokemon_factory);
 		}
 	}else{
 		log_info(archivoLog,"No esta activada la batalla Pokemon.");

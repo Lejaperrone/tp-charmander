@@ -57,6 +57,7 @@ void logEntrenadoresListos(){
 	}
 
 	log_info(archivoLog, mensaje);
+	free(mensaje);
 }
 void logEntrenadoresBloqueados(){
 	int i;
@@ -68,6 +69,7 @@ void logEntrenadoresBloqueados(){
 		string_append(&mensaje, " ");
 	}
 	log_info(archivoLog, mensaje);
+	free(mensaje);
 }
 void logColasEntrenadores(){
 	logEntrenadoresListos();
@@ -111,6 +113,7 @@ void procesarEntrenadoresBloqueados(){
 						entrenador->planificador.ubicacionObjetivo.x=-1;
 						entrenador->planificador.ubicacionObjetivo.y=-1;
 						log_trace(archivoLog, "Planificador - envie confirmacion");
+						free(sizePath);
 						return 1;
 					}
 				}
@@ -119,6 +122,7 @@ void procesarEntrenadoresBloqueados(){
 			pokemon->disponible = 1;
 			pokemon->duenio = ' ';
 			sumarRecurso(elementosUI,pokemon->identificadorPokenest);
+			free(sizePath);
 			return 2;
 		}else{
 			return 0;
