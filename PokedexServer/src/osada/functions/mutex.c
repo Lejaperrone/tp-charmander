@@ -49,3 +49,15 @@ void mutex_unlockFile(int indice){
 		pthread_mutex_unlock(&osada_mutex.directorio[indice]);
 	}
 }
+
+void mutex_lockFileTA(int indice){
+	if(indice != 0xFFFF && indice !=-1){
+		pthread_mutex_lock(&osada_mutex.directorio[indice]);
+	}
+}
+
+void mutex_unlockFileTA(int indice){
+	if(indice != 0xFFFF && indice !=-1){
+		pthread_mutex_unlock(&osada_mutex.directorio[indice]);
+	}
+}
