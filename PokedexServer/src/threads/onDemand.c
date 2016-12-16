@@ -85,6 +85,7 @@ void proce_open(int clientSocket, char* path){
 	int resultadoOsada = osada_open(path);
 	sendInt(clientSocket,resultadoOsada);
 	log_info(logPokedexServer, "ResultadoOsada: %d", resultadoOsada);
+	free(path);
 }
 
 void proce_readfile(int clientSocket, char* path){
@@ -122,6 +123,7 @@ void proce_create(int clientSocket, char* path){
 	int resultadoOsada = osada_createFile(path);
 	sendInt(clientSocket, resultadoOsada);
 	log_info(logPokedexServer,"ResultadoOsada %d",resultadoOsada);
+	free(path);
 }
 
 void proce_truncate(int clientSocket, char* path){
@@ -132,12 +134,16 @@ void proce_truncate(int clientSocket, char* path){
 	int resultadoOsada = osada_truncate(path, offset);
 	sendInt(clientSocket, resultadoOsada);
 	log_info(logPokedexServer,"ResultadoOsada %d",resultadoOsada);
+
+	free(path);
 }
 
 void proce_mkdir(int clientSocket, char* path){
 	int resultadoOsada = osada_createDir(path);
 	sendInt(clientSocket,resultadoOsada);
 	log_info(logPokedexServer,"ResultadoOsada: %d",resultadoOsada);
+
+	free(path);
 }
 
 void proce_rename(int clientSocket, char* path){
@@ -150,18 +156,23 @@ void proce_rename(int clientSocket, char* path){
 	log_info(logPokedexServer, "ResultadoOsada: %d", resultadoOsada);
 
 	free(newPath);
+	free(path);
 }
 
 void proce_removeFile(int clientSocket, char* path){
 	int resultadoOsada = osada_removeFile(path);
 	sendInt(clientSocket,resultadoOsada);
 	log_info(logPokedexServer, "ResultadoOsada: %d", resultadoOsada);
+
+	free(path);
 }
 
 void proce_removeDir(int clientSocket, char* path){
 	int resultadoOsada = osada_removeDir(path);
 	sendInt(clientSocket,resultadoOsada);
 	log_info(logPokedexServer, "ResultadoOsada: %d", resultadoOsada);
+
+	free(path);
 }
 
 void proce_write(int clientSocket, char* path){
@@ -180,15 +191,18 @@ void proce_write(int clientSocket, char* path){
 	log_info(logPokedexServer,"El size_t que me llega para WRITE es: %d",size);
 	log_info(logPokedexServer,"El off_t que me llega para WRITE es: %d",offset);
 	log_info(logPokedexServer,"----------IMPRIMO EL BUFFER RECIBIDO EN PROCE_WRITE----------");
-		int i;
-		for (i=0; i<size; i++){
-			log_info(logPokedexServer,"%d", bufParaElWrite[i]);
-		}
+	int i;
+	for (i=0; i<size; i++){
+		log_info(logPokedexServer,"%d", bufParaElWrite[i]);
+	}
 
 
 	int resultadoOsada = osada_write(path, &bufParaElWrite, size, offset);
 	sendInt(clientSocket, resultadoOsada);
 	log_info(logPokedexServer,"ResultadoOsada: %d",resultadoOsada);
+
+	free(bufParaElWrite);
+	free(path);
 }
 
 void proce_statfs(int clientSocket, char* path){
@@ -199,6 +213,8 @@ void proce_statfs(int clientSocket, char* path){
 	sendInt(clientSocket, osada_drive.header->fs_blocks);
 	sendInt(clientSocket, osada_TA_cantRegistrosLibres());
 	sendInt(clientSocket, OSADA_FILENAME_LENGTH);
+
+	free(path);
 }
 
 void* procesarPeticiones(t_hilo* h){
