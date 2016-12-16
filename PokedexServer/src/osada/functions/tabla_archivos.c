@@ -127,7 +127,7 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 		osada_TA_splitPathAndName(path,&fileName, &directoryName);
 
 		int guardado= 0;
-		if(string_length(fileName)<=17){
+		if(string_length(fileName)<=18){
 			log_info(logPokedexServer, "El string_length del fileName es: %d", string_length(fileName));
 			int i;
 			for (i=0;(i<2048 && guardado==0);i++){
@@ -135,7 +135,7 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 					pthread_mutex_lock(&osada_mutex.directorio[i]);
 					osada_drive.directorio[i].file_size=0;
 					osada_drive.directorio[i].first_block=0xFFFF;
-					strcpy((char*)osada_drive.directorio[i].fname, fileName);
+					memcpy((char*)osada_drive.directorio[i].fname, fileName, 17);
 					time_t currentTime;
 					osada_drive.directorio[i].lastmod=(int)time(&currentTime);
 					log_info(logPokedexServer, "Fecha: %s", ctime(&currentTime));
