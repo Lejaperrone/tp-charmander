@@ -1,575 +1,585 @@
-[INFO] 16:57:20:642 MapaLog/(3004:3004): ARCHIVO DE LOGUEO INICIALIZADO
-[INFO] 16:57:20:662 MapaLog/(3004:3004): PID: 3004
-[INFO] 16:57:20:664 MapaLog/(3004:3004): Name: CiudadAzul
-[INFO] 16:57:20:664 MapaLog/(3004:3004): PokedexPath: ../../PokedexConfig/DeadlockDe2
-[INFO] 16:57:20:664 MapaLog/(3004:3004): Inicializo listas
-[INFO] 16:57:20:665 MapaLog/(3004:3004): Inicializo UI
-[INFO] 16:57:20:837 MapaLog/(3004:3004): Inicializo mapa y leo su configuracion
-[INFO] 16:57:20:837 MapaLog/(3004:3004): Inicializo mapa y leo su configuracion
-[INFO] 16:57:20:874 MapaLog/(3004:3004): Inicializo mapa y leo su configuracion
-[INFO] 16:57:20:874 MapaLog/(3004:3004): Logueo configuracion
-[INFO] 16:57:20:874 MapaLog/(3004:3004): TiempoChequeoDeadLock: 10000
-[INFO] 16:57:20:874 MapaLog/(3004:3004): Batalla: 1
-[INFO] 16:57:20:875 MapaLog/(3004:3004): Algoritmo: RR
-[INFO] 16:57:20:875 MapaLog/(3004:3004): Quantum: 3
-[INFO] 16:57:20:875 MapaLog/(3004:3004): Retardo: 500
-[INFO] 16:57:20:875 MapaLog/(3004:3004): Puerto: 6668
-[INFO] 16:57:20:876 MapaLog/(3004:3004): IP: 127.0.0.1
-[INFO] 16:57:20:877 MapaLog/(3004:3004): Pokenest: C ubicacion: 4, 10
-[INFO] 16:57:20:877 MapaLog/(3004:3004): Pokemon path: /Mapas/CiudadAzul/PokeNests/Charizard/Charizard001.dat
-[INFO] 16:57:20:877 MapaLog/(3004:3004): Pokemon name: Charizard
-[INFO] 16:57:20:878 MapaLog/(3004:3004): Pokemon nivel: 20
-[INFO] 16:57:20:879 MapaLog/(3004:3004): Pokenest: B ubicacion: 10, 4
-[INFO] 16:57:20:879 MapaLog/(3004:3004): Pokemon path: /Mapas/CiudadAzul/PokeNests/Bulbasaur/Bulbasaur001.dat
-[INFO] 16:57:20:879 MapaLog/(3004:3004): Pokemon name: Bulbasaur
-[INFO] 16:57:20:879 MapaLog/(3004:3004): Pokemon nivel: 5
-[INFO] 16:57:20:880 MapaLog/(3004:3004): Pokenest: P ubicacion: 10, 10
-[INFO] 16:57:20:880 MapaLog/(3004:3004): Pokemon path: /Mapas/CiudadAzul/PokeNests/Pikachu/Pikachu001.dat
-[INFO] 16:57:20:880 MapaLog/(3004:3004): Pokemon name: Pikachu
-[INFO] 16:57:20:880 MapaLog/(3004:3004): Pokemon nivel: 33
-[INFO] 16:57:20:880 MapaLog/(3004:3004): Cargo elementos a la UI
-[INFO] 16:57:20:908 MapaLog/(3004:3004): Inicializo los hilos de planificacion y deadlock
-[INFO] 16:57:20:917 MapaLog/(3004:3004): Inicializo el socket de escucha
-[TRACE] 16:57:20:929 MapaLog/(3004:3005): Planificador - Arranca
-[INFO] 16:57:20:981 MapaLog/(3004:3004): Registro handler de seniales
-[INFO] 16:57:20:984 MapaLog/(3004:3004): Inicializo el SELECT
-[TRACE] 16:57:24:843 MapaLog/(3004:3004): Nueva conexion de 127.0.0.1 en  el socket 5
-[TRACE] 16:57:24:845 MapaLog/(3004:3004): Ingresa nuevo entrenador a la lista de entrenadores preparados
-[TRACE] 16:57:24:845 MapaLog/(3004:3004): Agrego entrenador a preparados: {
-[INFO] 16:57:24:970 MapaLog/(3004:3005): Planificador - Agrego entrenador { a lista de Listos
-[INFO] 16:57:24:980 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:57:24:981 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:25:161 MapaLog/(3004:3004): Nueva conexion de 127.0.0.1 en  el socket 6
-[TRACE] 16:57:25:161 MapaLog/(3004:3004): Ingresa nuevo entrenador a la lista de entrenadores preparados
-[TRACE] 16:57:25:161 MapaLog/(3004:3004): Agrego entrenador a preparados: %
-[INFO] 16:57:25:485 MapaLog/(3004:3005): Planificador - Agrego entrenador % a lista de Listos
-[INFO] 16:57:25:492 MapaLog/(3004:3005): 
-[INFO] 16:57:25:494 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:25:494 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:25:502 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:25:505 MapaLog/(3004:3005): Planificador - Solicitud UB
-[TRACE] 16:57:25:508 MapaLog/(3004:3005): Planificador - Encontre la pokenest B
-[TRACE] 16:57:25:511 MapaLog/(3004:3005): Planificador - Posicion enviada 10, 4
-[TRACE] 16:57:26:21 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:26:21 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:26:23 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:26:38 MapaLog/(3004:3005): Planificador - Hacia 2, 1
-[TRACE] 16:57:26:542 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:26:543 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:26:543 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:26:549 MapaLog/(3004:3005): Planificador - Hacia 2, 2
-[INFO] 16:57:27:50 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:57:27:52 MapaLog/(3004:3005): Planficador - Planifico al entrenador %
-[INFO] 16:57:27:52 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:57:27:53 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:27:55 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:27:56 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:27:56 MapaLog/(3004:3005): Planificador - Solicitud UC
-[TRACE] 16:57:27:57 MapaLog/(3004:3005): Planificador - Encontre la pokenest C
-[TRACE] 16:57:27:58 MapaLog/(3004:3005): Planificador - Posicion enviada 4, 10
-[TRACE] 16:57:27:561 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:27:561 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:27:562 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:27:564 MapaLog/(3004:3005): Planificador - Hacia 2, 1
-[TRACE] 16:57:28:67 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:28:68 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:28:68 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:28:84 MapaLog/(3004:3005): Planificador - Hacia 2, 2
-[INFO] 16:57:28:585 MapaLog/(3004:3005): Planficador - El entrenador % va al final de la cola de Listos
-[INFO] 16:57:28:585 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:57:28:585 MapaLog/(3004:3005): 
-[INFO] 16:57:28:586 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:28:588 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:28:589 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:28:589 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:28:591 MapaLog/(3004:3005): Planificador - Hacia 3, 2
-[TRACE] 16:57:29:96 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:29:96 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:29:97 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:29:99 MapaLog/(3004:3005): Planificador - Hacia 3, 3
-[TRACE] 16:57:29:602 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:29:603 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:29:603 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:29:605 MapaLog/(3004:3005): Planificador - Hacia 4, 3
-[INFO] 16:57:30:107 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:57:30:107 MapaLog/(3004:3005): Planficador - Planifico al entrenador %
-[INFO] 16:57:30:107 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:57:30:108 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:30:110 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:30:111 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:30:111 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:30:113 MapaLog/(3004:3005): Planificador - Hacia 3, 2
-[TRACE] 16:57:30:617 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:30:618 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:30:618 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:30:621 MapaLog/(3004:3005): Planificador - Hacia 3, 3
-[TRACE] 16:57:31:123 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:31:124 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:31:124 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:31:126 MapaLog/(3004:3005): Planificador - Hacia 4, 3
-[INFO] 16:57:31:627 MapaLog/(3004:3005): Planficador - El entrenador % va al final de la cola de Listos
-[INFO] 16:57:31:627 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:57:31:628 MapaLog/(3004:3005): 
-[INFO] 16:57:31:628 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:31:630 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:31:631 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:31:631 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:31:634 MapaLog/(3004:3005): Planificador - Hacia 4, 4
-[TRACE] 16:57:32:135 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:32:135 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:32:136 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:32:136 MapaLog/(3004:3005): Planificador - Hacia 5, 4
-[TRACE] 16:57:32:639 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:32:639 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:32:640 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:32:642 MapaLog/(3004:3005): Planificador - Hacia 6, 4
-[INFO] 16:57:33:142 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:57:33:143 MapaLog/(3004:3005): Planficador - Planifico al entrenador %
-[INFO] 16:57:33:143 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:57:33:143 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:33:146 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:33:147 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:33:147 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:33:149 MapaLog/(3004:3005): Planificador - Hacia 4, 4
-[TRACE] 16:57:33:652 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:33:653 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:33:653 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:33:655 MapaLog/(3004:3005): Planificador - Hacia 4, 5
-[TRACE] 16:57:34:158 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:34:159 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:34:159 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:34:185 MapaLog/(3004:3005): Planificador - Hacia 4, 6
-[INFO] 16:57:34:686 MapaLog/(3004:3005): Planficador - El entrenador % va al final de la cola de Listos
-[INFO] 16:57:34:686 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:57:34:687 MapaLog/(3004:3005): 
-[INFO] 16:57:34:687 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:34:690 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:34:690 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:34:690 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:34:693 MapaLog/(3004:3005): Planificador - Hacia 7, 4
-[TRACE] 16:57:35:197 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:35:197 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:35:198 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:35:199 MapaLog/(3004:3005): Planificador - Hacia 8, 4
-[TRACE] 16:57:35:702 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:35:703 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:35:703 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:35:705 MapaLog/(3004:3005): Planificador - Hacia 9, 4
-[INFO] 16:57:36:206 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:57:36:206 MapaLog/(3004:3005): Planficador - Planifico al entrenador %
-[INFO] 16:57:36:206 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:57:36:207 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:36:209 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:36:210 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:36:210 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:36:214 MapaLog/(3004:3005): Planificador - Hacia 4, 7
-[TRACE] 16:57:36:717 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:36:717 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:36:718 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:36:720 MapaLog/(3004:3005): Planificador - Hacia 4, 8
-[TRACE] 16:57:37:224 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:37:224 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:37:225 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:37:227 MapaLog/(3004:3005): Planificador - Hacia 4, 9
-[INFO] 16:57:37:728 MapaLog/(3004:3005): Planficador - El entrenador % va al final de la cola de Listos
-[INFO] 16:57:37:728 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:57:37:729 MapaLog/(3004:3005): 
-[INFO] 16:57:37:729 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:37:731 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:37:732 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:37:732 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:37:735 MapaLog/(3004:3005): Planificador - Hacia 10, 4
-[TRACE] 16:57:38:238 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:38:239 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[INFO] 16:57:38:240 MapaLog/(3004:3005): Planificador - Envio a { a la lista de bloqueados
-[INFO] 16:57:38:244 MapaLog/(3004:3005): 
-[INFO] 16:57:38:246 MapaLog/(3004:3005): Entrenadores bloqueados: { 
-[INFO] 16:57:38:753 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:57:38:754 MapaLog/(3004:3005): Planficador - Planifico al entrenador %
-[INFO] 16:57:38:754 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:57:38:755 MapaLog/(3004:3005): Entrenadores bloqueados: { 
-[TRACE] 16:57:38:757 MapaLog/(3004:3005): Planificador - { quiere B
-[TRACE] 16:57:38:758 MapaLog/(3004:3005): Planificador - encontre uno disponible /Mapas/CiudadAzul/PokeNests/Bulbasaur/Bulbasaur001.dat
-[TRACE] 16:57:38:765 MapaLog/(3004:3005): Planificador - envie confirmacion
-[TRACE] 16:57:38:773 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:38:773 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:38:773 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:38:775 MapaLog/(3004:3005): Planificador - Hacia 4, 10
-[TRACE] 16:57:39:279 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:39:280 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[INFO] 16:57:39:280 MapaLog/(3004:3005): Planificador - Envio a % a la lista de bloqueados
-[INFO] 16:57:39:285 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:57:39:285 MapaLog/(3004:3005): 
-[INFO] 16:57:39:786 MapaLog/(3004:3005): Planficador - El entrenador % va al final de la cola de Listos
-[INFO] 16:57:39:786 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:57:39:787 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:57:39:787 MapaLog/(3004:3005): 
-[TRACE] 16:57:39:788 MapaLog/(3004:3005): Planificador - % quiere C
-[TRACE] 16:57:39:789 MapaLog/(3004:3005): Planificador - encontre uno disponible /Mapas/CiudadAzul/PokeNests/Charizard/Charizard001.dat
-[TRACE] 16:57:39:790 MapaLog/(3004:3005): Planificador - envie confirmacion
-[TRACE] 16:57:39:792 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:39:792 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:39:793 MapaLog/(3004:3005): Planificador - Solicitud UC
-[TRACE] 16:57:39:793 MapaLog/(3004:3005): Planificador - Encontre la pokenest C
-[TRACE] 16:57:39:794 MapaLog/(3004:3005): Planificador - Posicion enviada 4, 10
-[TRACE] 16:57:40:298 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:40:298 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:40:299 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:57:40:302 MapaLog/(3004:3005): Planificador - Hacia 9, 4
-[TRACE] 16:57:40:805 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:40:806 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:40:806 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:40:808 MapaLog/(3004:3005): Planificador - Hacia 9, 5
-[INFO] 16:57:41:309 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:57:41:309 MapaLog/(3004:3005): Planficador - Planifico al entrenador %
-[INFO] 16:57:41:309 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:57:41:310 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:41:312 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:41:313 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:41:313 MapaLog/(3004:3005): Planificador - Solicitud UB
-[TRACE] 16:57:41:314 MapaLog/(3004:3005): Planificador - Encontre la pokenest B
-[TRACE] 16:57:41:314 MapaLog/(3004:3005): Planificador - Posicion enviada 10, 4
-[TRACE] 16:57:41:818 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:41:818 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:41:819 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:41:821 MapaLog/(3004:3005): Planificador - Hacia 5, 10
-[TRACE] 16:57:42:325 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:42:325 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:42:326 MapaLog/(3004:3005): Planificador - Solicitud M4
-[TRACE] 16:57:42:328 MapaLog/(3004:3005): Planificador - Hacia 5, 9
-[INFO] 16:57:42:830 MapaLog/(3004:3005): Planficador - El entrenador % va al final de la cola de Listos
-[INFO] 16:57:42:830 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:57:42:830 MapaLog/(3004:3005): 
-[INFO] 16:57:42:831 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:42:833 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:42:834 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:42:834 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:57:42:837 MapaLog/(3004:3005): Planificador - Hacia 8, 5
-[TRACE] 16:57:43:340 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:43:340 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:43:341 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:43:343 MapaLog/(3004:3005): Planificador - Hacia 8, 6
-[TRACE] 16:57:43:846 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:43:847 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:43:847 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:57:43:849 MapaLog/(3004:3005): Planificador - Hacia 7, 6
-[INFO] 16:57:44:351 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:57:44:351 MapaLog/(3004:3005): Planficador - Planifico al entrenador %
-[INFO] 16:57:44:351 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:57:44:352 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:44:354 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:44:355 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:44:355 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:44:357 MapaLog/(3004:3005): Planificador - Hacia 6, 9
-[TRACE] 16:57:44:860 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:44:861 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:44:861 MapaLog/(3004:3005): Planificador - Solicitud M4
-[TRACE] 16:57:44:869 MapaLog/(3004:3005): Planificador - Hacia 6, 8
-[TRACE] 16:57:45:372 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:45:373 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:45:373 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:45:375 MapaLog/(3004:3005): Planificador - Hacia 7, 8
-[INFO] 16:57:45:876 MapaLog/(3004:3005): Planficador - El entrenador % va al final de la cola de Listos
-[INFO] 16:57:45:876 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:57:45:877 MapaLog/(3004:3005): 
-[INFO] 16:57:45:877 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:45:880 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:45:880 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:45:881 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:45:883 MapaLog/(3004:3005): Planificador - Hacia 7, 7
-[TRACE] 16:57:46:386 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:46:386 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:46:387 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:57:46:388 MapaLog/(3004:3005): Planificador - Hacia 6, 7
-[TRACE] 16:57:46:891 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:46:892 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:46:892 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:46:894 MapaLog/(3004:3005): Planificador - Hacia 6, 8
-[INFO] 16:57:47:396 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:57:47:396 MapaLog/(3004:3005): Planficador - Planifico al entrenador %
-[INFO] 16:57:47:397 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:57:47:397 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:47:399 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:47:399 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:47:400 MapaLog/(3004:3005): Planificador - Solicitud M4
-[TRACE] 16:57:47:403 MapaLog/(3004:3005): Planificador - Hacia 7, 7
-[TRACE] 16:57:47:906 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:47:906 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:47:907 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:47:908 MapaLog/(3004:3005): Planificador - Hacia 8, 7
-[TRACE] 16:57:48:411 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:48:411 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:48:412 MapaLog/(3004:3005): Planificador - Solicitud M4
-[TRACE] 16:57:48:413 MapaLog/(3004:3005): Planificador - Hacia 8, 6
-[INFO] 16:57:48:914 MapaLog/(3004:3005): Planficador - El entrenador % va al final de la cola de Listos
-[INFO] 16:57:48:915 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:57:48:915 MapaLog/(3004:3005): 
-[INFO] 16:57:48:916 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:48:918 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:48:918 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:48:919 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:57:48:921 MapaLog/(3004:3005): Planificador - Hacia 5, 8
-[TRACE] 16:57:49:424 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:49:425 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:49:425 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:49:427 MapaLog/(3004:3005): Planificador - Hacia 5, 9
-[TRACE] 16:57:49:930 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:49:931 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:49:931 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:57:49:933 MapaLog/(3004:3005): Planificador - Hacia 4, 9
-[INFO] 16:57:50:434 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:57:50:434 MapaLog/(3004:3005): Planficador - Planifico al entrenador %
-[INFO] 16:57:50:435 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:57:50:435 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:50:437 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:50:438 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:50:438 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:50:440 MapaLog/(3004:3005): Planificador - Hacia 9, 6
-[TRACE] 16:57:50:943 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:50:944 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:50:944 MapaLog/(3004:3005): Planificador - Solicitud M4
-[TRACE] 16:57:50:961 MapaLog/(3004:3005): Planificador - Hacia 9, 5
-[TRACE] 16:57:51:463 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:51:464 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:51:464 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:57:51:465 MapaLog/(3004:3005): Planificador - Hacia 10, 5
-[INFO] 16:57:51:967 MapaLog/(3004:3005): Planficador - El entrenador % va al final de la cola de Listos
-[INFO] 16:57:51:967 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:57:51:967 MapaLog/(3004:3005): 
-[INFO] 16:57:51:968 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:57:51:970 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:51:970 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:57:51:971 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:57:51:973 MapaLog/(3004:3005): Planificador - Hacia 4, 10
-[TRACE] 16:57:52:476 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:57:52:477 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[INFO] 16:57:52:477 MapaLog/(3004:3005): Planificador - Envio a { a la lista de bloqueados
-[INFO] 16:57:52:478 MapaLog/(3004:3005): 
-[INFO] 16:57:52:478 MapaLog/(3004:3005): Entrenadores bloqueados: { 
-[INFO] 16:57:52:980 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:57:52:980 MapaLog/(3004:3005): Planficador - Planifico al entrenador %
-[INFO] 16:57:52:980 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:57:52:981 MapaLog/(3004:3005): Entrenadores bloqueados: { 
-[TRACE] 16:57:52:982 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:52:984 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:52:984 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:57:52:985 MapaLog/(3004:3005): Planificador - Solicitud M4
-[TRACE] 16:57:52:988 MapaLog/(3004:3005): Planificador - Hacia 10, 4
-[TRACE] 16:57:53:490 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:53:491 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:57:53:492 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[INFO] 16:57:53:492 MapaLog/(3004:3005): Planificador - Envio a % a la lista de bloqueados
-[INFO] 16:57:53:493 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:57:53:494 MapaLog/(3004:3005): 
-[TRACE] 16:57:53:996 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:53:996 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:54:499 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:54:499 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:54:2 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:54:2 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:55:505 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:55:505 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:56:7 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:56:8 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:56:511 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:56:511 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:57:14 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:57:14 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:57:517 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:57:518 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:58:20 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:58:20 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:58:523 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:58:524 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:59:26 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:59:27 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:57:59:530 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:57:59:530 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:58:00:33 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:58:00:35 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:58:00:538 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:58:00:538 MapaLog/(3004:3005): Planificador - % quiere B
-[INFO] 16:58:00:962 MapaLog/(3004:3006): El entrenador { esta en deadlock
-[INFO] 16:58:00:963 MapaLog/(3004:3006): Informo deadlock a { 
-[INFO] 16:58:00:964 MapaLog/(3004:3006): El entrenador % esta en deadlock
-[INFO] 16:58:00:964 MapaLog/(3004:3006): Informo deadlock a % 
-[INFO] 16:58:00:973 MapaLog/(3004:3006): ORDENAMIENTO LISTA DEADLOCK - El entrenador { tiene el tiempo de ingreso 1481918244
-[INFO] 16:58:00:974 MapaLog/(3004:3006): ORDENAMIENTO LISTA DEADLOCK - El entrenador % tiene el tiempo de ingreso 1481918245
-[INFO] 16:58:00:994 MapaLog/(3004:3006): Deadlock - Tendremos 2 batallas pokemon
-[INFO] 16:58:00:994 MapaLog/(3004:3006): Entrenador a pelear: {
-[INFO] 16:58:00:994 MapaLog/(3004:3006): Deadlock - Entrendor a pelear con { es: %
-[INFO] 16:58:00:995 MapaLog/(3004:3006): Nombre poke1: B
-[INFO] 16:58:00:996 MapaLog/(3004:3006): Nombre poke1: Bulbasaur
-[INFO] 16:58:00:996 MapaLog/(3004:3006): Nombre poke2: C
-[INFO] 16:58:00:996 MapaLog/(3004:3006): Nombre poke2: Charizard
-[INFO] 16:58:00:999 MapaLog/(3004:3006): El entrenador que perdio es {
-[INFO] 16:58:00:0 MapaLog/(3004:3006): El entrenador { sera elegido como victima
-[TRACE] 16:58:01:48 MapaLog/(3004:3005): Planificador - % quiere B
-[TRACE] 16:58:01:49 MapaLog/(3004:3005): Planificador - encontre uno disponible /Mapas/CiudadAzul/PokeNests/Bulbasaur/Bulbasaur001.dat
-[TRACE] 16:58:01:50 MapaLog/(3004:3005): Planificador - envie confirmacion
-[TRACE] 16:58:01:555 MapaLog/(3004:3005): Planificador - Envio turno a %
-[TRACE] 16:58:01:556 MapaLog/(3004:3005): Planificador - Inicio atencion de %
-[TRACE] 16:58:01:970 MapaLog/(3004:3005): Planificador - Mando a % al Garbage collector
-[TRACE] 16:58:12:567 MapaLog/(3004:3004): Nueva conexion de 127.0.0.1 en  el socket 5
-[TRACE] 16:58:12:567 MapaLog/(3004:3004): Ingresa nuevo entrenador a la lista de entrenadores preparados
-[TRACE] 16:58:12:567 MapaLog/(3004:3004): Agrego entrenador a preparados: {
-[INFO] 16:58:13:16 MapaLog/(3004:3005): Planificador - Agrego entrenador { a lista de Listos
-[INFO] 16:58:13:18 MapaLog/(3004:3005): Entrenadores listos: { 
-[INFO] 16:58:13:19 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:58:13:522 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:13:523 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:13:523 MapaLog/(3004:3005): Planificador - Solicitud UB
-[TRACE] 16:58:13:524 MapaLog/(3004:3005): Planificador - Encontre la pokenest B
-[TRACE] 16:58:13:524 MapaLog/(3004:3005): Planificador - Posicion enviada 10, 4
-[TRACE] 16:58:14:27 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:14:28 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:14:28 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:58:14:31 MapaLog/(3004:3005): Planificador - Hacia 2, 1
-[TRACE] 16:58:14:533 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:14:534 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:14:534 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:58:14:536 MapaLog/(3004:3005): Planificador - Hacia 2, 2
-[INFO] 16:58:15:38 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:58:15:38 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:58:15:39 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:58:15:39 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:58:15:41 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:15:42 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:15:42 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:58:15:44 MapaLog/(3004:3005): Planificador - Hacia 3, 2
-[TRACE] 16:58:15:547 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:15:548 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:15:548 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:58:15:550 MapaLog/(3004:3005): Planificador - Hacia 3, 3
-[TRACE] 16:58:16:53 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:16:54 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:16:54 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:58:16:56 MapaLog/(3004:3005): Planificador - Hacia 4, 3
-[INFO] 16:58:16:557 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:58:16:558 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:58:16:558 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:58:16:559 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:58:16:562 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:16:563 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:16:564 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:58:16:566 MapaLog/(3004:3005): Planificador - Hacia 4, 4
-[TRACE] 16:58:17:68 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:17:69 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:17:69 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:58:17:71 MapaLog/(3004:3005): Planificador - Hacia 5, 4
-[TRACE] 16:58:17:574 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:17:574 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:17:575 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:58:17:576 MapaLog/(3004:3005): Planificador - Hacia 6, 4
-[INFO] 16:58:18:77 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:58:18:77 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:58:18:78 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:58:18:78 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:58:18:81 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:18:81 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:18:82 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:58:18:83 MapaLog/(3004:3005): Planificador - Hacia 7, 4
-[TRACE] 16:58:18:586 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:18:586 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:18:587 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:58:18:588 MapaLog/(3004:3005): Planificador - Hacia 8, 4
-[TRACE] 16:58:19:91 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:19:92 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:19:92 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:58:19:93 MapaLog/(3004:3005): Planificador - Hacia 9, 4
-[INFO] 16:58:19:594 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:58:19:594 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:58:19:595 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:58:19:595 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:58:19:597 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:19:597 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:19:598 MapaLog/(3004:3005): Planificador - Solicitud M3
-[TRACE] 16:58:19:599 MapaLog/(3004:3005): Planificador - Hacia 10, 4
-[TRACE] 16:58:20:102 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:20:102 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[INFO] 16:58:20:103 MapaLog/(3004:3005): Planificador - Envio a { a la lista de bloqueados
-[INFO] 16:58:20:103 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:58:20:104 MapaLog/(3004:3005): Entrenadores bloqueados: { 
-[TRACE] 16:58:20:606 MapaLog/(3004:3005): Planificador - { quiere B
-[TRACE] 16:58:20:606 MapaLog/(3004:3005): Planificador - encontre uno disponible /Mapas/CiudadAzul/PokeNests/Bulbasaur/Bulbasaur001.dat
-[TRACE] 16:58:20:608 MapaLog/(3004:3005): Planificador - envie confirmacion
-[TRACE] 16:58:21:112 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:21:112 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:21:608 MapaLog/(3004:3005): Planificador - Solicitud UC
-[TRACE] 16:58:21:609 MapaLog/(3004:3005): Planificador - Encontre la pokenest C
-[TRACE] 16:58:21:610 MapaLog/(3004:3005): Planificador - Posicion enviada 4, 10
-[TRACE] 16:58:22:113 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:22:114 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:22:114 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:58:22:116 MapaLog/(3004:3005): Planificador - Hacia 9, 4
-[TRACE] 16:58:22:619 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:22:620 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:22:620 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:58:22:622 MapaLog/(3004:3005): Planificador - Hacia 9, 5
-[INFO] 16:58:23:123 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:58:23:123 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:58:23:124 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:58:23:124 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:58:23:126 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:23:126 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:23:127 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:58:23:128 MapaLog/(3004:3005): Planificador - Hacia 8, 5
-[TRACE] 16:58:23:631 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:23:631 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:23:631 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:58:23:632 MapaLog/(3004:3005): Planificador - Hacia 8, 6
-[TRACE] 16:58:24:136 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:24:136 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:24:137 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:58:24:139 MapaLog/(3004:3005): Planificador - Hacia 7, 6
-[INFO] 16:58:24:639 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:58:24:640 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:58:24:640 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:58:24:640 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:58:24:642 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:24:643 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:24:643 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:58:24:646 MapaLog/(3004:3005): Planificador - Hacia 7, 7
-[TRACE] 16:58:25:149 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:25:149 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:25:150 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:58:25:152 MapaLog/(3004:3005): Planificador - Hacia 6, 7
-[TRACE] 16:58:25:654 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:25:655 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:25:655 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:58:25:658 MapaLog/(3004:3005): Planificador - Hacia 6, 8
-[INFO] 16:58:26:159 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:58:26:159 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:58:26:159 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:58:26:160 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:58:26:161 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:26:161 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:26:161 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:58:26:162 MapaLog/(3004:3005): Planificador - Hacia 5, 8
-[TRACE] 16:58:26:665 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:26:666 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:26:666 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:58:26:669 MapaLog/(3004:3005): Planificador - Hacia 5, 9
-[TRACE] 16:58:27:172 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:27:173 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:27:173 MapaLog/(3004:3005): Planificador - Solicitud M1
-[TRACE] 16:58:27:175 MapaLog/(3004:3005): Planificador - Hacia 4, 9
-[INFO] 16:58:27:677 MapaLog/(3004:3005): Planficador - El entrenador { va al final de la cola de Listos
-[INFO] 16:58:27:677 MapaLog/(3004:3005): Planficador - Planifico al entrenador {
-[INFO] 16:58:27:677 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:58:27:678 MapaLog/(3004:3005): Entrenadores bloqueados: 
-[TRACE] 16:58:27:680 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:27:681 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:27:681 MapaLog/(3004:3005): Planificador - Solicitud M2
-[TRACE] 16:58:27:683 MapaLog/(3004:3005): Planificador - Hacia 4, 10
-[TRACE] 16:58:28:186 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:28:187 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[INFO] 16:58:28:187 MapaLog/(3004:3005): Planificador - Envio a { a la lista de bloqueados
-[INFO] 16:58:28:188 MapaLog/(3004:3005): Entrenadores listos: 
-[INFO] 16:58:28:189 MapaLog/(3004:3005): Entrenadores bloqueados: { 
-[TRACE] 16:58:28:690 MapaLog/(3004:3005): Planificador - { quiere C
-[TRACE] 16:58:28:691 MapaLog/(3004:3005): Planificador - encontre uno disponible /Mapas/CiudadAzul/PokeNests/Charizard/Charizard001.dat
-[TRACE] 16:58:28:692 MapaLog/(3004:3005): Planificador - envie confirmacion
-[TRACE] 16:58:29:197 MapaLog/(3004:3005): Planificador - Envio turno a {
-[TRACE] 16:58:29:197 MapaLog/(3004:3005): Planificador - Inicio atencion de {
-[TRACE] 16:58:29:695 MapaLog/(3004:3005): Planificador - Mando a { al Garbage collector
+[INFO] 17:38:11:760 MapaLog/(4055:4055): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 17:38:11:780 MapaLog/(4055:4055): PID: 4055
+[INFO] 17:38:11:781 MapaLog/(4055:4055): Name: CiudadAzul
+[INFO] 17:38:11:781 MapaLog/(4055:4055): PokedexPath: ../../PokedexConfig/DeadlockDe2
+[INFO] 17:38:11:781 MapaLog/(4055:4055): Inicializo listas
+[INFO] 17:38:11:782 MapaLog/(4055:4055): Inicializo UI
+[INFO] 17:38:11:977 MapaLog/(4055:4055): Inicializo mapa y leo su configuracion
+[INFO] 17:38:11:977 MapaLog/(4055:4055): Inicializo mapa y leo su configuracion
+[INFO] 17:38:12:11 MapaLog/(4055:4055): Inicializo mapa y leo su configuracion
+[INFO] 17:38:12:11 MapaLog/(4055:4055): Logueo configuracion
+[INFO] 17:38:12:11 MapaLog/(4055:4055): TiempoChequeoDeadLock: 10000
+[INFO] 17:38:12:12 MapaLog/(4055:4055): Batalla: 1
+[INFO] 17:38:12:12 MapaLog/(4055:4055): Algoritmo: RR
+[INFO] 17:38:12:12 MapaLog/(4055:4055): Quantum: 3
+[INFO] 17:38:12:12 MapaLog/(4055:4055): Retardo: 500
+[INFO] 17:38:12:13 MapaLog/(4055:4055): Puerto: 6668
+[INFO] 17:38:12:13 MapaLog/(4055:4055): IP: 127.0.0.1
+[INFO] 17:38:12:14 MapaLog/(4055:4055): Pokenest: C ubicacion: 4, 10
+[INFO] 17:38:12:14 MapaLog/(4055:4055): Pokemon path: /Mapas/CiudadAzul/PokeNests/Charizard/Charizard001.dat
+[INFO] 17:38:12:15 MapaLog/(4055:4055): Pokemon name: Charizard
+[INFO] 17:38:12:15 MapaLog/(4055:4055): Pokemon nivel: 20
+[INFO] 17:38:12:16 MapaLog/(4055:4055): Pokenest: B ubicacion: 10, 4
+[INFO] 17:38:12:16 MapaLog/(4055:4055): Pokemon path: /Mapas/CiudadAzul/PokeNests/Bulbasaur/Bulbasaur001.dat
+[INFO] 17:38:12:16 MapaLog/(4055:4055): Pokemon name: Bulbasaur
+[INFO] 17:38:12:16 MapaLog/(4055:4055): Pokemon nivel: 5
+[INFO] 17:38:12:16 MapaLog/(4055:4055): Pokenest: P ubicacion: 10, 10
+[INFO] 17:38:12:16 MapaLog/(4055:4055): Pokemon path: /Mapas/CiudadAzul/PokeNests/Pikachu/Pikachu001.dat
+[INFO] 17:38:12:17 MapaLog/(4055:4055): Pokemon name: Pikachu
+[INFO] 17:38:12:17 MapaLog/(4055:4055): Pokemon nivel: 33
+[INFO] 17:38:12:17 MapaLog/(4055:4055): Cargo elementos a la UI
+[INFO] 17:38:12:43 MapaLog/(4055:4055): Inicializo los hilos de planificacion y deadlock
+[INFO] 17:38:12:52 MapaLog/(4055:4055): Inicializo el socket de escucha
+[TRACE] 17:38:12:65 MapaLog/(4055:4056): Planificador - Arranca
+[INFO] 17:38:12:99 MapaLog/(4055:4055): Registro handler de seniales
+[INFO] 17:38:12:101 MapaLog/(4055:4055): Inicializo el SELECT
+[TRACE] 17:38:13:451 MapaLog/(4055:4055): Nueva conexion de 127.0.0.1 en  el socket 5
+[TRACE] 17:38:13:453 MapaLog/(4055:4055): Ingresa nuevo entrenador a la lista de entrenadores preparados
+[TRACE] 17:38:13:453 MapaLog/(4055:4055): Agrego entrenador a preparados: %
+[INFO] 17:38:13:585 MapaLog/(4055:4056): Planificador - Agrego entrenador % a lista de Listos
+[INFO] 17:38:13:598 MapaLog/(4055:4056): 
+[INFO] 17:38:13:608 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:13:777 MapaLog/(4055:4055): Nueva conexion de 127.0.0.1 en  el socket 6
+[TRACE] 17:38:13:777 MapaLog/(4055:4055): Ingresa nuevo entrenador a la lista de entrenadores preparados
+[TRACE] 17:38:13:777 MapaLog/(4055:4055): Agrego entrenador a preparados: {
+[INFO] 17:38:14:112 MapaLog/(4055:4056): Planificador - Agrego entrenador { a lista de Listos
+[INFO] 17:38:14:114 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:14:115 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:14:115 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:14:118 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:14:121 MapaLog/(4055:4056): Planificador - Solicitud UC
+[TRACE] 17:38:14:125 MapaLog/(4055:4056): Planificador - Encontre la pokenest C
+[TRACE] 17:38:14:128 MapaLog/(4055:4056): Planificador - Posicion enviada 4, 10
+[TRACE] 17:38:14:635 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:14:635 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:14:637 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:14:651 MapaLog/(4055:4056): Planificador - Hacia 2, 1
+[TRACE] 17:38:15:153 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:15:154 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:15:154 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:15:159 MapaLog/(4055:4056): Planificador - Hacia 2, 2
+[INFO] 17:38:15:660 MapaLog/(4055:4056): Planficador - El entrenador % va al final de la cola de Listos
+[INFO] 17:38:15:661 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:15:661 MapaLog/(4055:4056): 
+[INFO] 17:38:15:662 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:15:676 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:15:678 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:15:678 MapaLog/(4055:4056): Planificador - Solicitud UB
+[TRACE] 17:38:15:683 MapaLog/(4055:4056): Planificador - Encontre la pokenest B
+[TRACE] 17:38:15:684 MapaLog/(4055:4056): Planificador - Posicion enviada 10, 4
+[TRACE] 17:38:16:187 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:16:188 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:16:188 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:16:191 MapaLog/(4055:4056): Planificador - Hacia 2, 1
+[TRACE] 17:38:16:693 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:16:694 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:16:695 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:16:712 MapaLog/(4055:4056): Planificador - Hacia 2, 2
+[INFO] 17:38:17:213 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:38:17:213 MapaLog/(4055:4056): Planficador - Planifico al entrenador %
+[INFO] 17:38:17:214 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:17:214 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:17:216 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:17:217 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:17:217 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:17:219 MapaLog/(4055:4056): Planificador - Hacia 3, 2
+[TRACE] 17:38:17:722 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:17:723 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:17:723 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:17:726 MapaLog/(4055:4056): Planificador - Hacia 3, 3
+[TRACE] 17:38:18:229 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:18:229 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:18:230 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:18:232 MapaLog/(4055:4056): Planificador - Hacia 4, 3
+[INFO] 17:38:18:733 MapaLog/(4055:4056): Planficador - El entrenador % va al final de la cola de Listos
+[INFO] 17:38:18:733 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:18:733 MapaLog/(4055:4056): 
+[INFO] 17:38:18:734 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:18:736 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:18:737 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:18:737 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:18:739 MapaLog/(4055:4056): Planificador - Hacia 3, 2
+[TRACE] 17:38:19:242 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:19:242 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:19:243 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:19:245 MapaLog/(4055:4056): Planificador - Hacia 3, 3
+[TRACE] 17:38:19:747 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:19:747 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:19:747 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:19:748 MapaLog/(4055:4056): Planificador - Hacia 4, 3
+[INFO] 17:38:20:248 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:38:20:249 MapaLog/(4055:4056): Planficador - Planifico al entrenador %
+[INFO] 17:38:20:249 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:20:249 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:20:252 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:20:252 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:20:252 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:20:255 MapaLog/(4055:4056): Planificador - Hacia 4, 4
+[TRACE] 17:38:20:758 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:20:758 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:20:759 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:20:761 MapaLog/(4055:4056): Planificador - Hacia 4, 5
+[TRACE] 17:38:21:263 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:21:264 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:21:264 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:21:286 MapaLog/(4055:4056): Planificador - Hacia 4, 6
+[INFO] 17:38:21:787 MapaLog/(4055:4056): Planficador - El entrenador % va al final de la cola de Listos
+[INFO] 17:38:21:788 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:21:788 MapaLog/(4055:4056): 
+[INFO] 17:38:21:789 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:21:791 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:21:792 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:21:792 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:21:795 MapaLog/(4055:4056): Planificador - Hacia 4, 4
+[TRACE] 17:38:22:298 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:22:299 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:22:299 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:22:301 MapaLog/(4055:4056): Planificador - Hacia 5, 4
+[TRACE] 17:38:22:804 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:22:804 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:22:805 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:22:806 MapaLog/(4055:4056): Planificador - Hacia 6, 4
+[INFO] 17:38:23:308 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:38:23:308 MapaLog/(4055:4056): Planficador - Planifico al entrenador %
+[INFO] 17:38:23:308 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:23:309 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:23:311 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:23:312 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:23:312 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:23:316 MapaLog/(4055:4056): Planificador - Hacia 4, 7
+[TRACE] 17:38:23:819 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:23:819 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:23:820 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:23:822 MapaLog/(4055:4056): Planificador - Hacia 4, 8
+[TRACE] 17:38:24:325 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:24:326 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:24:326 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:24:329 MapaLog/(4055:4056): Planificador - Hacia 4, 9
+[INFO] 17:38:24:830 MapaLog/(4055:4056): Planficador - El entrenador % va al final de la cola de Listos
+[INFO] 17:38:24:830 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:24:831 MapaLog/(4055:4056): 
+[INFO] 17:38:24:831 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:24:833 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:24:834 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:24:834 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:24:837 MapaLog/(4055:4056): Planificador - Hacia 7, 4
+[TRACE] 17:38:25:340 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:25:340 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:25:341 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:25:342 MapaLog/(4055:4056): Planificador - Hacia 8, 4
+[TRACE] 17:38:25:845 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:25:845 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:25:846 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:25:847 MapaLog/(4055:4056): Planificador - Hacia 9, 4
+[INFO] 17:38:26:348 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:38:26:348 MapaLog/(4055:4056): Planficador - Planifico al entrenador %
+[INFO] 17:38:26:349 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:26:349 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:26:351 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:26:351 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:26:352 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:26:354 MapaLog/(4055:4056): Planificador - Hacia 4, 10
+[TRACE] 17:38:26:857 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:26:858 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[INFO] 17:38:26:859 MapaLog/(4055:4056): Planificador - Envio a % a la lista de bloqueados
+[INFO] 17:38:26:863 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:26:870 MapaLog/(4055:4056): 
+[INFO] 17:38:27:373 MapaLog/(4055:4056): Planficador - El entrenador % va al final de la cola de Listos
+[INFO] 17:38:27:373 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:27:374 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:38:27:374 MapaLog/(4055:4056): 
+[TRACE] 17:38:27:377 MapaLog/(4055:4056): Planificador - % quiere C
+[TRACE] 17:38:27:378 MapaLog/(4055:4056): Planificador - encontre uno disponible /Mapas/CiudadAzul/PokeNests/Charizard/Charizard001.dat
+[TRACE] 17:38:27:384 MapaLog/(4055:4056): Planificador - envie confirmacion
+[TRACE] 17:38:27:391 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:27:392 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:27:392 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:27:394 MapaLog/(4055:4056): Planificador - Hacia 10, 4
+[TRACE] 17:38:27:897 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:27:898 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[INFO] 17:38:27:898 MapaLog/(4055:4056): Planificador - Envio a { a la lista de bloqueados
+[INFO] 17:38:27:899 MapaLog/(4055:4056): 
+[INFO] 17:38:27:900 MapaLog/(4055:4056): Entrenadores bloqueados: { 
+[INFO] 17:38:28:401 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:38:28:401 MapaLog/(4055:4056): Planficador - Planifico al entrenador %
+[INFO] 17:38:28:401 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:38:28:402 MapaLog/(4055:4056): Entrenadores bloqueados: { 
+[TRACE] 17:38:28:403 MapaLog/(4055:4056): Planificador - { quiere B
+[TRACE] 17:38:28:403 MapaLog/(4055:4056): Planificador - encontre uno disponible /Mapas/CiudadAzul/PokeNests/Bulbasaur/Bulbasaur001.dat
+[TRACE] 17:38:28:404 MapaLog/(4055:4056): Planificador - envie confirmacion
+[TRACE] 17:38:28:406 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:28:407 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:28:407 MapaLog/(4055:4056): Planificador - Solicitud UB
+[TRACE] 17:38:28:407 MapaLog/(4055:4056): Planificador - Encontre la pokenest B
+[TRACE] 17:38:28:408 MapaLog/(4055:4056): Planificador - Posicion enviada 10, 4
+[TRACE] 17:38:28:911 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:28:912 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:28:912 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:28:914 MapaLog/(4055:4056): Planificador - Hacia 5, 10
+[TRACE] 17:38:29:417 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:29:417 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:29:418 MapaLog/(4055:4056): Planificador - Solicitud M4
+[TRACE] 17:38:29:420 MapaLog/(4055:4056): Planificador - Hacia 5, 9
+[INFO] 17:38:29:922 MapaLog/(4055:4056): Planficador - El entrenador % va al final de la cola de Listos
+[INFO] 17:38:29:922 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:29:922 MapaLog/(4055:4056): 
+[INFO] 17:38:29:923 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:29:925 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:29:925 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:29:926 MapaLog/(4055:4056): Planificador - Solicitud UC
+[TRACE] 17:38:29:927 MapaLog/(4055:4056): Planificador - Encontre la pokenest C
+[TRACE] 17:38:29:927 MapaLog/(4055:4056): Planificador - Posicion enviada 4, 10
+[TRACE] 17:38:30:430 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:30:431 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:30:431 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:38:30:434 MapaLog/(4055:4056): Planificador - Hacia 9, 4
+[TRACE] 17:38:30:936 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:30:937 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:30:937 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:30:939 MapaLog/(4055:4056): Planificador - Hacia 9, 5
+[INFO] 17:38:31:440 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:38:31:440 MapaLog/(4055:4056): Planficador - Planifico al entrenador %
+[INFO] 17:38:31:441 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:31:441 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:31:443 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:31:443 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:31:444 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:31:446 MapaLog/(4055:4056): Planificador - Hacia 6, 9
+[TRACE] 17:38:31:949 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:31:950 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:31:950 MapaLog/(4055:4056): Planificador - Solicitud M4
+[TRACE] 17:38:31:968 MapaLog/(4055:4056): Planificador - Hacia 6, 8
+[TRACE] 17:38:32:471 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:32:471 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:32:472 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:32:473 MapaLog/(4055:4056): Planificador - Hacia 7, 8
+[INFO] 17:38:32:974 MapaLog/(4055:4056): Planficador - El entrenador % va al final de la cola de Listos
+[INFO] 17:38:32:975 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:32:975 MapaLog/(4055:4056): 
+[INFO] 17:38:32:975 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:32:977 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:32:978 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:32:978 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:38:32:981 MapaLog/(4055:4056): Planificador - Hacia 8, 5
+[TRACE] 17:38:33:484 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:33:484 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:33:485 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:33:487 MapaLog/(4055:4056): Planificador - Hacia 8, 6
+[TRACE] 17:38:33:989 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:33:990 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:33:990 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:38:33:992 MapaLog/(4055:4056): Planificador - Hacia 7, 6
+[INFO] 17:38:34:493 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:38:34:494 MapaLog/(4055:4056): Planficador - Planifico al entrenador %
+[INFO] 17:38:34:494 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:34:494 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:34:496 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:34:497 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:34:497 MapaLog/(4055:4056): Planificador - Solicitud M4
+[TRACE] 17:38:34:500 MapaLog/(4055:4056): Planificador - Hacia 7, 7
+[TRACE] 17:38:35:2 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:35:3 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:35:4 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:35:5 MapaLog/(4055:4056): Planificador - Hacia 8, 7
+[TRACE] 17:38:35:509 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:35:509 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:35:509 MapaLog/(4055:4056): Planificador - Solicitud M4
+[TRACE] 17:38:35:511 MapaLog/(4055:4056): Planificador - Hacia 8, 6
+[INFO] 17:38:36:13 MapaLog/(4055:4056): Planficador - El entrenador % va al final de la cola de Listos
+[INFO] 17:38:36:13 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:36:14 MapaLog/(4055:4056): 
+[INFO] 17:38:36:14 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:36:16 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:36:17 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:36:17 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:36:19 MapaLog/(4055:4056): Planificador - Hacia 7, 7
+[TRACE] 17:38:36:523 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:36:523 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:36:524 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:38:36:525 MapaLog/(4055:4056): Planificador - Hacia 6, 7
+[TRACE] 17:38:37:29 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:37:30 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:37:30 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:37:33 MapaLog/(4055:4056): Planificador - Hacia 6, 8
+[INFO] 17:38:37:533 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:38:37:534 MapaLog/(4055:4056): Planficador - Planifico al entrenador %
+[INFO] 17:38:37:534 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:37:534 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:37:537 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:37:537 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:37:537 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:37:540 MapaLog/(4055:4056): Planificador - Hacia 9, 6
+[TRACE] 17:38:38:43 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:38:44 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:38:44 MapaLog/(4055:4056): Planificador - Solicitud M4
+[TRACE] 17:38:38:46 MapaLog/(4055:4056): Planificador - Hacia 9, 5
+[TRACE] 17:38:38:549 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:38:549 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:38:550 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:38:551 MapaLog/(4055:4056): Planificador - Hacia 10, 5
+[INFO] 17:38:39:52 MapaLog/(4055:4056): Planficador - El entrenador % va al final de la cola de Listos
+[INFO] 17:38:39:53 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:39:53 MapaLog/(4055:4056): 
+[INFO] 17:38:39:53 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:39:56 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:39:56 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:39:57 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:38:39:59 MapaLog/(4055:4056): Planificador - Hacia 5, 8
+[TRACE] 17:38:39:562 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:39:562 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:39:563 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:39:565 MapaLog/(4055:4056): Planificador - Hacia 5, 9
+[TRACE] 17:38:40:69 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:40:69 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:40:70 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:38:40:71 MapaLog/(4055:4056): Planificador - Hacia 4, 9
+[INFO] 17:38:40:572 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:38:40:573 MapaLog/(4055:4056): Planficador - Planifico al entrenador %
+[INFO] 17:38:40:573 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:40:574 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:40:576 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:40:576 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:40:577 MapaLog/(4055:4056): Planificador - Solicitud M4
+[TRACE] 17:38:40:580 MapaLog/(4055:4056): Planificador - Hacia 10, 4
+[TRACE] 17:38:41:83 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:41:84 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[INFO] 17:38:41:84 MapaLog/(4055:4056): Planificador - Envio a % a la lista de bloqueados
+[INFO] 17:38:41:85 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:41:85 MapaLog/(4055:4056): 
+[INFO] 17:38:41:586 MapaLog/(4055:4056): Planficador - El entrenador % va al final de la cola de Listos
+[INFO] 17:38:41:586 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:41:586 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:38:41:587 MapaLog/(4055:4056): 
+[TRACE] 17:38:41:588 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:41:590 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:41:591 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:41:591 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:41:593 MapaLog/(4055:4056): Planificador - Hacia 4, 10
+[TRACE] 17:38:42:95 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:42:97 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:42:98 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[INFO] 17:38:42:98 MapaLog/(4055:4056): Planificador - Envio a { a la lista de bloqueados
+[INFO] 17:38:42:100 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:38:42:109 MapaLog/(4055:4056): Entrenadores bloqueados: % { 
+[TRACE] 17:38:42:611 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:42:612 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:43:114 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:43:115 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:43:618 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:43:618 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:44:121 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:44:121 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:44:624 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:44:624 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:45:127 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:45:127 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:45:630 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:45:631 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:46:133 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:46:133 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:46:636 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:46:636 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:47:138 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:47:138 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:47:641 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:47:641 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:48:143 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:48:144 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:48:647 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:48:648 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:49:151 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:49:151 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:49:654 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:49:654 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:50:157 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:50:157 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:50:660 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:50:661 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:51:164 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:51:164 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:38:51:667 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:51:668 MapaLog/(4055:4056): Planificador - { quiere C
+[INFO] 17:38:52:97 MapaLog/(4055:4057): El entrenador % esta en deadlock
+[INFO] 17:38:52:97 MapaLog/(4055:4057): Informo deadlock a % 
+[INFO] 17:38:52:98 MapaLog/(4055:4057): El entrenador { esta en deadlock
+[INFO] 17:38:52:98 MapaLog/(4055:4057): Informo deadlock a { 
+[INFO] 17:38:52:100 MapaLog/(4055:4057): ORDENAMIENTO LISTA DEADLOCK - El entrenador { tiene el tiempo de ingreso 1481920693
+[INFO] 17:38:52:101 MapaLog/(4055:4057): ORDENAMIENTO LISTA DEADLOCK - El entrenador % tiene el tiempo de ingreso 1481920693
+[INFO] 17:38:52:124 MapaLog/(4055:4057): Deadlock - Tendremos 2 batallas pokemon
+[INFO] 17:38:52:124 MapaLog/(4055:4057): Entrenador a pelear: {
+[INFO] 17:38:52:124 MapaLog/(4055:4057): Deadlock - Entrendor a pelear con { es: %
+[INFO] 17:38:52:125 MapaLog/(4055:4057): Nombre poke1: B
+[INFO] 17:38:52:126 MapaLog/(4055:4057): Nombre poke1: Bulbasaur
+[INFO] 17:38:52:126 MapaLog/(4055:4057): Nombre poke2: C
+[INFO] 17:38:52:126 MapaLog/(4055:4057): Nombre poke2: Charizard
+[INFO] 17:38:52:129 MapaLog/(4055:4057): El entrenador que perdio es {
+[INFO] 17:38:52:129 MapaLog/(4055:4057): El entrenador { sera elegido como victima
+[TRACE] 17:38:52:172 MapaLog/(4055:4056): Planificador - % quiere B
+[TRACE] 17:38:52:173 MapaLog/(4055:4056): Planificador - encontre uno disponible /Mapas/CiudadAzul/PokeNests/Bulbasaur/Bulbasaur001.dat
+[TRACE] 17:38:52:173 MapaLog/(4055:4056): Planificador - envie confirmacion
+[TRACE] 17:38:52:677 MapaLog/(4055:4056): Planificador - Envio turno a %
+[TRACE] 17:38:52:678 MapaLog/(4055:4056): Planificador - Inicio atencion de %
+[TRACE] 17:38:53:103 MapaLog/(4055:4056): Planificador - Mando a % al Garbage collector
+[TRACE] 17:38:56:391 MapaLog/(4055:4055): Nueva conexion de 127.0.0.1 en  el socket 5
+[TRACE] 17:38:56:391 MapaLog/(4055:4055): Ingresa nuevo entrenador a la lista de entrenadores preparados
+[TRACE] 17:38:56:391 MapaLog/(4055:4055): Agrego entrenador a preparados: {
+[INFO] 17:38:56:620 MapaLog/(4055:4056): Planificador - Agrego entrenador { a lista de Listos
+[INFO] 17:38:56:622 MapaLog/(4055:4056): Entrenadores listos: { 
+[INFO] 17:38:56:622 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:57:124 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:57:124 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:57:125 MapaLog/(4055:4056): Planificador - Solicitud UB
+[TRACE] 17:38:57:125 MapaLog/(4055:4056): Planificador - Encontre la pokenest B
+[TRACE] 17:38:57:125 MapaLog/(4055:4056): Planificador - Posicion enviada 10, 4
+[TRACE] 17:38:57:627 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:57:627 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:57:628 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:57:629 MapaLog/(4055:4056): Planificador - Hacia 2, 1
+[TRACE] 17:38:58:132 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:58:133 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:58:133 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:58:135 MapaLog/(4055:4056): Planificador - Hacia 2, 2
+[INFO] 17:38:58:635 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:38:58:636 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:38:58:636 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:38:58:636 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:38:58:639 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:58:639 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:58:640 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:58:641 MapaLog/(4055:4056): Planificador - Hacia 3, 2
+[TRACE] 17:38:59:145 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:59:145 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:59:146 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:38:59:148 MapaLog/(4055:4056): Planificador - Hacia 3, 3
+[TRACE] 17:38:59:652 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:38:59:653 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:38:59:653 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:38:59:655 MapaLog/(4055:4056): Planificador - Hacia 4, 3
+[INFO] 17:39:00:156 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:39:00:158 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:39:00:159 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:39:00:159 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:39:00:162 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:00:162 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:00:162 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:39:00:164 MapaLog/(4055:4056): Planificador - Hacia 4, 4
+[TRACE] 17:39:00:667 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:00:668 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:00:668 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:39:00:670 MapaLog/(4055:4056): Planificador - Hacia 5, 4
+[TRACE] 17:39:01:173 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:01:174 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:01:174 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:39:01:176 MapaLog/(4055:4056): Planificador - Hacia 6, 4
+[INFO] 17:39:01:677 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:39:01:678 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:39:01:678 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:39:01:678 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:39:01:681 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:01:681 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:01:682 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:39:01:683 MapaLog/(4055:4056): Planificador - Hacia 7, 4
+[TRACE] 17:39:02:185 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:02:186 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:02:186 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:39:02:188 MapaLog/(4055:4056): Planificador - Hacia 8, 4
+[TRACE] 17:39:02:691 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:02:692 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:02:692 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:39:02:694 MapaLog/(4055:4056): Planificador - Hacia 9, 4
+[INFO] 17:39:03:195 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:39:03:195 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:39:03:195 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:39:03:196 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:39:03:198 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:03:198 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:03:199 MapaLog/(4055:4056): Planificador - Solicitud M3
+[TRACE] 17:39:03:200 MapaLog/(4055:4056): Planificador - Hacia 10, 4
+[TRACE] 17:39:03:703 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:03:703 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[INFO] 17:39:03:704 MapaLog/(4055:4056): Planificador - Envio a { a la lista de bloqueados
+[INFO] 17:39:03:705 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:39:03:705 MapaLog/(4055:4056): Entrenadores bloqueados: { 
+[TRACE] 17:39:04:207 MapaLog/(4055:4056): Planificador - { quiere B
+[TRACE] 17:39:04:208 MapaLog/(4055:4056): Planificador - encontre uno disponible /Mapas/CiudadAzul/PokeNests/Bulbasaur/Bulbasaur001.dat
+[TRACE] 17:39:04:209 MapaLog/(4055:4056): Planificador - envie confirmacion
+[TRACE] 17:39:04:713 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:04:714 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:05:210 MapaLog/(4055:4056): Planificador - Solicitud UC
+[TRACE] 17:39:05:211 MapaLog/(4055:4056): Planificador - Encontre la pokenest C
+[TRACE] 17:39:05:211 MapaLog/(4055:4056): Planificador - Posicion enviada 4, 10
+[TRACE] 17:39:05:714 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:05:714 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:05:715 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:39:05:718 MapaLog/(4055:4056): Planificador - Hacia 9, 4
+[TRACE] 17:39:06:219 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:06:220 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:06:220 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:39:06:222 MapaLog/(4055:4056): Planificador - Hacia 9, 5
+[INFO] 17:39:06:723 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:39:06:724 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:39:06:724 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:39:06:724 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:39:06:726 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:06:727 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:06:727 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:39:06:729 MapaLog/(4055:4056): Planificador - Hacia 8, 5
+[TRACE] 17:39:07:232 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:07:232 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:07:233 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:39:07:235 MapaLog/(4055:4056): Planificador - Hacia 8, 6
+[TRACE] 17:39:07:738 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:07:739 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:07:739 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:39:07:741 MapaLog/(4055:4056): Planificador - Hacia 7, 6
+[INFO] 17:39:08:242 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:39:08:242 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:39:08:243 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:39:08:243 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:39:08:245 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:08:246 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:08:246 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:39:08:248 MapaLog/(4055:4056): Planificador - Hacia 7, 7
+[TRACE] 17:39:08:751 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:08:752 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:08:752 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:39:08:754 MapaLog/(4055:4056): Planificador - Hacia 6, 7
+[TRACE] 17:39:09:257 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:09:257 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:09:258 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:39:09:260 MapaLog/(4055:4056): Planificador - Hacia 6, 8
+[INFO] 17:39:09:761 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:39:09:761 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:39:09:762 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:39:09:762 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:39:09:764 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:09:765 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:09:765 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:39:09:767 MapaLog/(4055:4056): Planificador - Hacia 5, 8
+[TRACE] 17:39:10:271 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:10:271 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:10:272 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:39:10:274 MapaLog/(4055:4056): Planificador - Hacia 5, 9
+[TRACE] 17:39:10:777 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:10:777 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:10:778 MapaLog/(4055:4056): Planificador - Solicitud M1
+[TRACE] 17:39:10:780 MapaLog/(4055:4056): Planificador - Hacia 4, 9
+[INFO] 17:39:11:280 MapaLog/(4055:4056): Planficador - El entrenador { va al final de la cola de Listos
+[INFO] 17:39:11:280 MapaLog/(4055:4056): Planficador - Planifico al entrenador {
+[INFO] 17:39:11:281 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:39:11:281 MapaLog/(4055:4056): Entrenadores bloqueados: 
+[TRACE] 17:39:11:283 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:11:284 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:11:284 MapaLog/(4055:4056): Planificador - Solicitud M2
+[TRACE] 17:39:11:286 MapaLog/(4055:4056): Planificador - Hacia 4, 10
+[TRACE] 17:39:11:789 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:11:790 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[INFO] 17:39:11:790 MapaLog/(4055:4056): Planificador - Envio a { a la lista de bloqueados
+[INFO] 17:39:11:791 MapaLog/(4055:4056): Entrenadores listos: 
+[INFO] 17:39:11:792 MapaLog/(4055:4056): Entrenadores bloqueados: { 
+[TRACE] 17:39:12:293 MapaLog/(4055:4056): Planificador - { quiere C
+[TRACE] 17:39:12:294 MapaLog/(4055:4056): Planificador - encontre uno disponible /Mapas/CiudadAzul/PokeNests/Charizard/Charizard001.dat
+[TRACE] 17:39:12:295 MapaLog/(4055:4056): Planificador - envie confirmacion
+[TRACE] 17:39:12:800 MapaLog/(4055:4056): Planificador - Envio turno a {
+[TRACE] 17:39:12:801 MapaLog/(4055:4056): Planificador - Inicio atencion de {
+[TRACE] 17:39:13:299 MapaLog/(4055:4056): Planificador - Mando a { al Garbage collector

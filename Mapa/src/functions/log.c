@@ -51,6 +51,7 @@ void loguearConfiguracion(t_log* archivoLogs, t_mapa* mapa){
 			 char** substrings =string_split(pokemon->path, "/");
 			 pokemon->nombre=substrings[6];
 			log_info(archivoLogs, "Pokemon nivel: %d", pokemon->nivel);
+
 		}
 
 	}

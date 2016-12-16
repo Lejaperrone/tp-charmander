@@ -33,6 +33,7 @@ t_pokemon_custom* createPokemon(char* pathPokemons, char* name){
 		pokemon->path = string_substring(pathPokemon, string_length(pokedexPath), string_length(pathPokemon)-string_length(pokedexPath));
 		pokemon->disponible =1;
 		pokemon->duenio=' ';
+		free(pathPokemon);
 		free(configPokemon);
 
 	//Return
@@ -129,6 +130,7 @@ void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){
 
 				//Agrego el pokenest
 					t_pokenest* pokenest = createPokeNest(pathPokeNest, ep->d_name);
+					free(pathPokeNest);
 					if(pokenest!=NULL){
 						list_add(mapa->pokeNests,pokenest);
 					}

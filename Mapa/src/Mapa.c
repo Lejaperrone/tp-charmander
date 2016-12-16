@@ -193,6 +193,18 @@ int main(int argc, char *argv[]){
 		pthread_mutex_destroy(&mutexMapa);
 	//Libero memoria y termino ui
 		free(archivoLog);
+		list_destroy(entrenadoresPreparados);
+		list_destroy(entrenadoresListos);
+		list_destroy(entrenadoresBloqueados);
+		list_destroy(elementosUI);
+		list_destroy(garbageCollectorEntrenadores);
+		list_destroy(listaDeIdentificadoresDePokenests);
+
+		int d;
+		for(d=0; d<list_size(mapa->pokeNests); d++){
+			free(list_get(mapa->pokeNests,d));
+		}
+//		list_destroy(mapa->pokeNests);
 		nivel_gui_terminar();
 		free(mapa);
 		close(listeningSocket);
