@@ -1,0 +1,964 @@
+[INFO] 15:02:54:310 PokeClienteLog/(4350:4350): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 15:02:54:349 PokeClienteLog/(4350:4350): POKEDEX_CLIENTE connected to POKEDEX_SERVIDOR successfully
+
+[INFO] 15:02:54:350 PokeClienteLog/(4350:4350): Levanto fuse
+
+[INFO] 15:02:54:492 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:54:493 PokeClienteLog/(4350:4358): 2 - Path: /.Trash
+[INFO] 15:02:54:500 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 0
+[INFO] 15:02:54:509 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:54:509 PokeClienteLog/(4350:4359): 2 - Path: /.Trash-1000
+[INFO] 15:02:54:549 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 0
+[INFO] 15:02:54:550 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:54:551 PokeClienteLog/(4350:4357): 2 - Path: /.xdg-volume-info
+[INFO] 15:02:54:589 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 0
+[INFO] 15:02:54:590 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:54:590 PokeClienteLog/(4350:4357): 2 - Path: /autorun.inf
+[INFO] 15:02:54:629 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 0
+[INFO] 15:02:54:646 PokeClienteLog/(4350:4357): 1 - Funcion: READDIR
+[INFO] 15:02:54:646 PokeClienteLog/(4350:4357): 2 - Path: /
+[INFO] 15:02:54:685 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:54:726 PokeClienteLog/(4350:4357): 4 - cant: 11
+[INFO] 15:02:54:728 PokeClienteLog/(4350:4357): 6 - Directorio: Pokemons
+[INFO] 15:02:54:731 PokeClienteLog/(4350:4357): 6 - Directorio: Celadon City
+[INFO] 15:02:54:731 PokeClienteLog/(4350:4357): 6 - Directorio: README.txt
+[INFO] 15:02:54:732 PokeClienteLog/(4350:4357): 6 - Directorio: Cerulean City
+[INFO] 15:02:54:732 PokeClienteLog/(4350:4357): 6 - Directorio: Fuchsia City
+[INFO] 15:02:54:732 PokeClienteLog/(4350:4357): 6 - Directorio: Lavender Town
+[INFO] 15:02:54:732 PokeClienteLog/(4350:4357): 6 - Directorio: Pallet Town
+[INFO] 15:02:54:733 PokeClienteLog/(4350:4357): 6 - Directorio: Pewter City
+[INFO] 15:02:54:733 PokeClienteLog/(4350:4357): 6 - Directorio: Saffron City
+[INFO] 15:02:54:733 PokeClienteLog/(4350:4357): 6 - Directorio: Vermilion City
+[INFO] 15:02:54:733 PokeClienteLog/(4350:4357): 6 - Directorio: Viridian City
+[INFO] 15:02:54:737 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:54:737 PokeClienteLog/(4350:4359): 2 - Path: /Pokemons
+[INFO] 15:02:54:777 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:54:817 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:54:819 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:54:858 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:54:858 PokeClienteLog/(4350:4358): 2 - Path: /Celadon City
+[INFO] 15:02:54:897 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:54:897 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:54:897 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:54:898 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:54:898 PokeClienteLog/(4350:4357): 2 - Path: /README.txt
+[INFO] 15:02:54:937 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:54:977 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 1
+[INFO] 15:02:54:977 PokeClienteLog/(4350:4357): 6 - stbuf->st_size: 556
+[INFO] 15:02:54:978 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:54:979 PokeClienteLog/(4350:4360): 2 - Path: /Cerulean City
+[INFO] 15:02:55:17 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:55:58 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:55:58 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:55:60 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:55:60 PokeClienteLog/(4350:4360): 2 - Path: /Fuchsia City
+[INFO] 15:02:55:97 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:55:137 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:55:138 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:55:140 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:55:140 PokeClienteLog/(4350:4359): 2 - Path: /Lavender Town
+[INFO] 15:02:55:177 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:55:217 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:55:217 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:55:218 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:55:219 PokeClienteLog/(4350:4358): 2 - Path: /Pallet Town
+[INFO] 15:02:55:257 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:55:297 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:55:297 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:55:299 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:55:299 PokeClienteLog/(4350:4357): 2 - Path: /Pewter City
+[INFO] 15:02:55:338 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:55:377 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:02:55:377 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:02:55:379 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:55:379 PokeClienteLog/(4350:4357): 2 - Path: /Saffron City
+[INFO] 15:02:55:418 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:55:457 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:02:55:457 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:02:55:459 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:55:459 PokeClienteLog/(4350:4360): 2 - Path: /Vermilion City
+[INFO] 15:02:55:497 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:55:537 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:55:537 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:55:539 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:55:539 PokeClienteLog/(4350:4359): 2 - Path: /Viridian City
+[INFO] 15:02:55:577 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:55:617 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:55:617 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:55:627 PokeClienteLog/(4350:4357): 1 - Funcion: READDIR
+[INFO] 15:02:55:627 PokeClienteLog/(4350:4357): 2 - Path: /
+[INFO] 15:02:55:665 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:55:705 PokeClienteLog/(4350:4357): 4 - cant: 11
+[INFO] 15:02:55:705 PokeClienteLog/(4350:4357): 6 - Directorio: Pokemons
+[INFO] 15:02:55:706 PokeClienteLog/(4350:4357): 6 - Directorio: Celadon City
+[INFO] 15:02:55:706 PokeClienteLog/(4350:4357): 6 - Directorio: README.txt
+[INFO] 15:02:55:706 PokeClienteLog/(4350:4357): 6 - Directorio: Cerulean City
+[INFO] 15:02:55:707 PokeClienteLog/(4350:4357): 6 - Directorio: Fuchsia City
+[INFO] 15:02:55:707 PokeClienteLog/(4350:4357): 6 - Directorio: Lavender Town
+[INFO] 15:02:55:707 PokeClienteLog/(4350:4357): 6 - Directorio: Pallet Town
+[INFO] 15:02:55:708 PokeClienteLog/(4350:4357): 6 - Directorio: Pewter City
+[INFO] 15:02:55:708 PokeClienteLog/(4350:4357): 6 - Directorio: Saffron City
+[INFO] 15:02:55:709 PokeClienteLog/(4350:4357): 6 - Directorio: Vermilion City
+[INFO] 15:02:55:710 PokeClienteLog/(4350:4357): 6 - Directorio: Viridian City
+[INFO] 15:02:55:714 PokeClienteLog/(4350:4360): 1 - Funcion: READDIR
+[INFO] 15:02:55:715 PokeClienteLog/(4350:4360): 2 - Path: /
+[INFO] 15:02:55:753 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:55:793 PokeClienteLog/(4350:4360): 4 - cant: 11
+[INFO] 15:02:55:793 PokeClienteLog/(4350:4360): 6 - Directorio: Pokemons
+[INFO] 15:02:55:794 PokeClienteLog/(4350:4360): 6 - Directorio: Celadon City
+[INFO] 15:02:55:794 PokeClienteLog/(4350:4360): 6 - Directorio: README.txt
+[INFO] 15:02:55:794 PokeClienteLog/(4350:4360): 6 - Directorio: Cerulean City
+[INFO] 15:02:55:795 PokeClienteLog/(4350:4360): 6 - Directorio: Fuchsia City
+[INFO] 15:02:55:795 PokeClienteLog/(4350:4360): 6 - Directorio: Lavender Town
+[INFO] 15:02:55:795 PokeClienteLog/(4350:4360): 6 - Directorio: Pallet Town
+[INFO] 15:02:55:796 PokeClienteLog/(4350:4360): 6 - Directorio: Pewter City
+[INFO] 15:02:55:797 PokeClienteLog/(4350:4360): 6 - Directorio: Saffron City
+[INFO] 15:02:55:797 PokeClienteLog/(4350:4360): 6 - Directorio: Vermilion City
+[INFO] 15:02:55:798 PokeClienteLog/(4350:4360): 6 - Directorio: Viridian City
+[INFO] 15:02:55:802 PokeClienteLog/(4350:4357): 1 - Funcion: READDIR
+[INFO] 15:02:55:802 PokeClienteLog/(4350:4357): 2 - Path: /
+[INFO] 15:02:55:841 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:55:881 PokeClienteLog/(4350:4357): 4 - cant: 11
+[INFO] 15:02:55:881 PokeClienteLog/(4350:4357): 6 - Directorio: Pokemons
+[INFO] 15:02:55:882 PokeClienteLog/(4350:4357): 6 - Directorio: Celadon City
+[INFO] 15:02:55:882 PokeClienteLog/(4350:4357): 6 - Directorio: README.txt
+[INFO] 15:02:55:882 PokeClienteLog/(4350:4357): 6 - Directorio: Cerulean City
+[INFO] 15:02:55:883 PokeClienteLog/(4350:4357): 6 - Directorio: Fuchsia City
+[INFO] 15:02:55:883 PokeClienteLog/(4350:4357): 6 - Directorio: Lavender Town
+[INFO] 15:02:55:884 PokeClienteLog/(4350:4357): 6 - Directorio: Pallet Town
+[INFO] 15:02:55:884 PokeClienteLog/(4350:4357): 6 - Directorio: Pewter City
+[INFO] 15:02:55:884 PokeClienteLog/(4350:4357): 6 - Directorio: Saffron City
+[INFO] 15:02:55:885 PokeClienteLog/(4350:4357): 6 - Directorio: Vermilion City
+[INFO] 15:02:55:886 PokeClienteLog/(4350:4357): 6 - Directorio: Viridian City
+[INFO] 15:02:55:888 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:55:888 PokeClienteLog/(4350:4359): 2 - Path: /Pokemons
+[INFO] 15:02:55:925 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:55:965 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:55:965 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:55:968 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:55:968 PokeClienteLog/(4350:4360): 2 - Path: /Celadon City
+[INFO] 15:02:56:5 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:56:45 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:56:45 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:56:46 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:56:46 PokeClienteLog/(4350:4358): 2 - Path: /README.txt
+[INFO] 15:02:56:85 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:56:125 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 1
+[INFO] 15:02:56:125 PokeClienteLog/(4350:4358): 6 - stbuf->st_size: 556
+[INFO] 15:02:56:126 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:56:127 PokeClienteLog/(4350:4357): 2 - Path: /Cerulean City
+[INFO] 15:02:56:165 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:56:205 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:02:56:205 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:02:56:206 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:56:207 PokeClienteLog/(4350:4359): 2 - Path: /Fuchsia City
+[INFO] 15:02:56:245 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:56:285 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:56:285 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:56:286 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:56:286 PokeClienteLog/(4350:4360): 2 - Path: /Lavender Town
+[INFO] 15:02:56:325 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:56:365 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:56:365 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:56:367 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:56:367 PokeClienteLog/(4350:4358): 2 - Path: /Pallet Town
+[INFO] 15:02:56:405 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:56:445 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:56:445 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:56:447 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:56:447 PokeClienteLog/(4350:4357): 2 - Path: /Pewter City
+[INFO] 15:02:56:486 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:56:525 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:02:56:525 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:02:56:527 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:56:527 PokeClienteLog/(4350:4359): 2 - Path: /Saffron City
+[INFO] 15:02:56:565 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:56:605 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:56:605 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:56:607 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:56:607 PokeClienteLog/(4350:4360): 2 - Path: /Vermilion City
+[INFO] 15:02:56:645 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:56:685 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:56:685 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:56:686 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:56:687 PokeClienteLog/(4350:4358): 2 - Path: /Viridian City
+[INFO] 15:02:56:725 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:56:765 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:56:765 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:56:769 PokeClienteLog/(4350:4357): 1 - Funcion: READDIR
+[INFO] 15:02:56:769 PokeClienteLog/(4350:4357): 2 - Path: /
+[INFO] 15:02:56:809 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:56:849 PokeClienteLog/(4350:4357): 4 - cant: 11
+[INFO] 15:02:56:849 PokeClienteLog/(4350:4357): 6 - Directorio: Pokemons
+[INFO] 15:02:56:850 PokeClienteLog/(4350:4357): 6 - Directorio: Celadon City
+[INFO] 15:02:56:850 PokeClienteLog/(4350:4357): 6 - Directorio: README.txt
+[INFO] 15:02:56:850 PokeClienteLog/(4350:4357): 6 - Directorio: Cerulean City
+[INFO] 15:02:56:851 PokeClienteLog/(4350:4357): 6 - Directorio: Fuchsia City
+[INFO] 15:02:56:851 PokeClienteLog/(4350:4357): 6 - Directorio: Lavender Town
+[INFO] 15:02:56:852 PokeClienteLog/(4350:4357): 6 - Directorio: Pallet Town
+[INFO] 15:02:56:852 PokeClienteLog/(4350:4357): 6 - Directorio: Pewter City
+[INFO] 15:02:56:852 PokeClienteLog/(4350:4357): 6 - Directorio: Saffron City
+[INFO] 15:02:56:853 PokeClienteLog/(4350:4357): 6 - Directorio: Vermilion City
+[INFO] 15:02:56:853 PokeClienteLog/(4350:4357): 6 - Directorio: Viridian City
+[INFO] 15:02:56:858 PokeClienteLog/(4350:4358): 1 - Funcion: READDIR
+[INFO] 15:02:56:858 PokeClienteLog/(4350:4358): 2 - Path: /
+[INFO] 15:02:56:897 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:56:937 PokeClienteLog/(4350:4358): 4 - cant: 11
+[INFO] 15:02:56:937 PokeClienteLog/(4350:4358): 6 - Directorio: Pokemons
+[INFO] 15:02:56:937 PokeClienteLog/(4350:4358): 6 - Directorio: Celadon City
+[INFO] 15:02:56:937 PokeClienteLog/(4350:4358): 6 - Directorio: README.txt
+[INFO] 15:02:56:937 PokeClienteLog/(4350:4358): 6 - Directorio: Cerulean City
+[INFO] 15:02:56:937 PokeClienteLog/(4350:4358): 6 - Directorio: Fuchsia City
+[INFO] 15:02:56:938 PokeClienteLog/(4350:4358): 6 - Directorio: Lavender Town
+[INFO] 15:02:56:938 PokeClienteLog/(4350:4358): 6 - Directorio: Pallet Town
+[INFO] 15:02:56:938 PokeClienteLog/(4350:4358): 6 - Directorio: Pewter City
+[INFO] 15:02:56:938 PokeClienteLog/(4350:4358): 6 - Directorio: Saffron City
+[INFO] 15:02:56:938 PokeClienteLog/(4350:4358): 6 - Directorio: Vermilion City
+[INFO] 15:02:56:938 PokeClienteLog/(4350:4358): 6 - Directorio: Viridian City
+[INFO] 15:02:56:940 PokeClienteLog/(4350:4360): 1 - Funcion: READDIR
+[INFO] 15:02:56:940 PokeClienteLog/(4350:4360): 2 - Path: /
+[INFO] 15:02:56:977 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:57:17 PokeClienteLog/(4350:4360): 4 - cant: 11
+[INFO] 15:02:57:17 PokeClienteLog/(4350:4360): 6 - Directorio: Pokemons
+[INFO] 15:02:57:17 PokeClienteLog/(4350:4360): 6 - Directorio: Celadon City
+[INFO] 15:02:57:17 PokeClienteLog/(4350:4360): 6 - Directorio: README.txt
+[INFO] 15:02:57:17 PokeClienteLog/(4350:4360): 6 - Directorio: Cerulean City
+[INFO] 15:02:57:18 PokeClienteLog/(4350:4360): 6 - Directorio: Fuchsia City
+[INFO] 15:02:57:18 PokeClienteLog/(4350:4360): 6 - Directorio: Lavender Town
+[INFO] 15:02:57:18 PokeClienteLog/(4350:4360): 6 - Directorio: Pallet Town
+[INFO] 15:02:57:18 PokeClienteLog/(4350:4360): 6 - Directorio: Pewter City
+[INFO] 15:02:57:18 PokeClienteLog/(4350:4360): 6 - Directorio: Saffron City
+[INFO] 15:02:57:18 PokeClienteLog/(4350:4360): 6 - Directorio: Vermilion City
+[INFO] 15:02:57:18 PokeClienteLog/(4350:4360): 6 - Directorio: Viridian City
+[INFO] 15:02:57:19 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:57:19 PokeClienteLog/(4350:4359): 2 - Path: /Pokemons
+[INFO] 15:02:57:57 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:57:97 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:57:97 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:57:97 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:57:98 PokeClienteLog/(4350:4358): 2 - Path: /Celadon City
+[INFO] 15:02:57:137 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:57:177 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:57:177 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:57:178 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:57:178 PokeClienteLog/(4350:4360): 2 - Path: /README.txt
+[INFO] 15:02:57:217 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:57:257 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 1
+[INFO] 15:02:57:257 PokeClienteLog/(4350:4360): 6 - stbuf->st_size: 556
+[INFO] 15:02:57:258 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:57:258 PokeClienteLog/(4350:4357): 2 - Path: /Cerulean City
+[INFO] 15:02:57:297 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:57:337 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:02:57:337 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:02:57:339 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:57:339 PokeClienteLog/(4350:4359): 2 - Path: /Fuchsia City
+[INFO] 15:02:57:377 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:57:417 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:57:417 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:57:417 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:57:418 PokeClienteLog/(4350:4358): 2 - Path: /Lavender Town
+[INFO] 15:02:57:457 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:57:497 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:57:497 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:57:497 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:57:497 PokeClienteLog/(4350:4360): 2 - Path: /Pallet Town
+[INFO] 15:02:57:538 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:57:577 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:57:578 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:57:578 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:57:579 PokeClienteLog/(4350:4357): 2 - Path: /Pewter City
+[INFO] 15:02:57:617 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:57:657 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:02:57:658 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:02:57:659 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:57:659 PokeClienteLog/(4350:4359): 2 - Path: /Saffron City
+[INFO] 15:02:57:697 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:57:737 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:57:737 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:57:739 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:57:739 PokeClienteLog/(4350:4358): 2 - Path: /Vermilion City
+[INFO] 15:02:57:778 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:57:817 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:57:817 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:57:819 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:57:819 PokeClienteLog/(4350:4360): 2 - Path: /Viridian City
+[INFO] 15:02:57:857 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:57:897 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:57:897 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:57:901 PokeClienteLog/(4350:4358): 1 - Funcion: READDIR
+[INFO] 15:02:57:901 PokeClienteLog/(4350:4358): 2 - Path: /
+[INFO] 15:02:57:942 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:57:981 PokeClienteLog/(4350:4358): 4 - cant: 11
+[INFO] 15:02:57:981 PokeClienteLog/(4350:4358): 6 - Directorio: Pokemons
+[INFO] 15:02:57:981 PokeClienteLog/(4350:4358): 6 - Directorio: Celadon City
+[INFO] 15:02:57:981 PokeClienteLog/(4350:4358): 6 - Directorio: README.txt
+[INFO] 15:02:57:981 PokeClienteLog/(4350:4358): 6 - Directorio: Cerulean City
+[INFO] 15:02:57:982 PokeClienteLog/(4350:4358): 6 - Directorio: Fuchsia City
+[INFO] 15:02:57:982 PokeClienteLog/(4350:4358): 6 - Directorio: Lavender Town
+[INFO] 15:02:57:982 PokeClienteLog/(4350:4358): 6 - Directorio: Pallet Town
+[INFO] 15:02:57:982 PokeClienteLog/(4350:4358): 6 - Directorio: Pewter City
+[INFO] 15:02:57:982 PokeClienteLog/(4350:4358): 6 - Directorio: Saffron City
+[INFO] 15:02:57:982 PokeClienteLog/(4350:4358): 6 - Directorio: Vermilion City
+[INFO] 15:02:57:983 PokeClienteLog/(4350:4358): 6 - Directorio: Viridian City
+[INFO] 15:02:57:985 PokeClienteLog/(4350:4359): 1 - Funcion: READDIR
+[INFO] 15:02:57:985 PokeClienteLog/(4350:4359): 2 - Path: /
+[INFO] 15:02:58:25 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:58:65 PokeClienteLog/(4350:4359): 4 - cant: 11
+[INFO] 15:02:58:65 PokeClienteLog/(4350:4359): 6 - Directorio: Pokemons
+[INFO] 15:02:58:65 PokeClienteLog/(4350:4359): 6 - Directorio: Celadon City
+[INFO] 15:02:58:65 PokeClienteLog/(4350:4359): 6 - Directorio: README.txt
+[INFO] 15:02:58:65 PokeClienteLog/(4350:4359): 6 - Directorio: Cerulean City
+[INFO] 15:02:58:66 PokeClienteLog/(4350:4359): 6 - Directorio: Fuchsia City
+[INFO] 15:02:58:66 PokeClienteLog/(4350:4359): 6 - Directorio: Lavender Town
+[INFO] 15:02:58:66 PokeClienteLog/(4350:4359): 6 - Directorio: Pallet Town
+[INFO] 15:02:58:66 PokeClienteLog/(4350:4359): 6 - Directorio: Pewter City
+[INFO] 15:02:58:66 PokeClienteLog/(4350:4359): 6 - Directorio: Saffron City
+[INFO] 15:02:58:66 PokeClienteLog/(4350:4359): 6 - Directorio: Vermilion City
+[INFO] 15:02:58:67 PokeClienteLog/(4350:4359): 6 - Directorio: Viridian City
+[INFO] 15:02:58:69 PokeClienteLog/(4350:4360): 1 - Funcion: READDIR
+[INFO] 15:02:58:69 PokeClienteLog/(4350:4360): 2 - Path: /
+[INFO] 15:02:58:109 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:58:149 PokeClienteLog/(4350:4360): 4 - cant: 11
+[INFO] 15:02:58:149 PokeClienteLog/(4350:4360): 6 - Directorio: Pokemons
+[INFO] 15:02:58:149 PokeClienteLog/(4350:4360): 6 - Directorio: Celadon City
+[INFO] 15:02:58:149 PokeClienteLog/(4350:4360): 6 - Directorio: README.txt
+[INFO] 15:02:58:149 PokeClienteLog/(4350:4360): 6 - Directorio: Cerulean City
+[INFO] 15:02:58:150 PokeClienteLog/(4350:4360): 6 - Directorio: Fuchsia City
+[INFO] 15:02:58:150 PokeClienteLog/(4350:4360): 6 - Directorio: Lavender Town
+[INFO] 15:02:58:150 PokeClienteLog/(4350:4360): 6 - Directorio: Pallet Town
+[INFO] 15:02:58:150 PokeClienteLog/(4350:4360): 6 - Directorio: Pewter City
+[INFO] 15:02:58:150 PokeClienteLog/(4350:4360): 6 - Directorio: Saffron City
+[INFO] 15:02:58:150 PokeClienteLog/(4350:4360): 6 - Directorio: Vermilion City
+[INFO] 15:02:58:151 PokeClienteLog/(4350:4360): 6 - Directorio: Viridian City
+[INFO] 15:02:58:151 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:58:152 PokeClienteLog/(4350:4357): 2 - Path: /Pokemons
+[INFO] 15:02:58:189 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:58:229 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:02:58:229 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:02:58:230 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:58:230 PokeClienteLog/(4350:4359): 2 - Path: /Celadon City
+[INFO] 15:02:58:269 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:58:309 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:58:309 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:58:310 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:58:310 PokeClienteLog/(4350:4360): 2 - Path: /README.txt
+[INFO] 15:02:58:349 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:58:389 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 1
+[INFO] 15:02:58:389 PokeClienteLog/(4350:4360): 6 - stbuf->st_size: 556
+[INFO] 15:02:58:391 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:58:391 PokeClienteLog/(4350:4358): 2 - Path: /Cerulean City
+[INFO] 15:02:58:429 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:58:469 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:58:469 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:58:469 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:58:470 PokeClienteLog/(4350:4357): 2 - Path: /Fuchsia City
+[INFO] 15:02:58:509 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:58:550 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:02:58:550 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:02:58:551 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:58:551 PokeClienteLog/(4350:4359): 2 - Path: /Lavender Town
+[INFO] 15:02:58:589 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:58:630 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:58:630 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:58:631 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:58:631 PokeClienteLog/(4350:4360): 2 - Path: /Pallet Town
+[INFO] 15:02:58:670 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:58:709 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:58:709 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:58:710 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:58:711 PokeClienteLog/(4350:4358): 2 - Path: /Pewter City
+[INFO] 15:02:58:749 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:58:789 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:58:789 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:58:791 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:58:791 PokeClienteLog/(4350:4357): 2 - Path: /Saffron City
+[INFO] 15:02:58:829 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:58:870 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:02:58:870 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:02:58:871 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:58:872 PokeClienteLog/(4350:4359): 2 - Path: /Vermilion City
+[INFO] 15:02:58:909 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:58:949 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:58:949 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:58:950 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:58:951 PokeClienteLog/(4350:4360): 2 - Path: /Viridian City
+[INFO] 15:02:58:990 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:59:29 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:59:29 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:59:33 PokeClienteLog/(4350:4357): 1 - Funcion: READDIR
+[INFO] 15:02:59:33 PokeClienteLog/(4350:4357): 2 - Path: /
+[INFO] 15:02:59:73 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:59:113 PokeClienteLog/(4350:4357): 4 - cant: 11
+[INFO] 15:02:59:114 PokeClienteLog/(4350:4357): 6 - Directorio: Pokemons
+[INFO] 15:02:59:114 PokeClienteLog/(4350:4357): 6 - Directorio: Celadon City
+[INFO] 15:02:59:114 PokeClienteLog/(4350:4357): 6 - Directorio: README.txt
+[INFO] 15:02:59:115 PokeClienteLog/(4350:4357): 6 - Directorio: Cerulean City
+[INFO] 15:02:59:115 PokeClienteLog/(4350:4357): 6 - Directorio: Fuchsia City
+[INFO] 15:02:59:115 PokeClienteLog/(4350:4357): 6 - Directorio: Lavender Town
+[INFO] 15:02:59:116 PokeClienteLog/(4350:4357): 6 - Directorio: Pallet Town
+[INFO] 15:02:59:116 PokeClienteLog/(4350:4357): 6 - Directorio: Pewter City
+[INFO] 15:02:59:116 PokeClienteLog/(4350:4357): 6 - Directorio: Saffron City
+[INFO] 15:02:59:117 PokeClienteLog/(4350:4357): 6 - Directorio: Vermilion City
+[INFO] 15:02:59:117 PokeClienteLog/(4350:4357): 6 - Directorio: Viridian City
+[INFO] 15:02:59:122 PokeClienteLog/(4350:4360): 1 - Funcion: READDIR
+[INFO] 15:02:59:122 PokeClienteLog/(4350:4360): 2 - Path: /
+[INFO] 15:02:59:161 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:59:201 PokeClienteLog/(4350:4360): 4 - cant: 11
+[INFO] 15:02:59:202 PokeClienteLog/(4350:4360): 6 - Directorio: Pokemons
+[INFO] 15:02:59:202 PokeClienteLog/(4350:4360): 6 - Directorio: Celadon City
+[INFO] 15:02:59:202 PokeClienteLog/(4350:4360): 6 - Directorio: README.txt
+[INFO] 15:02:59:203 PokeClienteLog/(4350:4360): 6 - Directorio: Cerulean City
+[INFO] 15:02:59:203 PokeClienteLog/(4350:4360): 6 - Directorio: Fuchsia City
+[INFO] 15:02:59:204 PokeClienteLog/(4350:4360): 6 - Directorio: Lavender Town
+[INFO] 15:02:59:204 PokeClienteLog/(4350:4360): 6 - Directorio: Pallet Town
+[INFO] 15:02:59:204 PokeClienteLog/(4350:4360): 6 - Directorio: Pewter City
+[INFO] 15:02:59:205 PokeClienteLog/(4350:4360): 6 - Directorio: Saffron City
+[INFO] 15:02:59:205 PokeClienteLog/(4350:4360): 6 - Directorio: Vermilion City
+[INFO] 15:02:59:205 PokeClienteLog/(4350:4360): 6 - Directorio: Viridian City
+[INFO] 15:02:59:210 PokeClienteLog/(4350:4359): 1 - Funcion: READDIR
+[INFO] 15:02:59:210 PokeClienteLog/(4350:4359): 2 - Path: /
+[INFO] 15:02:59:250 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:59:289 PokeClienteLog/(4350:4359): 4 - cant: 11
+[INFO] 15:02:59:290 PokeClienteLog/(4350:4359): 6 - Directorio: Pokemons
+[INFO] 15:02:59:290 PokeClienteLog/(4350:4359): 6 - Directorio: Celadon City
+[INFO] 15:02:59:291 PokeClienteLog/(4350:4359): 6 - Directorio: README.txt
+[INFO] 15:02:59:291 PokeClienteLog/(4350:4359): 6 - Directorio: Cerulean City
+[INFO] 15:02:59:291 PokeClienteLog/(4350:4359): 6 - Directorio: Fuchsia City
+[INFO] 15:02:59:292 PokeClienteLog/(4350:4359): 6 - Directorio: Lavender Town
+[INFO] 15:02:59:292 PokeClienteLog/(4350:4359): 6 - Directorio: Pallet Town
+[INFO] 15:02:59:292 PokeClienteLog/(4350:4359): 6 - Directorio: Pewter City
+[INFO] 15:02:59:293 PokeClienteLog/(4350:4359): 6 - Directorio: Saffron City
+[INFO] 15:02:59:293 PokeClienteLog/(4350:4359): 6 - Directorio: Vermilion City
+[INFO] 15:02:59:294 PokeClienteLog/(4350:4359): 6 - Directorio: Viridian City
+[INFO] 15:02:59:296 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:59:296 PokeClienteLog/(4350:4358): 2 - Path: /Pokemons
+[INFO] 15:02:59:333 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:59:373 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:59:373 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:59:374 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:59:375 PokeClienteLog/(4350:4360): 2 - Path: /Celadon City
+[INFO] 15:02:59:413 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:59:453 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:59:453 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:59:454 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:59:455 PokeClienteLog/(4350:4357): 2 - Path: /README.txt
+[INFO] 15:02:59:493 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:59:533 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 1
+[INFO] 15:02:59:533 PokeClienteLog/(4350:4357): 6 - stbuf->st_size: 556
+[INFO] 15:02:59:535 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:59:535 PokeClienteLog/(4350:4357): 2 - Path: /Cerulean City
+[INFO] 15:02:59:573 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:02:59:613 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:02:59:613 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:02:59:614 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:02:59:615 PokeClienteLog/(4350:4359): 2 - Path: /Fuchsia City
+[INFO] 15:02:59:654 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:02:59:693 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:02:59:693 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:02:59:693 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:02:59:694 PokeClienteLog/(4350:4358): 2 - Path: /Lavender Town
+[INFO] 15:02:59:733 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:02:59:773 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:02:59:774 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:02:59:774 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:59:775 PokeClienteLog/(4350:4360): 2 - Path: /Pallet Town
+[INFO] 15:02:59:813 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:59:853 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:59:854 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:59:855 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:02:59:855 PokeClienteLog/(4350:4360): 2 - Path: /Pewter City
+[INFO] 15:02:59:893 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:02:59:933 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:02:59:933 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:02:59:934 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:02:59:934 PokeClienteLog/(4350:4357): 2 - Path: /Saffron City
+[INFO] 15:02:59:973 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:00:13 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:00:14 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:00:15 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:00:15 PokeClienteLog/(4350:4359): 2 - Path: /Vermilion City
+[INFO] 15:03:00:53 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:00:93 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:00:93 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:00:95 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:00:95 PokeClienteLog/(4350:4358): 2 - Path: /Viridian City
+[INFO] 15:03:00:133 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:00:173 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:00:174 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:00:178 PokeClienteLog/(4350:4357): 1 - Funcion: READDIR
+[INFO] 15:03:00:179 PokeClienteLog/(4350:4357): 2 - Path: /
+[INFO] 15:03:00:217 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:00:257 PokeClienteLog/(4350:4357): 4 - cant: 11
+[INFO] 15:03:00:257 PokeClienteLog/(4350:4357): 6 - Directorio: Pokemons
+[INFO] 15:03:00:258 PokeClienteLog/(4350:4357): 6 - Directorio: Celadon City
+[INFO] 15:03:00:258 PokeClienteLog/(4350:4357): 6 - Directorio: README.txt
+[INFO] 15:03:00:259 PokeClienteLog/(4350:4357): 6 - Directorio: Cerulean City
+[INFO] 15:03:00:259 PokeClienteLog/(4350:4357): 6 - Directorio: Fuchsia City
+[INFO] 15:03:00:259 PokeClienteLog/(4350:4357): 6 - Directorio: Lavender Town
+[INFO] 15:03:00:260 PokeClienteLog/(4350:4357): 6 - Directorio: Pallet Town
+[INFO] 15:03:00:260 PokeClienteLog/(4350:4357): 6 - Directorio: Pewter City
+[INFO] 15:03:00:260 PokeClienteLog/(4350:4357): 6 - Directorio: Saffron City
+[INFO] 15:03:00:261 PokeClienteLog/(4350:4357): 6 - Directorio: Vermilion City
+[INFO] 15:03:00:261 PokeClienteLog/(4350:4357): 6 - Directorio: Viridian City
+[INFO] 15:03:00:266 PokeClienteLog/(4350:4360): 1 - Funcion: READDIR
+[INFO] 15:03:00:266 PokeClienteLog/(4350:4360): 2 - Path: /
+[INFO] 15:03:00:305 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:00:345 PokeClienteLog/(4350:4360): 4 - cant: 11
+[INFO] 15:03:00:345 PokeClienteLog/(4350:4360): 6 - Directorio: Pokemons
+[INFO] 15:03:00:346 PokeClienteLog/(4350:4360): 6 - Directorio: Celadon City
+[INFO] 15:03:00:346 PokeClienteLog/(4350:4360): 6 - Directorio: README.txt
+[INFO] 15:03:00:346 PokeClienteLog/(4350:4360): 6 - Directorio: Cerulean City
+[INFO] 15:03:00:347 PokeClienteLog/(4350:4360): 6 - Directorio: Fuchsia City
+[INFO] 15:03:00:347 PokeClienteLog/(4350:4360): 6 - Directorio: Lavender Town
+[INFO] 15:03:00:348 PokeClienteLog/(4350:4360): 6 - Directorio: Pallet Town
+[INFO] 15:03:00:348 PokeClienteLog/(4350:4360): 6 - Directorio: Pewter City
+[INFO] 15:03:00:348 PokeClienteLog/(4350:4360): 6 - Directorio: Saffron City
+[INFO] 15:03:00:349 PokeClienteLog/(4350:4360): 6 - Directorio: Vermilion City
+[INFO] 15:03:00:349 PokeClienteLog/(4350:4360): 6 - Directorio: Viridian City
+[INFO] 15:03:00:354 PokeClienteLog/(4350:4357): 1 - Funcion: READDIR
+[INFO] 15:03:00:354 PokeClienteLog/(4350:4357): 2 - Path: /
+[INFO] 15:03:00:394 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:00:433 PokeClienteLog/(4350:4357): 4 - cant: 11
+[INFO] 15:03:00:433 PokeClienteLog/(4350:4357): 6 - Directorio: Pokemons
+[INFO] 15:03:00:434 PokeClienteLog/(4350:4357): 6 - Directorio: Celadon City
+[INFO] 15:03:00:434 PokeClienteLog/(4350:4357): 6 - Directorio: README.txt
+[INFO] 15:03:00:434 PokeClienteLog/(4350:4357): 6 - Directorio: Cerulean City
+[INFO] 15:03:00:435 PokeClienteLog/(4350:4357): 6 - Directorio: Fuchsia City
+[INFO] 15:03:00:435 PokeClienteLog/(4350:4357): 6 - Directorio: Lavender Town
+[INFO] 15:03:00:435 PokeClienteLog/(4350:4357): 6 - Directorio: Pallet Town
+[INFO] 15:03:00:436 PokeClienteLog/(4350:4357): 6 - Directorio: Pewter City
+[INFO] 15:03:00:436 PokeClienteLog/(4350:4357): 6 - Directorio: Saffron City
+[INFO] 15:03:00:437 PokeClienteLog/(4350:4357): 6 - Directorio: Vermilion City
+[INFO] 15:03:00:437 PokeClienteLog/(4350:4357): 6 - Directorio: Viridian City
+[INFO] 15:03:00:439 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:00:439 PokeClienteLog/(4350:4359): 2 - Path: /Pokemons
+[INFO] 15:03:00:477 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:00:517 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:00:517 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:00:519 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:00:519 PokeClienteLog/(4350:4360): 2 - Path: /Celadon City
+[INFO] 15:03:00:557 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:00:597 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:00:597 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:00:598 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:00:599 PokeClienteLog/(4350:4358): 2 - Path: /README.txt
+[INFO] 15:03:00:637 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:00:677 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 1
+[INFO] 15:03:00:678 PokeClienteLog/(4350:4358): 6 - stbuf->st_size: 556
+[INFO] 15:03:00:680 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:00:680 PokeClienteLog/(4350:4358): 2 - Path: /Cerulean City
+[INFO] 15:03:00:717 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:00:758 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:00:758 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:00:760 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:00:760 PokeClienteLog/(4350:4357): 2 - Path: /Fuchsia City
+[INFO] 15:03:00:797 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:00:837 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:00:837 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:00:838 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:00:839 PokeClienteLog/(4350:4359): 2 - Path: /Lavender Town
+[INFO] 15:03:00:877 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:00:917 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:00:917 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:00:918 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:00:919 PokeClienteLog/(4350:4360): 2 - Path: /Pallet Town
+[INFO] 15:03:00:957 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:00:997 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:00:998 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:00:999 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:00:0 PokeClienteLog/(4350:4360): 2 - Path: /Pewter City
+[INFO] 15:03:01:37 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:01:77 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:01:77 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:01:79 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:01:79 PokeClienteLog/(4350:4358): 2 - Path: /Saffron City
+[INFO] 15:03:01:117 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:01:157 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:01:157 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:01:158 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:01:159 PokeClienteLog/(4350:4357): 2 - Path: /Vermilion City
+[INFO] 15:03:01:197 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:01:237 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:01:237 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:01:239 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:01:239 PokeClienteLog/(4350:4359): 2 - Path: /Viridian City
+[INFO] 15:03:01:277 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:01:317 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:01:317 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:01:321 PokeClienteLog/(4350:4358): 1 - Funcion: READDIR
+[INFO] 15:03:01:322 PokeClienteLog/(4350:4358): 2 - Path: /
+[INFO] 15:03:01:361 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:01:401 PokeClienteLog/(4350:4358): 4 - cant: 11
+[INFO] 15:03:01:401 PokeClienteLog/(4350:4358): 6 - Directorio: Pokemons
+[INFO] 15:03:01:402 PokeClienteLog/(4350:4358): 6 - Directorio: Celadon City
+[INFO] 15:03:01:402 PokeClienteLog/(4350:4358): 6 - Directorio: README.txt
+[INFO] 15:03:01:402 PokeClienteLog/(4350:4358): 6 - Directorio: Cerulean City
+[INFO] 15:03:01:403 PokeClienteLog/(4350:4358): 6 - Directorio: Fuchsia City
+[INFO] 15:03:01:403 PokeClienteLog/(4350:4358): 6 - Directorio: Lavender Town
+[INFO] 15:03:01:404 PokeClienteLog/(4350:4358): 6 - Directorio: Pallet Town
+[INFO] 15:03:01:404 PokeClienteLog/(4350:4358): 6 - Directorio: Pewter City
+[INFO] 15:03:01:404 PokeClienteLog/(4350:4358): 6 - Directorio: Saffron City
+[INFO] 15:03:01:405 PokeClienteLog/(4350:4358): 6 - Directorio: Vermilion City
+[INFO] 15:03:01:405 PokeClienteLog/(4350:4358): 6 - Directorio: Viridian City
+[INFO] 15:03:01:410 PokeClienteLog/(4350:4357): 1 - Funcion: READDIR
+[INFO] 15:03:01:410 PokeClienteLog/(4350:4357): 2 - Path: /
+[INFO] 15:03:01:450 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:01:489 PokeClienteLog/(4350:4357): 4 - cant: 11
+[INFO] 15:03:01:489 PokeClienteLog/(4350:4357): 6 - Directorio: Pokemons
+[INFO] 15:03:01:490 PokeClienteLog/(4350:4357): 6 - Directorio: Celadon City
+[INFO] 15:03:01:490 PokeClienteLog/(4350:4357): 6 - Directorio: README.txt
+[INFO] 15:03:01:491 PokeClienteLog/(4350:4357): 6 - Directorio: Cerulean City
+[INFO] 15:03:01:491 PokeClienteLog/(4350:4357): 6 - Directorio: Fuchsia City
+[INFO] 15:03:01:491 PokeClienteLog/(4350:4357): 6 - Directorio: Lavender Town
+[INFO] 15:03:01:492 PokeClienteLog/(4350:4357): 6 - Directorio: Pallet Town
+[INFO] 15:03:01:492 PokeClienteLog/(4350:4357): 6 - Directorio: Pewter City
+[INFO] 15:03:01:492 PokeClienteLog/(4350:4357): 6 - Directorio: Saffron City
+[INFO] 15:03:01:493 PokeClienteLog/(4350:4357): 6 - Directorio: Vermilion City
+[INFO] 15:03:01:493 PokeClienteLog/(4350:4357): 6 - Directorio: Viridian City
+[INFO] 15:03:01:498 PokeClienteLog/(4350:4358): 1 - Funcion: READDIR
+[INFO] 15:03:01:498 PokeClienteLog/(4350:4358): 2 - Path: /
+[INFO] 15:03:01:538 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:01:577 PokeClienteLog/(4350:4358): 4 - cant: 11
+[INFO] 15:03:01:577 PokeClienteLog/(4350:4358): 6 - Directorio: Pokemons
+[INFO] 15:03:01:578 PokeClienteLog/(4350:4358): 6 - Directorio: Celadon City
+[INFO] 15:03:01:578 PokeClienteLog/(4350:4358): 6 - Directorio: README.txt
+[INFO] 15:03:01:578 PokeClienteLog/(4350:4358): 6 - Directorio: Cerulean City
+[INFO] 15:03:01:579 PokeClienteLog/(4350:4358): 6 - Directorio: Fuchsia City
+[INFO] 15:03:01:579 PokeClienteLog/(4350:4358): 6 - Directorio: Lavender Town
+[INFO] 15:03:01:580 PokeClienteLog/(4350:4358): 6 - Directorio: Pallet Town
+[INFO] 15:03:01:580 PokeClienteLog/(4350:4358): 6 - Directorio: Pewter City
+[INFO] 15:03:01:580 PokeClienteLog/(4350:4358): 6 - Directorio: Saffron City
+[INFO] 15:03:01:581 PokeClienteLog/(4350:4358): 6 - Directorio: Vermilion City
+[INFO] 15:03:01:581 PokeClienteLog/(4350:4358): 6 - Directorio: Viridian City
+[INFO] 15:03:01:583 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:01:583 PokeClienteLog/(4350:4359): 2 - Path: /Pokemons
+[INFO] 15:03:01:621 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:01:661 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:01:661 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:01:663 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:01:663 PokeClienteLog/(4350:4357): 2 - Path: /Celadon City
+[INFO] 15:03:01:701 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:01:741 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:01:742 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:01:743 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:01:743 PokeClienteLog/(4350:4360): 2 - Path: /README.txt
+[INFO] 15:03:01:781 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:01:821 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 1
+[INFO] 15:03:01:821 PokeClienteLog/(4350:4360): 6 - stbuf->st_size: 556
+[INFO] 15:03:01:823 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:01:823 PokeClienteLog/(4350:4360): 2 - Path: /Cerulean City
+[INFO] 15:03:01:861 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:01:901 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:01:901 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:01:902 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:01:903 PokeClienteLog/(4350:4358): 2 - Path: /Fuchsia City
+[INFO] 15:03:01:941 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:01:981 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:01:981 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:01:983 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:01:983 PokeClienteLog/(4350:4359): 2 - Path: /Lavender Town
+[INFO] 15:03:02:21 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:02:61 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:02:61 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:02:63 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:02:63 PokeClienteLog/(4350:4357): 2 - Path: /Pallet Town
+[INFO] 15:03:02:101 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:02:141 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:02:141 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:02:143 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:02:143 PokeClienteLog/(4350:4357): 2 - Path: /Pewter City
+[INFO] 15:03:02:181 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:02:221 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:02:221 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:02:223 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:02:223 PokeClienteLog/(4350:4360): 2 - Path: /Saffron City
+[INFO] 15:03:02:261 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:02:301 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:02:302 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:02:303 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:02:303 PokeClienteLog/(4350:4358): 2 - Path: /Vermilion City
+[INFO] 15:03:02:341 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:02:381 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:02:382 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:02:383 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:02:383 PokeClienteLog/(4350:4359): 2 - Path: /Viridian City
+[INFO] 15:03:02:421 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:02:462 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:02:462 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:02:465 PokeClienteLog/(4350:4358): 1 - Funcion: READDIR
+[INFO] 15:03:02:466 PokeClienteLog/(4350:4358): 2 - Path: /
+[INFO] 15:03:02:505 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:02:545 PokeClienteLog/(4350:4358): 4 - cant: 11
+[INFO] 15:03:02:545 PokeClienteLog/(4350:4358): 6 - Directorio: Pokemons
+[INFO] 15:03:02:546 PokeClienteLog/(4350:4358): 6 - Directorio: Celadon City
+[INFO] 15:03:02:546 PokeClienteLog/(4350:4358): 6 - Directorio: README.txt
+[INFO] 15:03:02:546 PokeClienteLog/(4350:4358): 6 - Directorio: Cerulean City
+[INFO] 15:03:02:547 PokeClienteLog/(4350:4358): 6 - Directorio: Fuchsia City
+[INFO] 15:03:02:547 PokeClienteLog/(4350:4358): 6 - Directorio: Lavender Town
+[INFO] 15:03:02:547 PokeClienteLog/(4350:4358): 6 - Directorio: Pallet Town
+[INFO] 15:03:02:548 PokeClienteLog/(4350:4358): 6 - Directorio: Pewter City
+[INFO] 15:03:02:548 PokeClienteLog/(4350:4358): 6 - Directorio: Saffron City
+[INFO] 15:03:02:549 PokeClienteLog/(4350:4358): 6 - Directorio: Vermilion City
+[INFO] 15:03:02:549 PokeClienteLog/(4350:4358): 6 - Directorio: Viridian City
+[INFO] 15:03:02:553 PokeClienteLog/(4350:4359): 1 - Funcion: READDIR
+[INFO] 15:03:02:554 PokeClienteLog/(4350:4359): 2 - Path: /
+[INFO] 15:03:02:593 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:02:634 PokeClienteLog/(4350:4359): 4 - cant: 11
+[INFO] 15:03:02:634 PokeClienteLog/(4350:4359): 6 - Directorio: Pokemons
+[INFO] 15:03:02:634 PokeClienteLog/(4350:4359): 6 - Directorio: Celadon City
+[INFO] 15:03:02:635 PokeClienteLog/(4350:4359): 6 - Directorio: README.txt
+[INFO] 15:03:02:635 PokeClienteLog/(4350:4359): 6 - Directorio: Cerulean City
+[INFO] 15:03:02:635 PokeClienteLog/(4350:4359): 6 - Directorio: Fuchsia City
+[INFO] 15:03:02:636 PokeClienteLog/(4350:4359): 6 - Directorio: Lavender Town
+[INFO] 15:03:02:636 PokeClienteLog/(4350:4359): 6 - Directorio: Pallet Town
+[INFO] 15:03:02:637 PokeClienteLog/(4350:4359): 6 - Directorio: Pewter City
+[INFO] 15:03:02:637 PokeClienteLog/(4350:4359): 6 - Directorio: Saffron City
+[INFO] 15:03:02:638 PokeClienteLog/(4350:4359): 6 - Directorio: Vermilion City
+[INFO] 15:03:02:638 PokeClienteLog/(4350:4359): 6 - Directorio: Viridian City
+[INFO] 15:03:02:653 PokeClienteLog/(4350:4360): 1 - Funcion: READDIR
+[INFO] 15:03:02:654 PokeClienteLog/(4350:4360): 2 - Path: /
+[INFO] 15:03:02:694 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:02:733 PokeClienteLog/(4350:4360): 4 - cant: 11
+[INFO] 15:03:02:733 PokeClienteLog/(4350:4360): 6 - Directorio: Pokemons
+[INFO] 15:03:02:734 PokeClienteLog/(4350:4360): 6 - Directorio: Celadon City
+[INFO] 15:03:02:734 PokeClienteLog/(4350:4360): 6 - Directorio: README.txt
+[INFO] 15:03:02:734 PokeClienteLog/(4350:4360): 6 - Directorio: Cerulean City
+[INFO] 15:03:02:735 PokeClienteLog/(4350:4360): 6 - Directorio: Fuchsia City
+[INFO] 15:03:02:735 PokeClienteLog/(4350:4360): 6 - Directorio: Lavender Town
+[INFO] 15:03:02:735 PokeClienteLog/(4350:4360): 6 - Directorio: Pallet Town
+[INFO] 15:03:02:736 PokeClienteLog/(4350:4360): 6 - Directorio: Pewter City
+[INFO] 15:03:02:736 PokeClienteLog/(4350:4360): 6 - Directorio: Saffron City
+[INFO] 15:03:02:737 PokeClienteLog/(4350:4360): 6 - Directorio: Vermilion City
+[INFO] 15:03:02:737 PokeClienteLog/(4350:4360): 6 - Directorio: Viridian City
+[INFO] 15:03:02:737 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:02:738 PokeClienteLog/(4350:4357): 2 - Path: /
+[INFO] 15:03:02:778 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:02:817 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:02:818 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:02:818 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:02:818 PokeClienteLog/(4350:4358): 2 - Path: /
+[INFO] 15:03:02:857 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:02:897 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:02:897 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:02:898 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:02:898 PokeClienteLog/(4350:4359): 2 - Path: /Pokemons
+[INFO] 15:03:02:937 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:02:978 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:02:978 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:02:980 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:02:980 PokeClienteLog/(4350:4359): 2 - Path: /Celadon City
+[INFO] 15:03:03:18 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:03:57 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:03:57 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:03:58 PokeClienteLog/(4350:4358): 1 - Funcion: STATFS
+[INFO] 15:03:03:58 PokeClienteLog/(4350:4358): 2 - Path: /
+[INFO] 15:03:03:143 PokeClienteLog/(4350:4360): 1 - Funcion: STATFS
+[INFO] 15:03:03:143 PokeClienteLog/(4350:4360): 2 - Path: /
+[INFO] 15:03:03:221 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:03:222 PokeClienteLog/(4350:4357): 2 - Path: /README.txt
+[INFO] 15:03:03:261 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:03:301 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 1
+[INFO] 15:03:03:302 PokeClienteLog/(4350:4357): 6 - stbuf->st_size: 556
+[INFO] 15:03:03:303 PokeClienteLog/(4350:4364): 1 - Funcion: GETATTR
+[INFO] 15:03:03:303 PokeClienteLog/(4350:4364): 2 - Path: /Cerulean City
+[INFO] 15:03:03:341 PokeClienteLog/(4350:4364): 3 - resultadoOsada: 1
+[INFO] 15:03:03:381 PokeClienteLog/(4350:4364): 4 - tipoDeArchivo: 2
+[INFO] 15:03:03:382 PokeClienteLog/(4350:4364): 5 - stbuf->st_size: 0
+[INFO] 15:03:03:383 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:03:383 PokeClienteLog/(4350:4359): 2 - Path: /Fuchsia City
+[INFO] 15:03:03:421 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:03:462 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:03:462 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:03:464 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:03:464 PokeClienteLog/(4350:4359): 2 - Path: /Lavender Town
+[INFO] 15:03:03:501 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:03:541 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:03:541 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:03:543 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:03:543 PokeClienteLog/(4350:4358): 2 - Path: /Pallet Town
+[INFO] 15:03:03:581 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:03:621 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:03:621 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:03:623 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:03:623 PokeClienteLog/(4350:4360): 2 - Path: /Pewter City
+[INFO] 15:03:03:661 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:03:701 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:03:701 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:03:702 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:03:703 PokeClienteLog/(4350:4357): 2 - Path: /Saffron City
+[INFO] 15:03:03:741 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:03:781 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:03:781 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:03:783 PokeClienteLog/(4350:4364): 1 - Funcion: GETATTR
+[INFO] 15:03:03:783 PokeClienteLog/(4350:4364): 2 - Path: /Vermilion City
+[INFO] 15:03:03:821 PokeClienteLog/(4350:4364): 3 - resultadoOsada: 1
+[INFO] 15:03:03:861 PokeClienteLog/(4350:4364): 4 - tipoDeArchivo: 2
+[INFO] 15:03:03:861 PokeClienteLog/(4350:4364): 5 - stbuf->st_size: 0
+[INFO] 15:03:03:863 PokeClienteLog/(4350:4364): 1 - Funcion: GETATTR
+[INFO] 15:03:03:863 PokeClienteLog/(4350:4364): 2 - Path: /Viridian City
+[INFO] 15:03:03:901 PokeClienteLog/(4350:4364): 3 - resultadoOsada: 1
+[INFO] 15:03:03:941 PokeClienteLog/(4350:4364): 4 - tipoDeArchivo: 2
+[INFO] 15:03:03:942 PokeClienteLog/(4350:4364): 5 - stbuf->st_size: 0
+[INFO] 15:03:03:944 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:03:945 PokeClienteLog/(4350:4359): 2 - Path: /autorun.inf
+[INFO] 15:03:03:981 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 0
+[INFO] 15:03:08:90 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:08:91 PokeClienteLog/(4350:4358): 2 - Path: /
+[INFO] 15:03:08:129 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:08:130 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:08:130 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:09:525 PokeClienteLog/(4350:4360): 1 - Funcion: READDIR
+[INFO] 15:03:09:525 PokeClienteLog/(4350:4360): 2 - Path: /
+[INFO] 15:03:09:565 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:09:565 PokeClienteLog/(4350:4360): 4 - cant: 11
+[INFO] 15:03:09:565 PokeClienteLog/(4350:4360): 6 - Directorio: Pokemons
+[INFO] 15:03:09:566 PokeClienteLog/(4350:4360): 6 - Directorio: Celadon City
+[INFO] 15:03:09:566 PokeClienteLog/(4350:4360): 6 - Directorio: README.txt
+[INFO] 15:03:09:566 PokeClienteLog/(4350:4360): 6 - Directorio: Cerulean City
+[INFO] 15:03:09:566 PokeClienteLog/(4350:4360): 6 - Directorio: Fuchsia City
+[INFO] 15:03:09:566 PokeClienteLog/(4350:4360): 6 - Directorio: Lavender Town
+[INFO] 15:03:09:566 PokeClienteLog/(4350:4360): 6 - Directorio: Pallet Town
+[INFO] 15:03:09:567 PokeClienteLog/(4350:4360): 6 - Directorio: Pewter City
+[INFO] 15:03:09:567 PokeClienteLog/(4350:4360): 6 - Directorio: Saffron City
+[INFO] 15:03:09:567 PokeClienteLog/(4350:4360): 6 - Directorio: Vermilion City
+[INFO] 15:03:09:567 PokeClienteLog/(4350:4360): 6 - Directorio: Viridian City
+[INFO] 15:03:09:567 PokeClienteLog/(4350:4364): 1 - Funcion: GETATTR
+[INFO] 15:03:09:567 PokeClienteLog/(4350:4364): 2 - Path: /Pokemons
+[INFO] 15:03:09:605 PokeClienteLog/(4350:4364): 3 - resultadoOsada: 1
+[INFO] 15:03:09:645 PokeClienteLog/(4350:4364): 4 - tipoDeArchivo: 2
+[INFO] 15:03:09:645 PokeClienteLog/(4350:4364): 5 - stbuf->st_size: 0
+[INFO] 15:03:09:646 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:09:646 PokeClienteLog/(4350:4359): 2 - Path: /Celadon City
+[INFO] 15:03:09:685 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:09:725 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:09:726 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:09:727 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:09:727 PokeClienteLog/(4350:4358): 2 - Path: /README.txt
+[INFO] 15:03:09:766 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:09:806 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 1
+[INFO] 15:03:09:806 PokeClienteLog/(4350:4358): 6 - stbuf->st_size: 556
+[INFO] 15:03:09:807 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:09:807 PokeClienteLog/(4350:4357): 2 - Path: /Cerulean City
+[INFO] 15:03:09:845 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:09:885 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:09:885 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:09:887 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:09:887 PokeClienteLog/(4350:4360): 2 - Path: /Fuchsia City
+[INFO] 15:03:09:926 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:09:965 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:09:965 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:09:966 PokeClienteLog/(4350:4364): 1 - Funcion: GETATTR
+[INFO] 15:03:09:967 PokeClienteLog/(4350:4364): 2 - Path: /Lavender Town
+[INFO] 15:03:10:5 PokeClienteLog/(4350:4364): 3 - resultadoOsada: 1
+[INFO] 15:03:10:45 PokeClienteLog/(4350:4364): 4 - tipoDeArchivo: 2
+[INFO] 15:03:10:45 PokeClienteLog/(4350:4364): 5 - stbuf->st_size: 0
+[INFO] 15:03:10:46 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:10:47 PokeClienteLog/(4350:4359): 2 - Path: /Pallet Town
+[INFO] 15:03:10:85 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:10:126 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:10:126 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:10:127 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:10:128 PokeClienteLog/(4350:4358): 2 - Path: /Pewter City
+[INFO] 15:03:10:166 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:10:205 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:10:205 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:10:207 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:10:207 PokeClienteLog/(4350:4357): 2 - Path: /Saffron City
+[INFO] 15:03:10:245 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:10:285 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:10:285 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:10:287 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:10:287 PokeClienteLog/(4350:4360): 2 - Path: /Vermilion City
+[INFO] 15:03:10:325 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:10:365 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:10:365 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:10:366 PokeClienteLog/(4350:4364): 1 - Funcion: GETATTR
+[INFO] 15:03:10:367 PokeClienteLog/(4350:4364): 2 - Path: /Viridian City
+[INFO] 15:03:10:405 PokeClienteLog/(4350:4364): 3 - resultadoOsada: 1
+[INFO] 15:03:10:446 PokeClienteLog/(4350:4364): 4 - tipoDeArchivo: 2
+[INFO] 15:03:10:446 PokeClienteLog/(4350:4364): 5 - stbuf->st_size: 0
+[INFO] 15:03:12:964 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:12:964 PokeClienteLog/(4350:4358): 2 - Path: /
+[INFO] 15:03:12:1 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:12:1 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:12:1 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:12:2 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:12:2 PokeClienteLog/(4350:4357): 2 - Path: /hola
+[INFO] 15:03:13:42 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 0
+[INFO] 15:03:13:44 PokeClienteLog/(4350:4360): 1 - Funcion: MKDIR
+[INFO] 15:03:13:44 PokeClienteLog/(4350:4360): 2 - Path: /hola
+[INFO] 15:03:13:85 PokeClienteLog/(4350:4360): Para MKDIR se recibe como resultadoOsada: 1
+[INFO] 15:03:13:86 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:13:87 PokeClienteLog/(4350:4360): 2 - Path: /hola
+[INFO] 15:03:13:125 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:13:165 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:13:165 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:14:981 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:14:981 PokeClienteLog/(4350:4359): 2 - Path: /
+[INFO] 15:03:15:21 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:15:21 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:15:21 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:15:22 PokeClienteLog/(4350:4364): 1 - Funcion: GETATTR
+[INFO] 15:03:15:22 PokeClienteLog/(4350:4364): 2 - Path: /hola
+[INFO] 15:03:15:61 PokeClienteLog/(4350:4364): 3 - resultadoOsada: 1
+[INFO] 15:03:15:101 PokeClienteLog/(4350:4364): 4 - tipoDeArchivo: 2
+[INFO] 15:03:15:102 PokeClienteLog/(4350:4364): 5 - stbuf->st_size: 0
+[INFO] 15:03:21:245 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:21:245 PokeClienteLog/(4350:4358): 2 - Path: /hola
+[INFO] 15:03:21:285 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:21:285 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:21:285 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:21:287 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:21:287 PokeClienteLog/(4350:4357): 2 - Path: /hola/hola.txt
+[INFO] 15:03:21:325 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 0
+[INFO] 15:03:21:327 PokeClienteLog/(4350:4357): 1 - Funcion: CREATE
+[INFO] 15:03:21:328 PokeClienteLog/(4350:4357): 2 - Path: /hola/hola.txt
+[INFO] 15:03:21:366 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:21:366 PokeClienteLog/(4350:4357): 2 - Path: /hola/hola.txt
+[INFO] 15:03:21:405 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:21:445 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 1
+[INFO] 15:03:21:445 PokeClienteLog/(4350:4357): 6 - stbuf->st_size: 0
+[INFO] 15:03:21:474 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:21:474 PokeClienteLog/(4350:4359): 2 - Path: /hola/hola.txt
+[INFO] 15:03:21:513 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:21:553 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 1
+[INFO] 15:03:21:553 PokeClienteLog/(4350:4359): 6 - stbuf->st_size: 0
+[INFO] 15:03:24:660 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:24:660 PokeClienteLog/(4350:4360): 2 - Path: /hola
+[INFO] 15:03:24:697 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:24:698 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:24:698 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:24:699 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:24:699 PokeClienteLog/(4350:4358): 2 - Path: /hola/hola.txt
+[INFO] 15:03:24:738 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:24:777 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 1
+[INFO] 15:03:24:777 PokeClienteLog/(4350:4358): 6 - stbuf->st_size: 0
+[INFO] 15:03:24:785 PokeClienteLog/(4350:4364): 1 - Funcion: UNLINK
+[INFO] 15:03:24:786 PokeClienteLog/(4350:4364): 2 - Path: /hola/hola.txt
+[INFO] 15:03:26:172 PokeClienteLog/(4350:4359): 1 - Funcion: GETATTR
+[INFO] 15:03:26:172 PokeClienteLog/(4350:4359): 2 - Path: /
+[INFO] 15:03:26:209 PokeClienteLog/(4350:4359): 3 - resultadoOsada: 1
+[INFO] 15:03:26:209 PokeClienteLog/(4350:4359): 4 - tipoDeArchivo: 2
+[INFO] 15:03:26:209 PokeClienteLog/(4350:4359): 5 - stbuf->st_size: 0
+[INFO] 15:03:26:210 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:26:210 PokeClienteLog/(4350:4360): 2 - Path: /hola
+[INFO] 15:03:26:249 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:26:289 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:26:290 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
+[INFO] 15:03:27:868 PokeClienteLog/(4350:4358): 1 - Funcion: GETATTR
+[INFO] 15:03:27:869 PokeClienteLog/(4350:4358): 2 - Path: /
+[INFO] 15:03:27:909 PokeClienteLog/(4350:4358): 3 - resultadoOsada: 1
+[INFO] 15:03:27:909 PokeClienteLog/(4350:4358): 4 - tipoDeArchivo: 2
+[INFO] 15:03:27:909 PokeClienteLog/(4350:4358): 5 - stbuf->st_size: 0
+[INFO] 15:03:27:920 PokeClienteLog/(4350:4357): 1 - Funcion: GETATTR
+[INFO] 15:03:27:921 PokeClienteLog/(4350:4357): 2 - Path: /hola
+[INFO] 15:03:27:957 PokeClienteLog/(4350:4357): 3 - resultadoOsada: 1
+[INFO] 15:03:27:997 PokeClienteLog/(4350:4357): 4 - tipoDeArchivo: 2
+[INFO] 15:03:27:997 PokeClienteLog/(4350:4357): 5 - stbuf->st_size: 0
+[INFO] 15:03:27:2 PokeClienteLog/(4350:4364): 1 - Funcion: RMDIR
+[INFO] 15:03:27:3 PokeClienteLog/(4350:4364): 2 - Path: /hola
+[INFO] 15:03:30:300 PokeClienteLog/(4350:4360): 1 - Funcion: GETATTR
+[INFO] 15:03:30:300 PokeClienteLog/(4350:4360): 2 - Path: /
+[INFO] 15:03:30:337 PokeClienteLog/(4350:4360): 3 - resultadoOsada: 1
+[INFO] 15:03:30:337 PokeClienteLog/(4350:4360): 4 - tipoDeArchivo: 2
+[INFO] 15:03:30:337 PokeClienteLog/(4350:4360): 5 - stbuf->st_size: 0
