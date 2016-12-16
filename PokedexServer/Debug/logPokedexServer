@@ -1,0 +1,1595 @@
+[INFO] 15:02:52:421 PokedexServidoLog/(4349:4349): ARCHIVO DE LOGUEO INICIALIZADO
+[INFO] 15:02:52:421 PokedexServidoLog/(4349:4349): Inicio OSADA
+[INFO] 15:02:52:424 PokedexServidoLog/(4349:4349): Inicializo semaforos para el bitmap
+
+[INFO] 15:02:52:424 PokedexServidoLog/(4349:4349): Inicializo semaforos para la tabla de archivos
+
+[INFO] 15:02:52:424 PokedexServidoLog/(4349:4349): Inicializo semaforos para la tabla de asignaciones
+
+[INFO] 15:02:52:424 PokedexServidoLog/(4349:4349): Inicio hilos detached
+[INFO] 15:02:52:424 PokedexServidoLog/(4349:4349): Puerto por variable de entorno OK
+[INFO] 15:02:52:424 PokedexServidoLog/(4349:4349): --------------------------------------------------------------
+[INFO] 15:02:54:493 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:54:497 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /.Trash
+[INFO] 15:02:54:497 PokedexServidoLog/(4349:4351): Nombre vale .Trash
+[INFO] 15:02:54:497 PokedexServidoLog/(4349:4351): ResultadoOsada: 0
+[INFO] 15:02:54:510 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:54:549 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /.Trash-1000
+[INFO] 15:02:54:549 PokedexServidoLog/(4349:4351): Nombre vale .Trash-1000
+[INFO] 15:02:54:549 PokedexServidoLog/(4349:4351): ResultadoOsada: 0
+[INFO] 15:02:54:551 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:54:589 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /.xdg-volume-info
+[INFO] 15:02:54:589 PokedexServidoLog/(4349:4351): Nombre vale .xdg-volume-info
+[INFO] 15:02:54:589 PokedexServidoLog/(4349:4351): ResultadoOsada: 0
+[INFO] 15:02:54:590 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:54:629 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /autorun.inf
+[INFO] 15:02:54:629 PokedexServidoLog/(4349:4351): Nombre vale autorun.inf
+[INFO] 15:02:54:629 PokedexServidoLog/(4349:4351): ResultadoOsada: 0
+[INFO] 15:02:54:647 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:54:685 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:54:737 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:54:777 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pokemons
+[INFO] 15:02:54:777 PokedexServidoLog/(4349:4351): Nombre vale Pokemons
+[INFO] 15:02:54:777 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:54:777 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:54:777 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:54:777 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:16:13 2016
+
+[INFO] 15:02:54:858 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:54:897 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Celadon City
+[INFO] 15:02:54:897 PokedexServidoLog/(4349:4351): Nombre vale Celadon City
+[INFO] 15:02:54:897 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:54:897 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:54:897 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:54:897 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:54:898 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:54:937 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /README.txt
+[INFO] 15:02:54:937 PokedexServidoLog/(4349:4351): Nombre vale README.txt
+[INFO] 15:02:54:937 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:54:937 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:02:54:937 PokedexServidoLog/(4349:4351): getAttr->file_size: 556
+[INFO] 15:02:54:937 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:27:44 2016
+
+[INFO] 15:02:54:979 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:55:17 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Cerulean City
+[INFO] 15:02:55:17 PokedexServidoLog/(4349:4351): Nombre vale Cerulean City
+[INFO] 15:02:55:17 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:17 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:55:17 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:55:17 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:55:61 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:55:97 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Fuchsia City
+[INFO] 15:02:55:97 PokedexServidoLog/(4349:4351): Nombre vale Fuchsia City
+[INFO] 15:02:55:97 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:97 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:55:97 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:55:97 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:55:140 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:55:177 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Lavender Town
+[INFO] 15:02:55:177 PokedexServidoLog/(4349:4351): Nombre vale Lavender Town
+[INFO] 15:02:55:177 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:177 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:55:177 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:55:177 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:55:219 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:55:257 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pallet Town
+[INFO] 15:02:55:257 PokedexServidoLog/(4349:4351): Nombre vale Pallet Town
+[INFO] 15:02:55:257 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:257 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:55:257 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:55:257 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:55:299 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:55:337 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pewter City
+[INFO] 15:02:55:338 PokedexServidoLog/(4349:4351): Nombre vale Pewter City
+[INFO] 15:02:55:338 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:338 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:55:338 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:55:338 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:55:379 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:55:417 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Saffron City
+[INFO] 15:02:55:418 PokedexServidoLog/(4349:4351): Nombre vale Saffron City
+[INFO] 15:02:55:418 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:418 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:55:418 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:55:418 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:55:459 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:55:497 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Vermilion City
+[INFO] 15:02:55:497 PokedexServidoLog/(4349:4351): Nombre vale Vermilion City
+[INFO] 15:02:55:497 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:497 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:55:497 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:55:497 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:55:539 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:55:577 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Viridian City
+[INFO] 15:02:55:577 PokedexServidoLog/(4349:4351): Nombre vale Viridian City
+[INFO] 15:02:55:577 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:577 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:55:577 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:55:577 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:55:627 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:55:665 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:55:715 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:55:753 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:55:803 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:55:841 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:55:888 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:55:925 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pokemons
+[INFO] 15:02:55:925 PokedexServidoLog/(4349:4351): Nombre vale Pokemons
+[INFO] 15:02:55:925 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:55:925 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:55:925 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:55:925 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:16:13 2016
+
+[INFO] 15:02:55:968 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:56:5 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Celadon City
+[INFO] 15:02:56:5 PokedexServidoLog/(4349:4351): Nombre vale Celadon City
+[INFO] 15:02:56:5 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:5 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:56:5 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:56:5 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:56:46 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:56:85 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /README.txt
+[INFO] 15:02:56:85 PokedexServidoLog/(4349:4351): Nombre vale README.txt
+[INFO] 15:02:56:85 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:85 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:02:56:85 PokedexServidoLog/(4349:4351): getAttr->file_size: 556
+[INFO] 15:02:56:85 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:27:44 2016
+
+[INFO] 15:02:56:127 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:56:165 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Cerulean City
+[INFO] 15:02:56:165 PokedexServidoLog/(4349:4351): Nombre vale Cerulean City
+[INFO] 15:02:56:165 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:165 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:56:165 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:56:165 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:56:207 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:56:245 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Fuchsia City
+[INFO] 15:02:56:245 PokedexServidoLog/(4349:4351): Nombre vale Fuchsia City
+[INFO] 15:02:56:245 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:245 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:56:245 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:56:245 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:56:287 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:56:325 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Lavender Town
+[INFO] 15:02:56:325 PokedexServidoLog/(4349:4351): Nombre vale Lavender Town
+[INFO] 15:02:56:325 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:325 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:56:325 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:56:325 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:56:367 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:56:405 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pallet Town
+[INFO] 15:02:56:405 PokedexServidoLog/(4349:4351): Nombre vale Pallet Town
+[INFO] 15:02:56:405 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:405 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:56:405 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:56:405 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:56:447 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:56:485 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pewter City
+[INFO] 15:02:56:485 PokedexServidoLog/(4349:4351): Nombre vale Pewter City
+[INFO] 15:02:56:485 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:485 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:56:485 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:56:485 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:56:527 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:56:565 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Saffron City
+[INFO] 15:02:56:565 PokedexServidoLog/(4349:4351): Nombre vale Saffron City
+[INFO] 15:02:56:565 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:565 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:56:565 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:56:565 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:56:607 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:56:645 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Vermilion City
+[INFO] 15:02:56:645 PokedexServidoLog/(4349:4351): Nombre vale Vermilion City
+[INFO] 15:02:56:645 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:645 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:56:645 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:56:645 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:56:687 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:56:725 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Viridian City
+[INFO] 15:02:56:725 PokedexServidoLog/(4349:4351): Nombre vale Viridian City
+[INFO] 15:02:56:725 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:725 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:56:725 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:56:725 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:56:769 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:56:809 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:56:859 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:56:897 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:56:940 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:56:977 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:57:20 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:57 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pokemons
+[INFO] 15:02:57:57 PokedexServidoLog/(4349:4351): Nombre vale Pokemons
+[INFO] 15:02:57:57 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:57 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:57:57 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:57:57 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:16:13 2016
+
+[INFO] 15:02:57:98 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:137 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Celadon City
+[INFO] 15:02:57:137 PokedexServidoLog/(4349:4351): Nombre vale Celadon City
+[INFO] 15:02:57:137 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:137 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:57:137 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:57:137 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:57:178 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:217 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /README.txt
+[INFO] 15:02:57:217 PokedexServidoLog/(4349:4351): Nombre vale README.txt
+[INFO] 15:02:57:217 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:217 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:02:57:217 PokedexServidoLog/(4349:4351): getAttr->file_size: 556
+[INFO] 15:02:57:217 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:27:44 2016
+
+[INFO] 15:02:57:258 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:297 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Cerulean City
+[INFO] 15:02:57:297 PokedexServidoLog/(4349:4351): Nombre vale Cerulean City
+[INFO] 15:02:57:297 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:297 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:57:297 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:57:297 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:57:339 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:377 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Fuchsia City
+[INFO] 15:02:57:377 PokedexServidoLog/(4349:4351): Nombre vale Fuchsia City
+[INFO] 15:02:57:377 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:377 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:57:377 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:57:377 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:57:418 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:457 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Lavender Town
+[INFO] 15:02:57:457 PokedexServidoLog/(4349:4351): Nombre vale Lavender Town
+[INFO] 15:02:57:457 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:457 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:57:457 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:57:457 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:57:498 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:538 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pallet Town
+[INFO] 15:02:57:538 PokedexServidoLog/(4349:4351): Nombre vale Pallet Town
+[INFO] 15:02:57:538 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:538 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:57:538 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:57:538 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:57:579 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:617 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pewter City
+[INFO] 15:02:57:617 PokedexServidoLog/(4349:4351): Nombre vale Pewter City
+[INFO] 15:02:57:617 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:617 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:57:617 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:57:617 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:57:659 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:697 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Saffron City
+[INFO] 15:02:57:697 PokedexServidoLog/(4349:4351): Nombre vale Saffron City
+[INFO] 15:02:57:697 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:697 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:57:697 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:57:697 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:57:739 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:777 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Vermilion City
+[INFO] 15:02:57:777 PokedexServidoLog/(4349:4351): Nombre vale Vermilion City
+[INFO] 15:02:57:777 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:777 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:57:777 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:57:777 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:57:819 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:57:857 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Viridian City
+[INFO] 15:02:57:857 PokedexServidoLog/(4349:4351): Nombre vale Viridian City
+[INFO] 15:02:57:857 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:857 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:57:857 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:57:857 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:57:902 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:57:941 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:57:942 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:57:942 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:57:942 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:57:942 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:57:942 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:57:942 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:57:942 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:57:985 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:58:25 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:58:69 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:58:109 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:58:152 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:189 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pokemons
+[INFO] 15:02:58:189 PokedexServidoLog/(4349:4351): Nombre vale Pokemons
+[INFO] 15:02:58:189 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:189 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:58:189 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:58:189 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:16:13 2016
+
+[INFO] 15:02:58:230 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:269 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Celadon City
+[INFO] 15:02:58:269 PokedexServidoLog/(4349:4351): Nombre vale Celadon City
+[INFO] 15:02:58:269 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:269 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:58:269 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:58:269 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:58:310 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:349 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /README.txt
+[INFO] 15:02:58:349 PokedexServidoLog/(4349:4351): Nombre vale README.txt
+[INFO] 15:02:58:349 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:349 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:02:58:349 PokedexServidoLog/(4349:4351): getAttr->file_size: 556
+[INFO] 15:02:58:349 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:27:44 2016
+
+[INFO] 15:02:58:391 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:429 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Cerulean City
+[INFO] 15:02:58:429 PokedexServidoLog/(4349:4351): Nombre vale Cerulean City
+[INFO] 15:02:58:429 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:429 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:58:429 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:58:429 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:58:470 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:509 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Fuchsia City
+[INFO] 15:02:58:509 PokedexServidoLog/(4349:4351): Nombre vale Fuchsia City
+[INFO] 15:02:58:509 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:509 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:58:509 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:58:509 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:58:551 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:589 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Lavender Town
+[INFO] 15:02:58:589 PokedexServidoLog/(4349:4351): Nombre vale Lavender Town
+[INFO] 15:02:58:589 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:589 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:58:589 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:58:589 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:58:631 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:670 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pallet Town
+[INFO] 15:02:58:670 PokedexServidoLog/(4349:4351): Nombre vale Pallet Town
+[INFO] 15:02:58:670 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:670 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:58:670 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:58:670 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:58:711 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:749 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pewter City
+[INFO] 15:02:58:749 PokedexServidoLog/(4349:4351): Nombre vale Pewter City
+[INFO] 15:02:58:749 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:749 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:58:749 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:58:749 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:58:791 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:829 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Saffron City
+[INFO] 15:02:58:829 PokedexServidoLog/(4349:4351): Nombre vale Saffron City
+[INFO] 15:02:58:829 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:829 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:58:829 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:58:829 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:58:872 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:909 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Vermilion City
+[INFO] 15:02:58:909 PokedexServidoLog/(4349:4351): Nombre vale Vermilion City
+[INFO] 15:02:58:909 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:909 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:58:909 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:58:909 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:58:951 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:58:989 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Viridian City
+[INFO] 15:02:58:989 PokedexServidoLog/(4349:4351): Nombre vale Viridian City
+[INFO] 15:02:58:989 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:58:989 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:58:989 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:58:989 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:59:34 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:59:73 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:59:122 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:59:161 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:59:210 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:249 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:02:59:250 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:02:59:296 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:59:333 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pokemons
+[INFO] 15:02:59:333 PokedexServidoLog/(4349:4351): Nombre vale Pokemons
+[INFO] 15:02:59:333 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:333 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:59:333 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:59:333 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:16:13 2016
+
+[INFO] 15:02:59:375 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:59:413 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Celadon City
+[INFO] 15:02:59:413 PokedexServidoLog/(4349:4351): Nombre vale Celadon City
+[INFO] 15:02:59:413 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:413 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:59:413 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:59:413 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:59:455 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:59:493 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /README.txt
+[INFO] 15:02:59:493 PokedexServidoLog/(4349:4351): Nombre vale README.txt
+[INFO] 15:02:59:493 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:493 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:02:59:493 PokedexServidoLog/(4349:4351): getAttr->file_size: 556
+[INFO] 15:02:59:493 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:27:44 2016
+
+[INFO] 15:02:59:536 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:59:573 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Cerulean City
+[INFO] 15:02:59:573 PokedexServidoLog/(4349:4351): Nombre vale Cerulean City
+[INFO] 15:02:59:573 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:573 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:59:573 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:59:573 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:59:615 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:59:654 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Fuchsia City
+[INFO] 15:02:59:654 PokedexServidoLog/(4349:4351): Nombre vale Fuchsia City
+[INFO] 15:02:59:654 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:654 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:59:654 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:59:654 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:59:694 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:59:733 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Lavender Town
+[INFO] 15:02:59:733 PokedexServidoLog/(4349:4351): Nombre vale Lavender Town
+[INFO] 15:02:59:733 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:733 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:59:733 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:59:733 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:59:775 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:59:813 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pallet Town
+[INFO] 15:02:59:813 PokedexServidoLog/(4349:4351): Nombre vale Pallet Town
+[INFO] 15:02:59:813 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:813 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:59:813 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:59:813 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:59:855 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:59:893 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pewter City
+[INFO] 15:02:59:893 PokedexServidoLog/(4349:4351): Nombre vale Pewter City
+[INFO] 15:02:59:893 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:893 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:59:893 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:59:893 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:02:59:935 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:02:59:973 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Saffron City
+[INFO] 15:02:59:973 PokedexServidoLog/(4349:4351): Nombre vale Saffron City
+[INFO] 15:02:59:973 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:02:59:973 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:02:59:973 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:02:59:973 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:00:15 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:00:53 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Vermilion City
+[INFO] 15:03:00:53 PokedexServidoLog/(4349:4351): Nombre vale Vermilion City
+[INFO] 15:03:00:53 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:53 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:00:53 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:00:53 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:00:95 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:00:133 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Viridian City
+[INFO] 15:03:00:133 PokedexServidoLog/(4349:4351): Nombre vale Viridian City
+[INFO] 15:03:00:133 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:133 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:00:133 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:00:133 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:00:179 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:03:00:217 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:03:00:266 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:03:00:305 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:03:00:354 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:03:00:394 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:03:00:439 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:00:477 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pokemons
+[INFO] 15:03:00:477 PokedexServidoLog/(4349:4351): Nombre vale Pokemons
+[INFO] 15:03:00:477 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:477 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:00:477 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:00:477 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:16:13 2016
+
+[INFO] 15:03:00:519 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:00:557 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Celadon City
+[INFO] 15:03:00:557 PokedexServidoLog/(4349:4351): Nombre vale Celadon City
+[INFO] 15:03:00:557 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:557 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:00:557 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:00:557 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:00:599 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:00:637 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /README.txt
+[INFO] 15:03:00:637 PokedexServidoLog/(4349:4351): Nombre vale README.txt
+[INFO] 15:03:00:637 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:637 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:03:00:637 PokedexServidoLog/(4349:4351): getAttr->file_size: 556
+[INFO] 15:03:00:637 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:27:44 2016
+
+[INFO] 15:03:00:680 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:00:717 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Cerulean City
+[INFO] 15:03:00:717 PokedexServidoLog/(4349:4351): Nombre vale Cerulean City
+[INFO] 15:03:00:717 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:717 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:00:717 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:00:717 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:00:760 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:00:797 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Fuchsia City
+[INFO] 15:03:00:797 PokedexServidoLog/(4349:4351): Nombre vale Fuchsia City
+[INFO] 15:03:00:797 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:797 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:00:797 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:00:797 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:00:839 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:00:877 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Lavender Town
+[INFO] 15:03:00:877 PokedexServidoLog/(4349:4351): Nombre vale Lavender Town
+[INFO] 15:03:00:877 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:877 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:00:877 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:00:877 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:00:919 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:00:957 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pallet Town
+[INFO] 15:03:00:957 PokedexServidoLog/(4349:4351): Nombre vale Pallet Town
+[INFO] 15:03:00:957 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:00:957 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:00:957 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:00:957 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:00:1 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:01:37 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pewter City
+[INFO] 15:03:01:37 PokedexServidoLog/(4349:4351): Nombre vale Pewter City
+[INFO] 15:03:01:37 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:37 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:01:37 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:01:37 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:01:79 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:01:117 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Saffron City
+[INFO] 15:03:01:117 PokedexServidoLog/(4349:4351): Nombre vale Saffron City
+[INFO] 15:03:01:117 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:117 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:01:117 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:01:117 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:01:159 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:01:197 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Vermilion City
+[INFO] 15:03:01:197 PokedexServidoLog/(4349:4351): Nombre vale Vermilion City
+[INFO] 15:03:01:197 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:197 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:01:197 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:01:197 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:01:239 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:01:277 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Viridian City
+[INFO] 15:03:01:277 PokedexServidoLog/(4349:4351): Nombre vale Viridian City
+[INFO] 15:03:01:277 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:277 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:01:277 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:01:277 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:01:322 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:03:01:361 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:03:01:410 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:03:01:449 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:03:01:498 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:03:01:537 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:03:01:538 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:03:01:584 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:01:621 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pokemons
+[INFO] 15:03:01:621 PokedexServidoLog/(4349:4351): Nombre vale Pokemons
+[INFO] 15:03:01:621 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:621 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:01:621 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:01:621 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:16:13 2016
+
+[INFO] 15:03:01:663 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:01:701 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Celadon City
+[INFO] 15:03:01:701 PokedexServidoLog/(4349:4351): Nombre vale Celadon City
+[INFO] 15:03:01:701 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:701 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:01:701 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:01:701 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:01:743 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:01:781 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /README.txt
+[INFO] 15:03:01:781 PokedexServidoLog/(4349:4351): Nombre vale README.txt
+[INFO] 15:03:01:781 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:781 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:03:01:781 PokedexServidoLog/(4349:4351): getAttr->file_size: 556
+[INFO] 15:03:01:781 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:27:44 2016
+
+[INFO] 15:03:01:823 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:01:861 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Cerulean City
+[INFO] 15:03:01:861 PokedexServidoLog/(4349:4351): Nombre vale Cerulean City
+[INFO] 15:03:01:861 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:861 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:01:861 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:01:861 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:01:903 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:01:941 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Fuchsia City
+[INFO] 15:03:01:941 PokedexServidoLog/(4349:4351): Nombre vale Fuchsia City
+[INFO] 15:03:01:941 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:01:941 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:01:941 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:01:941 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:01:983 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:02:21 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Lavender Town
+[INFO] 15:03:02:21 PokedexServidoLog/(4349:4351): Nombre vale Lavender Town
+[INFO] 15:03:02:21 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:21 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:02:21 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:02:21 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:02:63 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:02:101 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pallet Town
+[INFO] 15:03:02:101 PokedexServidoLog/(4349:4351): Nombre vale Pallet Town
+[INFO] 15:03:02:101 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:101 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:02:101 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:02:101 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:02:143 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:02:181 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pewter City
+[INFO] 15:03:02:181 PokedexServidoLog/(4349:4351): Nombre vale Pewter City
+[INFO] 15:03:02:181 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:181 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:02:181 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:02:181 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:02:223 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:02:261 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Saffron City
+[INFO] 15:03:02:261 PokedexServidoLog/(4349:4351): Nombre vale Saffron City
+[INFO] 15:03:02:261 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:261 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:02:261 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:02:261 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:02:303 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:02:341 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Vermilion City
+[INFO] 15:03:02:341 PokedexServidoLog/(4349:4351): Nombre vale Vermilion City
+[INFO] 15:03:02:341 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:341 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:02:341 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:02:341 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:02:384 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:02:421 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Viridian City
+[INFO] 15:03:02:421 PokedexServidoLog/(4349:4351): Nombre vale Viridian City
+[INFO] 15:03:02:421 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:421 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:02:421 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:02:421 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:02:466 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:03:02:505 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:03:02:554 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:03:02:593 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:03:02:654 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:03:02:693 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:03:02:738 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:02:777 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:02:778 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:778 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:02:778 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:02:778 PokedexServidoLog/(4349:4351): Fecha: Wed Jan  9 02:46:29 1924
+
+[INFO] 15:03:02:819 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:02:857 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:02:857 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:857 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:02:857 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:02:857 PokedexServidoLog/(4349:4351): Fecha: Wed Jan  9 02:46:29 1924
+
+[INFO] 15:03:02:898 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:02:937 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pokemons
+[INFO] 15:03:02:937 PokedexServidoLog/(4349:4351): Nombre vale Pokemons
+[INFO] 15:03:02:937 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:02:937 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:02:937 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:02:937 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:16:13 2016
+
+[INFO] 15:03:02:980 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:18 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Celadon City
+[INFO] 15:03:03:18 PokedexServidoLog/(4349:4351): Nombre vale Celadon City
+[INFO] 15:03:03:18 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:03:18 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:03:18 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:03:18 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:03:59 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: STATF
+[INFO] 15:03:03:97 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:03:143 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: STATF
+[INFO] 15:03:03:181 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:03:222 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:261 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /README.txt
+[INFO] 15:03:03:261 PokedexServidoLog/(4349:4351): Nombre vale README.txt
+[INFO] 15:03:03:261 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:03:261 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:03:03:261 PokedexServidoLog/(4349:4351): getAttr->file_size: 556
+[INFO] 15:03:03:261 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:27:44 2016
+
+[INFO] 15:03:03:303 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:341 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Cerulean City
+[INFO] 15:03:03:341 PokedexServidoLog/(4349:4351): Nombre vale Cerulean City
+[INFO] 15:03:03:341 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:03:341 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:03:341 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:03:341 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:03:384 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:421 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Fuchsia City
+[INFO] 15:03:03:421 PokedexServidoLog/(4349:4351): Nombre vale Fuchsia City
+[INFO] 15:03:03:421 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:03:421 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:03:421 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:03:421 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:03:464 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:501 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Lavender Town
+[INFO] 15:03:03:501 PokedexServidoLog/(4349:4351): Nombre vale Lavender Town
+[INFO] 15:03:03:501 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:03:501 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:03:501 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:03:501 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:03:543 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:581 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pallet Town
+[INFO] 15:03:03:581 PokedexServidoLog/(4349:4351): Nombre vale Pallet Town
+[INFO] 15:03:03:581 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:03:581 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:03:581 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:03:581 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:03:623 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:661 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pewter City
+[INFO] 15:03:03:661 PokedexServidoLog/(4349:4351): Nombre vale Pewter City
+[INFO] 15:03:03:661 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:03:661 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:03:661 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:03:661 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:03:703 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:741 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Saffron City
+[INFO] 15:03:03:741 PokedexServidoLog/(4349:4351): Nombre vale Saffron City
+[INFO] 15:03:03:741 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:03:741 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:03:741 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:03:741 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:03:784 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:821 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Vermilion City
+[INFO] 15:03:03:821 PokedexServidoLog/(4349:4351): Nombre vale Vermilion City
+[INFO] 15:03:03:821 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:03:821 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:03:821 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:03:821 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:03:864 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:901 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Viridian City
+[INFO] 15:03:03:901 PokedexServidoLog/(4349:4351): Nombre vale Viridian City
+[INFO] 15:03:03:901 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:03:901 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:03:901 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:03:901 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:03:945 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:03:981 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /autorun.inf
+[INFO] 15:03:03:981 PokedexServidoLog/(4349:4351): Nombre vale autorun.inf
+[INFO] 15:03:03:981 PokedexServidoLog/(4349:4351): ResultadoOsada: 0
+[INFO] 15:03:08:91 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:08:129 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:08:129 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:08:129 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:08:129 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:08:129 PokedexServidoLog/(4349:4351): Fecha: Wed Jan  9 02:46:29 1924
+
+[INFO] 15:03:09:526 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: READD
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pokemons
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Celadon City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios README.txt
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Cerulean City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Fuchsia City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Lavender Town
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pallet Town
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Pewter City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Saffron City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Vermilion City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Agrego a la lista de directorios Viridian City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): list_size: 11
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: Pokemons
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: Celadon City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: README.txt
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: Cerulean City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: Fuchsia City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: Lavender Town
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: Pallet Town
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: Pewter City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: Saffron City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: Vermilion City
+[INFO] 15:03:09:565 PokedexServidoLog/(4349:4351): Directorio: Viridian City
+[INFO] 15:03:09:568 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:09:605 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pokemons
+[INFO] 15:03:09:605 PokedexServidoLog/(4349:4351): Nombre vale Pokemons
+[INFO] 15:03:09:605 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:09:605 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:09:605 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:09:605 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:16:13 2016
+
+[INFO] 15:03:09:647 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:09:685 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Celadon City
+[INFO] 15:03:09:685 PokedexServidoLog/(4349:4351): Nombre vale Celadon City
+[INFO] 15:03:09:685 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:09:685 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:09:685 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:09:685 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:09:727 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:09:765 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /README.txt
+[INFO] 15:03:09:765 PokedexServidoLog/(4349:4351): Nombre vale README.txt
+[INFO] 15:03:09:765 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:09:765 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:03:09:765 PokedexServidoLog/(4349:4351): getAttr->file_size: 556
+[INFO] 15:03:09:765 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:27:44 2016
+
+[INFO] 15:03:09:808 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:09:845 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Cerulean City
+[INFO] 15:03:09:845 PokedexServidoLog/(4349:4351): Nombre vale Cerulean City
+[INFO] 15:03:09:845 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:09:845 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:09:845 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:09:845 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:09:887 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:09:926 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Fuchsia City
+[INFO] 15:03:09:926 PokedexServidoLog/(4349:4351): Nombre vale Fuchsia City
+[INFO] 15:03:09:926 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:09:926 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:09:926 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:09:926 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:09:967 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:10:5 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Lavender Town
+[INFO] 15:03:10:5 PokedexServidoLog/(4349:4351): Nombre vale Lavender Town
+[INFO] 15:03:10:5 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:10:5 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:10:5 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:10:5 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:10:47 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:10:85 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pallet Town
+[INFO] 15:03:10:85 PokedexServidoLog/(4349:4351): Nombre vale Pallet Town
+[INFO] 15:03:10:85 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:10:85 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:10:85 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:10:85 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:10:128 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:10:166 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Pewter City
+[INFO] 15:03:10:166 PokedexServidoLog/(4349:4351): Nombre vale Pewter City
+[INFO] 15:03:10:166 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:10:166 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:10:166 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:10:166 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:10:207 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:10:245 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Saffron City
+[INFO] 15:03:10:245 PokedexServidoLog/(4349:4351): Nombre vale Saffron City
+[INFO] 15:03:10:245 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:10:245 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:10:245 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:10:245 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:10:287 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:10:325 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Vermilion City
+[INFO] 15:03:10:325 PokedexServidoLog/(4349:4351): Nombre vale Vermilion City
+[INFO] 15:03:10:325 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:10:325 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:10:325 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:10:325 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:10:367 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:10:405 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /Viridian City
+[INFO] 15:03:10:405 PokedexServidoLog/(4349:4351): Nombre vale Viridian City
+[INFO] 15:03:10:405 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:10:405 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:10:405 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:10:405 PokedexServidoLog/(4349:4351): Fecha: Wed Sep 28 12:30:39 2016
+
+[INFO] 15:03:12:965 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:12:1 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:12:1 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:12:1 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:12:1 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:12:1 PokedexServidoLog/(4349:4351): Fecha: Wed Jan  9 02:46:29 1924
+
+[INFO] 15:03:12:3 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:13:42 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola
+[INFO] 15:03:13:42 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:13:42 PokedexServidoLog/(4349:4351): ResultadoOsada: 0
+[INFO] 15:03:13:45 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: MKDIR
+[INFO] 15:03:13:85 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola
+[INFO] 15:03:13:85 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:13:85 PokedexServidoLog/(4349:4351): El indice del fileExist es: -1
+[INFO] 15:03:13:85 PokedexServidoLog/(4349:4351): El string_length del fileName es: 4
+[INFO] 15:03:13:85 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:13 2016
+
+[INFO] 15:03:13:85 PokedexServidoLog/(4349:4351): La variable guardado es: 1
+[INFO] 15:03:13:85 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:13:87 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:13:125 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola
+[INFO] 15:03:13:125 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:13:125 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:13:125 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:13:125 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:13:125 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:13 2016
+
+[INFO] 15:03:14:981 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:15:21 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:15:21 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:15:21 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:15:21 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:15:21 PokedexServidoLog/(4349:4351): Fecha: Wed Jan  9 02:46:29 1924
+
+[INFO] 15:03:15:22 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:15:61 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola
+[INFO] 15:03:15:61 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:15:61 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:15:61 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:15:61 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:15:61 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:13 2016
+
+[INFO] 15:03:21:245 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:21:285 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola
+[INFO] 15:03:21:285 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:21:285 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:21:285 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:21:285 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:21:285 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:13 2016
+
+[INFO] 15:03:21:287 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:21:325 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola/hola.txt
+[INFO] 15:03:21:325 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:21:325 PokedexServidoLog/(4349:4351): Nombre vale hola.txt
+[INFO] 15:03:21:325 PokedexServidoLog/(4349:4351): ResultadoOsada: 0
+[INFO] 15:03:21:328 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: CREAT
+[INFO] 15:03:21:365 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola/hola.txt
+[INFO] 15:03:21:365 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:21:365 PokedexServidoLog/(4349:4351): Nombre vale hola.txt
+[INFO] 15:03:21:365 PokedexServidoLog/(4349:4351): El indice del fileExist es: -1
+[INFO] 15:03:21:365 PokedexServidoLog/(4349:4351): El string_length del fileName es: 8
+[INFO] 15:03:21:365 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:21 2016
+
+[INFO] 15:03:21:365 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:21:365 PokedexServidoLog/(4349:4351): La variable guardado es: 1
+[INFO] 15:03:21:365 PokedexServidoLog/(4349:4351): ResultadoOsada 1
+[INFO] 15:03:21:367 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:21:405 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola/hola.txt
+[INFO] 15:03:21:405 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:21:405 PokedexServidoLog/(4349:4351): Nombre vale hola.txt
+[INFO] 15:03:21:405 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:21:405 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:03:21:405 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:21:405 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:21 2016
+
+[INFO] 15:03:21:474 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:21:513 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola/hola.txt
+[INFO] 15:03:21:513 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:21:513 PokedexServidoLog/(4349:4351): Nombre vale hola.txt
+[INFO] 15:03:21:513 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:21:513 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:03:21:513 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:21:513 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:21 2016
+
+[INFO] 15:03:24:660 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:24:697 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola
+[INFO] 15:03:24:697 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:24:697 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:24:697 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:24:697 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:24:697 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:13 2016
+
+[INFO] 15:03:24:699 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:24:737 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola/hola.txt
+[INFO] 15:03:24:737 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:24:737 PokedexServidoLog/(4349:4351): Nombre vale hola.txt
+[INFO] 15:03:24:738 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:24:738 PokedexServidoLog/(4349:4351): getAttr->state: 1
+[INFO] 15:03:24:738 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:24:738 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:21 2016
+
+[INFO] 15:03:24:787 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: ULINK
+[INFO] 15:03:24:825 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola/hola.txt
+[INFO] 15:03:24:825 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:24:825 PokedexServidoLog/(4349:4351): Nombre vale hola.txt
+[INFO] 15:03:24:825 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:26:172 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:26:209 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:26:209 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:26:209 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:26:209 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:26:209 PokedexServidoLog/(4349:4351): Fecha: Wed Jan  9 02:46:29 1924
+
+[INFO] 15:03:26:210 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:26:249 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola
+[INFO] 15:03:26:249 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:26:249 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:26:249 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:26:249 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:26:249 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:13 2016
+
+[INFO] 15:03:27:869 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:27:909 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:27:909 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:27:909 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:27:909 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:27:909 PokedexServidoLog/(4349:4351): Fecha: Wed Jan  9 02:46:29 1924
+
+[INFO] 15:03:27:921 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:27:957 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola
+[INFO] 15:03:27:957 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:27:957 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:27:957 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:27:957 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:27:957 PokedexServidoLog/(4349:4351): Fecha: Fri Dec 16 15:03:13 2016
+
+[INFO] 15:03:27:4 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: RMDIR
+[INFO] 15:03:28:41 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /hola
+[INFO] 15:03:28:41 PokedexServidoLog/(4349:4351): Nombre vale hola
+[INFO] 15:03:28:41 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:30:300 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 1 - Funcion: GETAT
+[INFO] 15:03:30:337 PokedexServidoLog/(4349:4351): POKEDEXSERVER - 2 - Path: /
+[INFO] 15:03:30:337 PokedexServidoLog/(4349:4351): ResultadoOsada: 1
+[INFO] 15:03:30:337 PokedexServidoLog/(4349:4351): getAttr->state: 2
+[INFO] 15:03:30:337 PokedexServidoLog/(4349:4351): getAttr->file_size: 0
+[INFO] 15:03:30:337 PokedexServidoLog/(4349:4351): Fecha: Wed Jan  9 02:46:29 1924
+
+[INFO] 15:03:32:481 PokedexServidoLog/(4349:4351): POKEDEXSERVER - Se cerro la conexion
