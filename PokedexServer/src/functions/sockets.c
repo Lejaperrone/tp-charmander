@@ -60,21 +60,31 @@ int sendString(int clientSocket, char* parameter, int size){
 		if(send(clientSocket, parameter, size, 0) == size){
 			free(sizeStr);
 			return 1;
+		}else{
+			free(sizeStr);
 		}
+	}else{
+		free(sizeStr);
 	}
-	free(sizeStr);
 	return 0;
 }
 int recvString(int clientSocket, char** string){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(clientSocket, sizeStr, 11,  0) == 11){
 		int size = atoi(sizeStr);
+		free(sizeStr);
 		char* temp=malloc(sizeof(char)*size);
 		if (recv(clientSocket, temp, size,  0) == size){
 			*string = string_substring(temp,0,size);
+			free(temp);
 			return 1;
+		}else{
+			free(temp);
 		}
+	}else{
+		free(sizeStr);
 	}
+
 	return 0;
 }
 
@@ -128,9 +138,12 @@ int recvValue(int clientSocket, void* buffer){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(clientSocket, sizeStr, 11,  0) == 11){
 		int size = atoi(sizeStr);
+		free(sizeStr);
 		if (recv(clientSocket, buffer, size,  0) == size){
 			return 1;
 		}
+	}else{
+		free(sizeStr);
 	}
 	return 0;
 }
@@ -139,9 +152,11 @@ int recvInt(int clientSocket){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(clientSocket, sizeStr, 11,  0) == 11){
 		int size = atoi(sizeStr);
+		free(sizeStr);
 		return size;
+	}else{
+		free(sizeStr);
 	}
-
 	return -1;
 }
 int sendInt(int clientSocket, int number){
@@ -151,8 +166,9 @@ int sendInt(int clientSocket, int number){
 	if(send(clientSocket, numberStr, 11, 0) == 11){
 		free(numberStr);
 		return 1;
+	}else{
+		free(numberStr);
 	}
-	free(numberStr);
 	return 0;
 }
 

@@ -276,7 +276,7 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 
 
 	if(indice != -1){
-		//mutex_lockFile(indice);
+		mutex_lockFileTA(indice);
 			int bloque=osada_drive.directorio[indice].first_block;
 			log_info(logPokedexServer, "OSADA - TABLA DE ARCHIVOS: El primer bloque de %s es: %d\n",path, bloque);
 			double desplazamientoHastaElBloque=floor(offset/OSADA_BLOCK_SIZE);
@@ -340,6 +340,6 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 		return -ENOENT;
 	}
 
-	//mutex_unlockFile(indice);
+	mutex_unlockFileTA(indice);
 	return bytesEscritos;
 }

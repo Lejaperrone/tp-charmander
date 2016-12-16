@@ -11,5 +11,7 @@
 void mutex_init();
 void mutex_lockFile(int indice);
 void mutex_unlockFile(int indice);
+void mutex_lockFileTA(int indice);
+void mutex_unlockFileTA(int indice);
 
 #endif /* OSADA_FUNCTIONS_MUTEX_H_ */
