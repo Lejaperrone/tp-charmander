@@ -32,6 +32,7 @@ int sendValue(void* parameter, int size){
 			return 1;
 		}
 	}
+	free(sizeStr);
 	return 0;
 }
 

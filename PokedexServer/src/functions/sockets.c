@@ -148,9 +148,10 @@ int recvInt(int clientSocket){
 	char* sizeStr = malloc(sizeof(char)*11);
 	if (recv(clientSocket, sizeStr, 11,  0) == 11){
 		int size = atoi(sizeStr);
+		free(sizeStr);
 		return size;
 	}
-
+	free(sizeStr);
 	return -1;
 }
 int sendInt(int clientSocket, int number){
