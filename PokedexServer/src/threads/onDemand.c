@@ -115,6 +115,7 @@ void proce_readfile(int clientSocket, char* path){
 		sendBufferParaRead(clientSocket, bufParaElRead, resultadoOsada);
 	}
 	free(bufParaElRead);
+	free(path);
 }
 
 void proce_create(int clientSocket, char* path){
