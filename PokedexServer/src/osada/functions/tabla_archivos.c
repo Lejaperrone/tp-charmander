@@ -55,7 +55,7 @@ int osada_TA_obtenerIndiceTA(char* path){
 			if(newChildOf>=0){
 				childOf = newChildOf;
 			}else{
-				free(dirc[i]);
+				free(dirc[i]);	//ESTE FREE ESTA BIEN QUE TAMBIEN VAYA ACA? Porque antes no estaba
 				return -1;
 			}
 			free(dirc[i]);

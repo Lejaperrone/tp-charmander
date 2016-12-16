@@ -60,9 +60,12 @@ int sendString(int clientSocket, char* parameter, int size){
 		if(send(clientSocket, parameter, size, 0) == size){
 			free(sizeStr);
 			return 1;
+		}else{
+			free(sizeStr);
 		}
+	}else{
+		free(sizeStr);
 	}
-	free(sizeStr);
 	return 0;
 }
 int recvString(int clientSocket, char** string){
@@ -139,8 +142,9 @@ int recvValue(int clientSocket, void* buffer){
 		if (recv(clientSocket, buffer, size,  0) == size){
 			return 1;
 		}
+	}else{
+		free(sizeStr);
 	}
-	free(sizeStr);
 	return 0;
 }
 
@@ -150,8 +154,9 @@ int recvInt(int clientSocket){
 		int size = atoi(sizeStr);
 		free(sizeStr);
 		return size;
+	}else{
+		free(sizeStr);
 	}
-	free(sizeStr);
 	return -1;
 }
 int sendInt(int clientSocket, int number){
@@ -161,8 +166,9 @@ int sendInt(int clientSocket, int number){
 	if(send(clientSocket, numberStr, 11, 0) == 11){
 		free(numberStr);
 		return 1;
+	}else{
+		free(numberStr);
 	}
-	free(numberStr);
 	return 0;
 }
 
