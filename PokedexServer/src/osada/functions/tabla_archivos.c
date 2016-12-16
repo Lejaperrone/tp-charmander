@@ -55,6 +55,7 @@ int osada_TA_obtenerIndiceTA(char* path){
 			if(newChildOf>=0){
 				childOf = newChildOf;
 			}else{
+				free(dirc[i]);
 				return -1;
 			}
 			free(dirc[i]);
