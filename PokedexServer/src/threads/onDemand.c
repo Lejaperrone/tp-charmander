@@ -258,6 +258,8 @@ void* procesarPeticiones(t_hilo* h){
 
 
 	}
+	log_info(logPokedexServer, "Se cerro la conexion.");
+	printf("Se cerro la conexion");
 	free(nombreFuncion);
 	return NULL;
 }
