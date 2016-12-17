@@ -218,10 +218,11 @@ void proce_statfs(int clientSocket, char* path){
 }
 
 void* procesarPeticiones(t_hilo* h){
+	int sigo = 1;
 	printf("Se conecto %d\n", h->id);
 	char* nombreFuncion=string_new(); //LEAK!! a pesar de que este liberado
 
-	while(recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
+	while(sigo==1 && recibirNombreDeLaFuncion(h->socket,nombreFuncion)){
 		log_info(logPokedexServer,"POKEDEXSERVER - 1 - Funcion: %s", nombreFuncion);
 
 		char* path=string_new();
@@ -253,11 +254,12 @@ void* procesarPeticiones(t_hilo* h){
 		}else if(string_equals_ignore_case(nombreFuncion, "STATF")){
 			proce_statfs(h->socket, path);
 		}else{
+			sigo=0;
 			log_info(logPokedexServer, "Funcion desconocida");
 		}
-
-
 	}
+	close(h->socket);
+
 	log_info(logPokedexServer, "Se cerro la conexion.");
 	printf("Se cerro la conexion");
 	free(nombreFuncion);
