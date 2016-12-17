@@ -43,9 +43,9 @@ void osada_B_findFreeBlock(int* lugarLibre){
 int osada_B_cantBloquesLibres(){
 	int t=bitarray_get_max_bit(osada_drive.bitmap);
 	int i,tot=0;
-	int offsetAsignaciones = (osada_drive.header->fs_blocks - 1024 - 1 - osada_drive.header->bitmap_blocks) * 4 / OSADA_BLOCK_SIZE;
-	int inicioDatos =  osada_drive.header->bitmap_blocks + 1024 + 1 + offsetAsignaciones;
-	for (i=inicioDatos;i<t;i++){
+	//int offsetAsignaciones = (osada_drive.header->fs_blocks - 1024 - 1 - osada_drive.header->bitmap_blocks) * 4 / OSADA_BLOCK_SIZE;
+	//int inicioDatos =  osada_drive.header->bitmap_blocks + 1024 + 1 + offsetAsignaciones;
+	for (i=0;i<t;i++){
 		if (!bitarray_test_bit(osada_drive.bitmap,i)){
 			tot++;
 		}
