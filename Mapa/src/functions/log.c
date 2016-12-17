@@ -12,10 +12,13 @@
 #include <commons/string.h>
 
 t_log* crearArchivoLog() {
+	char* path = string_new();
+	string_append(&path, "logsMapa");
+	string_append(&path, name);
 
-	remove("logsMapa");
+	remove(path);
 
-	t_log* logs = log_create("logsMapa", "MapaLog", 0, LOG_LEVEL_TRACE);
+	t_log* logs = log_create(path, "MapaLog", 0, LOG_LEVEL_TRACE);
 
 	if (logs == NULL) {
 		puts("No se pudo generar el archivo de logueo.\n");

@@ -31,21 +31,21 @@
 #define PACKAGESIZE 1024	// Define cual va a ser el size maximo del paquete a enviar
 
 int main(int argc, char *argv[]){
-	//Creo archivo de log
-		archivoLog = crearArchivoLog();
+
 	//Informo mi PID
-		log_info(archivoLog,"PID: %d", getpid());
+		printf("PID: %d", getpid());
 
 	//Recivo parametros por linea de comandos
 		if(argc != 3){
-			log_info(archivoLog,"El mapa no tiene los parametros correctamente seteados.");
+			printf("El mapa no tiene los parametros correctamente seteados.");
 			return 1;
 		}
 		name = argv[1]; //PuebloPaleta
 		pokedexPath = argv[2]; //../../PokedexConfig
-		log_info(archivoLog,"Name: %s", name);
-		log_info(archivoLog,"PokedexPath: %s", pokedexPath);
-
+		printf("Name: %s", name);
+		printf("PokedexPath: %s", pokedexPath);
+	//Creo archivo de log
+		archivoLog = crearArchivoLog();
 
 	//Inicializo listas para el manejo de entrenadores
 		log_info(archivoLog,"Inicializo listas");
