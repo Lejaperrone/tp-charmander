@@ -239,7 +239,8 @@ int chamba_readdir(const char* path, void *buf, fuse_fill_dir_t filler, off_t of
 		log_info(archivoLog, "4 - cant: %d", cant);
 		int i;
 		for(i=0;i<cant;i++){
-			char* directorio = malloc(sizeof(char)*17);
+			char* directorio;
+			//	char* directorio = malloc(sizeof(char)*17);
 			if(recvString(&directorio)==0){
 				log_info(archivoLog, "5 - No obtuve valor");
 			}
