@@ -62,7 +62,7 @@ int osada_B_reserveNewBlocks (int* n, int* bloqueArranque, int indice){
 
 	while(bloquesReservados<*n && i<=bitarray_get_max_bit(osada_drive.bitmap)){
 		if (bitarray_test_bit(osada_drive.bitmap,i) == false){
-			if(pthread_mutex_trylock(&osada_mutex.block[i])){
+			if(pthread_mutex_trylock(&osada_mutex.block[i]) == 0){
 				bitarray_set_bit(osada_drive.bitmap,i);
 
 				if(*bloqueArranque != 0xFFFF && *bloqueArranque != -1){

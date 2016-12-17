@@ -106,11 +106,11 @@ void proce_readfile(int clientSocket, char* path){
 
 	if(resultadoOsada > 0){
 		log_info(logPokedexServer,"El tamanio (devuelto por resultadoOsada) es %d",resultadoOsada);
-		int i;
-		log_info(logPokedexServer, "---------IMPRIMO EL BUFFER EN PROCE_READFILE---------");
-		for (i=0; i<resultadoOsada; i++){
-			log_info(logPokedexServer, "%d", bufParaElRead[i]);
-		}
+//		int i;
+//		log_info(logPokedexServer, "---------IMPRIMO EL BUFFER EN PROCE_READFILE---------");
+//		for (i=0; i<resultadoOsada; i++){
+//			log_info(logPokedexServer, "%d", bufParaElRead[i]);
+//		}
 
 	//	sendString(clientSocket, bufParaElRead, resultadoOsada);
 		sendBufferParaRead(clientSocket, bufParaElRead, resultadoOsada);
@@ -190,11 +190,11 @@ void proce_write(int clientSocket, char* path){
 
 	log_info(logPokedexServer,"El size_t que me llega para WRITE es: %d",size);
 	log_info(logPokedexServer,"El off_t que me llega para WRITE es: %d",offset);
-	log_info(logPokedexServer,"----------IMPRIMO EL BUFFER RECIBIDO EN PROCE_WRITE----------");
-	int i;
-	for (i=0; i<size; i++){
-		log_info(logPokedexServer,"%d", bufParaElWrite[i]);
-	}
+//	log_info(logPokedexServer,"----------IMPRIMO EL BUFFER RECIBIDO EN PROCE_WRITE----------");
+//	int i;
+//	for (i=0; i<size; i++){
+//		log_info(logPokedexServer,"%d", bufParaElWrite[i]);
+//	}
 
 
 	int resultadoOsada = osada_write(path, &bufParaElWrite, size, offset);

@@ -127,20 +127,21 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 }
 
 int osada_createFile(char* path){
-	int valorCreateDirectory = osada_TA_createNewDirectory(path,REGULAR);
-	if(valorCreateDirectory == 1){
-		return 1;
-	}else if(valorCreateDirectory == -ENAMETOOLONG){
-		return valorCreateDirectory;
-	}
+//	int valorCreateDirectory =
+//	if(valorCreateDirectory == 1){
+//		return 1;
+//	}else if(valorCreateDirectory == -ENAMETOOLONG){
+//		return valorCreateDirectory;
+//	}
 
-	return -ENOSPC;
+	return osada_TA_createNewDirectory(path,REGULAR);
 }
 
 int osada_truncate(char* path, off_t offset){
 	int indice=osada_TA_obtenerIndiceTA(path);
 
 	float espacioDisponible= osada_B_cantBloquesLibres() * OSADA_BLOCK_SIZE;
+	log_info(logPokedexServer, "Bloques Libres: %d", osada_B_cantBloquesLibres());
 	if(indice != -1){
 		mutex_lockFile(indice);
 		int cantBlockOffset = ceil(offset/OSADA_BLOCK_SIZE);
@@ -166,7 +167,7 @@ int osada_truncate(char* path, off_t offset){
 			osada_drive.directorio[indice].lastmod=(int)time(NULL);
 
 			mutex_unlockFile(indice);
-			return 1;
+			return 0;
 		}else if(osada_drive.directorio[indice].file_size<offset){
 			if ((offset-osada_drive.directorio[indice].file_size)<=espacioDisponible){
 				int bloquePadre = osada_TG_avanzarNBloques (osada_drive.directorio[indice].first_block, cantBlockFileSize);
@@ -189,15 +190,15 @@ int osada_truncate(char* path, off_t offset){
 				osada_drive.directorio[indice].lastmod=(int)time(NULL);
 
 				mutex_unlockFile(indice);
-				return 1;
+				return 0;
 			}else{
 				mutex_unlockFile(indice);
 				log_info(logPokedexServer,"El archivo es muy grande, quiere agrandarse en %fl bytes y hay disponibles %fl bytes",(float)(offset-osada_drive.directorio[indice].file_size),espacioDisponible);
-				return -ENOSPC;
+				return -EFBIG;
 			}
 		}else{
 			mutex_unlockFile(indice);
-			return 1;
+			return 0;
 		}
 	}else{
 	//	mutex_unlockFile(indice); 	Si el indice es -1 para que deslockeamos el indice? Si total no vamos a hacer nada
@@ -207,11 +208,11 @@ int osada_truncate(char* path, off_t offset){
 }
 
 int osada_createDir(char* path){
-	if(osada_TA_createNewDirectory(path, DIRECTORY)){
-		return 1;
-	}
+//	if(){
+//		return 1;
+//	}
 
-	return -ENOENT;
+	return osada_TA_createNewDirectory(path, DIRECTORY);
 }
 
 int osada_rename(char* path, char* nuevaPath){
@@ -337,7 +338,7 @@ int osada_write(char* path,char** buf, size_t size, off_t offset){
 				}
 
 			}else{
-				bytesEscritos=-ENOMEM;
+				bytesEscritos=-EFBIG;
 			}
 	}else{
 		return -ENOENT;

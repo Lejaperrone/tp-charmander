@@ -145,6 +145,11 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 					guardado=1;
 				}
 			}
+			if(guardado == 0){
+				guardado = -EDQUOT;
+			}else{
+				guardado = 0;
+			}
 		}else{
 			free(fileName);
 			free(directoryName);

@@ -386,13 +386,13 @@ int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 	sendBasicInfo("CREAT", path);
 //	sendValue(&mode, sizeof(mode_t));
 
-	int res= -ENOENT;
-	int resultadoOsada = recvInt();
-	if(resultadoOsada == 1){
-		res = 0;
-	}else if(resultadoOsada == -ENAMETOOLONG){
-		res = -ENAMETOOLONG;
-	}
+	int res= recvInt();
+//	int resultadoOsada = recvInt();
+//	if(resultadoOsada == 1){
+//		res = 0;
+//	}else if(resultadoOsada == -ENAMETOOLONG){
+//		res = -ENAMETOOLONG;
+//	}
 
 	pthread_mutex_unlock(&mutexSocket);
 	return res;
@@ -404,16 +404,12 @@ int chamba_truncate (const char * path, off_t offset){
 	log_info(archivoLog, "1 - Funcion: TRUNCATE");
 	log_info(archivoLog, "2 - Path: %s", path);
 
-	int res=0;
+
 	sendBasicInfo("TRUNC", path);
 	sendValue(&offset, sizeof(off_t));
 	log_info(archivoLog, "Le mando al servidor el offset: %d", offset);
 
-	int resultadoOsada = recvInt();
-
-	if(resultadoOsada != 1){
-		res = -1;
-	}
+	int res = recvInt();
 
 	pthread_mutex_unlock(&mutexSocket);
 	return res;
@@ -425,15 +421,12 @@ int chamba_mkdir (const char * path, mode_t modo){
 	log_info(archivoLog, "1 - Funcion: MKDIR");
 	log_info(archivoLog, "2 - Path: %s", path);
 
-	int res=0;
+
 	sendBasicInfo("MKDIR", path);
 
-	int resultadoOsada=recvInt();
-	log_info(archivoLog, "Para MKDIR se recibe como resultadoOsada: %d", resultadoOsada);
+	int res=recvInt();
+	log_info(archivoLog, "Para MKDIR se recibe como resultadoOsada: %d", res);
 
-	if (resultadoOsada != 1){
-		 res=- ENOENT;
-	}
 
 	pthread_mutex_unlock(&mutexSocket);
 	return res;
@@ -519,11 +512,11 @@ int chamba_write (const char*  path, const char*  buffer, size_t size, off_t off
 //	}
 //	sendValue((char*)buffer,size);
 
-	log_info(archivoLog,"----------IMPRIMO EL 1er BYTE DEL BUFFER QUE VOY A ENVIAR----------");
-	int i;
-	for (i=0; i<1; i++){
-		log_info(archivoLog,"%d", buffer[i]);
-	}
+//	log_info(archivoLog,"----------IMPRIMO EL 1er BYTE DEL BUFFER QUE VOY A ENVIAR----------");
+//	int i;
+//	for (i=0; i<1; i++){
+//		log_info(archivoLog,"%d", buffer[i]);
+//	}
 	sendPrimerByteBuffer((char*)buffer, size);
 
 
@@ -551,7 +544,11 @@ int chamba_write (const char*  path, const char*  buffer, size_t size, off_t off
 		if(segundoResultadoOsada > 0 && cantBytesDelSegundoBuffer == segundoResultadoOsada){
 			res = primerResultadoOsada + segundoResultadoOsada;
 		}else{
-			res = primerResultadoOsada;
+			if(primerResultadoOsada<0){
+				res = primerResultadoOsada;
+			}else{
+				res = segundoResultadoOsada;
+			}
 		}
 	}
 
@@ -591,6 +588,7 @@ int chamba_statfs (const char * path, struct statvfs * stats){
 		//stats->f_frsize;
 		//stats->f_fsid;
 		stats->f_namemax = filenameLength;
+		log_info(archivoLog, "STATFS - Tamanio del disco: %f", (bloquesLibres*64/1024));
 		res=0;
 	}
 
