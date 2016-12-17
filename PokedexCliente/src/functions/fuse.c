@@ -540,6 +540,7 @@ int chamba_write (const char*  path, const char*  buffer, size_t size, off_t off
 		char* elRestoDelBuffer = malloc(size - 1);
 		memcpy(elRestoDelBuffer, buffer+1, size -1);
 		sendBufferParaElWrite(elRestoDelBuffer, size - 1);
+		free(elRestoDelBuffer);
 
 		int segundoResultadoOsada = recvInt();
 		log_info(archivoLog, "El segundoResultadoOsada es: %d", segundoResultadoOsada);
