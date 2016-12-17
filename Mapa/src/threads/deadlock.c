@@ -93,6 +93,80 @@ void informarDeadlock (t_entrenador* entrenador){
 		log_info(archivoLog,"No fue posible informar muerte a %c ",entrenador->simbolo);
 	}
 }
+void loguearTablasDeDeadlock(){
+	int i,j;
+	for (i=0;i<list_size(entrenadoresDeadlock);i++){
+		t_entrenador* e=(t_entrenador*)list_get(entrenadoresDeadlock,i);
+		log_info(archivoLog,"Entrenador: %c",e->simbolo);
+	}
+	log_info(archivoLog,"Matriz de Necesidad");
+	char* pokemonsTablaN=string_new();
+	for (i=0;i<cantPokenests;i++){
+		t_pokenest* pokenest=(t_pokenest*)list_get(mapa->pokeNests,i);
+		string_append(&pokemonsTablaN,&(pokenest->identificador));
+	}
+	//log_info(archivoLog,"%s",pokemonsTablaN);
+	free(pokemonsTablaN);
+	for(i=0;i<cantEntrenadores;i++){
+		char* cantPokeNec=string_new();
+		for(j=0;j<cantPokenests;j++){
+			char* numPoke=string_new();
+			sprintf(numPoke,"%d",(mNecesidad[i][j]));
+			string_append(&cantPokeNec,numPoke);
+			free(numPoke);
+		}
+		log_info(archivoLog,"%s",cantPokeNec);
+		free(cantPokeNec);
+	}
+	log_info(archivoLog,"Matriz de Asignacion");
+	char* pokemonsTablaA=string_new();
+	for (i=0;i<cantPokenests;i++){
+		t_pokenest* pokenest=(t_pokenest*)list_get(mapa->pokeNests,i);
+		string_append(&pokemonsTablaA,&(pokenest->identificador));
+	}
+	//log_info(archivoLog,"%s",pokemonsTablaA);
+	free(pokemonsTablaA);
+	for(i=0;i<cantEntrenadores;i++){
+		char* cantPokeA=string_new();
+		for(j=0;j<cantPokenests;j++){
+			char* numPokeA=string_new();
+			sprintf(numPokeA,"%d",mAsignacion[i][j]);
+			string_append(&cantPokeA,numPokeA);
+			free(numPokeA);
+		}
+	//	log_info(archivoLog,"%s",cantPokeA);
+		free(cantPokeA);
+	}
+	log_info(archivoLog,"Matriz de Maximos");
+	char* pokemonsTablaM=string_new();
+	for (i=0;i<cantPokenests;i++){
+		t_pokenest* pokenest=(t_pokenest*)list_get(mapa->pokeNests,i);
+		string_append(&pokemonsTablaM,&(pokenest->identificador));
+	}
+//	log_info(archivoLog,"%s",pokemonsTablaM);
+	free(pokemonsTablaM);
+	for(i=0;i<cantEntrenadores;i++){
+		char* cantPokeM=string_new();
+		for(j=0;j<cantPokenests;j++){
+			char* numPokeM=string_new();
+			sprintf(numPokeM,"%d",mMaximos[i][j]);
+			string_append(&cantPokeM,numPokeM);
+			free(numPokeM);
+		}
+		log_info(archivoLog,"%s",cantPokeM);
+		free(cantPokeM);
+	}
+	log_info(archivoLog,"Vector de disponibles");
+	char* numD=string_new();
+	for(i=0;i<cantPokenests;i++){
+		char* n=string_new();
+		sprintf(n,"%d",vDisponibles[i]);
+		string_append(&numD,n);
+		free(n);
+	}
+	free(numD);
+	//log_info(archivoLog,"%d",vDisponibles[i]);
+}
 void algoritmoDeDeteccion(){
 	int flagDeDeteccionDeDeadlock=1,k;
 
@@ -134,7 +208,8 @@ void algoritmoDeDeteccion(){
 			t_entrenador* entrenadorDeadlock=(t_entrenador*)list_get(entrenadoresBloqueados,i);
 			list_add(entrenadoresDeadlock,entrenadorDeadlock);
 			flagDeDeteccionDeDeadlock=1;
-			log_info(archivoLog,"El entrenador %c esta en deadlock",entrenadorDeadlock->simbolo);
+			loguearTablasDeDeadlock();
+			//log_info(archivoLog,"El entrenador %c esta en deadlock",entrenadorDeadlock->simbolo);
 			informarDeadlock(entrenadorDeadlock);
 		}
 	}
