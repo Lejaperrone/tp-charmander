@@ -33,8 +33,8 @@ t_pokemon_custom* createPokemon(char* pathPokemons, char* name){
 		pokemon->path = string_substring(pathPokemon, string_length(pokedexPath), string_length(pathPokemon)-string_length(pokedexPath));
 		pokemon->disponible =1;
 		pokemon->duenio=' ';
-		free(pathPokemon);
-		free(configPokemon);
+		//free(pathPokemon);
+		config_destroy(configPokemon);
 
 	//Return
 		return pokemon;
@@ -60,7 +60,7 @@ t_pokenest* createPokeNest(char* pathPokenest, char* name){
 		pokenest->ubicacion.y = atoi(ub[1]);
 		pokenest->pokemons = list_create();
 
-		free(configPokeNest);
+		config_destroy(configPokeNest);
 
 	//Recorro los pokemons
 		DIR * pokemons;
