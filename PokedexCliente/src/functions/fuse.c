@@ -524,7 +524,7 @@ int chamba_write (const char*  path, const char*  buffer, size_t size, off_t off
 	log_info(archivoLog, "El primerResultadoOsada es: %d", primerResultadoOsada);
 
 	if(primerResultadoOsada > 0 && cantBytesDelPrimerBuffer == primerResultadoOsada){
-		log_info(archivoLog, "El 1er byte se escribio bien.");
+		//log_info(archivoLog, "El 1er byte se escribio bien.");
 
 		sendBasicInfo("WRITE", path);
 
