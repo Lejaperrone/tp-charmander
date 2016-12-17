@@ -59,7 +59,7 @@ int osada_B_reserveNewBlocks (int* n, int* bloqueArranque, int indice){
 
 	int bloquesReservados=0;
 	int bloqueReal = *bloqueArranque;
-
+	log_info(logPokedexServer, "Entramos 1");
 	while(bloquesReservados<*n && i<bitarray_get_max_bit(osada_drive.bitmap)){
 		if (bitarray_test_bit(osada_drive.bitmap,i) == false){
 			if(pthread_mutex_trylock(&osada_mutex.block[i]) == 0){
@@ -75,8 +75,10 @@ int osada_B_reserveNewBlocks (int* n, int* bloqueArranque, int indice){
 				bloqueReal = i;
 				osada_drive.asignaciones[i] = 0xFFFF;
 				bloquesReservados++;
-
+				log_info(logPokedexServer, "Entramos bloque usado: %d", i);
 				osada_D_truncateBlock(i,0);
+				log_info(logPokedexServer, "Bloque truncado: %d", i);
+
 			}
 		}
 		i++;
