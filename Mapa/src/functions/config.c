@@ -35,6 +35,7 @@ t_pokemon_custom* createPokemon(char* pathPokemons, char* name){
 		pokemon->duenio=' ';
 		//free(pathPokemon);
 		config_destroy(configPokemon);
+		free(pathPokemon);
 
 	//Return
 		return pokemon;
@@ -101,6 +102,8 @@ void leerConfiguracionMetadataMapa(t_mapa* mapa, char* name, char* pokedexPath){
 	mapa->retardo = config_get_int_value(config, "retardo");
 	mapa->ip = config_get_string_value(config, "IP");
 	mapa->puerto = config_get_string_value(config, "Puerto");
+
+	config_destroy(config);
 }
 
 void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){

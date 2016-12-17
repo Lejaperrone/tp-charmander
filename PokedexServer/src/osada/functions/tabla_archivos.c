@@ -127,7 +127,7 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 		osada_TA_splitPathAndName(path,&fileName, &directoryName);
 
 		int guardado= 0;
-		if(string_length(fileName)<=18){
+		if(string_length(fileName)<18){
 			log_info(logPokedexServer, "El string_length del fileName es: %d", string_length(fileName));
 			int i;
 			for (i=0;(i<2048 && guardado==0);i++){

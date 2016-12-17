@@ -1,7 +1,7 @@
 nombre=Gary
 simbolo=#
-hojaDeViaje=[Verde,Azul]
-obj[Verde]=[B,P,G]
+hojaDeViaje=[Verd,Azul]
+obj[Verd]=[B,P,G]
 obj[Azul]=[C]
 vidas=1
 reintentos=0
