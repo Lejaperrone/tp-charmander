@@ -1,0 +1,6 @@
+nombre=Gary
+simbolo=#
+hojaDeViaje=[PuebloPaleta,Viridian]
+obj[PuebloPaleta]=[G,B,P]
+obj[Viridian]=[C,Z]
+vidas=1

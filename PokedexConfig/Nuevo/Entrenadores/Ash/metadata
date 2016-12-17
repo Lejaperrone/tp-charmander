@@ -1,0 +1,7 @@
+nombre=Ash
+simbolo=&
+hojaDeViaje=[PuebloPaleta,Viridian]
+obj[PuebloPaleta]=[B,G,P]
+obj[Viridian]=[C,R]
+vidas=1
+reintentos=0
