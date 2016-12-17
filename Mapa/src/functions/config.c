@@ -34,8 +34,8 @@ t_pokemon_custom* createPokemon(char* pathPokemons, char* name){
 		pokemon->disponible =1;
 		pokemon->duenio=' ';
 		//free(pathPokemon);
-		config_destroy(configPokemon);
-		free(pathPokemon);
+		//config_destroy(configPokemon);
+		//free(pathPokemon);
 
 	//Return
 		return pokemon;
@@ -61,7 +61,7 @@ t_pokenest* createPokeNest(char* pathPokenest, char* name){
 		pokenest->ubicacion.y = atoi(ub[1]);
 		pokenest->pokemons = list_create();
 
-		config_destroy(configPokeNest);
+		//config_destroy(configPokeNest);
 
 	//Recorro los pokemons
 		DIR * pokemons;
@@ -103,7 +103,7 @@ void leerConfiguracionMetadataMapa(t_mapa* mapa, char* name, char* pokedexPath){
 	mapa->ip = config_get_string_value(config, "IP");
 	mapa->puerto = config_get_string_value(config, "Puerto");
 
-	config_destroy(config);
+	//config_destroy(config);
 }
 
 void leerConfiguracion(t_mapa* mapa, char* name, char* pokedexPath){
