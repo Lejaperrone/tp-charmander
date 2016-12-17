@@ -145,6 +145,11 @@ int osada_TA_createNewDirectory(char* path, osada_file_state state){
 					guardado=1;
 				}
 			}
+		}else{
+			free(fileName);
+			free(directoryName);
+			log_info(logPokedexServer, "Archivo a crear mayor a 17 caracteres");
+			return -ENAMETOOLONG;
 		}
 
 		free(fileName);

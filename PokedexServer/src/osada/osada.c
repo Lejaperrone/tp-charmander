@@ -127,8 +127,11 @@ int osada_read(char *path, char** buf, size_t size, off_t offset){
 }
 
 int osada_createFile(char* path){
-	if(osada_TA_createNewDirectory(path,REGULAR)){
+	int valorCreateDirectory = osada_TA_createNewDirectory(path,REGULAR);
+	if(valorCreateDirectory == 1){
 		return 1;
+	}else if(valorCreateDirectory == -ENAMETOOLONG){
+		return valorCreateDirectory;
 	}
 
 	return -ENOSPC;

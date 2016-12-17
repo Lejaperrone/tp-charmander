@@ -389,6 +389,8 @@ int chamba_create (const char * path, mode_t mode, struct fuse_file_info * fi){
 	int resultadoOsada = recvInt();
 	if(resultadoOsada == 1){
 		res = 0;
+	}else if(resultadoOsada == -ENAMETOOLONG){
+		res = -ENAMETOOLONG;
 	}
 
 	pthread_mutex_unlock(&mutexSocket);

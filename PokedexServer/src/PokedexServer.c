@@ -139,7 +139,7 @@ int main(){
 	log_info(logPokedexServer, "POKEDEXSERVER - Se cerro PokedexServer");
 	//Libero memoria y termino ui
 	close(listeningSocket);
-
+	log_destroy(logPokedexServer);
 	//Termino el mapa
 	return 0;
 
