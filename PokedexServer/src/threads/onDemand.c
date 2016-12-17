@@ -210,7 +210,7 @@ void proce_statfs(int clientSocket, char* path){
 
 	sendInt(clientSocket, osada_B_cantBloquesLibres());
 	sendInt(clientSocket, OSADA_BLOCK_SIZE);
-	sendInt(clientSocket, osada_drive.header->fs_blocks);
+	sendInt(clientSocket, bitarray_get_max_bit(osada_drive.bitmap));
 	sendInt(clientSocket, osada_TA_cantRegistrosLibres());
 	sendInt(clientSocket, OSADA_FILENAME_LENGTH);
 
